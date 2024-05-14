@@ -7,7 +7,7 @@ import Slider from "react-slick";
 
 const Hero = () => {
   var settings = {
-    dots: true,
+    dots: false,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
