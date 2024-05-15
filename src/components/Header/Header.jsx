@@ -14,7 +14,7 @@ const Header = () => {
   return (
     <Box className={classes.root}>
       <Box className="navbar-dark bg-light d-none d-xl-block py-1 mx-2 mx-md-4 rounded-bottom-4">
-        <Container>
+        <div className="container">
           <Box className="d-lg-flex justify-content-lg-between align-items-center">
             {/* <!-- Navbar top Left--> */}
             {/* <!-- Top info --> */}
@@ -124,7 +124,7 @@ const Header = () => {
               </ul>
             </Box>
           </Box>
-        </Container>
+        </div>
       </Box>
       <header className="navbar-light header-static navbar-sticky shadow-sm">
         {/* <!-- Logo Nav START --> */}
@@ -1287,14 +1287,14 @@ const Header = () => {
             {/* <!-- Profile START --> */}
             <div className="dropdown ms-1 ms-lg-0">
               <a
-                className="avatar avatar-sm p-0"
+                className="avatar avatar-sm p-0 show"
                 href="#"
                 id="profileDropdown"
                 role="button"
                 data-bs-auto-close="outside"
                 data-bs-display="static"
                 data-bs-toggle="dropdown"
-                aria-expanded="false"
+                aria-expanded="true"
               >
                 <img
                   className="avatar-img rounded-circle"
@@ -1305,6 +1305,7 @@ const Header = () => {
               <ul
                 className="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3"
                 aria-labelledby="profileDropdown"
+                data-bs-popper="static"
               >
                 {/* <!-- Profile info --> */}
                 <li className="px-3 mb-3">

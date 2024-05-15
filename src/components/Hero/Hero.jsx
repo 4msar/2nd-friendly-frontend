@@ -4,10 +4,11 @@ import eventImg2 from "@/assets/img/event/2.jpg";
 import uniLogo from "@/assets/img/client/uni-logo-01.svg";
 import companyLogo from "@/assets/img/company-logo/8.svg";
 import Slider from "react-slick";
+import { Box } from "@mui/material";
 
 const Hero = () => {
   var settings = {
-    dots: false,
+    dots: true,
     infinite: true,
     speed: 500,
     slidesToShow: 1,
@@ -34,11 +35,11 @@ const Hero = () => {
               >
                 <Slider {...settings}>
                   {/* <!-- Card item START --> */}
-                  <div
+                  <Box
                     key={1}
                     className="carousel-item card overflow-hidden h-500px h-md-600px text-center rounded-0"
-                    style={{
-                      backgroundImage: `url(${eventImg1.src})`,
+                    sx={{
+                      backgroundImage: `url(${eventImg1.src}) !important`,
                       backgroundPosition: "center left",
                       backgroundSize: "cover",
                     }}
@@ -95,15 +96,15 @@ const Hero = () => {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </Box>
                   {/* <!-- Card item END --> */}
 
                   {/* <!-- Card item START --> */}
-                  <div
+                  <Box
                     key={2}
                     className="carousel-item card overflow-hidden h-500px h-md-600px text-center rounded-0"
-                    style={{
-                      backgroundImage: `url(${eventImg2.src})`,
+                    sx={{
+                      backgroundImage: `url(${eventImg2.src}) !important`,
                       backgroundPosition: "center left",
                       backgroundSize: "cover",
                     }}
@@ -157,7 +158,7 @@ const Hero = () => {
                         </div>
                       </div>
                     </div>
-                  </div>
+                  </Box>
                   {/* <!-- Card item END --> */}
                 </Slider>
               </div>

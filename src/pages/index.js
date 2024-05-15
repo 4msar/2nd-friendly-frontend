@@ -4,6 +4,7 @@ import { Inter } from "next/font/google";
 import styles from "@/styles/Home.module.css";
 import PublicView from "@/components/HOC/PublicView";
 import Hero from "@/components/Hero/Hero";
+import Category from "@/components/Category/Category";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -18,6 +19,7 @@ const  Home = () => {
       </Head>
       <main>
        <Hero />
+       <Category />
       </main>
     </>
   );
