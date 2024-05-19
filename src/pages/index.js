@@ -5,6 +5,7 @@ import styles from "@/styles/Home.module.css";
 import PublicView from "@/components/HOC/PublicView";
 import Hero from "@/components/Hero/Hero";
 import Category from "@/components/Category/Category";
+import Advertisement from "@/components/Advertisements/Advertisement";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -20,6 +21,7 @@ const  Home = () => {
       <main>
        <Hero />
        <Category />
+       <Advertisement />
       </main>
     </>
   );
