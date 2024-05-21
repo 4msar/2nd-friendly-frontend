@@ -22113,8 +22113,8 @@ html[dir=rtl] .choices__input {
           user-select: none;
 }
 
-.tiny-slider .item {
-  position: relative;
+.item {
+  padding: 40px;
 }
 
 .tns-controls [data-controls] {
@@ -22595,6 +22595,15 @@ html[dir=rtl] .choices__input {
 .star {
     color: red !important;
     font-weight: bold;
+}
+
+.slick-prev:before {
+  color: red !important;
+  background-color: #eee;
+}
+.slick-next:before {
+  color: red !important;
+  background-color: #eee;
 }
 
 /*User CSS*/

@@ -109,3 +109,7 @@ a {
 .slick-slide img{
   display: inline-flex;
 }
+
+.event{
+  padding: 0 15px;
+}

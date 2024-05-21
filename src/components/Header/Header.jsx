@@ -12,10 +12,10 @@ import companyLogo from "@/assets/img/company-logo/7.svg";
 const Header = () => {
   const classes = useHeaderStyle();
   return (
-    <Box className={classes.root}>
-      <Box className="navbar-dark bg-light d-none d-xl-block py-1 mx-2 mx-md-4 rounded-bottom-4">
+    <div className={classes.root}>
+      <div className="navbar-dark bg-light d-none d-xl-block py-1 mx-2 mx-md-4 rounded-bottom-4">
         <div className="container">
-          <Box className="d-lg-flex justify-content-lg-between align-items-center">
+          <div className="d-lg-flex justify-content-lg-between align-items-center">
             {/* <!-- Navbar top Left--> */}
             {/* <!-- Top info --> */}
             <ul className="nav align-items-center justify-content-center">
@@ -123,9 +123,9 @@ const Header = () => {
                 </li>
               </ul>
             </Box>
-          </Box>
+          </div>
         </div>
-      </Box>
+      </div>
       <header className="navbar-light header-static navbar-sticky shadow-sm">
         {/* <!-- Logo Nav START --> */}
         <nav className="navbar navbar-expand-xl">
@@ -1441,7 +1441,7 @@ const Header = () => {
         </nav>
         {/* <!-- Logo Nav END --> */}
       </header>
-    </Box>
+    </div>
   );
 };
 

@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router';
 import React, { useEffect } from 'react'
 import Header from '../Header/Header';
+import Footer from '../Footer/Footer';
 
 const PublicView = (WrapperComponent) => {
     const PublicComponent = (props) => {
@@ -21,7 +22,7 @@ const PublicView = (WrapperComponent) => {
             <>
                 <Header />
                     <WrapperComponent {...props}  />
-                {/* <Footer /> */}
+                <Footer />
             </>
         );
       };
