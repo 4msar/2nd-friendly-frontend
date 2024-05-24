@@ -3,6 +3,7 @@ import React from 'react'
 import accountImg from "@/assets/img/element/create-account.svg";
 import courseImg from "@/assets/img/element/add-course.svg";
 import moneyImg from "@/assets/img/element/earn-money.svg";
+import PublicView from '@/components/HOC/PublicView';
 
 const SellFast = () => {
   return (
@@ -77,4 +78,4 @@ const SellFast = () => {
   )
 }
 
-export default SellFast
+export default PublicView(SellFast)

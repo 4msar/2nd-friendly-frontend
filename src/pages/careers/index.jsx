@@ -1,5 +1,6 @@
 import CareersCard from '@/components/CareersCard/CareersCard';
 import { jobList } from '@/components/dummy_data/data'
+import PublicView from '@/components/HOC/PublicView';
 import React from 'react'
 
 const Careers = () => {
@@ -238,4 +239,4 @@ const Careers = () => {
   )
 }
 
-export default Careers
+export default PublicView(Careers)

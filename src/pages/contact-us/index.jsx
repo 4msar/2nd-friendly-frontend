@@ -1,6 +1,7 @@
 import Head from "next/head";
 import React from "react";
 import ContactImg from "@/assets/img/element/contact.svg";
+import PublicView from "@/components/HOC/PublicView";
 
 const ContactUs = () => {
   return (
@@ -232,7 +233,7 @@ const ContactUs = () => {
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3524.053518916583!2d-82.80606407627765!3d27.96164715226838!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88c2f0dd723de91f%3A0x24517d0446210c03!2sHonorable%20Bruce%20Boyer!5e0!3m2!1sen!2sbd!4v1714733737012!5m2!1sen!2sbd"
                 width="100%"
                 height="400"
-                style="border:0;"
+                style={{border:0}}
                 allowfullscreen=""
                 loading="lazy"
                 referrerpolicy="no-referrer-when-downgrade"
@@ -245,4 +246,4 @@ const ContactUs = () => {
   );
 };
 
-export default ContactUs;
+export default PublicView(ContactUs);

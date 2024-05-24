@@ -1,3 +1,4 @@
+import PublicView from "@/components/HOC/PublicView";
 import Head from "next/head";
 import React from "react";
 
@@ -256,4 +257,4 @@ const LegalInformation = () => {
   );
 };
 
-export default LegalInformation;
+export default PublicView(LegalInformation);
