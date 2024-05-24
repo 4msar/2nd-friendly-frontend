@@ -2,6 +2,7 @@ import React from "react";
 import logo from "@/assets/img/logo.png";
 import appStore from "@/assets/img/client/app-store.svg";
 import googleStore from "@/assets/img/client/google-play.svg";
+import Link from "next/link";
 
 const Footer = () => {
   return (
@@ -98,50 +99,50 @@ const Footer = () => {
                 <h5 className="mb-2 mb-md-4">Company</h5>
                 <ul className="nav flex-column">
                   <li className="nav-item">
-                    <a className="nav-link footer-nav-link" href="about.php">
+                    <Link className="nav-link footer-nav-link" href="/about-us">
                       About 2nd A Friendly
-                    </a>
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link footer-nav-link" href="events.php">
+                    <Link className="nav-link footer-nav-link" href="/events">
                       Events
-                    </a>
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link footer-nav-link" href="careers.php">
+                    <Link className="nav-link footer-nav-link" href="/careers">
                       Career
-                    </a>
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <a
+                    <Link
                       className="nav-link footer-nav-link"
-                      href="accessibility-statement.php"
+                      href="/accessibility-statement"
                     >
                       Accessibility Statement
-                    </a>
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link footer-nav-link" href="trust-safety.php">
+                    <Link className="nav-link footer-nav-link" href="/trust-safety">
                       Trust & Safety
-                    </a>
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <a
+                    <Link
                       className="nav-link footer-nav-link"
-                      href="investor-relation.php"
+                      href="/investor-relation"
                     >
                       Investor Relations
-                    </a>
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link footer-nav-link" href="contact-us.php">
+                    <Link className="nav-link footer-nav-link" href="/contact-us">
                       Contact Us
-                    </a>
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link footer-nav-link" href="sell-fast.php">
+                    <Link className="nav-link footer-nav-link" href="/sell-fast">
                       Sell Fast
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -149,51 +150,51 @@ const Footer = () => {
                 <h5 className="mb-2 mb-md-4">For Business</h5>
                 <ul className="nav flex-column">
                   <li className="nav-item">
-                    <a
+                    <Link
                       className="nav-link footer-nav-link"
-                      href="for-business-owner.php"
+                      href="for-business-owner"
                     >
                       2nd A for Business
-                    </a>
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link footer-nav-link" href="sign-in.php">
+                    <Link className="nav-link footer-nav-link" href="sign-in">
                       Business Owner Login
-                    </a>
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link footer-nav-link" href="#">
+                    <Link className="nav-link footer-nav-link" href="#">
                       Claim your Business Page
-                    </a>
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <a
+                    <Link
                       className="nav-link footer-nav-link"
-                      href="advertisements.php"
+                      href="advertisements"
                     >
                       Advertisements
-                    </a>
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <a
+                    <Link
                       className="nav-link footer-nav-link"
-                      href="success-stories.php"
+                      href="success-stories"
                     >
                       Success Stories
-                    </a>
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link footer-nav-link" href="support.php">
+                    <Link className="nav-link footer-nav-link" href="support">
                       Business Support
-                    </a>
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <a
+                    <Link
                       className="nav-link footer-nav-link"
-                      href="blog-business.php"
+                      href="blog-business"
                     >
                       Blog for Business
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -201,42 +202,42 @@ const Footer = () => {
                 <h5 className="mb-2 mb-md-4">Community</h5>
                 <ul className="nav flex-column">
                   <li className="nav-item">
-                    <a className="nav-link footer-nav-link" href="help-center.php">
+                    <Link className="nav-link footer-nav-link" href="help-center">
                       Help Center
-                    </a>
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link footer-nav-link" href="faq.php">
+                    <Link className="nav-link footer-nav-link" href="faq">
                       FAQ
-                    </a>
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link footer-nav-link" href="blogs.php">
+                    <Link className="nav-link footer-nav-link" href="blogs">
                       News & Blogs
-                    </a>
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link footer-nav-link" href="stay-safe.php">
+                    <Link className="nav-link footer-nav-link" href="stay-safe">
                       Stay Safe
-                    </a>
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link footer-nav-link" href="press.php">
+                    <Link className="nav-link footer-nav-link" href="press">
                       Press
-                    </a>
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <a
+                    <Link
                       className="nav-link footer-nav-link"
-                      href="content-guidelines.php"
+                      href="content-guidelines"
                     >
                       Content Guideline
-                    </a>
+                    </Link>
                   </li>
                   <li className="nav-item">
-                    <a className="nav-link footer-nav-link" href="support.php">
+                    <Link className="nav-link footer-nav-link" href="support">
                       Support
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>

@@ -1,6 +1,8 @@
 import React from "react";
 import Slider from "react-slick";
 import { events } from "../dummy_data/data";
+import EventCard from "./EventCard";
+import Link from "next/link";
 
 const Event = () => {
   const event_data = events;
@@ -52,42 +54,7 @@ const Event = () => {
               {event_data.length > 0 &&
                 event_data.map((item, index) => (
                   <div className="event">
-                    <div className="card bg-transparent" key={index}>
-                    <div className="position-relative">
-                      <img
-                        src={item.img.src}
-                        className="card-img"
-                        alt="course image"
-                      />
-                      <div className="card-img-overlay d-flex align-items-start flex-column p-3">
-                        <div className="w-100 mb-auto d-flex justify-content-end">
-                          <a href="#" className="icon-sm bg-white rounded-2">
-                            <i className="fas fa-heart text-danger"></i>
-                          </a>
-                        </div>
-                        <div className="w-100 mt-auto">
-                          <a
-                            href="#"
-                            className="badge text-bg-white fs-6 rounded-1"
-                          >
-                            <i className={`${item.date === "Live" ? 'fas fa-circle text-success' : 'far fa-calendar-alt text-orange'}  me-2`}></i>
-                           {item.date}
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                    <div className="card-body px-2">
-                      <h5 className="card-title">
-                        <a href="event-detail.php">
-                          Global Education Fall Meeting for Everyone
-                        </a>
-                      </h5>
-                      <p className="mb-0 text-truncate-2">
-                        Satisfied conveying a dependent contented he gentleman
-                        agreeable do be.{" "}
-                      </p>
-                    </div>
-                  </div>
+                   <EventCard item={item} />
                   </div>
                 ))}
 
@@ -98,9 +65,9 @@ const Event = () => {
         <div className="row mt-3">
           <div className="col-12">
             <div className="text-center">
-              <a href="events.php" className="btn btn-primary-soft">
+              <Link href="/events" className="btn btn-primary-soft">
                 View More <i className="fas fa-angle-right ms-0"></i>
-              </a>
+              </Link>
             </div>
           </div>
         </div>

@@ -1,0 +1,140 @@
+import { event_list, friendlyEvent, upcomingEvents } from '@/components/dummy_data/data'
+import EventBox from '@/components/Event/EventBox'
+import FriendlyEvent from '@/components/Event/FriendlyEvent'
+import UpcomingEventBox from '@/components/Event/UpcomingEventBox'
+import PublicView from '@/components/HOC/PublicView'
+import Head from 'next/head'
+import React from 'react'
+
+const Events = () => {
+    const events = event_list;
+    const upComeEvents = upcomingEvents;
+    const friendlyEvents = friendlyEvent;
+  return (
+    <main>
+         <Head>
+            <title>Events</title>
+        </Head>
+    <section class="pt-4 pb-2">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <nav aria-label="breadcrumb">
+                        <ol class="breadcrumb breadcrumb-dots my-0 py-0">
+                            <li class="breadcrumb-item"><a href="index.php">Home</a></li>
+                            <li class="breadcrumb-item">Company</li>
+                            <li class="breadcrumb-item">Events</li>
+                        </ol>
+                    </nav>
+                    <h4 class="fw-normal mt-3">Events</h4>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="pt-0 pb-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <form class="mb-3">
+                        <div class="row g-4">
+                            <div class="col-xl-3">
+                                <input class="form-control form-control-sm me-1 py-0" type="search" placeholder="Enter keyword"/>
+                            </div>
+                            <div class="col-xl-3">
+                                <select class="form-select form-select-sm">
+                                    <option value="mostpopular">Most Popular</option>
+                                    <option value="date">Date</option>
+                                    <option value="recentlyadded">Recently Added</option>
+                                    <option value="audi">Friends & Following</option>
+                                    <option value="free">Free</option>
+                                </select>
+                            </div>
+                            <div class="col-xl-3">
+                                <select class="form-select form-select-sm">
+                                    <option value="anytime">Anytime</option>
+                                    <option value="today">Today</option>
+                                    <option value="tomorrow">Tomorrow</option>
+                                    <option value="thisweekend">This Weekend</option>
+                                    <option value="thisweek">This Week</option>
+                                    <option value="nextweek">Next Week</option>
+                                    <option value="weekafternext">Week After Next</option>
+                                    <option value="past">Past</option>
+                                    <option value="jumptodate">Jump to Date</option>
+                                </select>
+                            </div>
+                            <div class="col-xl-3">
+                                <select class="form-select form-select-sm">
+                                    <option value="volvo">All Categories</option>
+                                    <option value="music">Music</option>
+                                    <option value="visualarts">Visual Arts</option>
+                                    <option value="performingarts">Performing Arts</option>
+                                    <option value="film">Film</option>
+                                    <option value="lectures&books">Lectures & Books</option>
+                                    <option value="fashion">Fashion</option>
+                                    <option value="food&drink">Food & Drink</option>
+                                    <option value="festivals&fairs">Festivals & FairsFestivals & Fairs</option>
+                                    <option value="charities">Charities</option>
+                                    <option value="sports&activelife">Sports & Active LifeSports & Active Life</option>
+                                    <option value="nightlife">NightlifeNightlife</option>
+                                    <option value="kids&family">Kids & Family</option>
+                                    <option value="audi">other</option>
+                                    <option value="official2ndaevents">Official 2nd A Events</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="row g-4">
+                {/* <!-- Card item START --> */}
+                {events.length > 0 && events.map((item, index) => (
+                    <div class="col-sm-6 col-lg-4 col-xl-3">
+                        <EventBox item={item} />
+                    </div>
+                ))}
+               
+            </div>
+        </div>
+    </section>
+    <section class="pt-1 pb-5">
+        <div class="container">
+            <div class="row">
+                <div class="col-8">
+                    <div class="mb-3 border-bottom">
+                        <h3>Upcoming Events</h3>
+                        <p class="mb-0 pb-2">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's</p>
+                    </div>
+                    {upComeEvents.length > 0 && upComeEvents.map((event, index) => (
+                        <>
+                            <UpcomingEventBox item={event} />
+                            {upcomingEvents.length - 1 > index && (
+                                <hr />
+                            )}
+                        </>
+                    ))}
+                   
+                   
+                   
+                </div>
+                <div class="col-4">
+                    <div class="card rounded-1 border p-3 mb-4">
+                        <h4 class="mb-3 fw-bold border-bottom pb-2">2nd A Friendly Events</h4>
+                        {friendlyEvents.length > 0 && friendlyEvents.map((event) => (
+                            <FriendlyEvent item={event} />
+                        ))}
+                    </div>
+                    <div class="card rounded-1 border p-3 mb-4">
+                        <h4 class="mb-3 fw-bold border-bottom pb-2">Recently Added Events</h4>
+                        {friendlyEvents.length > 0 && friendlyEvents.map((event) => (
+                            <FriendlyEvent item={event} />
+                        ))}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+</main>
+  )
+}
+
+export default PublicView(Events)

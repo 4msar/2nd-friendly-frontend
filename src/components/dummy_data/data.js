@@ -18,6 +18,11 @@ import event2 from "@/assets/img/event/2.jpg";
 import event3 from "@/assets/img/event/3.jpg";
 import event4 from "@/assets/img/event/4.jpg";
 import event5 from "@/assets/img/event/5.jpg";
+import event6 from "@/assets/img/event/6.jpg";
+import event7 from "@/assets/img/event/7.jpg";
+import event8 from "@/assets/img/event/8.jpg";
+import event9 from "@/assets/img/event/9.jpg";
+import event10 from "@/assets/img/event/10.jpg";
 
 export const categories = [
     {title: "Food & Dining", subtitle: '4 Sub Categories', icon: "fas fa-utensils", link:"#", class:"bg-purple text-purple"},
@@ -68,4 +73,29 @@ export const events = [
     {title: "Global Education Fall Meeting for Everyone", subtitle:"Satisfied conveying a dependent contented he gentleman agreeable do be.", date:"Live", img:event4,class:""},
     {title: "Global Education Fall Meeting for Everyone", subtitle:"Satisfied conveying a dependent contented he gentleman agreeable do be.", date:"29 September 2021", img:event5,class:""},
     {title: "Global Education Fall Meeting for Everyone", subtitle:"Satisfied conveying a dependent contented he gentleman agreeable do be.", date:"Tomorrow", img:event1,class:""},
+]
+
+export const event_list = [
+    {title: "Jackalope theatre company's 16th season begins", subtitle:"Yet remarkably appearance get him his projection. Diverted endeavor bed peculiar", date:"Friday, March 16, 7:30 pm", address: "Base Park Restaurant", img:event1, class:""},
+    {title: "Jackalope theatre company's 16th season begins", subtitle:"Yet remarkably appearance get him his projection. Diverted endeavor bed peculiar", date:"Friday, March 16, 7:30 pm", address: "Base Park Restaurant", img:event2, class:""},
+    {title: "Jackalope theatre company's 16th season begins", subtitle:"Yet remarkably appearance get him his projection. Diverted endeavor bed peculiar", date:"Friday, March 16, 7:30 pm", address: "Base Park Restaurant", img:event3, class:""},
+    {title: "Jackalope theatre company's 16th season begins", subtitle:"Yet remarkably appearance get him his projection. Diverted endeavor bed peculiar", date:"Friday, March 16, 7:30 pm", address: "Base Park Restaurant", img:event4, class:""},
+    {title: "Jackalope theatre company's 16th season begins", subtitle:"Yet remarkably appearance get him his projection. Diverted endeavor bed peculiar", date:"Friday, March 16, 7:30 pm", address: "Base Park Restaurant", img:event5, class:""},
+    {title: "Jackalope theatre company's 16th season begins", subtitle:"Yet remarkably appearance get him his projection. Diverted endeavor bed peculiar", date:"Friday, March 16, 7:30 pm", address: "Base Park Restaurant", img:event6, class:""},
+    {title: "Jackalope theatre company's 16th season begins", subtitle:"Yet remarkably appearance get him his projection. Diverted endeavor bed peculiar", date:"Friday, March 16, 7:30 pm", address: "Base Park Restaurant", img:event7, class:""},
+    {title: "Jackalope theatre company's 16th season begins", subtitle:"Yet remarkably appearance get him his projection. Diverted endeavor bed peculiar", date:"Friday, March 16, 7:30 pm", address: "Base Park Restaurant", img:event8, class:""},
+    
+]
+
+export const upcomingEvents = [
+    {title: "Restaurent International Wanderlust Expedition and Adventure Symposium", subtitle:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy. Lorem Ipsum is simply dummy text of the printing and", category: "Restaurent", img:event2, date: "April 12th, 2024", address: "321 N MaClay Ave #d, San Fernando, CA, United States, California"},
+    {title: "Transcontinental Cultural Heritage Celebration", subtitle:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy. Lorem Ipsum is simply dummy text of the printing and", category: "Travels", img:event3, date: "April 12th, 2024", address: "321 N MaClay Ave #d, San Fernando, CA, United States, California"},
+    {title: "Worldwide Eco-Discovery and Sustainable Travel Expo", subtitle:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy. Lorem Ipsum is simply dummy text of the printing and", category: "Computer", img:event4, date: "April 12th, 2024", address: "321 N MaClay Ave #d, San Fernando, CA, United States, California"},
+    {title: "Intercontinental Nomad Conclave", subtitle:"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy. Lorem Ipsum is simply dummy text of the printing and", category: "Auto Service", img:event5, date: "April 12th, 2024", address: "321 N MaClay Ave #d, San Fernando, CA, United States, California"},
+]
+
+export const friendlyEvent = [
+    {title: "Transcontinental Expeditionary Quest and Adventure", data:"April 12th, 2024 at 10:00 am", img: event9},
+    {title: "Global Nomadic Odyssey Symposium and Cultural", data:"April 12th, 2024 at 10:00 am", img: event8},
+    {title: "Worldwide Wanderlust Confluence and Sustainable", data:"April 12th, 2024 at 10:00 am", img: event10},
 ]

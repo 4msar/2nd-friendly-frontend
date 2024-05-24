@@ -131,7 +131,7 @@ const Header = () => {
         <nav className="navbar navbar-expand-xl">
           <div className="container">
             {/* <!-- Logo START --> */}
-            <a className="navbar-brand me-0 py-4" href="index.php">
+            <a className="navbar-brand me-0 py-4" href="/">
               <img
                 className="light-mode-item"
                 src={logo.src}
