@@ -15,33 +15,33 @@ const Events = () => {
          <Head>
             <title>Events</title>
         </Head>
-    <section class="pt-4 pb-2">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
+    <section className="pt-4 pb-2">
+        <div className="container">
+            <div className="row">
+                <div className="col-12">
                     <nav aria-label="breadcrumb">
-                        <ol class="breadcrumb breadcrumb-dots my-0 py-0">
-                            <li class="breadcrumb-item"><a href="index.php">Home</a></li>
-                            <li class="breadcrumb-item">Company</li>
-                            <li class="breadcrumb-item">Events</li>
+                        <ol className="breadcrumb breadcrumb-dots my-0 py-0">
+                            <li className="breadcrumb-item"><a href="index.php">Home</a></li>
+                            <li className="breadcrumb-item">Company</li>
+                            <li className="breadcrumb-item">Events</li>
                         </ol>
                     </nav>
-                    <h4 class="fw-normal mt-3">Events</h4>
+                    <h4 className="fw-normal mt-3">Events</h4>
                 </div>
             </div>
         </div>
     </section>
-    <section class="pt-0 pb-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-12">
-                    <form class="mb-3">
-                        <div class="row g-4">
-                            <div class="col-xl-3">
-                                <input class="form-control form-control-sm me-1 py-0" type="search" placeholder="Enter keyword"/>
+    <section className="pt-0 pb-5">
+        <div className="container">
+            <div className="row">
+                <div className="col-12">
+                    <form className="mb-3">
+                        <div className="row g-4">
+                            <div className="col-xl-3">
+                                <input className="form-control form-control-sm me-1 py-0" type="search" placeholder="Enter keyword"/>
                             </div>
-                            <div class="col-xl-3">
-                                <select class="form-select form-select-sm">
+                            <div className="col-xl-3">
+                                <select className="form-select form-select-sm">
                                     <option value="mostpopular">Most Popular</option>
                                     <option value="date">Date</option>
                                     <option value="recentlyadded">Recently Added</option>
@@ -49,8 +49,8 @@ const Events = () => {
                                     <option value="free">Free</option>
                                 </select>
                             </div>
-                            <div class="col-xl-3">
-                                <select class="form-select form-select-sm">
+                            <div className="col-xl-3">
+                                <select className="form-select form-select-sm">
                                     <option value="anytime">Anytime</option>
                                     <option value="today">Today</option>
                                     <option value="tomorrow">Tomorrow</option>
@@ -62,8 +62,8 @@ const Events = () => {
                                     <option value="jumptodate">Jump to Date</option>
                                 </select>
                             </div>
-                            <div class="col-xl-3">
-                                <select class="form-select form-select-sm">
+                            <div className="col-xl-3">
+                                <select className="form-select form-select-sm">
                                     <option value="volvo">All Categories</option>
                                     <option value="music">Music</option>
                                     <option value="visualarts">Visual Arts</option>
@@ -85,10 +85,10 @@ const Events = () => {
                     </form>
                 </div>
             </div>
-            <div class="row g-4">
+            <div className="row g-4">
                 {/* <!-- Card item START --> */}
                 {events.length > 0 && events.map((item, index) => (
-                    <div class="col-sm-6 col-lg-4 col-xl-3">
+                    <div className="col-sm-6 col-lg-4 col-xl-3">
                         <EventBox item={item} />
                     </div>
                 ))}
@@ -96,13 +96,13 @@ const Events = () => {
             </div>
         </div>
     </section>
-    <section class="pt-1 pb-5">
-        <div class="container">
-            <div class="row">
-                <div class="col-8">
-                    <div class="mb-3 border-bottom">
+    <section className="pt-1 pb-5">
+        <div className="container">
+            <div className="row">
+                <div className="col-8">
+                    <div className="mb-3 border-bottom">
                         <h3>Upcoming Events</h3>
-                        <p class="mb-0 pb-2">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's</p>
+                        <p className="mb-0 pb-2">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's</p>
                     </div>
                     {upComeEvents.length > 0 && upComeEvents.map((event, index) => (
                         <>
@@ -116,15 +116,15 @@ const Events = () => {
                    
                    
                 </div>
-                <div class="col-4">
-                    <div class="card rounded-1 border p-3 mb-4">
-                        <h4 class="mb-3 fw-bold border-bottom pb-2">2nd A Friendly Events</h4>
+                <div className="col-4">
+                    <div className="card rounded-1 border p-3 mb-4">
+                        <h4 className="mb-3 fw-bold border-bottom pb-2">2nd A Friendly Events</h4>
                         {friendlyEvents.length > 0 && friendlyEvents.map((event) => (
                             <FriendlyEvent item={event} />
                         ))}
                     </div>
-                    <div class="card rounded-1 border p-3 mb-4">
-                        <h4 class="mb-3 fw-bold border-bottom pb-2">Recently Added Events</h4>
+                    <div className="card rounded-1 border p-3 mb-4">
+                        <h4 className="mb-3 fw-bold border-bottom pb-2">Recently Added Events</h4>
                         {friendlyEvents.length > 0 && friendlyEvents.map((event) => (
                             <FriendlyEvent item={event} />
                         ))}
