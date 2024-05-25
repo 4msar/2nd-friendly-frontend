@@ -7,6 +7,7 @@ import fr from "@/assets/img/flags/fr.svg";
 import gr from "@/assets/img/flags/gr.svg";
 import logo from "@/assets/img/logo.png";
 import companyLogo from "@/assets/img/company-logo/7.svg";
+import Link from "next/link";
 
 
 const Header = () => {
@@ -32,16 +33,16 @@ const Header = () => {
                 </span>
               </li>
               <li className="nav-item">
-                <a className="nav-link" href="tel:+1235869328">
+                <Link className="nav-link" href="tel:+1235869328">
                   <i className="fas fa-headset me-2"></i>+1 235-869-328
-                </a>
+                </Link>
               </li>
             </ul>
             {/* <!-- Navbar top Right--> */}
             <Box className="nav d-flex align-items-center justify-content-center">
               {/* <!-- Language --> */}
               <Box className="dropdown me-3">
-                <a
+                <Link
                   className="nav-link dropdown-toggle"
                   href="#"
                   id="dropdownLanguage"
@@ -50,76 +51,76 @@ const Header = () => {
                   aria-expanded="false"
                 >
                   <i className="fas fa-globe me-2"></i>Language
-                </a>
+                </Link>
                 <Box
                   className="dropdown-menu mt-2 min-w-auto shadow"
                   aria-labelledby="dropdownLanguage"
                 >
-                  <a className="dropdown-item me-4" href="#">
+                  <Link className="dropdown-item me-4" href="#">
                     <img
                       className="fa-fw me-2"
                       src={uk.src}
                       alt=""
                     />
                     English
-                  </a>
-                  <a className="dropdown-item me-4" href="#">
+                  </Link>
+                  <Link className="dropdown-item me-4" href="#">
                     <img
                       className="fa-fw me-2"
                       src={sp.src}
                       alt=""
                     />
                     Español
-                  </a>
-                  <a className="dropdown-item me-4" href="#">
+                  </Link>
+                  <Link className="dropdown-item me-4" href="#">
                     <img
                       className="fa-fw me-2"
                       src={fr.src}
                       alt=""
                     />
                     Français
-                  </a>
-                  <a className="dropdown-item me-4" href="#">
+                  </Link>
+                  <Link className="dropdown-item me-4" href="#">
                     <img
                       className="fa-fw me-2"
                       src={gr.src}
                       alt=""
                     />
                     Deutsch
-                  </a>
+                  </Link>
                 </Box>
               </Box>
               {/* <!-- Top social --> */}
               <ul className="list-unstyled d-flex mb-0">
                 <li>
                   {" "}
-                  <a className="px-2 nav-link" href="#">
+                  <Link className="px-2 nav-link" href="#">
                     <i className="fab fa-facebook"></i>
-                  </a>{" "}
+                  </Link>{" "}
                 </li>
                 <li>
                   {" "}
-                  <a className="px-2 nav-link" href="#">
+                  <Link className="px-2 nav-link" href="#">
                     <i className="fab fa-instagram"></i>
-                  </a>{" "}
+                  </Link>{" "}
                 </li>
                 <li>
                   {" "}
-                  <a className="px-2 nav-link" href="#">
+                  <Link className="px-2 nav-link" href="#">
                     <i className="fab fa-twitter"></i>
-                  </a>{" "}
+                  </Link>{" "}
                 </li>
                 <li>
                   {" "}
-                  <a className="ps-2 nav-link" href="#">
+                  <Link className="ps-2 nav-link" href="#">
                     <i className="fab fa-linkedin-in"></i>
-                  </a>{" "}
+                  </Link>{" "}
                 </li>
                 <li>
                   {" "}
-                  <a className="ps-2 nav-link" href="#">
+                  <Link className="ps-2 nav-link" href="#">
                     <i className="fab fa-youtube"></i>
-                  </a>{" "}
+                  </Link>{" "}
                 </li>
               </ul>
             </Box>
@@ -131,7 +132,7 @@ const Header = () => {
         <nav className="navbar navbar-expand-xl">
           <div className="container">
             {/* <!-- Logo START --> */}
-            <a className="navbar-brand me-0 py-4" href="/">
+            <Link className="navbar-brand me-0 py-4" href="/">
               <img
                 className="light-mode-item"
                 src={logo.src}
@@ -142,7 +143,7 @@ const Header = () => {
                 src={logo.src}
                 alt="logo"
               />
-            </a>
+            </Link>
             {/* <!-- Logo END --> */}
             {/* <!-- Responsive navbar toggler --> */}
             <button
@@ -169,334 +170,334 @@ const Header = () => {
               <ul className="navbar-nav navbar-nav-scroll">
                 {/* <!-- Nav item 1 link --> */}
                 <li className="nav-item dropdown">
-                  <a
+                  <Link
                     className="nav-link dropdown-toggle"
-                    href="food-dining.php"
+                    href="food-dining"
                     id="demoMenu"
                     data-bs-toggle="dropdown"
                     aria-haspopup="true"
                     aria-expanded="false"
                   >
                     Food & Dining
-                  </a>
+                  </Link>
                   <ul
                     className="dropdown-menu dropdown-menu-end min-w-auto"
                     data-bs-popper="none"
                   >
                     <li>
-                      <a className="dropdown-item" href="food-dining.php">
+                      <Link className="dropdown-item" href="food-dining">
                         Desserts, Catering & Supplies
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a className="dropdown-item" href="food-dining.php">
+                      <Link className="dropdown-item" href="food-dining">
                         Fast Food & Carry Out
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a className="dropdown-item" href="food-dining.php">
+                      <Link className="dropdown-item" href="food-dining">
                         Grocery, Beverage & Tobacco
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a className="dropdown-item" href="food-dining.php">
+                      <Link className="dropdown-item" href="food-dining">
                         Restaurants
-                      </a>
+                      </Link>
                     </li>
                   </ul>
                 </li>
                 {/* <!-- Nav item 2 link --> */}
                 <li className="nav-item dropdown">
-                  <a
+                  <Link
                     className="nav-link dropdown-toggle"
-                    href="home-garden.php"
+                    href="home-garden"
                     id="demoMenu"
                     data-bs-toggle="dropdown"
                     aria-haspopup="true"
                     aria-expanded="false"
                   >
                     Home & Garden
-                  </a>
+                  </Link>
                   <ul
                     className="dropdown-menu dropdown-menu-end min-w-auto"
                     data-bs-popper="none"
                   >
                     <li>
-                      <a className="dropdown-item" href="home-garden.php">
+                      <Link className="dropdown-item" href="home-garden">
                         Antiques & Collectibles
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a className="dropdown-item" href="home-garden.php">
+                      <Link className="dropdown-item" href="home-garden">
                         Cleaning
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a className="dropdown-item" href="home-garden.php">
+                      <Link className="dropdown-item" href="home-garden">
                         Crafts, Hobbies & Sports
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a className="dropdown-item" href="home-garden.php">
+                      <Link className="dropdown-item" href="home-garden">
                         Flower Shops
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a className="dropdown-item" href="home-garden.php">
+                      <Link className="dropdown-item" href="home-garden">
                         Home Furnishings
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a className="dropdown-item" href="home-garden.php">
+                      <Link className="dropdown-item" href="home-garden">
                         Home Goods
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a className="dropdown-item" href="home-garden.php">
+                      <Link className="dropdown-item" href="home-garden">
                         Home Improvements & Repairs
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a className="dropdown-item" href="home-garden.php">
+                      <Link className="dropdown-item" href="home-garden">
                         Landscape & Lawn Service
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a className="dropdown-item" href="home-garden.php">
+                      <Link className="dropdown-item" href="home-garden">
                         Pest Control
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a className="dropdown-item" href="home-garden.php">
+                      <Link className="dropdown-item" href="home-garden">
                         Pool Supplies & Service
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a className="dropdown-item" href="home-garden.php">
+                      <Link className="dropdown-item" href="home-garden">
                         Security System & Services
-                      </a>
+                      </Link>
                     </li>
                   </ul>
                 </li>
                 {/* <!-- Nav item 2 link --> */}
                 <li className="nav-item dropdown">
-                  <a
+                  <Link
                     className="nav-link dropdown-toggle"
-                    href="travel-transportation.php"
+                    href="travel-transportation"
                     id="demoMenu"
                     data-bs-toggle="dropdown"
                     aria-haspopup="true"
                     aria-expanded="false"
                   >
                     Travel & Transportation
-                  </a>
+                  </Link>
                   <ul
                     className="dropdown-menu dropdown-menu-end min-w-auto"
                     data-bs-popper="none"
                   >
                     <li>
                       {" "}
-                      <a
+                      <Link
                         className="dropdown-item px-0 mb-1 p-0 fw-light"
-                        href="travel-transportation.php"
+                        href="travel-transportation"
                       >
                         Consultants
-                      </a>{" "}
+                      </Link>{" "}
                     </li>
                     <li>
                       {" "}
-                      <a
+                      <Link
                         className="dropdown-item px-0 mb-1 p-0 fw-light"
-                        href="travel-transportation.php"
+                        href="travel-transportation"
                       >
                         Employment Agency
-                      </a>{" "}
+                      </Link>{" "}
                     </li>
                     <li>
                       {" "}
-                      <a
+                      <Link
                         className="dropdown-item px-0 mb-1 p-0 fw-light"
-                        href="travel-transportation.php"
+                        href="travel-transportation"
                       >
                         Marketing & Communications
-                      </a>{" "}
+                      </Link>{" "}
                     </li>
                     <li>
                       {" "}
-                      <a
+                      <Link
                         className="dropdown-item px-0 mb-1 p-0 fw-light"
-                        href="travel-transportation.php"
+                        href="travel-transportation"
                       >
                         Office Supplies
-                      </a>{" "}
+                      </Link>{" "}
                     </li>
                     <li>
                       {" "}
-                      <a
+                      <Link
                         className="dropdown-item px-0 mb-1 p-0 fw-light"
-                        href="travel-transportation.php"
+                        href="travel-transportation"
                       >
                         Printing & Publishing
-                      </a>{" "}
+                      </Link>{" "}
                     </li>
                   </ul>
                 </li>
                 {/* <!-- Nav item 3 link --> */}
                 <li className="nav-item dropdown">
-                  <a
+                  <Link
                     className="nav-link dropdown-toggle"
-                    href="automotive.php"
+                    href="automotive"
                     id="demoMenu"
                     data-bs-toggle="dropdown"
                     aria-haspopup="true"
                     aria-expanded="false"
                   >
                     Automotive
-                  </a>
+                  </Link>
                   <ul
                     className="dropdown-menu dropdown-menu-end min-w-auto"
                     data-bs-popper="none"
                   >
                     <li>
-                      <a className="dropdown-item" href="automotive.php">
+                      <Link className="dropdown-item" href="automotive">
                         Auto Accessories
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a className="dropdown-item" href="automotive.php">
+                      <Link className="dropdown-item" href="automotive">
                         Auto Dealers–New
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a className="dropdown-item" href="automotive.php">
+                      <Link className="dropdown-item" href="automotive">
                         Auto Dealers–Used
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a className="dropdown-item" href="automotive.php">
+                      <Link className="dropdown-item" href="automotive">
                         Detail & Carwash
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a className="dropdown-item" href="automotive.php">
+                      <Link className="dropdown-item" href="automotive">
                         Gas Stations
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a className="dropdown-item" href="automotive.php">
+                      <Link className="dropdown-item" href="automotive">
                         Motorcycle Sales & Repair
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a className="dropdown-item" href="automotive.php">
+                      <Link className="dropdown-item" href="automotive">
                         Rental & Leasing
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a className="dropdown-item" href="automotive.php">
+                      <Link className="dropdown-item" href="automotive">
                         Service, Repair & Parts
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a className="dropdown-item" href="automotive.php">
+                      <Link className="dropdown-item" href="automotive">
                         Towing
-                      </a>
+                      </Link>
                     </li>
                   </ul>
                 </li>
                 {/* <!-- Nav item 3 link --> */}
                 <li className="nav-item dropdown">
-                  <a
+                  <Link
                     className="nav-link dropdown-toggle"
-                    href="personal-care-services.php"
+                    href="personal-care-services"
                     id="demoMenu"
                     data-bs-toggle="dropdown"
                     aria-haspopup="true"
                     aria-expanded="false"
                   >
                     Personal Care & Services
-                  </a>
+                  </Link>
                   <ul
                     className="dropdown-menu dropdown-menu-end min-w-auto"
                     data-bs-popper="none"
                   >
                     <li>
-                      <a
+                      <Link
                         className="dropdown-item"
-                        href="personal-care-services.php"
+                        href="personal-care-services"
                       >
                         Animal Care & Supplies
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a
+                      <Link
                         className="dropdown-item"
-                        href="personal-care-services.php"
+                        href="personal-care-services"
                       >
                         Barber & Beauty Salons
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a
+                      <Link
                         className="dropdown-item"
-                        href="personal-care-services.php"
+                        href="personal-care-services"
                       >
                         Beauty Supplies
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a
+                      <Link
                         className="dropdown-item"
-                        href="personal-care-services.php"
+                        href="personal-care-services"
                       >
                         Dry Cleaners & Laundromats
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a
+                      <Link
                         className="dropdown-item"
-                        href="personal-care-services.php"
+                        href="personal-care-services"
                       >
                         Exercise & Fitness
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a
+                      <Link
                         className="dropdown-item"
-                        href="personal-care-services.php"
+                        href="personal-care-services"
                       >
                         Massage & Body Works
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a
+                      <Link
                         className="dropdown-item"
-                        href="personal-care-services.php"
+                        href="personal-care-services"
                       >
                         Nail Salons
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a
+                      <Link
                         className="dropdown-item"
-                        href="personal-care-services.php"
+                        href="personal-care-services"
                       >
                         Shoe Repairs
-                      </a>
+                      </Link>
                     </li>
                     <li>
-                      <a
+                      <Link
                         className="dropdown-item"
-                        href="personal-care-services.php"
+                        href="personal-care-services"
                       >
                         Tailors
-                      </a>
+                      </Link>
                     </li>
                   </ul>
                 </li>
                 {/* <!-- Nav item 6 Megamenu--> */}
                 <li className="nav-item dropdown dropdown-fullwidth">
-                  <a
+                  <Link
                     className="nav-link dropdown-toggle"
                     href="#"
                     data-bs-toggle="dropdown"
@@ -504,7 +505,7 @@ const Header = () => {
                     aria-expanded="false"
                   >
                     More
-                  </a>
+                  </Link>
                   <div
                     className="dropdown-menu dropdown-menu-end"
                     data-bs-popper="none"
@@ -513,702 +514,702 @@ const Header = () => {
                       {/* <!-- Dropdown column item --> */}
                       <div className="col-xl-6 col-xxl-3 mb-3">
                         <h6 className="mb-2 border-bottom pb-2">
-                          <a href="computers-electronics.php">
+                          <Link href="computers-electronics">
                             Computers & Electronics
-                          </a>
+                          </Link>
                         </h6>
                         <ul className="list-unstyled">
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="computers-electronics.php"
+                              href="computers-electronics"
                             >
                               Computer Programming & Support
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="computers-electronics.php"
+                              href="computers-electronics"
                             >
                               Consumer Electronics & Accessories
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                         </ul>
                         <h6 className="mb-2 border-bottom pb-2 mt-4">
-                          <a href="construction-contractors.php">
+                          <Link href="construction-contractors">
                             Construction & Contractors
-                          </a>
+                          </Link>
                         </h6>
                         <ul className="list-unstyled">
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="construction-contractors.php"
+                              href="construction-contractors"
                             >
                               Architects, Landscape Architects
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="construction-contractors.php"
+                              href="construction-contractors"
                             >
                               Engineers & Surveyors
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="construction-contractors.php"
+                              href="construction-contractors"
                             >
                               Blasting & Demolition
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="construction-contractors.php"
+                              href="construction-contractors"
                             >
                               Building Materials & Supplies
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="construction-contractors.php"
+                              href="construction-contractors"
                             >
                               Construction Companies
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="construction-contractors.php"
+                              href="construction-contractors"
                             >
                               Electricians
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="construction-contractors.php"
+                              href="construction-contractors"
                             >
                               Engineer, Survey
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="construction-contractors.php"
+                              href="construction-contractors"
                             >
                               Environmental Assessments
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="construction-contractors.php"
+                              href="construction-contractors"
                             >
                               Inspectors
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="construction-contractors.php"
+                              href="construction-contractors"
                             >
                               Plaster & Concrete
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="construction-contractors.php"
+                              href="construction-contractors"
                             >
                               Plumbers
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="construction-contractors.php"
+                              href="construction-contractors"
                             >
                               Roofers
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                         </ul>
                         <h6 className="mb-2 border-bottom pb-2 mt-4">
-                          <a href="miscellaneous.php">Miscellaneous</a>
+                          <Link href="miscellaneous">Miscellaneous</Link>
                         </h6>
                         <ul className="list-unstyled">
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="miscellaneous.php"
+                              href="miscellaneous"
                             >
                               Civic Groups
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="miscellaneous.php"
+                              href="miscellaneous"
                             >
                               Funeral Service Providers & Cemetaries
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="miscellaneous.php"
+                              href="miscellaneous"
                             >
                               Miscellaneous
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="miscellaneous.php"
+                              href="miscellaneous"
                             >
                               Utility Companies
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                         </ul>
                       </div>
                       {/* <!-- Dropdown column item --> */}
                       <div className="col-xl-6 col-xxl-3 mb-3">
                         <h6 className="mb-2 border-bottom pb-2">
-                          <a href="entertainment.php">Entertainment</a>
+                          <Link href="entertainment">Entertainment</Link>
                         </h6>
                         <ul className="list-unstyled">
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="entertainment.php"
+                              href="entertainment"
                             >
                               Artists, Writers
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="entertainment.php"
+                              href="entertainment"
                             >
                               Event Planners & Supplies
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="entertainment.php"
+                              href="entertainment"
                             >
                               Golf Courses
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="entertainment.php"
+                              href="entertainment"
                             >
                               Movies
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="entertainment.php"
+                              href="entertainment"
                             >
                               Productions
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                         </ul>
                         <h6 className="mb-2 border-bottom pb-2 mt-4">
-                          <a href="legal-financial.php">Legal & Financial</a>
+                          <Link href="legal-financial">Legal & Financial</Link>
                         </h6>
                         <ul className="list-unstyled">
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="legal-financial.php"
+                              href="legal-financial"
                             >
                               Accountants
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="legal-financial.php"
+                              href="legal-financial"
                             >
                               Attorneys
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="legal-financial.php"
+                              href="legal-financial"
                             >
                               Financial Institutions
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="legal-financial.php"
+                              href="legal-financial"
                             >
                               Financial Services
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="legal-financial.php"
+                              href="legal-financial"
                             >
                               Insurance
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="legal-financial.php"
+                              href="legal-financial"
                             >
                               Other Legal
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                         </ul>
                         <h6 className="mb-2 border-bottom pb-2 mt-4">
-                          <a href="real-estate.php">Real Estate</a>
+                          <Link href="real-estate">Real Estate</Link>
                         </h6>
                         <ul className="list-unstyled">
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="real-estate.php"
+                              href="real-estate"
                             >
                               Agencies & Brokerage
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="real-estate.php"
+                              href="real-estate"
                             >
                               Agents & Brokers
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="real-estate.php"
+                              href="real-estate"
                             >
                               Apartment & Home Rental
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="real-estate.php"
+                              href="real-estate"
                             >
                               Mortgage Broker & Lender
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="real-estate.php"
+                              href="real-estate"
                             >
                               Property Management{" "}
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="real-estate.php"
+                              href="real-estate"
                             >
                               Title Company{" "}
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                         </ul>
                       </div>
                       <div className="col-xl-6 col-xxl-3 mb-3">
                         <h6 className="mb-2 border-bottom pb-2">
-                          <a href="manufacturing_wholesale_distribution.php">
+                          <Link href="manufacturing_wholesale_distribution">
                             Manufacturing, Wholesale, Distribution
-                          </a>
+                          </Link>
                         </h6>
                         <ul className="list-unstyled">
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="manufacturing-wholesale-distribution.php"
+                              href="manufacturing-wholesale-distribution"
                             >
                               Distribution, Import/Export
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="manufacturing-wholesale-distribution.php"
+                              href="manufacturing-wholesale-distribution"
                             >
                               Manufacturing
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="manufacturing-wholesale-distribution.php"
+                              href="manufacturing-wholesale-distribution"
                             >
                               Wholesale
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                         </ul>
                         <h6 className="mb-2 border-bottom pb-2 mt-4">
-                          <a href="merchants.php">Merchants (Retail)</a>
+                          <Link href="merchants">Merchants (Retail)</Link>
                         </h6>
                         <ul className="list-unstyled">
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="merchants.php"
+                              href="merchants"
                             >
                               Cards & Gifts
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="merchants.php"
+                              href="merchants"
                             >
                               Department Stores, Sporting Goods
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="merchants.php"
+                              href="merchants"
                             >
                               General
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="merchants.php"
+                              href="merchants"
                             >
                               Jewelry
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="merchants.php"
+                              href="merchants"
                             >
                               Shoes
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                         </ul>
                         <h6 className="mb-2 border-bottom pb-2 mt-4">
-                          <a href="education.php">Education</a>
+                          <Link href="education">Education</Link>
                         </h6>
                         <ul className="list-unstyled">
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="education.php"
+                              href="education"
                             >
                               Adult & Continuing Education
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="education.php"
+                              href="education"
                             >
                               Early Childhood Education
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="education.php"
+                              href="education"
                             >
                               Educational Resources
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="education.php"
+                              href="education"
                             >
                               Other Educational
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                         </ul>
 
                         <h6 className="mb-2 border-bottom pb-2 mt-4">
-                          <a href="business-support-supplies.php">
+                          <Link href="business-support-supplies">
                             Business Support & Supplies
-                          </a>
+                          </Link>
                         </h6>
                         <ul className="list-unstyled">
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="business-support-supplies.php"
+                              href="business-support-supplies"
                             >
                               Consultants
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="business-support-supplies.php"
+                              href="business-support-supplies"
                             >
                               Employment Agency
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="business-support-supplies.php"
+                              href="business-support-supplies"
                             >
                               Marketing & Communications
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="business-support-supplies.php"
+                              href="business-support-supplies"
                             >
                               Office Supplies
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                           <li>
                             {" "}
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="business-support-supplies.php"
+                              href="business-support-supplies"
                             >
                               Printing & Publishing
-                            </a>{" "}
+                            </Link>{" "}
                           </li>
                         </ul>
                       </div>
                       <div className="col-xl-6 col-xxl-3 mb-3">
                         <h6 className="mb-2 border-bottom pb-2">
-                          <a href="health-medicine.php">Health & Medicine</a>
+                          <Link href="health-medicine">Health & Medicine</Link>
                         </h6>
                         <ul className="list-unstyled">
                           <li>
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="health-medicine.php"
+                              href="health-medicine"
                             >
                               Acupuncture
-                            </a>
+                            </Link>
                           </li>
                           <li>
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="health-medicine.php"
+                              href="health-medicine"
                             >
                               Assisted Living & Home Health Care
-                            </a>
+                            </Link>
                           </li>
                           <li>
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="health-medicine.php"
+                              href="health-medicine"
                             >
                               Audiologist
-                            </a>
+                            </Link>
                           </li>
                           <li>
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="health-medicine.php"
+                              href="health-medicine"
                             >
                               Chiropractic
-                            </a>
+                            </Link>
                           </li>
                           <li>
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="health-medicine.php"
+                              href="health-medicine"
                             >
                               Clinics & Medical Centers
-                            </a>
+                            </Link>
                           </li>
                           <li>
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="health-medicine.php"
+                              href="health-medicine"
                             >
                               Dental
-                            </a>
+                            </Link>
                           </li>
                           <li>
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="health-medicine.php"
+                              href="health-medicine"
                             >
                               Diet I& Nutrition
-                            </a>
+                            </Link>
                           </li>
                           <li>
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="health-medicine.php"
+                              href="health-medicine"
                             >
                               Laboratory, Imaging & Diagnostic
-                            </a>
+                            </Link>
                           </li>
                           <li>
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="health-medicine.php"
+                              href="health-medicine"
                             >
                               Massage Therapy
-                            </a>
+                            </Link>
                           </li>
                           <li>
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="health-medicine.php"
+                              href="health-medicine"
                             >
                               Mental Health
-                            </a>
+                            </Link>
                           </li>
                           <li>
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="health-medicine.php"
+                              href="health-medicine"
                             >
                               Nurse
-                            </a>
+                            </Link>
                           </li>
                           <li>
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="health-medicine.php"
+                              href="health-medicine"
                             >
                               Optical
-                            </a>
+                            </Link>
                           </li>
                           <li>
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="health-medicine.php"
+                              href="health-medicine"
                             >
                               Pharmacy, Drug & Vitamin Stores
-                            </a>
+                            </Link>
                           </li>
                           <li>
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="health-medicine.php"
+                              href="health-medicine"
                             >
                               Physical Therapy
-                            </a>
+                            </Link>
                           </li>
                           <li>
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="health-medicine.php"
+                              href="health-medicine"
                             >
                               Physicians & Assistants
-                            </a>
+                            </Link>
                           </li>
                           <li>
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="health-medicine.php"
+                              href="health-medicine"
                             >
                               Physicians & Assistants
-                            </a>
+                            </Link>
                           </li>
                           <li>
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="health-medicine.php"
+                              href="health-medicine"
                             >
                               Podiatry
-                            </a>
+                            </Link>
                           </li>
                           <li>
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="health-medicine.php"
+                              href="health-medicine"
                             >
                               Social Worker
-                            </a>
+                            </Link>
                           </li>
                           <li>
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="health-medicine.php"
+                              href="health-medicine"
                             >
                               Animal Hospital
-                            </a>
+                            </Link>
                           </li>
                           <li>
-                            <a
+                            <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="health-medicine.php"
+                              href="health-medicine"
                             >
                               Veterinary & Animal Surgeons
-                            </a>
+                            </Link>
                           </li>
                         </ul>
                       </div>
@@ -1220,7 +1221,7 @@ const Header = () => {
             {/* <!-- Main navbar END --> */}
             {/* <!-- Nav Search START --> */}
             <div className="nav nav-item dropdown nav-search px-1 px-lg-3">
-              <a
+              <Link
                 className="nav-link"
                 role="button"
                 href="#"
@@ -1231,7 +1232,7 @@ const Header = () => {
                 data-bs-display="static"
               >
                 <i className="bi bi-search fs-4"> </i>
-              </a>
+              </Link>
               <div
                 className="dropdown-menu dropdown-menu-end shadow rounded p-2"
                 aria-labelledby="navSearch"
@@ -1256,29 +1257,29 @@ const Header = () => {
                     </button>
                   </li>
                   <li className="list-group-item text-primary-hover text-truncate">
-                    <a href="#" className="text-body">
+                    <Link href="#" className="text-body">
                       {" "}
                       <i className="far fa-clock me-1"></i>Digital marketing course
                       for Beginner
-                    </a>
+                    </Link>
                   </li>
                   <li className="list-group-item text-primary-hover text-truncate">
-                    <a href="#" className="text-body">
+                    <Link href="#" className="text-body">
                       {" "}
                       <i className="far fa-clock me-1"></i>Customer Life cycle
-                    </a>
+                    </Link>
                   </li>
                   <li className="list-group-item text-primary-hover text-truncate">
-                    <a href="#" className="text-body">
+                    <Link href="#" className="text-body">
                       {" "}
                       <i className="far fa-clock me-1"></i>What is Search
-                    </a>
+                    </Link>
                   </li>
                   <li className="list-group-item text-primary-hover text-truncate">
-                    <a href="#" className="text-body">
+                    <Link href="#" className="text-body">
                       {" "}
                       <i className="far fa-clock me-1"></i>Facebook ADS
-                    </a>
+                    </Link>
                   </li>
                 </ul>
               </div>
@@ -1286,7 +1287,7 @@ const Header = () => {
             {/* <!-- Nav Search END --> */}
             {/* <!-- Profile START --> */}
             <div className="dropdown ms-1 ms-lg-0">
-              <a
+              <Link
                 className="avatar avatar-sm p-0 show"
                 href="#"
                 id="profileDropdown"
@@ -1301,7 +1302,7 @@ const Header = () => {
                   src={companyLogo.src}
                   alt="avatar"
                 />
-              </a>
+              </Link>
               <ul
                 className="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3"
                 aria-labelledby="profileDropdown"
@@ -1318,9 +1319,9 @@ const Header = () => {
                       />
                     </div>
                     <div>
-                      <a className="h6" href="#">
+                      <Link className="h6" href="#">
                         Redwood Solutions
-                      </a>
+                      </Link>
                       <p className="small m-0">redwood@hotmail.com</p>
                     </div>
                   </div>
@@ -1330,45 +1331,45 @@ const Header = () => {
                   <hr className="dropdown-divider" />
                 </li>
                 <li>
-                  <a
+                  <Link
                     className="dropdown-item bg-danger-soft-hover"
-                    href="business/dashboard.php"
+                    href="business/dashboard"
                   >
                     <i className="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
+                  <Link
                     className="dropdown-item bg-danger-soft-hover"
-                    href="business/my-subscription.php"
+                    href="business/my-subscription"
                   >
                     <i className="bi bi-gear fa-fw me-2"></i>Account Setting
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
+                  <Link
                     className="dropdown-item bg-danger-soft-hover"
-                    href="business/about-the-business.php"
+                    href="business/about-the-business"
                   >
                     <i className="fas fa-business-time fa-fw me-2"></i>Business
                     Information
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
+                  <Link
                     className="dropdown-item bg-danger-soft-hover"
-                    href="business/support.php"
+                    href="business/support"
                   >
                     <i className="bi bi-headset fa-fw me-2"></i>Support
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
+                  <Link
                     className="dropdown-item bg-danger-soft-hover"
-                    href="index.php"
+                    href="index"
                   >
                     <i className="bi bi-power fa-fw me-2"></i>Sign Out
-                  </a>
+                  </Link>
                 </li>
                 <li>
                   {" "}

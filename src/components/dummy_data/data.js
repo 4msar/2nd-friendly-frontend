@@ -23,6 +23,12 @@ import event7 from "@/assets/img/event/7.jpg";
 import event8 from "@/assets/img/event/8.jpg";
 import event9 from "@/assets/img/event/9.jpg";
 import event10 from "@/assets/img/event/10.jpg";
+import avatar1 from "@/assets/img/avatar/01.jpg";
+import avatar2 from "@/assets/img/avatar/02.jpg";
+import avatar3 from "@/assets/img/avatar/03.jpg";
+import avatar4 from "@/assets/img/avatar/04.jpg";
+import avatar5 from "@/assets/img/avatar/05.jpg";
+import avatar6 from "@/assets/img/avatar/06.jpg";
 
 export const categories = [
     {title: "Food & Dining", subtitle: '4 Sub Categories', icon: "fas fa-utensils", link:"#", class:"bg-purple text-purple"},
@@ -106,4 +112,13 @@ export const jobList = [
     {title: "Livestream Digital Operations Lead", subtitle: "We are looking for a Programmer with at least 2 years of experience having experience of Full Stack Developer for development and maintenance of applications. Your primary focus will be the development of applications and their integration. You will", location: "Kuala Lumpur", department: "Marketing", level: "Experienced", deadline: "March 15, 2024", class:"border-primary"},
     {title: "Livestream Digital Operations Lead", subtitle: "We are looking for a Programmer with at least 2 years of experience having experience of Full Stack Developer for development and maintenance of applications. Your primary focus will be the development of applications and their integration. You will", location: "Kuala Lumpur", department: "Marketing", level: "Experienced", deadline: "March 15, 2024", class:"border-info"},
     {title: "Livestream Digital Operations Lead", subtitle: "We are looking for a Programmer with at least 2 years of experience having experience of Full Stack Developer for development and maintenance of applications. Your primary focus will be the development of applications and their integration. You will", location: "Kuala Lumpur", department: "Marketing", level: "Experienced", deadline: "March 15, 2024", class:"border-info"},
+]
+
+export const teams = [
+    {name: "Jahangir Hossain", designation: "Full-Stack Developer", img:avatar1},
+    {name: "Shaon Islam", designation: "Designer", img:avatar2},
+    {name: "Rubel Hossain", designation: "Front-End Designer", img:avatar3},
+    {name: "Sakib Mia", designation: "UI Designer", img:avatar4},
+    {name: "Asad Akondo", designation: "UI/UX Designer", img:avatar5},
+    {name: "Bipul Vuiya", designation: "Assistant Teacher", img:avatar6},
 ]

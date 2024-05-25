@@ -114,3 +114,7 @@ a {
 .event{
   padding: 0 15px;
 }
+
+.css-1vyamtt-MuiStepLabel-labelContainer.MuiStepLabel-alternativeLabel{
+  display: none !important;
+}

@@ -2,8 +2,40 @@ import React from 'react'
 import aboutImg from "@/assets/img/about/06.jpg"
 import PublicView from '@/components/HOC/PublicView'
 import Head from 'next/head'
+import { teams } from '@/components/dummy_data/data'
+import Person from '@/components/Person/Person'
+import Slider from 'react-slick'
 
 const AboutUs = () => {
+    const team_list = teams;
+
+    const settings = {
+        dots: false,
+        infinite: true,
+        speed: 500,
+        slidesToShow: 4,
+        slidesToScroll: 1,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        responsive: [
+          {
+            breakpoint: 768,
+            settings: {
+              arrows: false,
+              centerMode: true,
+              slidesToShow: 3,
+            },
+          },
+          {
+            breakpoint: 480,
+            settings: {
+              arrows: false,
+              centerMode: true,
+              slidesToShow: 2,
+            },
+          },
+        ],
+      };
   return (
     <main>
         <Head>
@@ -182,99 +214,16 @@ const AboutUs = () => {
                         <a href="#" class="btn btn-light mt-2">Join Team</a>
                     </div>
                     {/* <!-- Slider START --> */}
-                    <div class="tiny-slider arrow-round arrow-creative arrow-blur arrow-hover mt-2 mt-sm-5">
-                        <div class="tiny-slider-inner" data-autoplay="true" data-arrow="true" data-dots="false" data-items="4" data-items-lg="3" data-items-md="2">
+                    <div class="arrow-round arrow-creative arrow-blur arrow-hover mt-2 mt-sm-5">
+                        <Slider {...settings}>
                             {/* <!-- Avatar item --> */}
-                            <div class="text-center">
-                                {/* <!-- Avatar --> */}
-                                <div class="avatar avatar-xxl mb-3">
-                                    <img class="avatar-img rounded-circle" src="assets/img/avatar/01.jpg" alt="avatar"/>
-                                </div>
-                                {/* <!-- Info --> */}
-                                <h6 class="mb-0"><a href="#">Carolyn Ortiz</a></h6>
-                                <p class="mb-0 small">Designer</p>
-                                {/* <!-- Rating --> */}
-                                <ul class="list-inline mb-0">
-                                    <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-                                    <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-                                    <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-                                    <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-                                    <li class="list-inline-item me-0 small"><i class="fas fa-star-half-alt text-warning"></i></li>
-                                </ul>
-                            </div>
+                            {team_list.length > 0 && team_list.map((item) => (
+                                <Person person={item} />
+                            ))}
+                            
                             {/* <!-- Avatar item --> */}
-                            <div class="text-center">
-                                {/* <!-- Avatar --> */}
-                                <div class="avatar avatar-xxl mb-3">
-                                    <img class="avatar-img rounded-circle" src="assets/img/avatar/02.jpg" alt="avatar"/>
-                                </div>
-                                {/* <!-- Info --> */}
-                                <h6 class="mb-0"><a href="#">Dennis Barrett</a></h6>
-                                <p class="mb-0 small">IT Engineer</p>
-                                {/* <!-- Rating --> */}
-                                <ul class="list-inline mb-0">
-                                    <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-                                    <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-                                    <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-                                    <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-                                    <li class="list-inline-item me-0 small"><i class="fas fa-star-half-alt text-warning"></i></li>
-                                </ul>
-                            </div>
-                            {/* <!-- Avatar item --> */}
-                            <div class="text-center">
-                                {/* <!-- Avatar --> */}
-                                <div class="avatar avatar-xxl mb-3">
-                                    <img class="avatar-img rounded-circle" src="assets/img/avatar/09.jpg" alt="avatar"/>
-                                </div>
-                                {/* <!-- Info --> */}
-                                <h6 class="mb-0"><a href="#">Frances Guerrero</a></h6>
-                                <p class="mb-0 small">Developer</p>
-                                {/* <!-- Rating --> */}
-                                <ul class="list-inline mb-0">
-                                    <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-                                    <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-                                    <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-                                    <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-                                    <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-                                </ul>
-                            </div>
-                            {/* <!-- Avatar item --> */}
-                            <div class="text-center">
-                                {/* <!-- Avatar --> */}
-                                <div class="avatar avatar-xxl mb-3">
-                                    <img class="avatar-img rounded-circle" src="assets/img/avatar/04.jpg" alt="avatar"/>
-                                </div>
-                                {/* <!-- Info --> */}
-                                <h6 class="mb-0"><a href="#">Larry Lawson</a></h6>
-                                <p class="mb-0 small">Designer</p>
-                                {/* <!-- Rating --> */}
-                                <ul class="list-inline mb-0">
-                                    <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-                                    <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-                                    <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-                                    <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-                                    <li class="list-inline-item me-0 small"><i class="fas fa-star-half-alt text-warning"></i></li>
-                                </ul>
-                            </div>
-                            {/* <!-- Avatar item --> */}
-                            <div class="text-center">
-                                {/* <!-- Avatar --> */}
-                                <div class="avatar avatar-xxl mb-3">
-                                    <img class="avatar-img rounded-circle" src="assets/img/avatar/10.jpg" alt="avatar"/>
-                                </div>
-                                {/* <!-- Info --> */}
-                                <h6 class="mb-0"><a href="#">Louis Crawford</a></h6>
-                                <p class="mb-0 small">Software Architech</p>
-                                {/* <!-- Rating --> */}
-                                <ul class="list-inline mb-0">
-                                    <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-                                    <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-                                    <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-                                    <li class="list-inline-item me-0 small"><i class="fas fa-star text-warning"></i></li>
-                                    <li class="list-inline-item me-0 small"><i class="fas fa-star-half-alt text-warning"></i></li>
-                                </ul>
-                            </div>
-                        </div>
+                           
+                        </Slider>
                     </div>
                     {/* <!-- Slider END --> */}
                 </div>
