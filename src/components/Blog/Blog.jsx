@@ -1,6 +1,7 @@
 import React from "react";
 import BlogCard from "./BlogCard";
 import { blogPosts } from "../dummy_data/data";
+import Link from "next/link";
 
 const Blog = () => {
     const posts = blogPosts;
@@ -31,9 +32,9 @@ const Blog = () => {
         <div className="row mt-3">
           <div className="col-12">
             <div className="text-center">
-              <a href="blogs.php" className="btn btn-primary-soft">
+              <Link href="blogs" className="btn btn-primary-soft">
                 View More <i className="fas fa-angle-right ms-0"></i>
-              </a>
+              </Link>
             </div>
           </div>
         </div>

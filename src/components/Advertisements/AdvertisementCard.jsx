@@ -1,3 +1,4 @@
+import Link from "next/link";
 import React from "react";
 
 const AdvertisementCard = ({item, index}) => {
@@ -49,9 +50,9 @@ const AdvertisementCard = ({item, index}) => {
             <div class="d-sm-flex justify-content-sm-between mb-2 mb-sm-2">
               <div>
                 <h5 class="card-title mb-0 fw-normal mb-1">
-                  <a href="listing-detail.php">
+                  <Link href="listing-detail">
                     {item.title}
-                  </a>
+                  </Link>
                 </h5>
                 <p class="small mb-0 mb-sm-0 pb-0">
                   <i class="fas fa-star text-warning"></i>

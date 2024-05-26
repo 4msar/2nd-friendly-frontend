@@ -1,3 +1,4 @@
+import Link from 'next/link'
 import React from 'react'
 
 const BlogCard = ({item,index}) => {
@@ -47,9 +48,9 @@ const BlogCard = ({item,index}) => {
     </div>
     <div className="card-body px-0">
       <h5 className="card-title">
-        <a href="blogs.php">
+        <Link href="blogs">
           Student Loan Survey: Many Owe $50K-plus
-        </a>
+        </Link>
       </h5>
       <p className="text-truncate-2">
         Affronting imprudence do he he everything. Offered chiefly
