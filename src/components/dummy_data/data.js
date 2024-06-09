@@ -29,6 +29,10 @@ import avatar3 from "@/assets/img/avatar/03.jpg";
 import avatar4 from "@/assets/img/avatar/04.jpg";
 import avatar5 from "@/assets/img/avatar/05.jpg";
 import avatar6 from "@/assets/img/avatar/06.jpg";
+import slider1 from "@/assets/img/food-dining/5.jpg";
+import slider2 from "@/assets/img/food-dining/4.jpg";
+import slider3 from "@/assets/img/food-dining/6.jpg";
+import companyLogo from "@/assets/img/company-logo/3.svg";
 
 export const categories = [
     {title: "Food & Dining", subtitle: '4 Sub Categories', icon: "fas fa-utensils", link:"#", class:"bg-purple text-purple"},
@@ -121,4 +125,11 @@ export const teams = [
     {name: "Sakib Mia", designation: "UI Designer", img:avatar4},
     {name: "Asad Akondo", designation: "UI/UX Designer", img:avatar5},
     {name: "Bipul Vuiya", designation: "Assistant Teacher", img:avatar6},
+]
+
+export const category_items = [
+    {title: "Palatial Epicurean Oasis", subtitle: "The Loop Oddly enough, this feels like a place that although specializes in pizza excels in everything else they make. That isn't a knock to the pizza But they manage…", tags: [{name:"Chinese", link: "#"}, {name:"Japanese", link: "#"}, {name:"Sushi Bars", link: "#"}], sliders: [slider1, slider2, slider3], avatar: companyLogo},
+    {title: "Palatial Epicurean Oasis", subtitle: "The Loop Oddly enough, this feels like a place that although specializes in pizza excels in everything else they make. That isn't a knock to the pizza But they manage…", tags: [{name:"Chinese", link: "#"}, {name:"Japanese", link: "#"}, {name:"Sushi Bars", link: "#"}], sliders: [slider1, slider2, slider3], avatar: companyLogo},
+    {title: "Palatial Epicurean Oasis", subtitle: "The Loop Oddly enough, this feels like a place that although specializes in pizza excels in everything else they make. That isn't a knock to the pizza But they manage…", tags: [{name:"Chinese", link: "#"}, {name:"Japanese", link: "#"}, {name:"Sushi Bars", link: "#"}], sliders: [slider1, slider2, slider3], avatar: companyLogo},
+    {title: "Palatial Epicurean Oasis", subtitle: "The Loop Oddly enough, this feels like a place that although specializes in pizza excels in everything else they make. That isn't a knock to the pizza But they manage…", tags: [{name:"Chinese", link: "#"}, {name:"Japanese", link: "#"}, {name:"Sushi Bars", link: "#"}], sliders: [slider1, slider2, slider3], avatar: companyLogo}
 ]
