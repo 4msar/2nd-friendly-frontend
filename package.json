@@ -14,11 +14,18 @@
     "@emotion/styled": "^11.11.5",
     "@mui/icons-material": "^5.15.17",
     "@mui/material": "^5.15.17",
+    "axios": "^1.7.2",
     "bootstrap-icons": "^1.11.3",
+    "dayjs": "^1.11.11",
+    "jwt-decode": "^4.0.0",
     "next": "14.2.3",
+    "notistack": "^3.0.1",
     "react": "^18",
     "react-dom": "^18",
+    "react-redux": "^8.0.5",
     "react-slick": "^0.30.2",
+    "redux": "^4.2.1",
+    "redux-thunk": "^2.4.2",
     "tiny-slider": "^2.9.4"
   }
 }
