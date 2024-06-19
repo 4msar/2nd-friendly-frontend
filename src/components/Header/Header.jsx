@@ -172,7 +172,7 @@ const Header = () => {
                 <li className="nav-item dropdown">
                   <Link
                     className="nav-link dropdown-toggle"
-                    href="food-dining"
+                    href="/food-dining"
                     id="demoMenu"
                     data-bs-toggle="dropdown"
                     aria-haspopup="true"
@@ -185,22 +185,22 @@ const Header = () => {
                     data-bs-popper="none"
                   >
                     <li>
-                      <Link className="dropdown-item" href="food-dining">
+                      <Link className="dropdown-item" href="/food-dining">
                         Desserts, Catering & Supplies
                       </Link>
                     </li>
                     <li>
-                      <Link className="dropdown-item" href="food-dining">
+                      <Link className="dropdown-item" href="/food-dining">
                         Fast Food & Carry Out
                       </Link>
                     </li>
                     <li>
-                      <Link className="dropdown-item" href="food-dining">
+                      <Link className="dropdown-item" href="/food-dining">
                         Grocery, Beverage & Tobacco
                       </Link>
                     </li>
                     <li>
-                      <Link className="dropdown-item" href="food-dining">
+                      <Link className="dropdown-item" href="/food-dining">
                         Restaurants
                       </Link>
                     </li>
@@ -210,7 +210,7 @@ const Header = () => {
                 <li className="nav-item dropdown">
                   <Link
                     className="nav-link dropdown-toggle"
-                    href="home-garden"
+                    href="/home-garden"
                     id="demoMenu"
                     data-bs-toggle="dropdown"
                     aria-haspopup="true"
@@ -223,57 +223,57 @@ const Header = () => {
                     data-bs-popper="none"
                   >
                     <li>
-                      <Link className="dropdown-item" href="home-garden">
+                      <Link className="dropdown-item" href="/home-garden">
                         Antiques & Collectibles
                       </Link>
                     </li>
                     <li>
-                      <Link className="dropdown-item" href="home-garden">
+                      <Link className="dropdown-item" href="/home-garden">
                         Cleaning
                       </Link>
                     </li>
                     <li>
-                      <Link className="dropdown-item" href="home-garden">
+                      <Link className="dropdown-item" href="/home-garden">
                         Crafts, Hobbies & Sports
                       </Link>
                     </li>
                     <li>
-                      <Link className="dropdown-item" href="home-garden">
+                      <Link className="dropdown-item" href="/home-garden">
                         Flower Shops
                       </Link>
                     </li>
                     <li>
-                      <Link className="dropdown-item" href="home-garden">
+                      <Link className="dropdown-item" href="/home-garden">
                         Home Furnishings
                       </Link>
                     </li>
                     <li>
-                      <Link className="dropdown-item" href="home-garden">
+                      <Link className="dropdown-item" href="/home-garden">
                         Home Goods
                       </Link>
                     </li>
                     <li>
-                      <Link className="dropdown-item" href="home-garden">
+                      <Link className="dropdown-item" href="/home-garden">
                         Home Improvements & Repairs
                       </Link>
                     </li>
                     <li>
-                      <Link className="dropdown-item" href="home-garden">
+                      <Link className="dropdown-item" href="/home-garden">
                         Landscape & Lawn Service
                       </Link>
                     </li>
                     <li>
-                      <Link className="dropdown-item" href="home-garden">
+                      <Link className="dropdown-item" href="/home-garden">
                         Pest Control
                       </Link>
                     </li>
                     <li>
-                      <Link className="dropdown-item" href="home-garden">
+                      <Link className="dropdown-item" href="/home-garden">
                         Pool Supplies & Service
                       </Link>
                     </li>
                     <li>
-                      <Link className="dropdown-item" href="home-garden">
+                      <Link className="dropdown-item" href="/home-garden">
                         Security System & Services
                       </Link>
                     </li>
@@ -283,7 +283,7 @@ const Header = () => {
                 <li className="nav-item dropdown">
                   <Link
                     className="nav-link dropdown-toggle"
-                    href="travel-transportation"
+                    href="/travel-transportation"
                     id="demoMenu"
                     data-bs-toggle="dropdown"
                     aria-haspopup="true"
@@ -299,7 +299,7 @@ const Header = () => {
                       {" "}
                       <Link
                         className="dropdown-item px-0 mb-1 p-0 fw-light"
-                        href="travel-transportation"
+                        href="/travel-transportation"
                       >
                         Consultants
                       </Link>{" "}
@@ -308,7 +308,7 @@ const Header = () => {
                       {" "}
                       <Link
                         className="dropdown-item px-0 mb-1 p-0 fw-light"
-                        href="travel-transportation"
+                        href="/travel-transportation"
                       >
                         Employment Agency
                       </Link>{" "}
@@ -317,7 +317,7 @@ const Header = () => {
                       {" "}
                       <Link
                         className="dropdown-item px-0 mb-1 p-0 fw-light"
-                        href="travel-transportation"
+                        href="/travel-transportation"
                       >
                         Marketing & Communications
                       </Link>{" "}
@@ -326,7 +326,7 @@ const Header = () => {
                       {" "}
                       <Link
                         className="dropdown-item px-0 mb-1 p-0 fw-light"
-                        href="travel-transportation"
+                        href="/travel-transportation"
                       >
                         Office Supplies
                       </Link>{" "}
@@ -335,7 +335,7 @@ const Header = () => {
                       {" "}
                       <Link
                         className="dropdown-item px-0 mb-1 p-0 fw-light"
-                        href="travel-transportation"
+                        href="/travel-transportation"
                       >
                         Printing & Publishing
                       </Link>{" "}
@@ -346,7 +346,7 @@ const Header = () => {
                 <li className="nav-item dropdown">
                   <Link
                     className="nav-link dropdown-toggle"
-                    href="automotive"
+                    href="/automotive"
                     id="demoMenu"
                     data-bs-toggle="dropdown"
                     aria-haspopup="true"
@@ -359,47 +359,47 @@ const Header = () => {
                     data-bs-popper="none"
                   >
                     <li>
-                      <Link className="dropdown-item" href="automotive">
+                      <Link className="dropdown-item" href="/automotive">
                         Auto Accessories
                       </Link>
                     </li>
                     <li>
-                      <Link className="dropdown-item" href="automotive">
+                      <Link className="dropdown-item" href="/automotive">
                         Auto Dealers–New
                       </Link>
                     </li>
                     <li>
-                      <Link className="dropdown-item" href="automotive">
+                      <Link className="dropdown-item" href="/automotive">
                         Auto Dealers–Used
                       </Link>
                     </li>
                     <li>
-                      <Link className="dropdown-item" href="automotive">
+                      <Link className="dropdown-item" href="/automotive">
                         Detail & Carwash
                       </Link>
                     </li>
                     <li>
-                      <Link className="dropdown-item" href="automotive">
+                      <Link className="dropdown-item" href="/automotive">
                         Gas Stations
                       </Link>
                     </li>
                     <li>
-                      <Link className="dropdown-item" href="automotive">
+                      <Link className="dropdown-item" href="/automotive">
                         Motorcycle Sales & Repair
                       </Link>
                     </li>
                     <li>
-                      <Link className="dropdown-item" href="automotive">
+                      <Link className="dropdown-item" href="/automotive">
                         Rental & Leasing
                       </Link>
                     </li>
                     <li>
-                      <Link className="dropdown-item" href="automotive">
+                      <Link className="dropdown-item" href="/automotive">
                         Service, Repair & Parts
                       </Link>
                     </li>
                     <li>
-                      <Link className="dropdown-item" href="automotive">
+                      <Link className="dropdown-item" href="/automotive">
                         Towing
                       </Link>
                     </li>
@@ -409,7 +409,7 @@ const Header = () => {
                 <li className="nav-item dropdown">
                   <Link
                     className="nav-link dropdown-toggle"
-                    href="personal-care-services"
+                    href="/personal-care-services"
                     id="demoMenu"
                     data-bs-toggle="dropdown"
                     aria-haspopup="true"
@@ -424,7 +424,7 @@ const Header = () => {
                     <li>
                       <Link
                         className="dropdown-item"
-                        href="personal-care-services"
+                        href="/personal-care-services"
                       >
                         Animal Care & Supplies
                       </Link>
@@ -432,7 +432,7 @@ const Header = () => {
                     <li>
                       <Link
                         className="dropdown-item"
-                        href="personal-care-services"
+                        href="/personal-care-services"
                       >
                         Barber & Beauty Salons
                       </Link>
@@ -440,7 +440,7 @@ const Header = () => {
                     <li>
                       <Link
                         className="dropdown-item"
-                        href="personal-care-services"
+                        href="/personal-care-services"
                       >
                         Beauty Supplies
                       </Link>
@@ -448,7 +448,7 @@ const Header = () => {
                     <li>
                       <Link
                         className="dropdown-item"
-                        href="personal-care-services"
+                        href="/personal-care-services"
                       >
                         Dry Cleaners & Laundromats
                       </Link>
@@ -456,7 +456,7 @@ const Header = () => {
                     <li>
                       <Link
                         className="dropdown-item"
-                        href="personal-care-services"
+                        href="/personal-care-services"
                       >
                         Exercise & Fitness
                       </Link>
@@ -464,7 +464,7 @@ const Header = () => {
                     <li>
                       <Link
                         className="dropdown-item"
-                        href="personal-care-services"
+                        href="/personal-care-services"
                       >
                         Massage & Body Works
                       </Link>
@@ -472,7 +472,7 @@ const Header = () => {
                     <li>
                       <Link
                         className="dropdown-item"
-                        href="personal-care-services"
+                        href="/personal-care-services"
                       >
                         Nail Salons
                       </Link>
@@ -480,7 +480,7 @@ const Header = () => {
                     <li>
                       <Link
                         className="dropdown-item"
-                        href="personal-care-services"
+                        href="/personal-care-services"
                       >
                         Shoe Repairs
                       </Link>
@@ -488,7 +488,7 @@ const Header = () => {
                     <li>
                       <Link
                         className="dropdown-item"
-                        href="personal-care-services"
+                        href="/personal-care-services"
                       >
                         Tailors
                       </Link>
@@ -499,7 +499,7 @@ const Header = () => {
                 <li className="nav-item dropdown dropdown-fullwidth">
                   <Link
                     className="nav-link dropdown-toggle"
-                    href="#"
+                    href="/#"
                     data-bs-toggle="dropdown"
                     aria-haspopup="true"
                     aria-expanded="false"
@@ -514,7 +514,7 @@ const Header = () => {
                       {/* <!-- Dropdown column item --> */}
                       <div className="col-xl-6 col-xxl-3 mb-3">
                         <h6 className="mb-2 border-bottom pb-2">
-                          <Link href="computers-electronics">
+                          <Link href="/computers-electronics">
                             Computers & Electronics
                           </Link>
                         </h6>
@@ -523,7 +523,7 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="computers-electronics"
+                              href="/computers-electronics"
                             >
                               Computer Programming & Support
                             </Link>{" "}
@@ -532,14 +532,14 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="computers-electronics"
+                              href="/computers-electronics"
                             >
                               Consumer Electronics & Accessories
                             </Link>{" "}
                           </li>
                         </ul>
                         <h6 className="mb-2 border-bottom pb-2 mt-4">
-                          <Link href="construction-contractors">
+                          <Link href="/construction-contractors">
                             Construction & Contractors
                           </Link>
                         </h6>
@@ -548,7 +548,7 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="construction-contractors"
+                              href="/construction-contractors"
                             >
                               Architects, Landscape Architects
                             </Link>{" "}
@@ -557,7 +557,7 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="construction-contractors"
+                              href="/construction-contractors"
                             >
                               Engineers & Surveyors
                             </Link>{" "}
@@ -566,7 +566,7 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="construction-contractors"
+                              href="/construction-contractors"
                             >
                               Blasting & Demolition
                             </Link>{" "}
@@ -575,7 +575,7 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="construction-contractors"
+                              href="/construction-contractors"
                             >
                               Building Materials & Supplies
                             </Link>{" "}
@@ -584,7 +584,7 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="construction-contractors"
+                              href="/construction-contractors"
                             >
                               Construction Companies
                             </Link>{" "}
@@ -593,7 +593,7 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="construction-contractors"
+                              href="/construction-contractors"
                             >
                               Electricians
                             </Link>{" "}
@@ -602,7 +602,7 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="construction-contractors"
+                              href="/construction-contractors"
                             >
                               Engineer, Survey
                             </Link>{" "}
@@ -611,7 +611,7 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="construction-contractors"
+                              href="/construction-contractors"
                             >
                               Environmental Assessments
                             </Link>{" "}
@@ -620,7 +620,7 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="construction-contractors"
+                              href="/construction-contractors"
                             >
                               Inspectors
                             </Link>{" "}
@@ -629,7 +629,7 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="construction-contractors"
+                              href="/construction-contractors"
                             >
                               Plaster & Concrete
                             </Link>{" "}
@@ -638,7 +638,7 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="construction-contractors"
+                              href="/construction-contractors"
                             >
                               Plumbers
                             </Link>{" "}
@@ -647,21 +647,21 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="construction-contractors"
+                              href="/construction-contractors"
                             >
                               Roofers
                             </Link>{" "}
                           </li>
                         </ul>
                         <h6 className="mb-2 border-bottom pb-2 mt-4">
-                          <Link href="miscellaneous">Miscellaneous</Link>
+                          <Link href="/miscellaneous">Miscellaneous</Link>
                         </h6>
                         <ul className="list-unstyled">
                           <li>
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="miscellaneous"
+                              href="/miscellaneous"
                             >
                               Civic Groups
                             </Link>{" "}
@@ -670,7 +670,7 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="miscellaneous"
+                              href="/miscellaneous"
                             >
                               Funeral Service Providers & Cemetaries
                             </Link>{" "}
@@ -679,7 +679,7 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="miscellaneous"
+                              href="/miscellaneous"
                             >
                               Miscellaneous
                             </Link>{" "}
@@ -688,7 +688,7 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="miscellaneous"
+                              href="/miscellaneous"
                             >
                               Utility Companies
                             </Link>{" "}
@@ -698,14 +698,14 @@ const Header = () => {
                       {/* <!-- Dropdown column item --> */}
                       <div className="col-xl-6 col-xxl-3 mb-3">
                         <h6 className="mb-2 border-bottom pb-2">
-                          <Link href="entertainment">Entertainment</Link>
+                          <Link href="/entertainment">Entertainment</Link>
                         </h6>
                         <ul className="list-unstyled">
                           <li>
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="entertainment"
+                              href="/entertainment"
                             >
                               Artists, Writers
                             </Link>{" "}
@@ -714,7 +714,7 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="entertainment"
+                              href="/entertainment"
                             >
                               Event Planners & Supplies
                             </Link>{" "}
@@ -723,7 +723,7 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="entertainment"
+                              href="/entertainment"
                             >
                               Golf Courses
                             </Link>{" "}
@@ -732,7 +732,7 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="entertainment"
+                              href="/entertainment"
                             >
                               Movies
                             </Link>{" "}
@@ -741,21 +741,21 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="entertainment"
+                              href="/entertainment"
                             >
                               Productions
                             </Link>{" "}
                           </li>
                         </ul>
                         <h6 className="mb-2 border-bottom pb-2 mt-4">
-                          <Link href="legal-financial">Legal & Financial</Link>
+                          <Link href="/legal-financial">Legal & Financial</Link>
                         </h6>
                         <ul className="list-unstyled">
                           <li>
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="legal-financial"
+                              href="/legal-financial"
                             >
                               Accountants
                             </Link>{" "}
@@ -764,7 +764,7 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="legal-financial"
+                              href="/legal-financial"
                             >
                               Attorneys
                             </Link>{" "}
@@ -773,7 +773,7 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="legal-financial"
+                              href="/legal-financial"
                             >
                               Financial Institutions
                             </Link>{" "}
@@ -782,7 +782,7 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="legal-financial"
+                              href="/legal-financial"
                             >
                               Financial Services
                             </Link>{" "}
@@ -791,7 +791,7 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="legal-financial"
+                              href="/legal-financial"
                             >
                               Insurance
                             </Link>{" "}
@@ -800,21 +800,21 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="legal-financial"
+                              href="/legal-financial"
                             >
                               Other Legal
                             </Link>{" "}
                           </li>
                         </ul>
                         <h6 className="mb-2 border-bottom pb-2 mt-4">
-                          <Link href="real-estate">Real Estate</Link>
+                          <Link href="/real-estate">Real Estate</Link>
                         </h6>
                         <ul className="list-unstyled">
                           <li>
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="real-estate"
+                              href="/real-estate"
                             >
                               Agencies & Brokerage
                             </Link>{" "}
@@ -823,7 +823,7 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="real-estate"
+                              href="/real-estate"
                             >
                               Agents & Brokers
                             </Link>{" "}
@@ -832,7 +832,7 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="real-estate"
+                              href="/real-estate"
                             >
                               Apartment & Home Rental
                             </Link>{" "}
@@ -841,7 +841,7 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="real-estate"
+                              href="/real-estate"
                             >
                               Mortgage Broker & Lender
                             </Link>{" "}
@@ -850,7 +850,7 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="real-estate"
+                              href="/real-estate"
                             >
                               Property Management{" "}
                             </Link>{" "}
@@ -859,7 +859,7 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="real-estate"
+                              href="/real-estate"
                             >
                               Title Company{" "}
                             </Link>{" "}
@@ -868,7 +868,7 @@ const Header = () => {
                       </div>
                       <div className="col-xl-6 col-xxl-3 mb-3">
                         <h6 className="mb-2 border-bottom pb-2">
-                          <Link href="manufacturing_wholesale_distribution">
+                          <Link href="/manufacturing_wholesale_distribution">
                             Manufacturing, Wholesale, Distribution
                           </Link>
                         </h6>
@@ -877,7 +877,7 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="manufacturing-wholesale-distribution"
+                              href="/manufacturing-wholesale-distribution"
                             >
                               Distribution, Import/Export
                             </Link>{" "}
@@ -886,7 +886,7 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="manufacturing-wholesale-distribution"
+                              href="/manufacturing-wholesale-distribution"
                             >
                               Manufacturing
                             </Link>{" "}
@@ -895,21 +895,21 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="manufacturing-wholesale-distribution"
+                              href="/manufacturing-wholesale-distribution"
                             >
                               Wholesale
                             </Link>{" "}
                           </li>
                         </ul>
                         <h6 className="mb-2 border-bottom pb-2 mt-4">
-                          <Link href="merchants">Merchants (Retail)</Link>
+                          <Link href="/merchants">Merchants (Retail)</Link>
                         </h6>
                         <ul className="list-unstyled">
                           <li>
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="merchants"
+                              href="/merchants"
                             >
                               Cards & Gifts
                             </Link>{" "}
@@ -918,7 +918,7 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="merchants"
+                              href="/merchants"
                             >
                               Department Stores, Sporting Goods
                             </Link>{" "}
@@ -927,7 +927,7 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="merchants"
+                              href="/merchants"
                             >
                               General
                             </Link>{" "}
@@ -936,7 +936,7 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="merchants"
+                              href="/merchants"
                             >
                               Jewelry
                             </Link>{" "}
@@ -945,21 +945,21 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="merchants"
+                              href="/merchants"
                             >
                               Shoes
                             </Link>{" "}
                           </li>
                         </ul>
                         <h6 className="mb-2 border-bottom pb-2 mt-4">
-                          <Link href="education">Education</Link>
+                          <Link href="/education">Education</Link>
                         </h6>
                         <ul className="list-unstyled">
                           <li>
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="education"
+                              href="/education"
                             >
                               Adult & Continuing Education
                             </Link>{" "}
@@ -968,7 +968,7 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="education"
+                              href="/education"
                             >
                               Early Childhood Education
                             </Link>{" "}
@@ -977,7 +977,7 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="education"
+                              href="/education"
                             >
                               Educational Resources
                             </Link>{" "}
@@ -986,7 +986,7 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="education"
+                              href="/education"
                             >
                               Other Educational
                             </Link>{" "}
@@ -994,7 +994,7 @@ const Header = () => {
                         </ul>
 
                         <h6 className="mb-2 border-bottom pb-2 mt-4">
-                          <Link href="business-support-supplies">
+                          <Link href="/business-support-supplies">
                             Business Support & Supplies
                           </Link>
                         </h6>
@@ -1003,7 +1003,7 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="business-support-supplies"
+                              href="/business-support-supplies"
                             >
                               Consultants
                             </Link>{" "}
@@ -1012,7 +1012,7 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="business-support-supplies"
+                              href="/business-support-supplies"
                             >
                               Employment Agency
                             </Link>{" "}
@@ -1021,7 +1021,7 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="business-support-supplies"
+                              href="/business-support-supplies"
                             >
                               Marketing & Communications
                             </Link>{" "}
@@ -1030,7 +1030,7 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="business-support-supplies"
+                              href="/business-support-supplies"
                             >
                               Office Supplies
                             </Link>{" "}
@@ -1039,7 +1039,7 @@ const Header = () => {
                             {" "}
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="business-support-supplies"
+                              href="/business-support-supplies"
                             >
                               Printing & Publishing
                             </Link>{" "}
@@ -1048,13 +1048,13 @@ const Header = () => {
                       </div>
                       <div className="col-xl-6 col-xxl-3 mb-3">
                         <h6 className="mb-2 border-bottom pb-2">
-                          <Link href="health-medicine">Health & Medicine</Link>
+                          <Link href="/health-medicine">Health & Medicine</Link>
                         </h6>
                         <ul className="list-unstyled">
                           <li>
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="health-medicine"
+                              href="/health-medicine"
                             >
                               Acupuncture
                             </Link>
@@ -1062,7 +1062,7 @@ const Header = () => {
                           <li>
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="health-medicine"
+                              href="/health-medicine"
                             >
                               Assisted Living & Home Health Care
                             </Link>
@@ -1070,7 +1070,7 @@ const Header = () => {
                           <li>
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="health-medicine"
+                              href="/health-medicine"
                             >
                               Audiologist
                             </Link>
@@ -1078,7 +1078,7 @@ const Header = () => {
                           <li>
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="health-medicine"
+                              href="/health-medicine"
                             >
                               Chiropractic
                             </Link>
@@ -1086,7 +1086,7 @@ const Header = () => {
                           <li>
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="health-medicine"
+                              href="/health-medicine"
                             >
                               Clinics & Medical Centers
                             </Link>
@@ -1094,7 +1094,7 @@ const Header = () => {
                           <li>
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="health-medicine"
+                              href="/health-medicine"
                             >
                               Dental
                             </Link>
@@ -1102,7 +1102,7 @@ const Header = () => {
                           <li>
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="health-medicine"
+                              href="/health-medicine"
                             >
                               Diet I& Nutrition
                             </Link>
@@ -1110,7 +1110,7 @@ const Header = () => {
                           <li>
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="health-medicine"
+                              href="/health-medicine"
                             >
                               Laboratory, Imaging & Diagnostic
                             </Link>
@@ -1118,7 +1118,7 @@ const Header = () => {
                           <li>
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="health-medicine"
+                              href="/health-medicine"
                             >
                               Massage Therapy
                             </Link>
@@ -1126,7 +1126,7 @@ const Header = () => {
                           <li>
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="health-medicine"
+                              href="/health-medicine"
                             >
                               Mental Health
                             </Link>
@@ -1134,7 +1134,7 @@ const Header = () => {
                           <li>
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="health-medicine"
+                              href="/health-medicine"
                             >
                               Nurse
                             </Link>
@@ -1142,7 +1142,7 @@ const Header = () => {
                           <li>
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="health-medicine"
+                              href="/health-medicine"
                             >
                               Optical
                             </Link>
@@ -1150,7 +1150,7 @@ const Header = () => {
                           <li>
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="health-medicine"
+                              href="/health-medicine"
                             >
                               Pharmacy, Drug & Vitamin Stores
                             </Link>
@@ -1158,7 +1158,7 @@ const Header = () => {
                           <li>
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="health-medicine"
+                              href="/health-medicine"
                             >
                               Physical Therapy
                             </Link>
@@ -1166,7 +1166,7 @@ const Header = () => {
                           <li>
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="health-medicine"
+                              href="/health-medicine"
                             >
                               Physicians & Assistants
                             </Link>
@@ -1174,7 +1174,7 @@ const Header = () => {
                           <li>
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="health-medicine"
+                              href="/health-medicine"
                             >
                               Physicians & Assistants
                             </Link>
@@ -1182,7 +1182,7 @@ const Header = () => {
                           <li>
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="health-medicine"
+                              href="/health-medicine"
                             >
                               Podiatry
                             </Link>
@@ -1190,7 +1190,7 @@ const Header = () => {
                           <li>
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="health-medicine"
+                              href="/health-medicine"
                             >
                               Social Worker
                             </Link>
@@ -1198,7 +1198,7 @@ const Header = () => {
                           <li>
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="health-medicine"
+                              href="/health-medicine"
                             >
                               Animal Hospital
                             </Link>
@@ -1206,7 +1206,7 @@ const Header = () => {
                           <li>
                             <Link
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
-                              href="health-medicine"
+                              href="/health-medicine"
                             >
                               Veterinary & Animal Surgeons
                             </Link>
@@ -1224,7 +1224,7 @@ const Header = () => {
               <Link
                 className="nav-link"
                 role="button"
-                href="#"
+                href="/#"
                 id="navSearch"
                 data-bs-toggle="dropdown"
                 aria-expanded="true"
@@ -1257,26 +1257,26 @@ const Header = () => {
                     </button>
                   </li>
                   <li className="list-group-item text-primary-hover text-truncate">
-                    <Link href="#" className="text-body">
+                    <Link href="/#" className="text-body">
                       {" "}
                       <i className="far fa-clock me-1"></i>Digital marketing course
                       for Beginner
                     </Link>
                   </li>
                   <li className="list-group-item text-primary-hover text-truncate">
-                    <Link href="#" className="text-body">
+                    <Link href="/#" className="text-body">
                       {" "}
                       <i className="far fa-clock me-1"></i>Customer Life cycle
                     </Link>
                   </li>
                   <li className="list-group-item text-primary-hover text-truncate">
-                    <Link href="#" className="text-body">
+                    <Link href="/#" className="text-body">
                       {" "}
                       <i className="far fa-clock me-1"></i>What is Search
                     </Link>
                   </li>
                   <li className="list-group-item text-primary-hover text-truncate">
-                    <Link href="#" className="text-body">
+                    <Link href="/#" className="text-body">
                       {" "}
                       <i className="far fa-clock me-1"></i>Facebook ADS
                     </Link>
@@ -1289,7 +1289,7 @@ const Header = () => {
             <div className="dropdown ms-1 ms-lg-0">
               <Link
                 className="avatar avatar-sm p-0 show"
-                href="#"
+                href="/#"
                 id="profileDropdown"
                 role="button"
                 data-bs-auto-close="outside"
@@ -1319,7 +1319,7 @@ const Header = () => {
                       />
                     </div>
                     <div>
-                      <Link className="h6" href="#">
+                      <Link className="h6" href="/#">
                         Redwood Solutions
                       </Link>
                       <p className="small m-0">redwood@hotmail.com</p>
@@ -1333,7 +1333,7 @@ const Header = () => {
                 <li>
                   <Link
                     className="dropdown-item bg-danger-soft-hover"
-                    href="business/dashboard"
+                    href="/business/dashboard"
                   >
                     <i className="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard
                   </Link>
@@ -1341,7 +1341,7 @@ const Header = () => {
                 <li>
                   <Link
                     className="dropdown-item bg-danger-soft-hover"
-                    href="business/my-subscription"
+                    href="/business/my-subscription"
                   >
                     <i className="bi bi-gear fa-fw me-2"></i>Account Setting
                   </Link>
@@ -1349,7 +1349,7 @@ const Header = () => {
                 <li>
                   <Link
                     className="dropdown-item bg-danger-soft-hover"
-                    href="business/about-the-business"
+                    href="/business/about-the-business"
                   >
                     <i className="fas fa-business-time fa-fw me-2"></i>Business
                     Information
@@ -1358,7 +1358,7 @@ const Header = () => {
                 <li>
                   <Link
                     className="dropdown-item bg-danger-soft-hover"
-                    href="business/support"
+                    href="/business/support"
                   >
                     <i className="bi bi-headset fa-fw me-2"></i>Support
                   </Link>
@@ -1366,7 +1366,7 @@ const Header = () => {
                 <li>
                   <Link
                     className="dropdown-item bg-danger-soft-hover"
-                    href="index"
+                    href="/index"
                   >
                     <i className="bi bi-power fa-fw me-2"></i>Sign Out
                   </Link>

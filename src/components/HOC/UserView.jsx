@@ -1,12 +1,7 @@
-import { useRouter } from 'next/router';
-import React, { useEffect } from 'react'
-import Header from '../Header/Header';
-import Footer from '../Footer/Footer';
-import BusinessHeader from '../Header/BusinessHeader';
-import Head from 'next/head';
+import React from 'react'
 
-const BusinessView = (WrapperComponent, title) => {
-    const BusinessComponent = (props) => {
+ const UserView = () => {
+    const UserViewComponent = (props) => {
         // const router = useRouter();
     
         // useEffect(() => {
@@ -22,9 +17,6 @@ const BusinessView = (WrapperComponent, title) => {
         // If the user is authenticated, render the wrapped component
         return (
             <>
-                <Head>
-                    <title>{title} | 2nd A Friendly</title>
-                </Head>
                 <BusinessHeader />
                     <WrapperComponent {...props}  />
                 <Footer />
@@ -32,7 +24,7 @@ const BusinessView = (WrapperComponent, title) => {
         );
       };
     
-      return BusinessComponent;
+      return UserViewComponent;
 }
 
-export default BusinessView
+export default UserView

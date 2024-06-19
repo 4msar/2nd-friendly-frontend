@@ -29,7 +29,7 @@ const Dashboard = () => {
                                 <span className="display-6 text-warning mb-0"><i className="fas fa-tv fa-fw"></i></span>
                                 <div className="ms-4">
                                     <div className="d-flex">
-                                        <h5 className="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="25"	data-purecounter-delay="200">0</h5>
+                                        <h5 className="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="25"	data-purecounter-delay="200">25</h5>
                                         <span className="mb-0 h5">K+</span>
                                     </div>
                                     <span className="mb-0 h6 fw-light">Total User</span>
@@ -41,7 +41,7 @@ const Dashboard = () => {
                                 <span className="display-6 text-purple mb-0"><i className="fas fa-user-graduate fa-fw"></i></span>
                                 <div className="ms-4">
                                     <div className="d-flex">
-                                        <h5 className="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="25"	data-purecounter-delay="200">0</h5>
+                                        <h5 className="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="25"	data-purecounter-delay="200">20</h5>
                                         <span className="mb-0 h5">K+</span>
                                     </div>
                                     <span className="mb-0 h6 fw-light">Total Earning</span>
@@ -53,7 +53,7 @@ const Dashboard = () => {
                                 <span className="display-6 text-info mb-0"><i className="fas fa-gem fa-fw"></i></span>
                                 <div className="ms-4">
                                     <div className="d-flex">
-                                        <h5 className="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="12" data-purecounter-delay="300">0</h5>
+                                        <h5 className="purecounter mb-0 fw-bold" data-purecounter-start="0" data-purecounter-end="12" data-purecounter-delay="300">10</h5>
                                         <span className="mb-0 h5">K</span>
                                     </div>
                                     <span className="mb-0 h6 fw-light">Total Payout</span>

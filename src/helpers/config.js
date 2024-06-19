@@ -16,11 +16,10 @@ export const APP_AUTHORIZE_USER_KEY = "__app__auth__user__key__";
 export const APP_SITE_REFRESH_TOKEN_KEY = "__app__site__refresh__key__";
 export const APP_AUTHORIZE_USER = "__app__auth__user__";
 export const IS_USER_LOGIN = "__tbo__app__site__login__key__";
-export const CART_ITEMS = "__tbo__app__site__cart__item__";
 export const MAIN_MENU_ITEMS = "__tbo__app__site__main_menu__item__";
 
 export const IMAGE_URL =
-    "http://192.168.0.125:1337/uploads/";
+    "http:localhost/uploads/";
 
 
 export const SCREEN_RESOLUTION = {
@@ -52,6 +51,5 @@ export default {
     SCREEN_RESOLUTION,
     APP_SITE_REFRESH_TOKEN_KEY,
     IMAGE_URL,
-    CART_ITEMS,
     APP_AUTHORIZE_USER
 };

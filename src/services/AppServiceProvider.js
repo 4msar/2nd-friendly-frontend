@@ -6,6 +6,8 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import store from '../redux/store';
 import { useAppToken } from '@/hooks/useToken';
+import { StartUp } from '@/components/Startup';
+import ScrollToTop from '@/components/ScrollToTop';
 
 function AppServiceProvider({ version = 'v1.0.0', children }) {
     
@@ -29,6 +31,8 @@ function AppServiceProvider({ version = 'v1.0.0', children }) {
             <Head>
             <meta name="viewport" content="initial-scale=1.0, width=device-width" />
             </Head>
+            <StartUp />
+            <ScrollToTop />
                 <SnackbarProvider
                     ref={snackbarRef}
                     anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
