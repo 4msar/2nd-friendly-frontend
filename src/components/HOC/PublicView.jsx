@@ -2,8 +2,9 @@ import { useRouter } from 'next/router';
 import React, { useEffect } from 'react'
 import Header from '../Header/Header';
 import Footer from '../Footer/Footer';
+import Head from 'next/head';
 
-const PublicView = (WrapperComponent) => {
+const PublicView = (WrapperComponent, title) => {
     const PublicComponent = (props) => {
         // const router = useRouter();
     
@@ -20,6 +21,9 @@ const PublicView = (WrapperComponent) => {
         // If the user is authenticated, render the wrapped component
         return (
             <>
+            <Head>
+                <title>{title} | 2nd A Friendly</title>
+            </Head>
                 <Header />
                     <WrapperComponent {...props}  />
                 <Footer />

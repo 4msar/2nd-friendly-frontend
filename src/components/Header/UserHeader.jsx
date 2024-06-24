@@ -1,77 +1,88 @@
 import React from "react";
+import sp from "@/assets/img/flags/sp.svg";
+import uk from "@/assets/img/flags/uk.svg";
+import fr from "@/assets/img/flags/fr.svg";
+import gr from "@/assets/img/flags/gr.svg";
+import logo from "@/assets/img/logo.png";
+import user1 from "@/assets/img/user/user-5.jpg";
+import user2 from "@/assets/img/user/user-4.jpg";
+import user3 from "@/assets/img/user/user-3.jpg";
+import user4 from "@/assets/img/user/user-2.jpg";
+import user5 from "@/assets/img/user/user-1.jpg";
+import Link from "next/link";
 
 const UserHeader = () => {
   return (
     <div>
-      <div class="navbar-dark bg-light d-none d-xl-block py-1 mx-2 mx-md-4 rounded-bottom-4">
-        <div class="container">
-          <div class="d-lg-flex justify-content-lg-between align-items-center">
+      <div className="navbar-dark bg-light d-none d-xl-block py-1 mx-2 mx-md-4 rounded-bottom-4">
+        <div className="container">
+          <div className="d-lg-flex justify-content-lg-between align-items-center">
             {/* <!-- Navbar top Left--> */}
             {/* <!-- Top info --> */}
-            <ul class="nav align-items-center justify-content-center">
+            <ul className="nav align-items-center justify-content-center">
               <li
-                class="nav-item me-3"
+                className="nav-item me-3"
                 data-bs-toggle="tooltip"
                 data-bs-animation="false"
                 data-bs-placement="bottom"
                 data-bs-original-title="Sunday CLOSED"
               >
                 <span>
-                  <i class="far fa-envelope me-1"></i>support@2ndafriendly.com
+                  <i className="far fa-envelope me-1"></i>support@2ndafriendly.com
                 </span>
               </li>
-              <li class="nav-item">
-                <a class="nav-link" href="tel:+1235869328">
-                  <i class="fas fa-headset me-2"></i>+1 234-456-7890
-                </a>
+              <li className="nav-item">
+                <Link className="nav-link" href="tel:+1235869328">
+                  <i className="fas fa-headset me-2"></i>+1 234-456-7890
+                </Link>
               </li>
             </ul>
             {/* <!-- Navbar top Right--> */}
-            <div class="nav d-flex align-items-center justify-content-center">
+            <div className="nav d-flex align-items-center justify-content-center">
               {/* <!-- Language --> */}
-              <div class="dropdown me-3">
-                <a
-                  class="nav-link dropdown-toggle"
+              <div className="dropdown me-3">
+                <Link
+                  className="nav-link dropdown-toggle"
                   href="#"
                   id="dropdownLanguage"
                   data-bs-toggle="dropdown"
                   aria-haspopup="true"
                   aria-expanded="false"
                 >
-                  <i class="fas fa-globe me-2"></i>Language
-                </a>
+                  <i className="fas fa-globe me-2"></i>Language
+                </Link>
                 <div
-                  class="dropdown-menu mt-2 min-w-auto shadow"
+                  className="dropdown-menu mt-2 min-w-auto shadow"
                   aria-labelledby="dropdownLanguage"
                 >
-                  <a class="dropdown-item me-4" href="#">
+                  <Link className="dropdown-item me-4" href="#">
                     <img
-                      class="fa-fw me-2"
-                      src="../assets/img/flags/uk.svg"
+                      className="fa-fw me-2"
+                      src={uk.src}
                       alt=""
                     />
                     English
-                  </a>
-                  <a class="dropdown-item me-4" href="#">
+                  </Link>
+                  <Link className="dropdown-item me-4" href="#">
                     <img
-                      class="fa-fw me-2"
-                      src="../assets/img/flags/sp.svg"
+                      className="fa-fw me-2"
+                      src={sp.src}
                       alt=""
                     />
                     Español
-                  </a>
-                  <a class="dropdown-item me-4" href="#">
+                  </Link>
+                  <a className="dropdown-item me-4" href="#">
                     <img
-                      class="fa-fw me-2"
-                      src="../assets/img/flags/fr.svg"
+                      className="fa-fw me-2"
+                      src={fr.src}
                       alt=""
                     />
                     Français
                   </a>
-                  <a class="dropdown-item me-4" href="#">
+                  <a className="dropdown-item me-4" href="#">
                     <img
-                      class="fa-fw me-2"
-                      src="../assets/img/flags/gr.svg"
+                      className="fa-fw me-2"
+                      src={gr.src}
                       alt=""
                     />
                     Deutsch
@@ -79,35 +90,35 @@ const UserHeader = () => {
                 </div>
               </div>
               {/* <!-- Top social --> */}
-              <ul class="list-unstyled d-flex mb-0">
+              <ul className="list-unstyled d-flex mb-0">
                 <li>
                   {" "}
-                  <a class="px-2 nav-link" href="#">
-                    <i class="fab fa-facebook"></i>
+                  <a className="px-2 nav-link" href="#">
+                    <i className="fab fa-facebook"></i>
                   </a>{" "}
                 </li>
                 <li>
                   {" "}
-                  <a class="px-2 nav-link" href="#">
-                    <i class="fab fa-instagram"></i>
+                  <a className="px-2 nav-link" href="#">
+                    <i className="fab fa-instagram"></i>
                   </a>{" "}
                 </li>
                 <li>
                   {" "}
-                  <a class="px-2 nav-link" href="#">
-                    <i class="fab fa-twitter"></i>
+                  <a className="px-2 nav-link" href="#">
+                    <i className="fab fa-twitter"></i>
                   </a>{" "}
                 </li>
                 <li>
                   {" "}
-                  <a class="ps-2 nav-link" href="#">
-                    <i class="fab fa-linkedin-in"></i>
+                  <a className="ps-2 nav-link" href="#">
+                    <i className="fab fa-linkedin-in"></i>
                   </a>{" "}
                 </li>
                 <li>
                   {" "}
-                  <a class="ps-2 nav-link" href="#">
-                    <i class="fab fa-youtube"></i>
+                  <a className="ps-2 nav-link" href="#">
+                    <i className="fab fa-youtube"></i>
                   </a>{" "}
                 </li>
               </ul>
@@ -115,26 +126,26 @@ const UserHeader = () => {
           </div>
         </div>
       </div>
-      <header class="navbar-light header-static navbar-sticky shadow-sm">
-        <nav class="navbar navbar-expand-xl z-index-9">
-          <div class="container">
+      <header className="navbar-light header-static navbar-sticky shadow-sm">
+        <nav className="navbar navbar-expand-xl z-index-9">
+          <div className="container">
             {/* <!-- Logo START --> */}
-            <a class="navbar-brand me-0 py-4" href="/index">
+            <Link className="navbar-brand me-0 py-4" href="/">
               <img
-                class="light-mode-item"
-                src="../assets/img/logo.png"
+                className="light-mode-item"
+                src={logo.src}
                 alt="logo"
               />
               <img
-                class="dark-mode-item"
-                src="../assets/img/logo.png"
+                className="dark-mode-item"
+                src={logo.src}
                 alt="logo"
               />
-            </a>
+            </Link>
             {/* <!-- Logo END --> */}
             {/* <!-- Responsive navbar toggler --> */}
             <button
-              class="navbar-toggler ms-auto"
+              className="navbar-toggler ms-auto"
               type="button"
               data-bs-toggle="collapse"
               data-bs-target="#navbarCollapse"
@@ -142,7 +153,7 @@ const UserHeader = () => {
               aria-expanded="false"
               aria-label="Toggle navigation"
             >
-              <span class="navbar-toggler-animation">
+              <span className="navbar-toggler-animation">
                 <span></span>
                 <span></span>
                 <span></span>
@@ -150,37 +161,37 @@ const UserHeader = () => {
             </button>
 
             {/* <!-- Main navbar START --> */}
-            <div class="navbar-collapse collapse" id="navbarCollapse">
-              <ul class="navbar-nav navbar-nav-scroll">
-                <li class="nav-item dropdown">
+            <div className="navbar-collapse collapse" id="navbarCollapse">
+              <ul className="navbar-nav navbar-nav-scroll">
+                <li className="nav-item dropdown">
                   {" "}
-                  <a class="nav-link" href="/user">
-                    <i class="bi bi-house me-2"></i>Home
-                  </a>{" "}
+                  <Link className="nav-link" href="/user">
+                    <i className="bi bi-house me-2"></i>Home
+                  </Link>{" "}
                 </li>
-                <li class="nav-item dropdown">
+                <li className="nav-item dropdown">
                   {" "}
-                  <a class="nav-link" href="/user/message">
-                    <i class="bi bi-chat-right-dots me-2"></i>Message
-                  </a>{" "}
+                  <Link className="nav-link" href="/user/message">
+                    <i className="bi bi-chat-right-dots me-2"></i>Message
+                  </Link>{" "}
                 </li>
-                <li class="nav-item dropdown">
+                <li className="nav-item dropdown">
                   {" "}
-                  <a class="nav-link" href="/user/reviews">
-                    <i class="bi bi-bell-fill me-2"></i>Reviews
-                  </a>{" "}
+                  <Link className="nav-link" href="/user/reviews">
+                    <i className="bi bi-bell-fill me-2"></i>Reviews
+                  </Link>{" "}
                 </li>
-                <li class="nav-item dropdown">
+                <li className="nav-item dropdown">
                   {" "}
-                  <a class="nav-link" href="/user/wishlist">
-                    <i class="bi bi-check-circle-fill me-2"></i>Wishlist
-                  </a>{" "}
+                  <Link className="nav-link" href="/user/wishlist">
+                    <i className="bi bi-check-circle-fill me-2"></i>Wishlist
+                  </Link>{" "}
                 </li>
-                <li class="nav-item dropdown">
+                <li className="nav-item dropdown">
                   {" "}
-                  <a class="nav-link" href="/user/support">
-                    <i class="bi bi-headset me-2"></i>Support
-                  </a>{" "}
+                  <Link className="nav-link" href="/user/support">
+                    <i className="bi bi-headset me-2"></i>Support
+                  </Link>{" "}
                 </li>
               </ul>
               {/* <!-- Nav Main menu END --> */}
@@ -188,180 +199,180 @@ const UserHeader = () => {
             {/* <!-- Main navbar END --> */}
 
             {/* <!-- Profile and notification START --> */}
-            <ul class="nav flex-row align-items-center list-unstyled ms-xl-auto">
+            <ul className="nav flex-row align-items-center list-unstyled ms-xl-auto">
               {/* <!-- Notification dropdown START --> */}
-              <li class="nav-item ms-2 ms-sm-3 dropdown d-none d-sm-block">
+              <li className="nav-item ms-2 ms-sm-3 dropdown d-none d-sm-block">
                 {/* <!-- Notification button --> */}
                 <a
-                  class="btn btn-light btn-round mb-0"
+                  className="btn btn-light btn-round mb-0"
                   href="#"
                   role="button"
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                   data-bs-auto-close="outside"
                 >
-                  <i class="bi bi-bell fa-fw"></i>
+                  <i className="bi bi-bell fa-fw"></i>
                 </a>
                 {/* <!-- Notification dote --> */}
-                <span class="notif-badge animation-blink"></span>
+                <span className="notif-badge animation-blink"></span>
 
                 {/* <!-- Notification dropdown menu START --> */}
-                <div class="dropdown-menu dropdown-animation dropdown-menu-end dropdown-menu-size-md p-0 shadow-lg border-0">
-                  <div class="card bg-transparent">
-                    <div class="card-header bg-transparent border-bottom py-4 d-flex justify-content-between align-items-center">
-                      <h6 class="m-0">
+                <div className="dropdown-menu dropdown-animation dropdown-menu-end dropdown-menu-size-md p-0 shadow-lg border-0">
+                  <div className="card bg-transparent">
+                    <div className="card-header bg-transparent border-bottom py-4 d-flex justify-content-between align-items-center">
+                      <h6 className="m-0">
                         Notifications{" "}
-                        <span class="badge bg-danger bg-opacity-10 text-danger ms-2">
+                        <span className="badge bg-danger bg-opacity-10 text-danger ms-2">
                           2 new
                         </span>
                       </h6>
-                      <a class="small" href="#">
+                      <a className="small" href="#">
                         Clear all
                       </a>
                     </div>
-                    <div class="card-body p-0">
-                      <ul class="list-group list-unstyled list-group-flush">
+                    <div className="card-body p-0">
+                      <ul className="list-group list-unstyled list-group-flush">
                         {/* <!-- Notif item --> */}
                         <li>
                           <a
                             href="#"
-                            class="list-group-item-action border-0 border-bottom d-flex p-3"
+                            className="list-group-item-action border-0 border-bottom d-flex p-3"
                           >
-                            <div class="me-3">
-                              <div class="avatar avatar-md">
+                            <div className="me-3">
+                              <div className="avatar avatar-md">
                                 <img
-                                  class="avatar-img rounded-circle"
-                                  src="../assets/img/user/arielle.jpg"
+                                  className="avatar-img rounded-circle"
+                                  src={user1.src}
                                   alt="avatar"
                                 />
                               </div>
                             </div>
                             <div>
-                              <p class="text-body small m-0">
+                              <p className="text-body small m-0">
                                 <b>New messages or updates:</b> If it's a social
                                 media platform or messaging service.
                               </p>
-                              <u class="small">Say congrats</u>
+                              <u className="small">Say congrats</u>
                             </div>
                           </a>
                         </li>
                       </ul>
                     </div>
-                    <div class="card-body p-0">
-                      <ul class="list-group list-unstyled list-group-flush">
+                    <div className="card-body p-0">
+                      <ul className="list-group list-unstyled list-group-flush">
                         {/* <!-- Notif item --> */}
                         <li>
                           <a
                             href="#"
-                            class="list-group-item-action border-0 border-bottom d-flex p-3"
+                            className="list-group-item-action border-0 border-bottom d-flex p-3"
                           >
-                            <div class="me-3">
-                              <div class="avatar avatar-md">
+                            <div className="me-3">
+                              <div className="avatar avatar-md">
                                 <img
-                                  class="avatar-img rounded-circle"
-                                  src="../assets/img/user/user-2.jpg"
+                                  className="avatar-img rounded-circle"
+                                  src={user2.src}
                                   alt="avatar"
                                 />
                               </div>
                             </div>
                             <div>
-                              <p class="text-body small m-0">
+                              <p className="text-body small m-0">
                                 <b>General announcements:</b> Websites send
                                 notifications for announcements.
                               </p>
-                              <u class="small">Say congrats</u>
+                              <u className="small">Say congrats</u>
                             </div>
                           </a>
                         </li>
                       </ul>
                     </div>
-                    <div class="card-body p-0">
-                      <ul class="list-group list-unstyled list-group-flush">
+                    <div className="card-body p-0">
+                      <ul className="list-group list-unstyled list-group-flush">
                         {/* <!-- Notif item --> */}
                         <li>
                           <a
                             href="#"
-                            class="list-group-item-action border-0 border-bottom d-flex p-3"
+                            className="list-group-item-action border-0 border-bottom d-flex p-3"
                           >
-                            <div class="me-3">
-                              <div class="avatar avatar-md">
+                            <div className="me-3">
+                              <div className="avatar avatar-md">
                                 <img
-                                  class="avatar-img rounded-circle"
-                                  src="../assets/img/user/user-3.jpg"
+                                  className="avatar-img rounded-circle"
+                                  src={user3.src}
                                   alt="avatar"
                                 />
                               </div>
                             </div>
                             <div>
-                              <p class="text-body small m-0">
+                              <p className="text-body small m-0">
                                 <b>Account-related notifications:</b> These
                                 could include alerts about changes to your
                               </p>
-                              <u class="small">Say congrats</u>
+                              <u className="small">Say congrats</u>
                             </div>
                           </a>
                         </li>
                       </ul>
                     </div>
-                    <div class="card-body p-0">
-                      <ul class="list-group list-unstyled list-group-flush">
+                    <div className="card-body p-0">
+                      <ul className="list-group list-unstyled list-group-flush">
                         {/* <!-- Notif item --> */}
                         <li>
                           <a
                             href="#"
-                            class="list-group-item-action border-0 border-bottom d-flex p-3"
+                            className="list-group-item-action border-0 border-bottom d-flex p-3"
                           >
-                            <div class="me-3">
-                              <div class="avatar avatar-md">
+                            <div className="me-3">
+                              <div className="avatar avatar-md">
                                 <img
-                                  class="avatar-img rounded-circle"
-                                  src="../assets/img/user/user-4.jpg"
+                                  className="avatar-img rounded-circle"
+                                  src={user4.src}
                                   alt="avatar"
                                 />
                               </div>
                             </div>
                             <div>
-                              <p class="text-body small m-0">
+                              <p className="text-body small m-0">
                                 <b>Product or service updates:</b> Websites
                                 offering products or services might notify.
                               </p>
-                              <u class="small">Say congrats</u>
+                              <u className="small">Say congrats</u>
                             </div>
                           </a>
                         </li>
                       </ul>
                     </div>
-                    <div class="card-body p-0">
-                      <ul class="list-group list-unstyled list-group-flush">
+                    <div className="card-body p-0">
+                      <ul className="list-group list-unstyled list-group-flush">
                         {/* <!-- Notif item --> */}
                         <li>
                           <a
                             href="#"
-                            class="list-group-item-action border-0 border-bottom d-flex p-3"
+                            className="list-group-item-action border-0 border-bottom d-flex p-3"
                           >
-                            <div class="me-3">
-                              <div class="avatar avatar-md">
+                            <div className="me-3">
+                              <div className="avatar avatar-md">
                                 <img
-                                  class="avatar-img rounded-circle"
-                                  src="../assets/img/user/user-5.jpg"
+                                  className="avatar-img rounded-circle"
+                                  src={user5.src}
                                   alt="avatar"
                                 />
                               </div>
                             </div>
                             <div>
-                              <p class="text-body small m-0">
+                              <p className="text-body small m-0">
                                 <b>Activity alerts:</b> Some websites notify you
                                 about activity related to your account.
                               </p>
-                              <u class="small">Say congrats</u>
+                              <u className="small">Say congrats</u>
                             </div>
                           </a>
                         </li>
                       </ul>
                     </div>
 
-                    <div class="card-footer bg-transparent border-0 py-3 text-center position-relative">
-                      <a href="#" class="stretched-link">
+                    <div className="card-footer bg-transparent border-0 py-3 text-center position-relative">
+                      <a href="#" className="stretched-link">
                         See all incoming activity
                       </a>
                     </div>
@@ -372,9 +383,9 @@ const UserHeader = () => {
               {/* <!-- Notification dropdown END --> */}
 
               {/* <!-- Profile dropdown START --> */}
-              <li class="nav-item ms-3 dropdown">
+              <li className="nav-item ms-3 dropdown">
                 <a
-                  class="avatar avatar-sm p-0"
+                  className="avatar avatar-sm p-0"
                   href="#"
                   id="profileDropdown"
                   role="button"
@@ -384,86 +395,86 @@ const UserHeader = () => {
                   aria-expanded="false"
                 >
                   <img
-                    class="avatar-img rounded-circle"
-                    src="../assets/img/user/arielle.jpg"
+                    className="avatar-img rounded-circle"
+                    src={user2.src}
                     alt="avatar"
                   />
                 </a>
 
                 {/* <!-- Profile dropdown START --> */}
                 <ul
-                  class="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3"
+                  className="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3"
                   aria-labelledby="profileDropdown"
                 >
-                  <li class="px-3 mb-3">
-                    <div class="d-flex align-items-center">
-                      <div class="avatar me-3">
+                  <li className="px-3 mb-3">
+                    <div className="d-flex align-items-center">
+                      <div className="avatar me-3">
                         <img
-                          class="avatar-img rounded-circle shadow"
-                          src="../assets/img/user/arielle.jpg"
+                          className="avatar-img rounded-circle shadow"
+                          src={user2.src}
                           alt="avatar"
                         />
                       </div>
                       <div>
-                        <a class="h6" href="#">
+                        <a className="h6" href="#">
                           Arielle Norheim
                         </a>
-                        <p class="small m-0">arinorheim@hotmail.com</p>
+                        <p className="small m-0">arinorheim@hotmail.com</p>
                       </div>
                     </div>
                   </li>
                   {/* <!-- Links --> */}
                   <li>
                     {" "}
-                    <hr class="dropdown-divider" />
+                    <hr className="dropdown-divider" />
                   </li>
                   <li>
-                    <a
-                      class="dropdown-item bg-danger-soft-hover"
+                    <Link
+                      className="dropdown-item bg-danger-soft-hover"
                       href="/user/dashboard"
                     >
-                      <i class="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard
-                    </a>
+                      <i className="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      class="dropdown-item bg-danger-soft-hover"
+                    <Link
+                      className="dropdown-item bg-danger-soft-hover"
                       href="/user/account-information"
                     >
-                      <i class="bi bi-gear fa-fw me-2"></i>Account Information
-                    </a>
+                      <i className="bi bi-gear fa-fw me-2"></i>Account Information
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      class="dropdown-item bg-danger-soft-hover"
+                    <Link
+                      className="dropdown-item bg-danger-soft-hover"
                       href="/user/message"
                     >
-                      <i class="bi bi-gear fa-fw me-2"></i>My Collection
-                    </a>
+                      <i className="bi bi-gear fa-fw me-2"></i>My Collection
+                    </Link>
                   </li>
                   <li>
-                    <a
-                      class="dropdown-item bg-danger-soft-hover"
+                    <Link
+                      className="dropdown-item bg-danger-soft-hover"
                       href="/user/support"
                     >
-                      <i class="bi bi-info-circle fa-fw me-2"></i>Support
-                    </a>
+                      <i className="bi bi-info-circle fa-fw me-2"></i>Support
+                    </Link>
                   </li>
                   <li>
-                    <a class="dropdown-item bg-danger-soft-hover" href="#">
-                      <i class="bi bi-power fa-fw me-2"></i>Sign Out
-                    </a>
+                    <Link className="dropdown-item bg-danger-soft-hover" href="#">
+                      <i className="bi bi-power fa-fw me-2"></i>Sign Out
+                    </Link>
                   </li>
                   <li>
                     {" "}
-                    <hr class="dropdown-divider" />
+                    <hr className="dropdown-divider" />
                   </li>
                   {/* <!-- Dark mode options START --> */}
                   <li>
-                    <div class="bg-light dark-mode-switch theme-icon-active d-flex align-items-center p-1 rounded mt-2">
+                    <div className="bg-light dark-mode-switch theme-icon-active d-flex align-items-center p-1 rounded mt-2">
                       <button
                         type="button"
-                        class="btn btn-sm mb-0"
+                        className="btn btn-sm mb-0"
                         data-bs-theme-value="light"
                       >
                         <svg
@@ -471,7 +482,7 @@ const UserHeader = () => {
                           width="16"
                           height="16"
                           fill="currentColor"
-                          class="bi bi-sun fa-fw mode-switch"
+                          className="bi bi-sun fa-fw mode-switch"
                           viewBox="0 0 16 16"
                         >
                           <path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z" />
@@ -481,7 +492,7 @@ const UserHeader = () => {
                       </button>
                       <button
                         type="button"
-                        class="btn btn-sm mb-0"
+                        className="btn btn-sm mb-0"
                         data-bs-theme-value="dark"
                       >
                         <svg
@@ -489,7 +500,7 @@ const UserHeader = () => {
                           width="16"
                           height="16"
                           fill="currentColor"
-                          class="bi bi-moon-stars fa-fw mode-switch"
+                          className="bi bi-moon-stars fa-fw mode-switch"
                           viewBox="0 0 16 16"
                         >
                           <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278zM4.858 1.311A7.269 7.269 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.316 7.316 0 0 0 5.205-2.162c-.337.042-.68.063-1.029.063-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286z" />
@@ -500,7 +511,7 @@ const UserHeader = () => {
                       </button>
                       <button
                         type="button"
-                        class="btn btn-sm mb-0 active"
+                        className="btn btn-sm mb-0 active"
                         data-bs-theme-value="auto"
                       >
                         <svg
@@ -508,7 +519,7 @@ const UserHeader = () => {
                           width="16"
                           height="16"
                           fill="currentColor"
-                          class="bi bi-circle-half fa-fw mode-switch"
+                          className="bi bi-circle-half fa-fw mode-switch"
                           viewBox="0 0 16 16"
                         >
                           <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z" />

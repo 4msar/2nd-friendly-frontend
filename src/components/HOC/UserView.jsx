@@ -1,6 +1,9 @@
 import React from 'react'
+import UserHeader from '../Header/UserHeader';
+import Head from 'next/head';
+import Footer from '../Footer/Footer';
 
- const UserView = () => {
+ const UserView = (WrapperComponent, title) => {
     const UserViewComponent = (props) => {
         // const router = useRouter();
     
@@ -17,7 +20,10 @@ import React from 'react'
         // If the user is authenticated, render the wrapped component
         return (
             <>
-                <BusinessHeader />
+             <Head>
+                <title>{title} | 2nd A Friendly</title>
+            </Head>
+                <UserHeader />
                     <WrapperComponent {...props}  />
                 <Footer />
             </>

@@ -10,9 +10,7 @@ import Link from "next/link";
 const SingIn = () => {
   return (
     <main>
-      <Head>
-        <title>Sing In</title>
-      </Head>
+      
       <section class="p-0 d-flex align-items-center position-relative overflow-hidden">
         <div class="container-fluid">
           <div class="row">

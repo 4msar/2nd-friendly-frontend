@@ -44,11 +44,11 @@ const Support = () => {
                       Lorem Ipsum is simply dummy text of the printing and
                       typesetting industry
                     </p>
-                    <a href="sign-in.php" className="btn btn-primary mb-0">
+                    <a href="/sign-in" className="btn btn-primary mb-0">
                       Login
                     </a>
                     &nbsp;&nbsp;{" "}
-                    <a href="sign-up.php" className="btn btn-warning mb-0">
+                    <a href="/sign-up" className="btn btn-warning mb-0">
                       Register
                     </a>
                   </div>
@@ -74,11 +74,11 @@ const Support = () => {
                       Lorem Ipsum is simply dummy text of the printing and
                       typesetting industry
                     </p>
-                    <a href="sign-in.php" className="btn btn-primary mb-0">
+                    <a href="/business/sign-in" className="btn btn-primary mb-0">
                       Login
                     </a>
                     &nbsp;&nbsp;{" "}
-                    <a href="sign-up.php" className="btn btn-warning mb-0">
+                    <a href="business/sign-up" className="btn btn-warning mb-0">
                       Register
                     </a>
                   </div>

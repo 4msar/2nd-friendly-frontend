@@ -78,4 +78,4 @@ const SellFast = () => {
   )
 }
 
-export default PublicView(SellFast)
+export default PublicView(SellFast, "Sell Fast")
