@@ -202,40 +202,40 @@ const Footer = () => {
                 <h5 className="mb-2 mb-md-4">Community</h5>
                 <ul className="nav flex-column">
                   <li className="nav-item">
-                    <Link className="nav-link footer-nav-link" href="help-center">
+                    <Link className="nav-link footer-nav-link" href="/help-center">
                       Help Center
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link footer-nav-link" href="faq">
+                    <Link className="nav-link footer-nav-link" href="/faq">
                       FAQ
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link footer-nav-link" href="blogs">
+                    <Link className="nav-link footer-nav-link" href="/blogs">
                       News & Blogs
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link footer-nav-link" href="stay-safe">
+                    <Link className="nav-link footer-nav-link" href="/stay-safe">
                       Stay Safe
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link footer-nav-link" href="press">
+                    <Link className="nav-link footer-nav-link" href="/press">
                       Press
                     </Link>
                   </li>
                   <li className="nav-item">
                     <Link
                       className="nav-link footer-nav-link"
-                      href="content-guidelines"
+                      href="/content-guidelines"
                     >
                       Content Guideline
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link footer-nav-link" href="support">
+                    <Link className="nav-link footer-nav-link" href="/support">
                       Support
                     </Link>
                   </li>
@@ -316,27 +316,27 @@ const Footer = () => {
               <div className="justify-content-center mt-3 mt-lg-0">
                 <ul className="nav list-inline justify-content-center mb-0">
                   <li className="list-inline-item">
-                    <a className="nav-link" href="legal-information.php">
+                    <a className="nav-link" href="/legal-information">
                       Legal
                     </a>
                   </li>
                   <li className="list-inline-item">
-                    <a className="nav-link" href="cookie-policy.php">
+                    <a className="nav-link" href="/cookie-policy">
                       Cookie Policy
                     </a>
                   </li>
                   <li className="list-inline-item">
-                    <a className="nav-link pe-0" href="privacy-policy.php">
+                    <a className="nav-link pe-0" href="/privacy-policy">
                       Privacy Policy
                     </a>
                   </li>
                   <li className="list-inline-item">
-                    <a className="nav-link" href="terms-and-condition.php">
+                    <a className="nav-link" href="/terms-and-condition">
                       Terms & Conditions
                     </a>
                   </li>
                   <li className="list-inline-item">
-                    <a className="nav-link pe-0" href="site-map.php">
+                    <a className="nav-link pe-0" href="/site-map">
                       Sitemap
                     </a>
                   </li>
