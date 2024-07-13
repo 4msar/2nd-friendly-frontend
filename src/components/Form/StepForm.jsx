@@ -14,6 +14,7 @@ import Step4 from "./Step4";
 import Step5 from "./Step5";
 import Step6 from "./Step6";
 import Success from "./Success";
+import { useForm } from "react-hook-form";
 
 const labels = [
   "Step1",
@@ -24,20 +25,20 @@ const labels = [
   "Step6",
   "Confirmation",
 ];
-const handleSteps = (step) => {
+const handleSteps = (step, register, errors) => {
   switch (step) {
     case 0:
-      return <Step1 />;
+      return <Step1 register={register} errors={errors} />;
     case 1:
-      return <Step2 />;
+      return <Step2 register={register} errors={errors} />;
     case 2:
-      return <Step3 />;
+      return <Step3 register={register} errors={errors} />;
     case 3:
-      return <Step4 />;
+      return <Step4 register={register} errors={errors} />;
     case 4:
-      return <Step5 />;
+      return <Step5 register={register} errors={errors} />;
     case 5:
-      return <Step6 />;
+      return <Step6 register={register} errors={errors} />;
     case 6:
       return <Success />;
     default:
@@ -48,8 +49,19 @@ const handleSteps = (step) => {
 const StepForm = () => {
   const [activeStep, setActiveStep] = useState(0);
 
+  const {
+    handleSubmit,
+    register,
+    formState: { errors }
+  } = useForm();
   const handleNext = () => {
     setActiveStep((prevActiveStep) => prevActiveStep + 1);
+  };
+
+  const onSubmit = async (data) => {
+   
+    console.log(data);
+    
   };
 
   const handleBack = () => {
@@ -60,9 +72,9 @@ const StepForm = () => {
       <form
         class="needs-validation shadow p-5"
         id="form-wrapper"
-        method="post"
         name="form-wrapper"
         novalidate=""
+        onSubmit={handleSubmit(onSubmit)}
       >
         <Stepper variant="progress" activeStep={activeStep} sx={{ py: 3 }} alternativeLabel>
           {labels.map((label, index) => (
@@ -71,7 +83,7 @@ const StepForm = () => {
             </Step>
           ))}
         </Stepper>
-        {handleSteps(activeStep)}
+        {handleSteps(activeStep, register, errors)}
         <Box sx={{ mb: 2 }}>
           <Box sx={{display: 'flex', justifyContent: "space-between"}}>
             <Button
@@ -82,6 +94,7 @@ const StepForm = () => {
               Back
             </Button>
             <Button
+              type={activeStep === labels.length ? "submit" : ""}
               variant="contained"
               onClick={handleNext}
               sx={{ mt: 1, mr: 1 }}

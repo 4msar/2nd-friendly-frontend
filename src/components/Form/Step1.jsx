@@ -1,6 +1,6 @@
 import React from "react";
 
-const Step1 = () => {
+const Step1 = ({register, errors}) => {
   return (
     <div class="step">
       <h4 class="text-dark fw-bold mb-2">
@@ -15,11 +15,16 @@ const Step1 = () => {
           <label for="business_name" class="form-label">
             Business Name
           </label>
-          <input
+          <input 
             type="text"
             id="business_name"
             class="form-control"
             placeholder="e.g. Alamgir's Restaurant"
+            {...register("business_name", {
+              required: "Business name can not be empty!",
+              type: "text"
+            })}
+            error={!!errors.business_name}
           />
         </div>
       </div>

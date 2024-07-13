@@ -1,5 +1,5 @@
 import PublicView from "@/components/HOC/PublicView";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import img1 from "@/assets/img/element/02.svg";
 import avatar1 from "@/assets/img/avatar/01.jpg";
 import avatar2 from "@/assets/img/avatar/02.jpg";
@@ -7,8 +7,51 @@ import avatar3 from "@/assets/img/avatar/03.jpg";
 import avatar4 from "@/assets/img/avatar/04.jpg";
 import Link from "next/link";
 import Head from "next/head";
+import useToken from "@/hooks/useToken";
+import { useDispatch } from "react-redux";
+import { useRouter } from "next/router";
+import { useForm } from "react-hook-form";
+import { login } from "@/redux/action/authAction";
+import useSnackbar from "@/hooks/useSnackbar";
 
 const SingIn = () => {
+  const [showPassword, setShowPassword] = useState(false);
+  const [loading, toggleLoading] = useState(false);
+  const isAuthenticated = useToken();
+  const dispatch = useDispatch();
+  const router = useRouter();
+  const snackbar = useSnackbar();
+//   const navigate = useNavigate();
+  const handleClickShowPassword = () => setShowPassword((show) => !show);
+  const {
+    handleSubmit,
+    register,
+    formState: { errors }
+  } = useForm();
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+
+  const onSubmit = async (data) => {
+    toggleLoading(true);
+    const res = await dispatch(login(data));
+    console.log(res);
+    if(res?.status === "error"){
+        snackbar(res?.err?.message, {
+            variant: "error"
+        });
+    }
+    toggleLoading(false);
+    
+  };
+
+  useEffect(() => {
+    
+    if (isAuthenticated) {
+        router.push("/my-account");
+    }
+  }, [isAuthenticated]);
   return (
     <main>
         <Head>
@@ -76,7 +119,7 @@ const SingIn = () => {
                   <p className="lead mb-4">
                     Nice to see you! Please log in with your account.
                   </p>
-                  <form className="row g-3 needs-validation" novalidate>
+                  <form className="row g-3 needs-validation" novalidate onSubmit={handleSubmit(onSubmit)}>
                     <div className="col-md-12">
                       <label for="email" className="form-label">
                         Email <span className="star">*</span>
@@ -93,6 +136,11 @@ const SingIn = () => {
                         aria-required="true"
                         autofocus
                         required
+                        {...register("username", {
+                          required: "Email or username can not be empty!",
+                          type: "email"
+                        })}
+                        error={!!errors.username}
                       />
                       <div className="valid-feedback">Looks good!</div>
                       <div className="invalid-feedback">
@@ -104,7 +152,7 @@ const SingIn = () => {
                         Password <span className="star">*</span>
                       </label>
                       <input
-                        type="password"
+                        type={showPassword ? "text" : "password"}
                         pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}"
                         title="Must contain at least one  number and one uppercase and lowercase letter, and at least 8 or more characters"
                         className="form-control password"
@@ -116,6 +164,18 @@ const SingIn = () => {
                         aria-required="true"
                         autofocus
                         required
+                        {...register("password", {
+                          required: true,
+                          minLength: {
+                            value: 4,
+                            message: "Password can not be less than 4"
+                          },
+                          maxLength: {
+                            value: 20,
+                            message: "Password can not be more than 20"
+                          }
+                        })}
+
                       />
                       <div className="valid-feedback">Looks good!</div>
                       <div className="invalid-feedback">
@@ -135,12 +195,12 @@ const SingIn = () => {
                         </label>
                       </div>
                       <div className="text-primary-hover">
-                        <a
-                          href="forgot-password.php"
+                        <Link
+                          href="/forgot-password"
                           className="text-secondary"
                         >
                           <u>Forgot password?</u>
-                        </a>
+                        </Link>
                       </div>
                     </div>
                     <div className="align-items-center mt-0">
@@ -162,31 +222,31 @@ const SingIn = () => {
                     </div>
                     {/* <!-- Social btn --> */}
                     <div className="col-xxl-4 d-grid">
-                      <a href="#" className="btn bg-google mb-2 mb-xxl-0">
+                      <Link href="#" className="btn bg-google mb-2 mb-xxl-0">
                         <i className="fab fa-fw fa-google text-white me-2"></i>
                         Login with Google
-                      </a>
+                      </Link>
                     </div>
                     {/* <!-- Social btn --> */}
                     <div className="col-xxl-4 d-grid">
-                      <a href="#" className="btn bg-facebook mb-0">
+                      <Link href="#" className="btn bg-facebook mb-0">
                         <i className="fab fa-fw fa-facebook-f me-2"></i>Login
                         with Facebook
-                      </a>
+                      </Link>
                     </div>
                     {/* <!-- Social btn --> */}
                     <div className="col-xxl-4 d-grid">
-                      <a href="#" className="btn bg-apple-gray border mb-0">
+                      <Link href="#" className="btn bg-apple-gray border mb-0">
                         <i className="fab fa-fw fa-apple me-2"></i>Login with
                         Apple
-                      </a>
+                      </Link>
                     </div>
                   </div>
                   {/* <!-- Sign up link --> */}
                   <div className="mt-4 text-center">
                     <span>
                       Don't have an account?{" "}
-                      <Link href="sign-up">Signup here</Link>
+                      <Link href="/sign-up">Signup here</Link>
                     </span>
                   </div>
                 </div>
