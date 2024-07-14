@@ -3,12 +3,20 @@ import avatar2 from "@/assets/img/avatar/02.jpg";
 import avatar3 from "@/assets/img/avatar/03.jpg";
 import avatar4 from "@/assets/img/avatar/04.jpg";
 import img1 from "@/assets/img/element/02.svg";
+import useSnackbar from "@/hooks/useSnackbar";
+import useToken from "@/hooks/useToken";
 import { login, updateUserDetailsAfterLogin } from "@/redux/action/authAction";
+import { useRouter } from "next/router";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
 
+
 const SingIn = () => {
   const dispatch = useDispatch();
+  const snackbar = useSnackbar();
+  const isAuthenticated = useToken();
+  const router = useRouter();
   const {
     handleSubmit,
     register,
@@ -24,14 +32,32 @@ const SingIn = () => {
     if (res.status === "success") {
       console.log("Login success");
 
+      // await handleClose();
+      // console.log("Modal closed");
+
       dispatch(updateUserDetailsAfterLogin());
       console.log("User details updated");
+
+      // dispatch(fetchFavorites());
+      // console.log("Favorites fetched");
+
+      // if (typeof addFavoriteItem === "function") {
+      //   await addFavoriteItem();
+      //   console.log("Favorite item added");
+      // }
     } else {
-      console.log(res.error);
+      console.log("Error", { res });
       // snackbar(res?.err, { variant: "error" });
     }
     // toggleLoading(false);
   };
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      router.push("/business");
+    }
+  }, [isAuthenticated]);
+
   return (
     <main>
       <section class="p-0 d-flex align-items-center position-relative overflow-hidden">
@@ -111,7 +137,7 @@ const SingIn = () => {
                         title="email"
                         id="email"
                         minlength="4"
-                        maxlength="20"
+                        maxlength="30"
                         placeholder="johndoe@gmail.com"
                         aria-describedby=""
                         aria-required="true"
