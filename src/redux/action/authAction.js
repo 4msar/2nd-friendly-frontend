@@ -11,6 +11,7 @@ import { isEmpty } from "@/helpers/functions";
 import Authorization from "@/services/Authorization";
 import { secureStorage } from "@/utils/storage";
 import { SET_USER_DETAILS, SET_USER_IS_AUTHENTICATED } from "./types";
+import BusinessService from "@/services/BusinessService";
 
 export function setUserIsLoggedIn(payload) {
   const details = JSON.parse(secureStorage.get(APP_USER_DETAILS));
@@ -83,7 +84,7 @@ export function userDetailsUpdate(data) {
 
 export function getUserDetails() {
   return (dispatch) => {
-    return Authorization.getUserDetails().then(async (response) => {
+    return BusinessService.aboutBusiness().then(async (response) => {
       if (response?.status !== "Unauthorized") {
         secureStorage.set(APP_USER_DETAILS, JSON.stringify(response?.data));
         dispatch({

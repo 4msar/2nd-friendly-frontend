@@ -23877,5 +23877,13 @@ html[dir="rtl"] .choices__input {
   font-weight: bold;
 }
 
+
+/* About the business tab style */
+
+.css-h0q0iv-MuiButtonBase-root-MuiTab-root{
+  min-height: 50px;
+  height: 100% !important;
+  justify-content: flex-start;
+}
 /*User CSS*/
 /*# sourceMappingURL=style.css.map */

@@ -4,6 +4,7 @@ import { applyMiddleware, compose, createStore } from "redux";
 import thunk from "redux-thunk";
 import { logout, setUserIsLoggedIn } from "./action/authAction";
 import rootReducer from "./reducer/appReducer";
+import { setAuthorizationToken } from "@/helpers/axios";
 
 let devTools =
   typeof window !== "undefined"
@@ -31,8 +32,8 @@ if (!isEmpty(hasToken)) {
       JSON.parse(hasToken);
 
     const isExpired = Date.now() >= expires_in;
-    console.log(expires_in);
-    if (!isExpired && !isEmpty(access_token)) {
+    console.log(access_token);
+    if (!isEmpty(access_token)) {
       setAuthorizationToken(hasToken);
       let format = "timestamp";
       store.dispatch(
