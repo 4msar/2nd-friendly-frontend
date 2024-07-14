@@ -1,18 +1,16 @@
-import React from "react";
-
-const Step5 = ({register, errors}) => {
+const StepInfo = ({ register, errors }) => {
   return (
     <div class="step">
-      <h4>Great! Now create your business account.</h4>
+      <h4>Give customers a phone number so they can call your business</h4>
       <p>
-        A business account enables you to manage your page, upload photos, and
-        respond to reviews on Yelp.
+        Add the phone number of (Business Name) to help customers connect with
+        you.
       </p>
       <div class="row">
         <div class="col-lg-6">
           <div class="form-check ps-0 q-box">
             <label for="first_name" class="form-label">
-              First Name
+              First Name <span class="star">*</span>
             </label>
             <input
               type="text"
@@ -21,7 +19,7 @@ const Step5 = ({register, errors}) => {
               placeholder="e.g. Alamgir's Restaurant"
               {...register("first_name", {
                 required: "First Name can not be empty!",
-                type: "text"
+                type: "text",
               })}
               error={!!errors.first_name}
             />
@@ -30,7 +28,7 @@ const Step5 = ({register, errors}) => {
         <div class="col-lg-6">
           <div class="form-check ps-0 q-box">
             <label for="last_name" class="form-label">
-              Last Name
+              Last Name <span class="star">*</span>
             </label>
             <input
               type="text"
@@ -39,7 +37,7 @@ const Step5 = ({register, errors}) => {
               placeholder="e.g. Alamgir's Restaurant"
               {...register("last_name", {
                 required: "Last Name can not be empty!",
-                type: "text"
+                type: "text",
               })}
               error={!!errors.last_name}
             />
@@ -47,37 +45,19 @@ const Step5 = ({register, errors}) => {
         </div>
         <div class="col-lg-12">
           <div class="form-check ps-0 q-box">
-            <label for="email" class="form-label">
-              Email Address
+            <label for="mobile" class="form-label">
+              Mobile Number <span class="star">*</span>
             </label>
             <input
-              type="email"
-              id="email"
+              type="text"
+              id="mobile"
               class="form-control"
-              placeholder="e.g. Alamgir's Restaurant"
-              {...register("email", {
+              placeholder="+1-212-456-1234"
+              {...register("mobile", {
                 required: "Business name can not be empty!",
-                type: "email"
+                type: "mobile",
               })}
-              error={!!errors.email}
-            />
-          </div>
-        </div>
-        <div class="col-lg-12">
-          <div class="form-check ps-0 q-box">
-            <label for="password" class="form-label">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              class="form-control"
-              placeholder="e.g. Alamgir's Restaurant"
-              {...register("password", {
-                required: "This field can not be empty!",
-                type: "password"
-              })}
-              error={!!errors.password}
+              error={!!errors.mobile}
             />
           </div>
         </div>
@@ -86,4 +66,4 @@ const Step5 = ({register, errors}) => {
   );
 };
 
-export default Step5;
+export default StepInfo;

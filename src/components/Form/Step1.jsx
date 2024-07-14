@@ -1,6 +1,4 @@
-import React from "react";
-
-const Step1 = ({register, errors}) => {
+const Step1 = ({ register, errors }) => {
   return (
     <div class="step">
       <h4 class="text-dark fw-bold mb-2">
@@ -13,9 +11,9 @@ const Step1 = ({register, errors}) => {
       <div class="form-check ps-0 q-box">
         <div class="mb-2">
           <label for="business_name" class="form-label">
-            Business Name
+            Business Name <span class="star">*</span>
           </label>
-          <input 
+          <input
             type="text"
             id="business_name"
             class="form-control"

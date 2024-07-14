@@ -1,19 +1,23 @@
-import React from "react";
-
-const Step3 = ({register, errors}) => {
+const StepCategory = ({ register, errors }) => {
   return (
     <div class="step">
-      <h4 class="text-dark fw-bold mb-2">
-        Are you having diarrhoea, stomach pain, conjunctivitis, vomiting and
-        headache?
-      </h4>
+      <h4 class="text-dark fw-bold mb-2">What kind of business are you in?</h4>
+      <p>
+        Help customers find your product and service. You can add up to 3
+        categories that best describe what XYZ business Ltd’s core business is.
+        You can always edit and add more later.
+      </p>
       <div class="form-check ps-0 q-box">
         <div class="mb-2">
-          <select class="form-select" aria-label="Default select example" {...register("category", {
+          <select
+            class="form-select"
+            aria-label="Default select example"
+            {...register("category", {
               required: "Category can not be empty!",
               type: "text"
             })}
-            error={!!errors.category}>
+            error={!!errors.category}
+          >
             <option selected>Category</option>
             <option value="1">One</option>
             <option value="2">Two</option>
@@ -23,7 +27,9 @@ const Step3 = ({register, errors}) => {
       </div>
       <div class="form-check ps-0 q-box">
         <div class="mb-2">
-          <select class="form-select" aria-label="Default select example"
+          <select
+            class="form-select"
+            aria-label="Default select example"
             {...register("sub_category", {
               required: "Sub Category can not be empty!",
               type: "text"
@@ -41,4 +47,4 @@ const Step3 = ({register, errors}) => {
   );
 };
 
-export default Step3;
+export default StepCategory;

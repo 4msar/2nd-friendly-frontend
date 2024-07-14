@@ -1,6 +1,4 @@
-import React from "react";
-
-const Step4 = ({register, errors}) => {
+const StepAddress = ({ register, errors }) => {
   return (
     <div class="step">
       <h4 class="text-dark fw-bold mb-2">What is your business address?</h4>
@@ -8,7 +6,7 @@ const Step4 = ({register, errors}) => {
         <div class="col-lg-12">
           <div class="form-check ps-0 q-box">
             <label for="street_address" class="form-label">
-              Street Address
+              Address 1 <span class="star">*</span>
             </label>
             <input
               type="text"
@@ -23,10 +21,10 @@ const Step4 = ({register, errors}) => {
             />
           </div>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-12">
           <div class="form-check ps-0 q-box">
             <label for="suite" class="form-label">
-              Apt/Suite/Other
+              Address 2
             </label>
             <input
               type="text"
@@ -41,16 +39,16 @@ const Step4 = ({register, errors}) => {
             />
           </div>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-4">
           <div class="form-check ps-0 q-box">
             <label for="city" class="form-label">
-              City
+              City <span class="star">*</span>
             </label>
             <input
               type="text"
               id="city"
               class="form-control"
-              placeholder="e.g. Alamgir's Restaurant"
+              placeholder="city"
               {...register("city", {
                 required: "City can not be empty!",
                 type: "text"
@@ -59,7 +57,7 @@ const Step4 = ({register, errors}) => {
             />
           </div>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-4">
           <div class="form-check ps-0 q-box">
             <label for="state" class="form-label">
               State
@@ -68,7 +66,7 @@ const Step4 = ({register, errors}) => {
               type="text"
               id="state"
               class="form-control"
-              placeholder="e.g. Alamgir's Restaurant"
+              placeholder="State"
               {...register("state", {
                 required: "State can not be empty!",
                 type: "text"
@@ -77,7 +75,7 @@ const Step4 = ({register, errors}) => {
             />
           </div>
         </div>
-        <div class="col-lg-3">
+        <div class="col-lg-4">
           <div class="form-check ps-0 q-box">
             <label for="zip" class="form-label">
               Zip
@@ -86,7 +84,7 @@ const Step4 = ({register, errors}) => {
               type="text"
               id="zip"
               class="form-control"
-              placeholder="e.g. Alamgir's Restaurant"
+              placeholder="Zip"
               {...register("zip", {
                 required: "Zip can not be empty!",
                 type: "text"
@@ -100,4 +98,4 @@ const Step4 = ({register, errors}) => {
   );
 };
 
-export default Step4;
+export default StepAddress;

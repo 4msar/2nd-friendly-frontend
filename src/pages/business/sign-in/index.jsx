@@ -1,16 +1,39 @@
-import React from "react";
-import img1 from "@/assets/img/element/02.svg";
 import avatar1 from "@/assets/img/avatar/01.jpg";
 import avatar2 from "@/assets/img/avatar/02.jpg";
 import avatar3 from "@/assets/img/avatar/03.jpg";
 import avatar4 from "@/assets/img/avatar/04.jpg";
-import Head from "next/head";
-import Link from "next/link";
+import img1 from "@/assets/img/element/02.svg";
+import { login, updateUserDetailsAfterLogin } from "@/redux/action/authAction";
+import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
 
 const SingIn = () => {
+  const dispatch = useDispatch();
+  const {
+    handleSubmit,
+    register,
+    formState: { errors }
+  } = useForm();
+
+  const handleMouseDownPassword = (event) => {
+    event.preventDefault();
+  };
+  const onSubmit = async (data) => {
+    // toggleLoading(true);
+    const res = await dispatch(login(data));
+    if (res.status === "success") {
+      console.log("Login success");
+
+      dispatch(updateUserDetailsAfterLogin());
+      console.log("User details updated");
+    } else {
+      console.log(res.error);
+      // snackbar(res?.err, { variant: "error" });
+    }
+    // toggleLoading(false);
+  };
   return (
     <main>
-      
       <section class="p-0 d-flex align-items-center position-relative overflow-hidden">
         <div class="container-fluid">
           <div class="row">
@@ -73,7 +96,11 @@ const SingIn = () => {
                   <p class="lead mb-4">
                     Nice to see you! Please log in with your account.
                   </p>
-                  <form class="row g-3 needs-validation" novalidate>
+                  <form
+                    class="row g-3 needs-validation"
+                    onSubmit={handleSubmit(onSubmit)}
+                    noValidate
+                  >
                     <div class="col-md-12">
                       <label for="email" class="form-label">
                         Email <span class="star">*</span>
@@ -90,6 +117,11 @@ const SingIn = () => {
                         aria-required="true"
                         autofocus
                         required
+                        {...register("username", {
+                          required: "Email or username can not be empty!",
+                          type: "text"
+                        })}
+                        error={!!errors.email}
                       />
                       <div class="valid-feedback">Looks good!</div>
                       <div class="invalid-feedback">
@@ -113,6 +145,11 @@ const SingIn = () => {
                         aria-required="true"
                         autofocus
                         required
+                        {...register("password", {
+                          required: "Password or username can not be empty!",
+                          type: "password"
+                        })}
+                        error={!!errors.password}
                       />
                       <div class="valid-feedback">Looks good!</div>
                       <div class="invalid-feedback">Please enter password.</div>
@@ -154,10 +191,7 @@ const SingIn = () => {
                     </div>
                     {/* <!-- Social btn --> */}
                     <div class="col-xxl-4 d-grid">
-                      <a href="#" class="btn bg-google mb-2 mb-xxl-0">
-                        <i class="fab fa-fw fa-google text-white me-2"></i>Login
-                        with Google
-                      </a>
+                      {/* <a href="#" class="btn bg-google mb-2 mb-xxl-0"><i class="fab fa-fw fa-google text-white me-2"></i>Login with Google</a> */}
                     </div>
                     {/* <!-- Social btn --> */}
                     <div class="col-xxl-4 d-grid">
@@ -177,7 +211,7 @@ const SingIn = () => {
                   <div class="mt-4 text-center">
                     <span>
                       Don't have an account?{" "}
-                      <Link href="sign-up">Signup here</Link>
+                      <a href="/business/sign-up">Signup here</a>
                     </span>
                   </div>
                 </div>
