@@ -8,17 +8,15 @@ import avatar4 from "@/assets/img/avatar/04.jpg";
 import Link from "next/link";
 import Head from "next/head";
 import useToken from "@/hooks/useToken";
-import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
-import { login } from "@/redux/action/authAction";
 import useSnackbar from "@/hooks/useSnackbar";
 
 const SingIn = () => {
   const [showPassword, setShowPassword] = useState(false);
   const [loading, toggleLoading] = useState(false);
   const isAuthenticated = useToken();
-  const dispatch = useDispatch();
+ 
   const router = useRouter();
   const snackbar = useSnackbar();
 //   const navigate = useNavigate();
@@ -34,15 +32,7 @@ const SingIn = () => {
   };
 
   const onSubmit = async (data) => {
-    toggleLoading(true);
-    const res = await dispatch(login(data));
-    console.log(res);
-    if(res?.status === "error"){
-        snackbar(res?.err?.message, {
-            variant: "error"
-        });
-    }
-    toggleLoading(false);
+   
     
   };
 
