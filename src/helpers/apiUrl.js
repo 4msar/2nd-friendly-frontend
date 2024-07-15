@@ -1,8 +1,8 @@
 /* eslint-disable */
 export const BASE_URL = "https://yourdomain.com/";
 // export const API_URL = "https://website.onlybuy.co.uk/frontend";
-// export const API_URL = "https://yourdomain.com/frontend";
 export const API_URL = "http://167.99.0.21:1338/frontend";
+// export const API_URL = "http://localhost:1337/frontend";
 export const KLARNA_PRODUCTION_URL =
   "https://api.klarna.com/payments/v1/sessions";
 export const KLARNA_PLAYGROUND_URL =

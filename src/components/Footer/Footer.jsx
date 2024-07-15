@@ -158,7 +158,7 @@ const Footer = () => {
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link footer-nav-link" href="business/sign-in">
+                    <Link className="nav-link footer-nav-link" href="/sign-in-business">
                       Business Owner Login
                     </Link>
                   </li>
