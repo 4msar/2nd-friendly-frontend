@@ -9,13 +9,6 @@ import React from "react";
 
 function AppServiceProvider({ version = "v1.0.0", children }) {
   useAppToken(); // Get the App access token
-  // //console.log();
-
-  try {
-    console.lavel("info", `[App Version] ${version}`);
-  } catch (error) {
-    //console.log('info', `[App Version] ${version}`);
-  }
 
   const snackbarRef = React.createRef();
   const onClickDismiss = (key) => () => {

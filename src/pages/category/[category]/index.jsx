@@ -4,13 +4,12 @@ import { category_items } from "@/components/dummy_data/data";
 import PublicView from "@/components/HOC/PublicView";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import React from "react";
 
 const CategoryPage = () => {
   const route = useRouter();
   const items = category_items;
   const { query } = route;
-  console.log(query.category);
+
   return (
     <main>
       <Head>
@@ -569,10 +568,10 @@ const CategoryPage = () => {
                 </a>
               </p>
               <hr className="mt-0" />
-              {items.length > 0 && items.map((item, index) => (
-                <CategoryItemBox item={item} index={index} />
-              ))}
-             
+              {items.length > 0 &&
+                items.map((item, index) => (
+                  <CategoryItemBox item={item} index={index} />
+                ))}
             </div>
             <div className="row g-3">
               <div className="col-12">

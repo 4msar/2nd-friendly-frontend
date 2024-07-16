@@ -1,28 +1,23 @@
 import AboutBusiness from "@/components/Business/About";
 import ActivityLogs from "@/components/Business/ActivityLog";
-import ActivityLog from "@/components/Business/ActivityLog";
 import DeleteAccount from "@/components/Business/DeleteAccount";
 import ExternalApplication from "@/components/Business/ExternalApplication";
 import Notification from "@/components/Business/Notification";
 import PrivacySetting from "@/components/Business/PrivacySetting";
 import SecuritySetting from "@/components/Business/SecuritySetting";
 import BusinessView from "@/components/HOC/BusinessView";
-import { API_URL } from "@/helpers/apiUrl";
 import useToken from "@/hooks/useToken";
-import BusinessService from "@/services/BusinessService";
 import PersonPinIcon from "@mui/icons-material/PersonPin";
 import { Box, Tab, Tabs } from "@mui/material";
 import { useRouter } from "next/router";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 function a11yProps(index) {
   return {
     id: `vertical-tab-${index}`,
-    "aria-controls": `vertical-tabpanel-${index}`,
+    "aria-controls": `vertical-tabpanel-${index}`
   };
 }
-
-
 
 const AboutTheBusiness = () => {
   const [value, setValue] = useState(0);
@@ -32,23 +27,13 @@ const AboutTheBusiness = () => {
     setValue(newValue);
   };
 
-  const getAboutBusiness = async () => {
-    const res = await BusinessService.aboutBusiness();
-    console.log(res);
-  }
-
   useEffect(() => {
-    getAboutBusiness();
-  }, []);
 
-  useEffect(() => {
-    console.log("isAuthenticated", isAuthenticated);
     if (!isAuthenticated) {
       router.push("/sign-in-business");
     }
   }, [isAuthenticated]);
 
-  console.log(value);
   return (
     <main>
       <section class="p-0 m-0">
@@ -104,7 +89,7 @@ const AboutTheBusiness = () => {
                   sx={{
                     borderRight: 1,
                     borderColor: "divider",
-                    textAlign: "left",
+                    textAlign: "left"
                   }}
                 >
                   <Tab
@@ -146,14 +131,14 @@ const AboutTheBusiness = () => {
               </Box>
             </div>
             <div class="col-xl-9">
-               {/* {handleComponent(value)} */}
-               {value === 0 && <AboutBusiness />}
-               {value === 1 && <Notification />}
-               {value === 2 && <ExternalApplication />}
-               {value === 3 && <SecuritySetting />}
-               {value === 4 && <PrivacySetting />}
-               {value === 5 && <ActivityLogs />}
-               {value === 6 && <DeleteAccount />}
+              {/* {handleComponent(value)} */}
+              {value === 0 && <AboutBusiness />}
+              {value === 1 && <Notification />}
+              {value === 2 && <ExternalApplication />}
+              {value === 3 && <SecuritySetting />}
+              {value === 4 && <PrivacySetting />}
+              {value === 5 && <ActivityLogs />}
+              {value === 6 && <DeleteAccount />}
             </div>
           </div>
         </div>

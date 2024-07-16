@@ -28,13 +28,11 @@ const BusinessSingIn = () => {
     // toggleLoading(true);
     const res = await Authorization.login(data);
     if (res.status === "success") {
-      console.log("Login success", res);
       useAuthStore.setState({
         user: res.user,
         access_token: res.access_token,
         expires_in: res.expires_in * 1000 + Date.now()
       });
-      console.log("User details updated");
     } else {
       console.log("Error", { res });
       //   snackbar("Something is wrong", { variant: "error" });
@@ -43,7 +41,6 @@ const BusinessSingIn = () => {
   };
 
   useEffect(() => {
-    console.log("isAuthenticated", isAuthenticated);
     if (isAuthenticated) {
       router.push("/business/about-the-business");
     }

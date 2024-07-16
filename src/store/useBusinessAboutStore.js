@@ -1,17 +1,15 @@
 import { create } from "zustand";
-import { persist } from "zustand/middleware";
 
 export const useBusinessAboutStore = create(
-  persist(
     (set) => ({
-      aboutAll: null,
-      
-      
-      aboutAllData: (aboutAll) => set((state) => ({ aboutAll }))
-    }),
-    {
-      name: "about_store"
-    }
-  )
-);
+      allState: [],
+      businessOwner: null,
+      businessProfile: null,
 
+      setBusinessProfile: (businessProfile) => set({businessProfile}),
+
+      setAboutAllData: ({allState, businessOwner, businessProfile}) =>{
+        set({ allState, businessOwner, businessProfile })
+      }
+    })
+);

@@ -1,16 +1,12 @@
-import CategoryItemBox from "@/components/Category/CategoryItemBox";
-import CategorySidebar from "@/components/Category/CategorySidebar";
 import { category_items } from "@/components/dummy_data/data";
 import PublicView from "@/components/HOC/PublicView";
-import Head from "next/head";
 import { useRouter } from "next/router";
-import React from "react";
 
 const CategoryPage = () => {
   const route = useRouter();
   const items = category_items;
   const { query } = route;
-  console.log(query.category);
+
   return (
     <main>
       <section className="pt-5 pb-0 bg-light">
@@ -41,7 +37,9 @@ const CategoryPage = () => {
         <div className="container">
           <div className="row">
             <div className="col-lg-8">
-              <h2 className="fw-normal">Brothers and Sisters Restaurant Limited</h2>
+              <h2 className="fw-normal">
+                Brothers and Sisters Restaurant Limited
+              </h2>
               <p>
                 Satisfied conveying a dependent contented agreeable do be.
                 Warrant private blushes removed an in equally totally if.
@@ -75,7 +73,9 @@ const CategoryPage = () => {
         <div className="container" data-sticky-container>
           <div className="row g-4">
             <div className="col-xl-8">
-              <h5 className="fw-semibold border-bottom pb-1 mb-3">Curriculum</h5>
+              <h5 className="fw-semibold border-bottom pb-1 mb-3">
+                Curriculum
+              </h5>
               <div className="row g-3">
                 {/* <!-- Course item --> */}
                 <div className="col-sm-6 col-lg-4 col-xl-3">
@@ -344,7 +344,8 @@ const CategoryPage = () => {
                       <i className="bi bi-caret-right"></i> Vegan Options
                     </li>
                     <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Many Vegetarian Options
+                      <i className="bi bi-caret-right"></i> Many Vegetarian
+                      Options
                     </li>
                     <li className="list-group-item">
                       <i className="bi bi-caret-right"></i> Accepts Credit Cards
@@ -356,7 +357,8 @@ const CategoryPage = () => {
                       <i className="bi bi-caret-right"></i> Accepts Apple Pay
                     </li>
                     <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Accepts Cryptocurrency
+                      <i className="bi bi-caret-right"></i> Accepts
+                      Cryptocurrency
                     </li>
                     <li className="list-group-item">
                       <i className="bi bi-caret-right"></i> Intimate, Romantic,
@@ -372,7 +374,8 @@ const CategoryPage = () => {
                       <i className="bi bi-caret-right"></i> Good for Groups
                     </li>
                     <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Good for Dinner, Dessert
+                      <i className="bi bi-caret-right"></i> Good for Dinner,
+                      Dessert
                     </li>
                     <li className="list-group-item">
                       <i className="bi bi-caret-right"></i> Good for Working
@@ -391,8 +394,8 @@ const CategoryPage = () => {
                 <div className="col-sm-12 col-md-6">
                   <ul className="list-group list-group-borderless">
                     <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Best nights on Tuesday,
-                      Friday, Saturday
+                      <i className="bi bi-caret-right"></i> Best nights on
+                      Tuesday, Friday, Saturday
                     </li>
                     <li className="list-group-item">
                       <i className="bi bi-caret-right"></i> Happy Hour Specials
@@ -401,7 +404,8 @@ const CategoryPage = () => {
                       <i className="bi bi-caret-right"></i> Full Bar
                     </li>
                     <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Wheelchair Accessible
+                      <i className="bi bi-caret-right"></i> Wheelchair
+                      Accessible
                     </li>
                     <li className="list-group-item">
                       <i className="bi bi-caret-right"></i> Latinx-owned
@@ -874,7 +878,7 @@ const CategoryPage = () => {
                     className="w-100 d-block rounded-bottom"
                     height="210"
                     src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3022.9663095343008!2d-74.00425878428698!3d40.74076684379132!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x89c259bf5c1654f3%3A0xc80f9cfce5383d5d!2sGoogle!5e0!3m2!1sen!2sin!4v1586000412513!5m2!1sen!2sin"
-                    style={{border:0}}
+                    style={{ border: 0 }}
                     aria-hidden="false"
                     tabindex="0"
                   ></iframe>
@@ -885,7 +889,7 @@ const CategoryPage = () => {
                       <tr>
                         <td>Monday</td>
                         <td>10:30 AM - 8:00 PM</td>
-                        <td style={{color: "green", fontWeight:"bold"}}>
+                        <td style={{ color: "green", fontWeight: "bold" }}>
                           Open Now
                         </td>
                       </tr>
@@ -970,7 +974,7 @@ const CategoryPage = () => {
                             <div
                               className="progress-bar bg-warning"
                               role="progressbar"
-                              style={{width: "100%"}}
+                              style={{ width: "100%" }}
                               aria-valuenow="100"
                               aria-valuemin="0"
                               aria-valuemax="100"
@@ -1004,7 +1008,7 @@ const CategoryPage = () => {
                             <div
                               className="progress-bar bg-warning"
                               role="progressbar"
-                              style={{width: "80%"}}
+                              style={{ width: "80%" }}
                               aria-valuenow="80"
                               aria-valuemin="0"
                               aria-valuemax="100"
@@ -1038,7 +1042,7 @@ const CategoryPage = () => {
                             <div
                               className="progress-bar bg-warning"
                               role="progressbar"
-                              style={{width: "60%"}}
+                              style={{ width: "60%" }}
                               aria-valuenow="60"
                               aria-valuemin="0"
                               aria-valuemax="100"
@@ -1072,7 +1076,7 @@ const CategoryPage = () => {
                             <div
                               className="progress-bar bg-warning"
                               role="progressbar"
-                              style={{width: "40%"}}
+                              style={{ width: "40%" }}
                               aria-valuenow="40"
                               aria-valuemin="0"
                               aria-valuemax="100"
@@ -1106,7 +1110,7 @@ const CategoryPage = () => {
                             <div
                               className="progress-bar bg-warning"
                               role="progressbar"
-                              style={{width: "20%"}}
+                              style={{ width: "20%" }}
                               aria-valuenow="20"
                               aria-valuemin="0"
                               aria-valuemax="100"
@@ -1349,7 +1353,10 @@ const CategoryPage = () => {
                       </div>
                       {/* <!-- Rating --> */}
                       <div className="col-12 bg-light-input">
-                        <select id="inputState2" className="form-select js-choice">
+                        <select
+                          id="inputState2"
+                          className="form-select js-choice"
+                        >
                           <option className="text-warning" selected="">
                             ★★★★★ (5/5)
                           </option>
@@ -1383,7 +1390,9 @@ const CategoryPage = () => {
               <div className="row">
                 <div className="col-12">
                   <div className="border-bottom mb-3">
-                    <h5 className="fw-semibold">Highlights from the Business</h5>
+                    <h5 className="fw-semibold">
+                      Highlights from the Business
+                    </h5>
                   </div>
                   {/* <!-- Slider START --> */}
                   <div className="tiny-slider arrow-round arrow-creative arrow-blur">
@@ -1409,7 +1418,10 @@ const CategoryPage = () => {
                             {/* <!-- Card overlay Top --> */}
                             <div className="w-100 mb-auto d-flex justify-content-end">
                               {/* <!-- Favorite icon --> */}
-                              <a href="#" className="icon-sm bg-white rounded-2">
+                              <a
+                                href="#"
+                                className="icon-sm bg-white rounded-2"
+                              >
                                 <i className="fas fa-heart text-danger"></i>
                               </a>
                             </div>
@@ -1430,8 +1442,8 @@ const CategoryPage = () => {
                             <strong>5.0</strong> (1.5k Reviews)
                           </p>
                           <h6 className="text-black-50 mb-0 fw-light pb-0 mt-2">
-                            <span className="fw-bold text-success">Open</span> until
-                            8:00 PM
+                            <span className="fw-bold text-success">Open</span>{" "}
+                            until 8:00 PM
                           </h6>
                         </div>
                       </div>
@@ -1447,7 +1459,10 @@ const CategoryPage = () => {
                             {/* <!-- Card overlay Top --> */}
                             <div className="w-100 mb-auto d-flex justify-content-end">
                               {/* <!-- Favorite icon --> */}
-                              <a href="#" className="icon-sm bg-white rounded-2">
+                              <a
+                                href="#"
+                                className="icon-sm bg-white rounded-2"
+                              >
                                 <i className="far fa-heart text-danger"></i>
                               </a>
                             </div>
@@ -1484,7 +1499,10 @@ const CategoryPage = () => {
                             {/* <!-- Card overlay Top --> */}
                             <div className="w-100 mb-auto d-flex justify-content-end">
                               {/* <!-- Favorite icon --> */}
-                              <a href="#" className="icon-sm bg-white rounded-2">
+                              <a
+                                href="#"
+                                className="icon-sm bg-white rounded-2"
+                              >
                                 <i className="far fa-heart text-danger"></i>
                               </a>
                             </div>
@@ -1503,8 +1521,8 @@ const CategoryPage = () => {
                             <strong>5.0</strong> (1.5k Reviews)
                           </p>
                           <h6 className="text-black-50 mb-0 fw-light pb-0 mt-2">
-                            <span className="fw-bold text-success">Open</span> until
-                            8:00 PM
+                            <span className="fw-bold text-success">Open</span>{" "}
+                            until 8:00 PM
                           </h6>
                         </div>
                       </div>
@@ -1520,7 +1538,10 @@ const CategoryPage = () => {
                             {/* <!-- Card overlay Top --> */}
                             <div className="w-100 mb-auto d-flex justify-content-end">
                               {/* <!-- Favorite icon --> */}
-                              <a href="#" className="icon-sm bg-white rounded-2">
+                              <a
+                                href="#"
+                                className="icon-sm bg-white rounded-2"
+                              >
                                 <i className="fas fa-heart text-danger"></i>
                               </a>
                             </div>
@@ -1555,7 +1576,10 @@ const CategoryPage = () => {
                             {/* <!-- Card overlay Top --> */}
                             <div className="w-100 mb-auto d-flex justify-content-end">
                               {/* <!-- Favorite icon --> */}
-                              <a href="#" className="icon-sm bg-white rounded-2">
+                              <a
+                                href="#"
+                                className="icon-sm bg-white rounded-2"
+                              >
                                 <i className="far fa-heart text-danger"></i>
                               </a>
                             </div>
@@ -1574,8 +1598,8 @@ const CategoryPage = () => {
                             <strong>5.0</strong> (1.5k Reviews)
                           </p>
                           <h6 className="text-black-50 mb-0 fw-light pb-0 mt-2">
-                            <span className="fw-bold text-success">Open</span> until
-                            8:00 PM
+                            <span className="fw-bold text-success">Open</span>{" "}
+                            until 8:00 PM
                           </h6>
                         </div>
                       </div>
@@ -1591,26 +1615,33 @@ const CategoryPage = () => {
               <div className="row">
                 <div className="col-12">
                   <div className="border-bottom mb-2">
-                    <h5 className="fw-semibold">Highlights from the Business</h5>
+                    <h5 className="fw-semibold">
+                      Highlights from the Business
+                    </h5>
                   </div>
                   <ul className="list-group list-group-borderless">
                     <li className="list-group-item">
                       <i className="bi bi-caret-right"></i> 30 years in business
                     </li>
                     <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Certified professionals
+                      <i className="bi bi-caret-right"></i> Certified
+                      professionals
                     </li>
                     <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Locally owned & operated
+                      <i className="bi bi-caret-right"></i> Locally owned &
+                      operated
                     </li>
                     <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Available by appointment
+                      <i className="bi bi-caret-right"></i> Available by
+                      appointment
                     </li>
                     <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Consultations available
+                      <i className="bi bi-caret-right"></i> Consultations
+                      available
                     </li>
                     <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Women-owned & operated
+                      <i className="bi bi-caret-right"></i> Women-owned &
+                      operated
                     </li>
                   </ul>
                 </div>
@@ -1696,20 +1727,22 @@ const CategoryPage = () => {
                     </li>
                     <li className="list-group-item px-0 d-flex justify-content-between">
                       <span className="h6 fw-light mb-0">
-                        <i className="fas fa-fw fa-clock text-success"></i>License #
+                        <i className="fas fa-fw fa-clock text-success"></i>
+                        License #
                       </span>
                       <span>01757074</span>
                     </li>
                     <li className="list-group-item px-0 d-flex justify-content-between">
                       <span className="h6 fw-light mb-0">
-                        <i className="fas fa-fw fa-signal text-primary"></i>Issued
-                        by
+                        <i className="fas fa-fw fa-signal text-primary"></i>
+                        Issued by
                       </span>
                       <span>CA DRE</span>
                     </li>
                     <li className="list-group-item px-0 d-flex justify-content-between">
                       <span className="h6 fw-light mb-0">
-                        <i className="fas fa-fw fa-globe text-info"></i>License type
+                        <i className="fas fa-fw fa-globe text-info"></i>License
+                        type
                       </span>
                       <span>Salesperson</span>
                     </li>
@@ -1718,7 +1751,9 @@ const CategoryPage = () => {
               </div>
               <div className="card border rounded-1 mb-4">
                 <div className="card-header pb-0">
-                  <h5 className="mb-0 fw-normal">Help Improve 2nd A Friendly</h5>
+                  <h5 className="mb-0 fw-normal">
+                    Help Improve 2nd A Friendly
+                  </h5>
                 </div>
                 <div className="card-body">
                   <p>Are compostable containers available at this business?</p>
@@ -1741,8 +1776,8 @@ const CategoryPage = () => {
                 </div>
                 <div className="card-body">
                   <p>
-                    <i className="fa fa-asterisk"></i> 10% off First month for 2nd A
-                    Friendly users!
+                    <i className="fa fa-asterisk"></i> 10% off First month for
+                    2nd A Friendly users!
                   </p>
                   <p>
                     <i className="fa fa-asterisk"></i> 10% off digital perms!
@@ -1960,12 +1995,14 @@ const CategoryPage = () => {
                       >
                         <li>
                           <a className="dropdown-item" href="#">
-                            <i className="fab fa-twitter-square me-2"></i>Twitter
+                            <i className="fab fa-twitter-square me-2"></i>
+                            Twitter
                           </a>
                         </li>
                         <li>
                           <a className="dropdown-item" href="#">
-                            <i className="fab fa-facebook-square me-2"></i>Facebook
+                            <i className="fab fa-facebook-square me-2"></i>
+                            Facebook
                           </a>
                         </li>
                         <li>
@@ -2029,12 +2066,14 @@ const CategoryPage = () => {
                       >
                         <li>
                           <a className="dropdown-item" href="#">
-                            <i className="fab fa-twitter-square me-2"></i>Twitter
+                            <i className="fab fa-twitter-square me-2"></i>
+                            Twitter
                           </a>
                         </li>
                         <li>
                           <a className="dropdown-item" href="#">
-                            <i className="fab fa-facebook-square me-2"></i>Facebook
+                            <i className="fab fa-facebook-square me-2"></i>
+                            Facebook
                           </a>
                         </li>
                         <li>
@@ -2098,12 +2137,14 @@ const CategoryPage = () => {
                       >
                         <li>
                           <a className="dropdown-item" href="#">
-                            <i className="fab fa-twitter-square me-2"></i>Twitter
+                            <i className="fab fa-twitter-square me-2"></i>
+                            Twitter
                           </a>
                         </li>
                         <li>
                           <a className="dropdown-item" href="#">
-                            <i className="fab fa-facebook-square me-2"></i>Facebook
+                            <i className="fab fa-facebook-square me-2"></i>
+                            Facebook
                           </a>
                         </li>
                         <li>
@@ -2166,12 +2207,14 @@ const CategoryPage = () => {
                       >
                         <li>
                           <a className="dropdown-item" href="#">
-                            <i className="fab fa-twitter-square me-2"></i>Twitter
+                            <i className="fab fa-twitter-square me-2"></i>
+                            Twitter
                           </a>
                         </li>
                         <li>
                           <a className="dropdown-item" href="#">
-                            <i className="fab fa-facebook-square me-2"></i>Facebook
+                            <i className="fab fa-facebook-square me-2"></i>
+                            Facebook
                           </a>
                         </li>
                         <li>
@@ -2202,7 +2245,7 @@ const CategoryPage = () => {
                       <h5 className="header-title text-danger">
                         Send Massage
                         <button
-                          style={{float: "right", fontSize: "12px"}}
+                          style={{ float: "right", fontSize: "12px" }}
                           type="button"
                           className="btn-close justify-content-end float-right"
                           data-bs-dismiss="modal"
@@ -2325,11 +2368,15 @@ const CategoryPage = () => {
                           get you a response. By continuing you agree 2nd A
                           friendly{" "}
                           <a href="terms-and-condition.php">
-                            <span className="text-primary">Terms of service</span>
+                            <span className="text-primary">
+                              Terms of service
+                            </span>
                           </a>{" "}
                           and{" "}
                           <a href="privacy-policy.php">
-                            <span className="text-primary">Privecy Policy.</span>
+                            <span className="text-primary">
+                              Privecy Policy.
+                            </span>
                           </a>
                         </p>
                         <div className="col-6">
@@ -2342,7 +2389,10 @@ const CategoryPage = () => {
                         </div>
                         <div className="col-6">
                           <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-                            <button type="submit" className=" btn btn-primary-soft">
+                            <button
+                              type="submit"
+                              className=" btn btn-primary-soft"
+                            >
                               Send Massage
                             </button>
                           </div>

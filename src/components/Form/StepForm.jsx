@@ -78,7 +78,6 @@ const StepForm = () => {
   };
 
   const onSubmit = async (data) => {
-    console.log(data);
     axios.post(`${API_URL}/business-registration`, data, {}).then((res) => {
       console.log(res);
     });
