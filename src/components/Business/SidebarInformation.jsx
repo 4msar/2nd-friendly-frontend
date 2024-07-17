@@ -1,4 +1,11 @@
+import { useRouter } from "next/router";
+
 const SidebarInformation = ({ profile }) => {
+  const router = useRouter();
+  const pathParts = router.asPath.split("/");
+  const lastPart =
+    pathParts[pathParts.length - 1] || pathParts[pathParts.length - 2];
+  console.log(lastPart);
   return (
     <div className="" id="offcanvasSidebar">
       {/* <!-- Offcanvas header --> */}
@@ -19,49 +26,65 @@ const SidebarInformation = ({ profile }) => {
           </div>
           <div className="list-group list-group-dark list-group-borderless pt-1 ps-0">
             <a
-              className="list-group-item mb-1 text-dark fw-normal bg-danger-soft-hover active"
+              className={`list-group-item mb-1 text-dark fw-normal bg-danger-soft-hover ${
+                lastPart === "categories" ? "active" : ""
+              }`}
               href="/business/categories"
             >
               <i className="fas fa-network-wired"></i> Categories
             </a>
             <a
-              className="list-group-item mb-1 text-dark fw-normal bg-danger-soft-hover"
+              className={`list-group-item mb-1 text-dark fw-normal bg-danger-soft-hover ${
+                lastPart === "amenities" ? "active" : ""
+              }`}
               href="/business/amenities"
             >
               <i className="fas fa-bullhorn"></i> Amenities
             </a>
             <a
-              className="list-group-item mb-1 text-dark fw-normal bg-danger-soft-hover bg-danger-soft-focus"
+              className={`list-group-item mb-1 text-dark fw-normal bg-danger-soft-hover ${
+                lastPart === "hours-of-operation" ? "active" : ""
+              }`}
               href="/business/hours-of-operation"
             >
               <i className="fas fa-business-time"></i> Hours of Operation
             </a>
             <a
-              className="list-group-item mb-1 text-dark fw-normal bg-danger-soft-hover"
+              className={`list-group-item mb-1 text-dark fw-normal bg-danger-soft-hover ${
+                lastPart === "album" ? "active" : ""
+              }`}
               href="/business/album"
             >
               <i className="fas fa-camera-retro"></i> Photos
             </a>
             <a
-              className="list-group-item mb-1 text-dark fw-normal bg-danger-soft-hover"
+              className={`list-group-item mb-1 text-dark fw-normal bg-danger-soft-hover ${
+                lastPart === "videos" ? "active" : ""
+              }`}
               href="/business/videos"
             >
               <i className="fas fa-file-video"></i> Videos
             </a>
             <a
-              className="list-group-item mb-1 text-dark fw-normal bg-danger-soft-hover"
+              className={`list-group-item mb-1 text-dark fw-normal bg-danger-soft-hover ${
+                lastPart === "reviews" ? "active" : ""
+              }`}
               href="/business/reviews"
             >
               <i className="fas fa-star"></i> Reviews
             </a>
             <a
-              className="list-group-item mb-1 text-dark fw-normal bg-danger-soft-hover"
+              className={`list-group-item mb-1 text-dark fw-normal bg-danger-soft-hover ${
+                lastPart === "message" ? "active" : ""
+              }`}
               href="/business/message"
             >
               <i className="fas fa-envelope-open"></i> Messages
             </a>
             <a
-              className="list-group-item mb-1 text-dark fw-normal bg-danger-soft-hover"
+              className={`list-group-item mb-1 text-dark fw-normal bg-danger-soft-hover ${
+                lastPart === "events" ? "active" : ""
+              }`}
               href="/business/events"
             >
               <i className="fab fa-envira"></i> Events
