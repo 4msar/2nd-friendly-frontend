@@ -1,8 +1,51 @@
 import SidebarInformation from "@/components/Business/SidebarInformation";
 import BusinessView from "@/components/HOC/BusinessView";
-import React from "react";
+import useToken from "@/hooks/useToken";
+import BusinessService from "@/services/BusinessService";
+import { useBusinessAboutStore, useBusinessHoursStore } from "@/store";
+import React, { useEffect } from "react";
 
 const HoursOfOperation = () => {
+    const userProfile = useBusinessAboutStore((state) => state.businessProfile);
+    const isAuthenticated = useToken();
+
+    const businessHours = useBusinessHoursStore((state) => state.businessOperation);
+    const businessClosure = useBusinessHoursStore((state) => state.extendedClosure);
+    const setBusinessHours = useBusinessHoursStore(
+        (state) => state.setBusinessHours
+      );
+    
+    const setBusinessClosure = useBusinessHoursStore(
+        (state) => state.setBusinessClosure
+    );
+
+    const getHoursOfOperation = async () => {
+        const res = await BusinessService.operationHours().then((data) => {
+            console.log(data.data);
+            if (data.data.status === "success") {
+            //   setAllAmenityData(data.data.allAmenity);
+            //   setAllSubAmenityData(data.data.selectedAmenity);
+              // setAllSubCategoryData(data.date)
+            }
+          });
+    }
+
+    const updateBusinessHours = async (event) => {
+        event.preventDefault();
+        event.stopPropagation();
+        
+          const res = await BusinessService.operationHoursSave(businessHours).then((data) => {
+            if (data.data.status === "success") {
+                getHoursOfOperation();
+            }
+          });
+    }
+
+    useEffect(() => {
+        if(isAuthenticated) {
+            // getHoursOfOperation();
+        }
+    }, [isAuthenticated]);
   return (
     <main>
       <section className="p-0 m-0">
@@ -48,7 +91,7 @@ const HoursOfOperation = () => {
         <div className="container">
           <div className="row">
             <div className="col-xl-3 col-md-3">
-              <SidebarInformation />
+              <SidebarInformation profile={userProfile} />
             </div>
             <div className="col-xl-9 col-md-9">
             <div class="card-header border-bottom pb-1 mb-3">
@@ -60,7 +103,14 @@ const HoursOfOperation = () => {
                             <div class="row p-2">
                                 <div class="col-lg-2 col-sm-6">Sunday</div>
                                 <div class="col-2">
-                                    <select class="form-select" id="" autofocus required>
+                                    <select 
+                                        class="form-select" 
+                                        id="" 
+                                        autofocus 
+                                        required 
+                                        onChange={(e) =>
+                                        setBusinessHours({ ...businessHours, sunday_start_time: e.target.value })}
+                                        >
                                         <option value="">Opens at</option>
                                         <option value="1">12:00 AM</option>
                                         <option value="2">12:15 AM</option>
@@ -161,7 +211,14 @@ const HoursOfOperation = () => {
                                     </select>
                                 </div>
                                 <div class="col-lg-2 col-sm-6">
-                                    <select class="form-select" id="" autofocus required>
+                                    <select 
+                                    class="form-select" 
+                                    id="" 
+                                    autofocus 
+                                    required
+                                    onChange={(e) =>
+                                        setBusinessHours({ ...businessHours, sunday_end_time: e.target.value })}
+                                    >
                                         <option value="">Closes at</option>
                                         <option value="1">12:00 AM</option>
                                         <option value="2">12:15 AM</option>
@@ -263,13 +320,15 @@ const HoursOfOperation = () => {
                                 </div>
                                 <div class="col-lg-3 col-sm-6">
                                     <div class="form-check form-check-inline text-middle">
-                                        <input class="form-check-input" type="radio" id="inlineRadio1" name="inlineRadio"  autofocus required/>
+                                        <input class="form-check-input" type="radio" id="inlineRadio1" name="inlineRadio1"  autofocus required  onChange={(e) =>
+                                        setBusinessHours({ ...businessHours, is_sunday_24open: e.target.value })} />
                                         <label class="form-check-label" for="inlineRadio1">Open 24 Hours</label>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-sm-6">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" id="inlineRadio2" name="inlineRadio" autofocus required />
+                                        <input class="form-check-input" type="radio" id="inlineRadio2" name="inlineRadio2" autofocus required onChange={(e) =>
+                                        setBusinessHours({ ...businessHours, is_sunday_close: e.target.value })} />
                                         <label class="form-check-label" for="inlineRadio2">Close</label>
                                     </div>
                                 </div>
@@ -277,7 +336,8 @@ const HoursOfOperation = () => {
                             <div class="row p-2">
                                 <div class="col-lg-2 col-sm-6">Monday</div>
                                 <div class="col-2">
-                                    <select class="form-select" id="" autofocus required>
+                                    <select class="form-select" id="" autofocus required onChange={(e) =>
+                                        setBusinessHours({ ...businessHours, monday_start_time: e.target.value })}>
                                         <option value="">Opens at</option>
                                         <option value="1">12:00 AM</option>
                                         <option value="2">12:15 AM</option>
@@ -378,7 +438,8 @@ const HoursOfOperation = () => {
                                     </select>
                                 </div>
                                 <div class="col-lg-2 col-sm-6">
-                                    <select class="form-select" id="" autofocus required>
+                                    <select class="form-select" id="" autofocus required onChange={(e) =>
+                                        setBusinessHours({ ...businessHours, monday_end_time: e.target.value })}>
                                         <option value="">Closes at</option>
                                         <option value="1">12:00 AM</option>
                                         <option value="2">12:15 AM</option>
@@ -480,13 +541,15 @@ const HoursOfOperation = () => {
                                 </div>
                                 <div class="col-lg-3 col-sm-6">
                                     <div class="form-check form-check-inline text-middle">
-                                        <input class="form-check-input" type="radio" id="inlineRadio3" name="inlineRadio"  autofocus required/>
+                                        <input class="form-check-input" type="radio" id="inlineRadio3" name="inlineRadio3"  autofocus required onChange={(e) =>
+                                        setBusinessHours({ ...businessHours, is_monday_24open: e.target.value })} />
                                         <label class="form-check-label" for="inlineRadio3">Open 24 Hours</label>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-sm-6">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" id="inlineRadio4" name="inlineRadio" autofocus required />
+                                        <input class="form-check-input" type="radio" id="inlineRadio4" name="inlineRadio4" autofocus required onChange={(e) =>
+                                        setBusinessHours({ ...businessHours, is_monday_close: e.target.value })} />
                                         <label class="form-check-label" for="inlineRadio4">Close</label>
                                     </div>
                                 </div>
@@ -494,7 +557,8 @@ const HoursOfOperation = () => {
                             <div class="row p-2">
                                 <div class="col-lg-2 col-sm-6">Tuesday</div>
                                 <div class="col-2">
-                                    <select class="form-select" id="" autofocus required>
+                                    <select class="form-select" id="" autofocus required onChange={(e) =>
+                                        setBusinessHours({ ...businessHours, tuesday_start_time: e.target.value })}>
                                         <option value="">Opens at</option>
                                         <option value="1">12:00 AM</option>
                                         <option value="2">12:15 AM</option>
@@ -595,7 +659,8 @@ const HoursOfOperation = () => {
                                     </select>
                                 </div>
                                 <div class="col-lg-2 col-sm-6">
-                                    <select class="form-select" id="" autofocus required>
+                                    <select class="form-select" id="" autofocus required onChange={(e) =>
+                                        setBusinessHours({ ...businessHours, tuesday_end_time: e.target.value })}>
                                         <option value="">Closes at</option>
                                         <option value="1">12:00 AM</option>
                                         <option value="2">12:15 AM</option>
@@ -697,13 +762,15 @@ const HoursOfOperation = () => {
                                 </div>
                                 <div class="col-lg-3 col-sm-6">
                                     <div class="form-check form-check-inline text-middle">
-                                        <input class="form-check-input" type="radio" id="inlineRadio5" name="inlineRadio"  autofocus required/>
+                                        <input class="form-check-input" type="radio" id="inlineRadio5" name="inlineRadio5"  autofocus required onChange={(e) =>
+                                        setBusinessHours({ ...businessHours, is_tuesday_24open: e.target.value })} />
                                         <label class="form-check-label" for="inlineRadio5">Open 24 Hours</label>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-sm-6">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" id="inlineRadio6" name="inlineRadio" autofocus required />
+                                        <input class="form-check-input" type="radio" id="inlineRadio6" name="inlineRadio6" autofocus required onChange={(e) =>
+                                        setBusinessHours({ ...businessHours, is_tuesday_close: e.target.value })}/>
                                         <label class="form-check-label" for="inlineRadio6">Close</label>
                                     </div>
                                 </div>
@@ -711,7 +778,8 @@ const HoursOfOperation = () => {
                             <div class="row p-2">
                                 <div class="col-lg-2 col-sm-6">Wednesday</div>
                                 <div class="col-2">
-                                    <select class="form-select" id="" autofocus required>
+                                    <select class="form-select" id="" autofocus required onChange={(e) =>
+                                        setBusinessHours({ ...businessHours, wednesday_start_time: e.target.value })}>
                                         <option value="">Opens at</option>
                                         <option value="1">12:00 AM</option>
                                         <option value="2">12:15 AM</option>
@@ -812,7 +880,8 @@ const HoursOfOperation = () => {
                                     </select>
                                 </div>
                                 <div class="col-lg-2 col-sm-6">
-                                    <select class="form-select" id="" autofocus required>
+                                    <select class="form-select" id="" autofocus required onChange={(e) =>
+                                        setBusinessHours({ ...businessHours, wednesday_end_time: e.target.value })}>
                                         <option value="">Closes at</option>
                                         <option value="1">12:00 AM</option>
                                         <option value="2">12:15 AM</option>
@@ -914,13 +983,15 @@ const HoursOfOperation = () => {
                                 </div>
                                 <div class="col-lg-3 col-sm-6">
                                     <div class="form-check form-check-inline text-middle">
-                                        <input class="form-check-input" type="radio" id="inlineRadio7" name="inlineRadio"  autofocus required/>
+                                        <input class="form-check-input" type="radio" id="inlineRadio7" name="inlineRadio7"  autofocus required onChange={(e) =>
+                                        setBusinessHours({ ...businessHours, is_wednesday_24open: e.target.value })}/>
                                         <label class="form-check-label" for="inlineRadio7">Open 24 Hours</label>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-sm-6">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" id="inlineRadio8" name="inlineRadio" autofocus required />
+                                        <input class="form-check-input" type="radio" id="inlineRadio8" name="inlineRadio8" autofocus required onChange={(e) =>
+                                        setBusinessHours({ ...businessHours, is_wednesday_close: e.target.value })}/>
                                         <label class="form-check-label" for="inlineRadio8">Close</label>
                                     </div>
                                 </div>
@@ -928,7 +999,8 @@ const HoursOfOperation = () => {
                             <div class="row p-2">
                                 <div class="col-lg-2 col-sm-6">Thursday</div>
                                 <div class="col-2">
-                                    <select class="form-select" id="" autofocus required>
+                                    <select class="form-select" id="" autofocus required onChange={(e) =>
+                                        setBusinessHours({ ...businessHours, thursday_start_time: e.target.value })}>
                                         <option value="">Opens at</option>
                                         <option value="1">12:00 AM</option>
                                         <option value="2">12:15 AM</option>
@@ -1029,7 +1101,8 @@ const HoursOfOperation = () => {
                                     </select>
                                 </div>
                                 <div class="col-lg-2 col-sm-6">
-                                    <select class="form-select" id="" autofocus required>
+                                    <select class="form-select" id="" autofocus required onChange={(e) =>
+                                        setBusinessHours({ ...businessHours, thursday_end_time: e.target.value })}>
                                         <option value="">Closes at</option>
                                         <option value="1">12:00 AM</option>
                                         <option value="2">12:15 AM</option>
@@ -1131,13 +1204,15 @@ const HoursOfOperation = () => {
                                 </div>
                                 <div class="col-lg-3 col-sm-6">
                                     <div class="form-check form-check-inline text-middle">
-                                        <input class="form-check-input" type="radio" id="inlineRadio9" name="inlineRadio"  autofocus required/>
+                                        <input class="form-check-input" type="radio" id="inlineRadio9" name="inlineRadio9"  autofocus required onChange={(e) =>
+                                        setBusinessHours({ ...businessHours, is_thursday_24open: e.target.value })}/>
                                         <label class="form-check-label" for="inlineRadio9">Open 24 Hours</label>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-sm-6">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" id="inlineRadio10" name="inlineRadio" autofocus required />
+                                        <input class="form-check-input" type="radio" id="inlineRadio10" name="inlineRadio10" autofocus required onChange={(e) =>
+                                        setBusinessHours({ ...businessHours, is_thursday_close: e.target.value })}/>
                                         <label class="form-check-label" for="inlineRadio10">Close</label>
                                     </div>
                                 </div>
@@ -1145,7 +1220,8 @@ const HoursOfOperation = () => {
                             <div class="row p-2">
                                 <div class="col-lg-2 col-sm-6">Friday</div>
                                 <div class="col-2">
-                                    <select class="form-select" id="" autofocus required>
+                                    <select class="form-select" id="" autofocus required onChange={(e) =>
+                                        setBusinessHours({ ...businessHours, friday_start_time: e.target.value })}>
                                         <option value="">Opens at</option>
                                         <option value="1">12:00 AM</option>
                                         <option value="2">12:15 AM</option>
@@ -1246,7 +1322,8 @@ const HoursOfOperation = () => {
                                     </select>
                                 </div>
                                 <div class="col-lg-2 col-sm-6">
-                                    <select class="form-select" id="" autofocus required>
+                                    <select class="form-select" id="" autofocus required onChange={(e) =>
+                                        setBusinessHours({ ...businessHours, friday_end_time: e.target.value })}>
                                         <option value="">Closes at</option>
                                         <option value="1">12:00 AM</option>
                                         <option value="2">12:15 AM</option>
@@ -1348,13 +1425,15 @@ const HoursOfOperation = () => {
                                 </div>
                                 <div class="col-lg-3 col-sm-6">
                                     <div class="form-check form-check-inline text-middle">
-                                        <input class="form-check-input" type="radio" id="inlineRadio11" name="inlineRadio"  autofocus required/>
+                                        <input class="form-check-input" type="radio" id="inlineRadio11" name="inlineRadio11"  autofocus required onChange={(e) =>
+                                        setBusinessHours({ ...businessHours, is_friday_24open: e.target.value })}/>
                                         <label class="form-check-label" for="inlineRadio11">Open 24 Hours</label>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-sm-6">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" id="inlineRadio12" name="inlineRadio" autofocus required />
+                                        <input class="form-check-input" type="radio" id="inlineRadio12" name="inlineRadio12" autofocus required onChange={(e) =>
+                                        setBusinessHours({ ...businessHours, is_friday_close: e.target.value })}/>
                                         <label class="form-check-label" for="inlineRadio12">Close</label>
                                     </div>
                                 </div>
@@ -1362,7 +1441,8 @@ const HoursOfOperation = () => {
                             <div class="row p-2">
                                 <div class="col-lg-2 col-sm-6">Saturday</div>
                                 <div class="col-2">
-                                    <select class="form-select" id="" autofocus required>
+                                    <select class="form-select" id="" autofocus required onChange={(e) =>
+                                        setBusinessHours({ ...businessHours, saturday_start_time: e.target.value })}>
                                         <option value="">Opens at</option>
                                         <option value="1">12:00 AM</option>
                                         <option value="2">12:15 AM</option>
@@ -1463,7 +1543,8 @@ const HoursOfOperation = () => {
                                     </select>
                                 </div>
                                 <div class="col-lg-2 col-sm-6">
-                                    <select class="form-select" id="" autofocus required>
+                                    <select class="form-select" id="" autofocus required onChange={(e) =>
+                                        setBusinessHours({ ...businessHours, saturday_end_time: e.target.value })}>
                                         <option value="">Closes at</option>
                                         <option value="1">12:00 AM</option>
                                         <option value="2">12:15 AM</option>
@@ -1565,19 +1646,21 @@ const HoursOfOperation = () => {
                                 </div>
                                 <div class="col-lg-3 col-sm-6">
                                     <div class="form-check form-check-inline text-middle">
-                                        <input class="form-check-input" type="radio" id="inlineRadio13" name="inlineRadio"  autofocus required/>
+                                        <input class="form-check-input" type="radio" id="inlineRadio13" name="inlineRadio13"  autofocus required onChange={(e) =>
+                                        setBusinessHours({ ...businessHours, is_saturday_24open: e.target.value })}/>
                                         <label class="form-check-label" for="inlineRadio13">Open 24 Hours</label>
                                     </div>
                                 </div>
                                 <div class="col-lg-3 col-sm-6">
                                     <div class="form-check form-check-inline">
-                                        <input class="form-check-input" type="radio" id="inlineRadio14" name="inlineRadio" autofocus required />
+                                        <input class="form-check-input" type="radio" id="inlineRadio14" name="inlineRadio14" autofocus required onChange={(e) =>
+                                        setBusinessHours({ ...businessHours, is_saturday_close: e.target.value })}/>
                                         <label class="form-check-label" for="inlineRadio14">Close</label>
                                     </div>
                                 </div>
                             </div>
                             <div class="col-12 d-grid gap-2 d-md-flex justify-content-md-start">
-                                <button class="btn btn-sm btn-dark" type="submit">Save Change</button>
+                                <button class="btn btn-sm btn-dark" onClick={(e) => updateBusinessHours(e)}>Save Change</button>
                             </div>
                         </form>
                     </div>

@@ -15,7 +15,7 @@ const BusinessView = (WrapperComponent, title) => {
       if (isAuthenticated === null) return; // Wait for the token check to complete
       if (!isAuthenticated) {
         // If the user is not authenticated, redirect them to the login page
-        router.replace("/sign-in-business");
+        // router.replace("/sign-in-business");
       } else if (isAuthenticated && !userProfile?.isBusiness) {
         // If the user is authenticated but not a business profile, redirect to home page
         router.replace("/");

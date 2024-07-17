@@ -1,12 +1,14 @@
 import SidebarInformation from "@/components/Business/SidebarInformation";
 import BusinessView from "@/components/HOC/BusinessView";
 import { capitalize } from "@/helpers/functions";
+import useToken from "@/hooks/useToken";
 import BusinessService from "@/services/BusinessService";
 import { useBusinessAboutStore, useBusinessAmenitiesStore } from "@/store";
 import { useEffect } from "react";
 
 const Amenities = () => {
   const userProfile = useBusinessAboutStore((state) => state.businessProfile);
+  const isAuthenticated = useToken();
   const allAmenity = useBusinessAmenitiesStore((state) => state.allAmenity);
   const allSelectedAmenity = useBusinessAmenitiesStore(
     (state) => state.selectedAmenity
@@ -44,8 +46,15 @@ const Amenities = () => {
   };
 
   useEffect(() => {
-    getAmenitiesData();
-  }, [userProfile]);
+    if(isAuthenticated){
+
+      getAmenitiesData();
+    }
+  }, [isAuthenticated]);
+
+
+  console.log(userProfile);
+
   return (
     <main>
       <section className="p-0 m-0">
