@@ -1,27 +1,25 @@
-import React from "react";
-
-const SidebarInformation = () => {
+const SidebarInformation = ({ profile }) => {
   return (
-    <div className=""  id="offcanvasSidebar">
+    <div className="" id="offcanvasSidebar">
       {/* <!-- Offcanvas header --> */}
-      
+
       {/* <!-- Offcanvas body --> */}
       <div className="offcanvas-body p-3 p-xl-0">
         <div className="card h-100 w-100">
           <div className="align-items-center border-bottom mb-2">
             <h5 className="mb-2 clearfix">
-              Redwood Solutions Co.{" "}
+              {profile?.business_name ?? "Business Name"}
               <a href="#" className="fw-bold text-primary" target="_blank">
                 <i className="fas fa-sm fa-fw fa-link"></i>
               </a>
             </h5>
             <p className="small mb-0 mb-sm-0 pb-2">
-              321 N MaClay Ave #d, San Fernando, CA, United States, California
+              {`${profile?.zip}, ${profile?.Official_address_line1}, ${profile?.city}`}
             </p>
           </div>
           <div className="list-group list-group-dark list-group-borderless pt-1 ps-0">
             <a
-              className="list-group-item mb-1 text-dark fw-normal bg-danger-soft-hover"
+              className="list-group-item mb-1 text-dark fw-normal bg-danger-soft-hover active"
               href="/business/categories"
             >
               <i className="fas fa-network-wired"></i> Categories

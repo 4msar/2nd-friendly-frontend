@@ -1,18 +1,17 @@
+import dayjs from "dayjs";
 
-import dayjs from 'dayjs';
-
-const utc = require('dayjs/plugin/utc'); // dependent on utc plugin
-const timezone = require('dayjs/plugin/timezone');
-const relativeTime = require('dayjs/plugin/relativeTime');
-const weekOfYear = require('dayjs/plugin/weekOfYear');
+const utc = require("dayjs/plugin/utc"); // dependent on utc plugin
+const timezone = require("dayjs/plugin/timezone");
+const relativeTime = require("dayjs/plugin/relativeTime");
+const weekOfYear = require("dayjs/plugin/weekOfYear");
 
 export function getQueryString(name, url = window.location.href) {
-    name = name.replace(/[\\[\]]/g, '\\$&');
-    const regex = new RegExp(`[?&]${name}(=([^&#]*)|&|#|$)`);
-    const results = regex.exec(url);
-    if (!results) return null;
-    if (!results[2]) return '';
-    return decodeURIComponent(results[2].replace(/\+/g, ' '));
+  name = name.replace(/[\\[\]]/g, "\\$&");
+  const regex = new RegExp(`[?&]${name}(=([^&#]*)|&|#|$)`);
+  const results = regex.exec(url);
+  if (!results) return null;
+  if (!results[2]) return "";
+  return decodeURIComponent(results[2].replace(/\+/g, " "));
 }
 
 /**
@@ -21,66 +20,68 @@ export function getQueryString(name, url = window.location.href) {
  * @return {[mixed]}
  */
 export const createFormData = (data, Type = FormData) => {
-    if (![FormData, URLSearchParams].includes(Type)) {
-        return data;
+  if (![FormData, URLSearchParams].includes(Type)) {
+    return data;
+  }
+  const formData = new Type();
+  for (const key in data) {
+    if (data[key] instanceof File) {
+      formData.append(key, data[key], data[key].name);
+    } else {
+      formData.append(key, data[key]);
     }
-    const formData = new Type();
-    for (const key in data) {
-        if (data[key] instanceof File) {
-            formData.append(key, data[key], data[key].name);
-        } else {
-            formData.append(key, data[key]);
-        }
-    }
-    return formData;
+  }
+  return formData;
 };
 
 export const toDotObject = (inputData = {}) => {
-    const data = {};
-    const recursive = (obj, prefix = '') => {
-        for (const key in obj) {
-            if (typeof obj[key] === 'object' && !(obj[key] instanceof File)) {
-                const updatedData = recursive(obj[key], `${prefix + key}.`);
-                if (updatedData) {
-                    data[`${prefix}${key}`] = updatedData;
-                }
-            } else if (obj[key]) {
-                data[`${prefix}${key}`] = obj[key];
-            }
+  const data = {};
+  const recursive = (obj, prefix = "") => {
+    for (const key in obj) {
+      if (typeof obj[key] === "object" && !(obj[key] instanceof File)) {
+        const updatedData = recursive(obj[key], `${prefix + key}.`);
+        if (updatedData) {
+          data[`${prefix}${key}`] = updatedData;
         }
-        return null;
-    };
-    recursive(inputData);
-    return data;
+      } else if (obj[key]) {
+        data[`${prefix}${key}`] = obj[key];
+      }
+    }
+    return null;
+  };
+  recursive(inputData);
+  return data;
 };
 
 export const fileToBase64 = (file) =>
-    new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = (error) => reject(error);
-    });
+  new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = (error) => reject(error);
+  });
 
 export const dates = (dateString) => {
-    const TZ = 'Europe/Helsinki';
-    // eslint-disable-next-line no-unused-vars
-    const TZ_CODE = 'en-EU';
+  const TZ = "Europe/Helsinki";
+  // eslint-disable-next-line no-unused-vars
+  const TZ_CODE = "en-EU";
 
-    const instance = dayjs;
-    instance.extend(utc);
-    instance.extend(timezone);
-    instance.extend(weekOfYear);
-    instance.extend(relativeTime);
-    instance.tz.setDefault(TZ);
-    return instance.tz(dateString, TZ);
+  const instance = dayjs;
+  instance.extend(utc);
+  instance.extend(timezone);
+  instance.extend(weekOfYear);
+  instance.extend(relativeTime);
+  instance.tz.setDefault(TZ);
+  return instance.tz(dateString, TZ);
 };
 
-export const formatDateWithTz = (date, format = 'DD MMM, YYYY - hh:mma') =>
-    dates(date).format(format);
-export const formatDate = (date, format = 'DD MMM, YYYY - hh:mma') => dayjs(date).format(format);
+export const formatDateWithTz = (date, format = "DD MMM, YYYY - hh:mma") =>
+  dates(date).format(format);
+export const formatDate = (date, format = "DD MMM, YYYY - hh:mma") =>
+  dayjs(date).format(format);
 
-export const formatNumber = (number) => number.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, '$&,');
+export const formatNumber = (number) =>
+  number.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
 
 /**
  * Filter an object
@@ -89,7 +90,9 @@ export const formatNumber = (number) => number.toFixed(2).replace(/\d(?=(\d{3})+
  * @return {[type]}            [description]
  */
 export function filterObject(obj, callback) {
-    return Object.fromEntries(Object.entries(obj).filter(([key, val]) => callback(val, key)));
+  return Object.fromEntries(
+    Object.entries(obj).filter(([key, val]) => callback(val, key))
+  );
 }
 
 /**
@@ -98,17 +101,17 @@ export function filterObject(obj, callback) {
  * @return {[Boolean]}
  */
 export function env(key) {
-    let name = key;
+  let name = key;
 
-    if (!key.startsWith('NODE_')) {
-        name = `REACT_APP_${key}`;
-    }
+  if (!key.startsWith("NODE_")) {
+    name = `REACT_APP_${key}`;
+  }
 
-    if (process === undefined) {
-        return false;
-    }
+  if (process === undefined) {
+    return false;
+  }
 
-    return process.env[name];
+  return process.env[name];
 }
 
 /**
@@ -117,11 +120,11 @@ export function env(key) {
  * @return {[Boolean]}
  */
 export function isEnv(name) {
-    const currentEnv = env('NODE_ENV');
-    if (Array.isArray(name)) {
-        return name.includes(currentEnv);
-    }
-    return currentEnv === name;
+  const currentEnv = env("NODE_ENV");
+  if (Array.isArray(name)) {
+    return name.includes(currentEnv);
+  }
+  return currentEnv === name;
 }
 
 /**
@@ -131,13 +134,13 @@ export function isEnv(name) {
  * @return {[mixed]}            [callback value]
  */
 export function when(condition, callback, defaultValue = null) {
-    if (condition) {
-        if (typeof callback === 'function') {
-            callback(condition);
-        }
-        return callback;
+  if (condition) {
+    if (typeof callback === "function") {
+      callback(condition);
     }
-    return defaultValue;
+    return callback;
+  }
+  return defaultValue;
 }
 
 /**
@@ -146,7 +149,7 @@ export function when(condition, callback, defaultValue = null) {
  * @return {[string]}
  */
 export function stripTags(txt) {
-    return `${txt}`.replace(/(<([^>]+)>)/gi, '');
+  return `${txt}`.replace(/(<([^>]+)>)/gi, "");
 }
 
 /**
@@ -155,13 +158,13 @@ export function stripTags(txt) {
  * @return {[mixed]}
  */
 export const errorHandler = (error) => {
-    if (error.response) {
-        return Promise.reject(error.response.data, error);
-    }
-    if (error.request) {
-        return Promise.reject(error.request, error);
-    }
-    return Promise.reject(error.message, error);
+  if (error.response) {
+    return Promise.reject(error.response.data, error);
+  }
+  if (error.request) {
+    return Promise.reject(error.request, error);
+  }
+  return Promise.reject(error.message, error);
 };
 
 /**
@@ -170,26 +173,26 @@ export const errorHandler = (error) => {
  * @return {[json]}
  */
 export const arrayBufferToJson = (arrayBuffer) =>
-    JSON.parse(String.fromCharCode.apply(null, new Uint8Array(arrayBuffer)));
+  JSON.parse(String.fromCharCode.apply(null, new Uint8Array(arrayBuffer)));
 
 /**
  * Abbreviate a large Number
  * @param  {Number} number [description]
  * @return {string}        [description]
  */
-export function abbreviateNumber(number, additionalSuffix = '+') {
-    const SI_SYMBOL = ['', 'K', 'M', 'B', 'T', 'P', 'E'];
-    // what tier? (determines SI symbol)
-    const tier = (Math.log10(Math.abs(number)) / 3) | 0;
-    // if zero, we don't need a suffix
-    if (tier === 0) return number;
-    // get suffix and determine scale
-    const suffix = SI_SYMBOL[tier] || '~';
-    const scale = 10 ** (tier * 3);
-    // scale the number
-    const scaled = number / scale;
-    // format number and add suffix
-    return scaled.toFixed(1) + suffix + additionalSuffix;
+export function abbreviateNumber(number, additionalSuffix = "+") {
+  const SI_SYMBOL = ["", "K", "M", "B", "T", "P", "E"];
+  // what tier? (determines SI symbol)
+  const tier = (Math.log10(Math.abs(number)) / 3) | 0;
+  // if zero, we don't need a suffix
+  if (tier === 0) return number;
+  // get suffix and determine scale
+  const suffix = SI_SYMBOL[tier] || "~";
+  const scale = 10 ** (tier * 3);
+  // scale the number
+  const scaled = number / scale;
+  // format number and add suffix
+  return scaled.toFixed(1) + suffix + additionalSuffix;
 }
 
 /**
@@ -199,14 +202,14 @@ export function abbreviateNumber(number, additionalSuffix = '+') {
  * @return {[type]}       [description]
  */
 export function hexToRGB(hex, alpha) {
-    const r = parseInt(hex.slice(1, 3), 16);
-    const g = parseInt(hex.slice(3, 5), 16);
-    const b = parseInt(hex.slice(5, 7), 16);
+  const r = parseInt(hex.slice(1, 3), 16);
+  const g = parseInt(hex.slice(3, 5), 16);
+  const b = parseInt(hex.slice(5, 7), 16);
 
-    if (alpha) {
-        return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-    }
-    return `rgb(${r}, ${g}, ${b})`;
+  if (alpha) {
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  }
+  return `rgb(${r}, ${g}, ${b})`;
 }
 
 /**
@@ -214,33 +217,33 @@ export function hexToRGB(hex, alpha) {
  * @return {string} [Color code]
  */
 export const generateRandomColor = (opacity) => {
-    const characters = '0123456789ABCDEF';
-    let color = '#';
-    for (let i = 0; i < 6; i++) {
-        color += characters[Math.floor(Math.random() * 16)];
-    }
-    if (opacity >= 0 && opacity <= 1) {
-        return hexToRGB(color, opacity);
-    }
-    return color;
+  const characters = "0123456789ABCDEF";
+  let color = "#";
+  for (let i = 0; i < 6; i++) {
+    color += characters[Math.floor(Math.random() * 16)];
+  }
+  if (opacity >= 0 && opacity <= 1) {
+    return hexToRGB(color, opacity);
+  }
+  return color;
 };
 // check the item has children
 export function hasChildren(item) {
-    const { items: children } = item;
+  const { items: children } = item;
 
-    if (children === undefined) {
-        return false;
-    }
+  if (children === undefined) {
+    return false;
+  }
 
-    if (children.constructor !== Array) {
-        return false;
-    }
+  if (children.constructor !== Array) {
+    return false;
+  }
 
-    if (children.length === 0) {
-        return false;
-    }
+  if (children.length === 0) {
+    return false;
+  }
 
-    return true;
+  return true;
 }
 
 /**
@@ -249,44 +252,46 @@ export function hasChildren(item) {
  * @return {string}         [description]
  */
 export const generateLinearGradient = (alpha = null) => {
-    const direction = Math.round(Math.random() * 360);
-    const r1 = Math.round(Math.random() * 255);
-    const g1 = Math.round(Math.random() * 255);
-    const b1 = Math.round(Math.random() * 255);
-    const a1 = typeof alpha === 'number' ? alpha : Math.round(Math.random() * 10) / 10;
+  const direction = Math.round(Math.random() * 360);
+  const r1 = Math.round(Math.random() * 255);
+  const g1 = Math.round(Math.random() * 255);
+  const b1 = Math.round(Math.random() * 255);
+  const a1 =
+    typeof alpha === "number" ? alpha : Math.round(Math.random() * 10) / 10;
 
-    const r2 = Math.round(Math.random() * 255);
-    const g2 = Math.round(Math.random() * 255);
-    const b2 = Math.round(Math.random() * 255);
-    const a2 = typeof alpha === 'number' ? alpha : Math.round(Math.random() * 10) / 10;
+  const r2 = Math.round(Math.random() * 255);
+  const g2 = Math.round(Math.random() * 255);
+  const b2 = Math.round(Math.random() * 255);
+  const a2 =
+    typeof alpha === "number" ? alpha : Math.round(Math.random() * 10) / 10;
 
-    return `linear-gradient(${direction}deg, rgba(${r1},${g1},${b1},${a1}), rgba(${r2},${g2},${b2},${a2}))`;
+  return `linear-gradient(${direction}deg, rgba(${r1},${g1},${b1},${a1}), rgba(${r2},${g2},${b2},${a2}))`;
 };
 
 export const generateRadialGradient = () => {
-    const a1 = Math.round(Math.random() * 10) / 10;
-    const a2 = Math.round(Math.random() * 10) / 10;
-    const a3 = Math.round(Math.random() * 10) / 10;
+  const a1 = Math.round(Math.random() * 10) / 10;
+  const a2 = Math.round(Math.random() * 10) / 10;
+  const a3 = Math.round(Math.random() * 10) / 10;
 
-    return `radial-gradient(ellipse, ${generateRandomColor(a1)}, ${generateRandomColor(
-        a2
-    )}, ${generateRandomColor(a3)})`;
+  return `radial-gradient(ellipse, ${generateRandomColor(
+    a1
+  )}, ${generateRandomColor(a2)}, ${generateRandomColor(a3)})`;
 };
 
 export function throttle(func, delay) {
-    let timer = 0;
+  let timer = 0;
 
-    const callback = () => {
-        const context = this;
-        // eslint-disable-next-line prefer-rest-params
-        const args = [].slice.call(arguments);
+  const callback = () => {
+    const context = this;
+    // eslint-disable-next-line prefer-rest-params
+    const args = [].slice.call(arguments);
 
-        clearTimeout(timer);
-        timer = setTimeout(() => {
-            func.apply(context, args);
-        }, delay);
-    };
-    return callback;
+    clearTimeout(timer);
+    timer = setTimeout(() => {
+      func.apply(context, args);
+    }, delay);
+  };
+  return callback;
 }
 
 /**
@@ -295,18 +300,18 @@ export function throttle(func, delay) {
  * @return {object}       newly generated array
  */
 export const getImgHeightWidth = async (file) =>
-    new Promise((resolve) => {
-        const img = new Image();
-        img.onload = () => {
-            resolve({
-                width: img.width,
-                height: img.height,
-            });
-            URL.revokeObjectURL(img.src);
-        };
-        // img.onerror = () => reject('failed to load');
-        img.src = URL.createObjectURL(file);
-    });
+  new Promise((resolve) => {
+    const img = new Image();
+    img.onload = () => {
+      resolve({
+        width: img.width,
+        height: img.height
+      });
+      URL.revokeObjectURL(img.src);
+    };
+    // img.onerror = () => reject('failed to load');
+    img.src = URL.createObjectURL(file);
+  });
 
 /**
  * Generate random array
@@ -314,12 +319,18 @@ export const getImgHeightWidth = async (file) =>
  * @return {array}       newly generated array
  */
 export function randomArray(limit = 10, unique = false) {
-    if (!unique) {
-        return Array.from({ length: limit }, () => Math.floor(Math.random() * limit));
-    }
-    return [
-        ...new Set(Array.from({ length: limit * 2 }, () => Math.floor(Math.random() * limit * 2))),
-    ].slice(0, limit);
+  if (!unique) {
+    return Array.from({ length: limit }, () =>
+      Math.floor(Math.random() * limit)
+    );
+  }
+  return [
+    ...new Set(
+      Array.from({ length: limit * 2 }, () =>
+        Math.floor(Math.random() * limit * 2)
+      )
+    )
+  ].slice(0, limit);
 }
 
 /**
@@ -329,14 +340,14 @@ export function randomArray(limit = 10, unique = false) {
  * @return {[type]}       [description]
  */
 export function uniqByKeepFirst(array, key) {
-    if (!Array.isArray(array)) {
-        return [];
-    }
-    const seen = new Set();
-    return array.filter((item) => {
-        const finder = key(item);
-        return seen.has(finder) ? false : seen.add(finder);
-    });
+  if (!Array.isArray(array)) {
+    return [];
+  }
+  const seen = new Set();
+  return array.filter((item) => {
+    const finder = key(item);
+    return seen.has(finder) ? false : seen.add(finder);
+  });
 }
 /**
  * * Unique the array by key by keeping last match
@@ -345,10 +356,10 @@ export function uniqByKeepFirst(array, key) {
  * @return {[type]}       [description]
  */
 export function uniqByKeepLast(array, key) {
-    if (!Array.isArray(array)) {
-        return [];
-    }
-    return [...new Map(array.map((item) => [key(item), item])).values()];
+  if (!Array.isArray(array)) {
+    return [];
+  }
+  return [...new Map(array.map((item) => [key(item), item])).values()];
 }
 
 /**
@@ -358,13 +369,13 @@ export function uniqByKeepLast(array, key) {
  * @return {[type]}     [description]
  */
 export function pick(obj, arr) {
-    const newObj = {};
-    arr.forEach((key) => {
-        if (obj.hasOwnProperty(key)) {
-            newObj[key] = obj[key];
-        }
-    });
-    return newObj;
+  const newObj = {};
+  arr.forEach((key) => {
+    if (obj.hasOwnProperty(key)) {
+      newObj[key] = obj[key];
+    }
+  });
+  return newObj;
 }
 
 /**
@@ -373,9 +384,9 @@ export function pick(obj, arr) {
  * @return {[type]}       [description]
  */
 export function passwordStrengthValidator(value) {
-    const regexp = /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).+$/;
-    const strong = regexp.test(value);
-    return strong;
+  const regexp = /^(?=.*[A-Z])(?=.*[!@#$&*])(?=.*[0-9])(?=.*[a-z]).+$/;
+  const strong = regexp.test(value);
+  return strong;
 }
 /**
  * De-bounce
@@ -384,13 +395,13 @@ export function passwordStrengthValidator(value) {
  * @return {[type]}            [description]
  */
 export function debounce(callback, wait) {
-    let timerId;
-    return (...args) => {
-        clearTimeout(timerId);
-        timerId = setTimeout(() => {
-            callback(...args);
-        }, wait);
-    };
+  let timerId;
+  return (...args) => {
+    clearTimeout(timerId);
+    timerId = setTimeout(() => {
+      callback(...args);
+    }, wait);
+  };
 }
 /**
  * Chunk the array
@@ -399,23 +410,23 @@ export function debounce(callback, wait) {
  * @return {array}            new array
  */
 export function arrayChunk(inputArray, chunk = 3) {
-    if (!Array.isArray(inputArray)) {
-        return [inputArray];
+  if (!Array.isArray(inputArray)) {
+    return [inputArray];
+  }
+  if (chunk < 0) {
+    throw new Error("Invalid chunk size!");
+  }
+  return inputArray.reduce((resultArray, item, index) => {
+    const chunkIndex = Math.floor(index / chunk);
+
+    if (!resultArray[chunkIndex]) {
+      resultArray[chunkIndex] = []; // start a new chunk
     }
-    if (chunk < 0) {
-        throw new Error('Invalid chunk size!');
-    }
-    return inputArray.reduce((resultArray, item, index) => {
-        const chunkIndex = Math.floor(index / chunk);
 
-        if (!resultArray[chunkIndex]) {
-            resultArray[chunkIndex] = []; // start a new chunk
-        }
+    resultArray[chunkIndex].push(item);
 
-        resultArray[chunkIndex].push(item);
-
-        return resultArray;
-    }, []);
+    return resultArray;
+  }, []);
 }
 
 /**
@@ -424,33 +435,33 @@ export function arrayChunk(inputArray, chunk = 3) {
  * @return {Boolean}       [description]
  */
 export function isEmpty(value) {
-    if (typeof value === undefined || value === null || value === undefined) {
-        return true;
-    }
-    if (Array.isArray(value) && value.length <= 0) {
-        return true;
-    }
-    if (typeof value === 'object') {
-        return Object.values(value).filter((item) => item).length <= 0;
-    }
-    if (typeof value === 'string') {
-        return value.length <= 0;
-    }
-    if (typeof value === 'number') {
-        return value <= 0;
-    }
-    return !value;
+  if (typeof value === undefined || value === null || value === undefined) {
+    return true;
+  }
+  if (Array.isArray(value) && value.length <= 0) {
+    return true;
+  }
+  if (typeof value === "object") {
+    return Object.values(value).filter((item) => item).length <= 0;
+  }
+  if (typeof value === "string") {
+    return value.length <= 0;
+  }
+  if (typeof value === "number") {
+    return value <= 0;
+  }
+  return !value;
 }
 
 export function isItArray(value) {
-    if (Array.isArray(value)) {
-        return true;
-    }
-    return !value;
+  if (Array.isArray(value)) {
+    return true;
+  }
+  return !value;
 }
 
 export function isUpper(str) {
-    return !/[a-z]/.test(str) && /[A-Z]/.test(str);
+  return !/[a-z]/.test(str) && /[A-Z]/.test(str);
 }
 
 /**
@@ -459,11 +470,14 @@ export function isUpper(str) {
  * @return {[type]}        [description]
  */
 export function capitalize(string) {
-    if (isEmpty(string)) {
-        return '';
-    }
-    const value = string.toString();
-    return value.charAt(0).toUpperCase() + value.slice(1);
+  if (isEmpty(string)) {
+    return "";
+  }
+  const words = string.toString().split(" ");
+  const capitalizedWords = words.map(
+    (word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase()
+  );
+  return capitalizedWords.join(" ");
 }
 
 /**
@@ -472,11 +486,11 @@ export function capitalize(string) {
  * @return {[type]}        [description]
  */
 export function serializeText(string) {
-    if (isEmpty(string)) {
-        return '';
-    }
-    const value = string.toString().split('_').join(' ');
-    return value.charAt(0).toUpperCase() + value.slice(1);
+  if (isEmpty(string)) {
+    return "";
+  }
+  const value = string.toString().split("_").join(" ");
+  return value.charAt(0).toUpperCase() + value.slice(1);
 }
 
 /**
@@ -484,18 +498,20 @@ export function serializeText(string) {
  * @param  {[type]} string [description]
  * @return {[type]}        [description]
  */
-export function serializeApiError(errors = [], type = 'array') {
-    const items = errors
-        .map((item) => {
-            const message =
-                type === 'string' ? item.message[0] ?? 'Something went wrong' : item.message;
-            const error = {
-                [item.field]: message,
-            };
-            return error;
-        })
-        .reduce((current, accumulator) => ({ ...current, ...accumulator }), {});
-    return items;
+export function serializeApiError(errors = [], type = "array") {
+  const items = errors
+    .map((item) => {
+      const message =
+        type === "string"
+          ? item.message[0] ?? "Something went wrong"
+          : item.message;
+      const error = {
+        [item.field]: message
+      };
+      return error;
+    })
+    .reduce((current, accumulator) => ({ ...current, ...accumulator }), {});
+  return items;
 }
 
 /**
@@ -505,14 +521,16 @@ export function serializeApiError(errors = [], type = 'array') {
  * @return {[type]}            [description]
  */
 export const camelCaseToText = (str) =>
-    capitalize(str?.replace(/[A-Z]/g, (letter) => ` ${letter.toLowerCase()}`).trim());
+  capitalize(
+    str?.replace(/[A-Z]/g, (letter) => ` ${letter.toLowerCase()}`).trim()
+  );
 
 export function camelize(str) {
-    return str
-        .replace(/(?:^\w|[A-Z]|\b\w)/g, (word, index) =>
-            index === 0 ? word.toLowerCase() : word.toUpperCase()
-        )
-        .replace(/\s+/g, '');
+  return str
+    .replace(/(?:^\w|[A-Z]|\b\w)/g, (word, index) =>
+      index === 0 ? word.toLowerCase() : word.toUpperCase()
+    )
+    .replace(/\s+/g, "");
 }
 /**
  * Download JSON Object as File
@@ -520,20 +538,20 @@ export function camelize(str) {
  * @return {[type]}        [description]
  */
 export function formatBytes(bytes, decimals = 2) {
-    if (bytes === 0) return '0 Bytes';
+  if (bytes === 0) return "0 Bytes";
 
-    const k = 1024;
-    const dm = decimals < 0 ? 0 : decimals;
-    const sizes = ['Bytes', 'KB', 'MB', 'GB', 'TB', 'PB', 'EB', 'ZB', 'YB'];
+  const k = 1024;
+  const dm = decimals < 0 ? 0 : decimals;
+  const sizes = ["Bytes", "KB", "MB", "GB", "TB", "PB", "EB", "ZB", "YB"];
 
-    const i = Math.floor(Math.log(bytes) / Math.log(k));
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
 
-    return `${parseFloat((bytes / k ** i).toFixed(dm))} ${sizes[i]}`;
+  return `${parseFloat((bytes / k ** i).toFixed(dm))} ${sizes[i]}`;
 }
 
 export function checkSpecialChars(str) {
-    const specialChars = /[@]/;
-    return specialChars.test(str);
+  const specialChars = /[@]/;
+  return specialChars.test(str);
 }
 
 /**
@@ -542,85 +560,91 @@ export function checkSpecialChars(str) {
  * @return {[type]} string [description]
  */
 export function replaceUndefinied(item) {
-    const str = JSON.stringify(item, (key, value) => (value === undefined ? '' : value));
-    return JSON.parse(str);
+  const str = JSON.stringify(item, (key, value) =>
+    value === undefined ? "" : value
+  );
+  return JSON.parse(str);
 }
 
-export function download(data, { fileName = 'file.zip', type = 'application/zip' }) {
-    const downloadUrl = window.URL.createObjectURL(new Blob([data], { type }));
-    const link = document.createElement('a');
-    link.href = downloadUrl;
-    link.setAttribute('download', fileName); // any other extension
-    document.body.appendChild(link);
-    link.click();
-    link.remove();
+export function download(
+  data,
+  { fileName = "file.zip", type = "application/zip" }
+) {
+  const downloadUrl = window.URL.createObjectURL(new Blob([data], { type }));
+  const link = document.createElement("a");
+  link.href = downloadUrl;
+  link.setAttribute("download", fileName); // any other extension
+  document.body.appendChild(link);
+  link.click();
+  link.remove();
 }
 
 export function generateSrcSet(url) {
-    const sizes = [
-        100, 200, 300, 480, 600, 720, 980, 1080, 1350, 1600, 1600, 1920, 2200, 2400, 2592,
-    ];
-    return sizes.map((size) => `${url}?w=${size} ${size}w`).join(', ');
+  const sizes = [
+    100, 200, 300, 480, 600, 720, 980, 1080, 1350, 1600, 1600, 1920, 2200, 2400,
+    2592
+  ];
+  return sizes.map((size) => `${url}?w=${size} ${size}w`).join(", ");
 }
 
 export function getYear(date) {
-    const year = formatDate(date, 'YYYY');
+  const year = formatDate(date, "YYYY");
 
-    return year;
+  return year;
 }
 
 export function forceHttps(url) {
-    if (!url) return url;
-    if (url.startsWith('http://')) {
-        return `https://${url.substr(7)}`;
-    }
-    return url;
+  if (!url) return url;
+  if (url.startsWith("http://")) {
+    return `https://${url.substr(7)}`;
+  }
+  return url;
 }
 
 export function base64toBlob(base64Data, contentType) {
-    contentType = contentType || '';
-    const sliceSize = 1024;
-    const byteCharacters = atob(base64Data);
-    const bytesLength = byteCharacters.length;
-    const slicesCount = Math.ceil(bytesLength / sliceSize);
-    const byteArrays = new Array(slicesCount);
+  contentType = contentType || "";
+  const sliceSize = 1024;
+  const byteCharacters = atob(base64Data);
+  const bytesLength = byteCharacters.length;
+  const slicesCount = Math.ceil(bytesLength / sliceSize);
+  const byteArrays = new Array(slicesCount);
 
-    for (let sliceIndex = 0; sliceIndex < slicesCount; ++sliceIndex) {
-        const begin = sliceIndex * sliceSize;
-        const end = Math.min(begin + sliceSize, bytesLength);
+  for (let sliceIndex = 0; sliceIndex < slicesCount; ++sliceIndex) {
+    const begin = sliceIndex * sliceSize;
+    const end = Math.min(begin + sliceSize, bytesLength);
 
-        const bytes = new Array(end - begin);
-        for (let offset = begin, i = 0; offset < end; ++i, ++offset) {
-            bytes[i] = byteCharacters[offset].charCodeAt(0);
-        }
-        byteArrays[sliceIndex] = new Uint8Array(bytes);
+    const bytes = new Array(end - begin);
+    for (let offset = begin, i = 0; offset < end; ++i, ++offset) {
+      bytes[i] = byteCharacters[offset].charCodeAt(0);
     }
-    return new Blob(byteArrays, { type: contentType });
+    byteArrays[sliceIndex] = new Uint8Array(bytes);
+  }
+  return new Blob(byteArrays, { type: contentType });
 }
 
-export function calculateTotalWithDiscount(price, discount, type='fixed'){
-        let total = 0
-        if(type === 'percentage') {
-            const discountAmount = price * (discountPercentage / 100);
-           total = price - discountAmount 
-        } else {
-            total = price - discount;
-        }
+export function calculateTotalWithDiscount(price, discount, type = "fixed") {
+  let total = 0;
+  if (type === "percentage") {
+    const discountAmount = price * (discountPercentage / 100);
+    total = price - discountAmount;
+  } else {
+    total = price - discount;
+  }
 
-        return total;
+  return total;
 }
 
 export function limitWords(text, maxWords) {
-    const words = text.split(' ');
-  
-    if (words.length > maxWords) {
-      words.length = maxWords;
-      return words.join(' ') + '...';
-    }
-  
-    return text;
+  const words = text.split(" ");
+
+  if (words.length > maxWords) {
+    words.length = maxWords;
+    return words.join(" ") + "...";
   }
 
+  return text;
+}
 
-if(typeof window !== 'undefined'){window.download = download;}
-
+if (typeof window !== "undefined") {
+  window.download = download;
+}

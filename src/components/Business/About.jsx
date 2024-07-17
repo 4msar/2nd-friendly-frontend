@@ -8,7 +8,6 @@ const AboutBusiness = () => {
   const [file, setFile] = useState(null);
   const userProfile = useBusinessAboutStore((state) => state.businessProfile);
   const userInfo = useBusinessAboutStore((state) => state.businessOwner);
-  const setUserInfo = useBusinessAboutStore((state) => state.setBusinessOwner);
   const allState = useBusinessAboutStore((state) => state.allState);
   const setUserProfile = useBusinessAboutStore(
     (state) => state.setBusinessProfile

@@ -1,8 +1,9 @@
 import SidebarInformation from "@/components/Business/SidebarInformation";
 import BusinessView from "@/components/HOC/BusinessView";
-import React from "react";
+import { useBusinessAboutStore } from "@/store";
 
 const Categories = () => {
+  const userProfile = useBusinessAboutStore((state) => state.businessProfile);
   return (
     <main>
       <section className="p-0 m-0">
@@ -48,7 +49,7 @@ const Categories = () => {
         <div className="container">
           <div className="row">
             <div className="col-xl-3 col-md-3">
-              <SidebarInformation />
+              <SidebarInformation profile={userProfile} />
             </div>
             <div className="col-xl-9 col-md-9">
               <div className="border-bottom mb-3 pb-2">
