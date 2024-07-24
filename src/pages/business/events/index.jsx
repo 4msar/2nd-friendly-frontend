@@ -1,8 +1,32 @@
 import SidebarInformation from "@/components/Business/SidebarInformation";
 import BusinessView from "@/components/HOC/BusinessView";
-import React from "react";
+import { API_URL } from "@/helpers/apiUrl";
+import useToken from "@/hooks/useToken";
+import BusinessService from "@/services/BusinessService";
+import { useBusinessAboutStore } from "@/store";
+import { useEventStore } from "@/store/useEventStore";
+import React, { useEffect, useState } from "react";
 
 const Events = () => {
+  const userProfile = useBusinessAboutStore((state) => state.businessProfile);
+  const isAuthenticated = useToken();
+
+  const allEvent = useEventStore((state) => state.allEvent);
+  const setEvent = useEventStore((state) => state.setEvent);
+  const [viewEvent, setViewEvent] = useState(null);
+
+  const getAllEvents = async () => {
+    const res = await BusinessService.categorySubCategoryAll().then((data) => {
+      console.log(reviews);
+      setEvent(data.data.allEvent);
+    });
+  };
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      getAllEvents();
+    }
+  }, [isAuthenticated]);
   return (
     <main>
       <section className="p-0 m-0">
@@ -48,7 +72,7 @@ const Events = () => {
         <div className="container">
           <div className="row">
             <div className="col-xl-3 col-md-3">
-              <SidebarInformation />
+              <SidebarInformation profile={userProfile} />
             </div>
             <div className="col-xl-9 col-md-9">
               <div class="col d-md-flex justify-content-between align-items-center mt-4">
@@ -80,463 +104,73 @@ const Events = () => {
                       </th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <div class="d-flex align-items-center">
-                          <div class="w-60px">
-                            <img
-                              src="../assets/img/event/3.jpg"
-                              class="rounded-1"
-                              alt=""
-                            />
-                          </div>
-                          <div class="mb-0 ms-2">
-                            <h6>
-                              <a href="event-detail.php">
-                                The Great American Food Festival: A Taste of the
-                                Nation
-                              </a>
-                            </h6>
-                            <div class="d-sm-flex">
-                              <p class="h6 fw-light mb-0 small me-2">
-                                <i class="far fa-map text-dark me-1 mb-1"></i>{" "}
-                                321 N MaClay Ave #d, San Fernando
-                              </p>
-                              <p class="h6 fw-gray mb-0 small">
-                                <i class="fas fa-certificate text-gray me-2"></i>
-                                Visual Arts
-                              </p>
+                  {allEvent.length > 0 ? (
+                    <tbody>
+                      {allEvent.map((event, index) => (
+                        <tr key={index}>
+                          <td>
+                            <div class="d-flex align-items-center">
+                              <div class="w-60px">
+                                <img
+                                  src="../assets/img/event/3.jpg"
+                                  class="rounded-1"
+                                  alt=""
+                                />
+                              </div>
+                              <div class="mb-0 ms-2">
+                                <h6>
+                                  <a href="event-detail.php">
+                                    The Great American Food Festival: A Taste of
+                                    the Nation
+                                  </a>
+                                </h6>
+                                <div class="d-sm-flex">
+                                  <p class="h6 fw-light mb-0 small me-2">
+                                    <i class="far fa-map text-dark me-1 mb-1"></i>{" "}
+                                    321 N MaClay Ave #d, San Fernando
+                                  </p>
+                                  <p class="h6 fw-gray mb-0 small">
+                                    <i class="fas fa-certificate text-gray me-2"></i>
+                                    Visual Arts
+                                  </p>
+                                </div>
+                              </div>
                             </div>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="text-center text-sm-start">March 02, 2024</td>
-                      <td>
-                        <div class="badge bg-success bg-opacity-10 text-success">
-                          Upcoming
-                        </div>
-                      </td>
-                      <td>
-                        <a
-                          href="event-form.php"
-                          class="btn btn-sm btn-dark-soft btn-round me-1 mb-0"
-                        >
-                          <i class="far fa-fw fa-edit"></i>
-                        </a>
-                        <a
-                          href="event-detail.php"
-                          class="btn btn-sm btn-round btn-success-soft "
-                        >
-                          <i class="far fa-fw fa-eye"></i>
-                        </a>
-                        <button class="btn btn-sm btn-danger-soft btn-round mb-0">
-                          <i class="fas fa-fw fa-times"></i>
-                        </button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div class="d-flex align-items-center">
-                          <div class="w-60px">
-                            <img
-                              src="../assets/img/event/4.jpg"
-                              class="rounded-1"
-                              alt=""
-                            />
-                          </div>
-                          <div class="mb-0 ms-2">
-                            <h6>
-                              <a href="event-detail.php">
-                                Patriot Run: Honoring Our Veterans and First
-                                Responders
-                              </a>
-                            </h6>
-                            <div class="d-sm-flex">
-                              <p class="h6 fw-light mb-0 small me-2">
-                                <i class="far fa-calendar-alt text-dark me-1 mb-1"></i>{" "}
-                                321 N MaClay Ave #d, San Fernando
-                              </p>
-                              <p class="h6 fw-gray mb-0 small">
-                                <i class="fas fa-certificate text-gray me-2"></i>
-                                Visual Arts
-                              </p>
+                          </td>
+                          <td class="text-center text-sm-start">
+                            March 02, 2024
+                          </td>
+                          <td>
+                            <div class="badge bg-success bg-opacity-10 text-success">
+                              Upcoming
                             </div>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="text-center text-sm-start">March 02, 2024</td>
-                      <td>
-                        <div class="badge bg-secondary bg-opacity-10 text-secondary">
-                          Completed
-                        </div>
-                      </td>
-                      <td>
-                        <a
-                          href="event-form.php"
-                          class="btn btn-sm btn-dark-soft btn-round me-1 mb-0"
-                        >
-                          <i class="far fa-fw fa-edit"></i>
-                        </a>
-                        <a
-                          href="event-detail.php"
-                          class="btn btn-sm btn-round btn-success-soft "
-                        >
-                          <i class="far fa-fw fa-eye"></i>
-                        </a>
-                        <button class="btn btn-sm btn-danger-soft btn-round mb-0">
-                          <i class="fas fa-fw fa-times"></i>
-                        </button>
-                      </td>
-                    </tr>
+                          </td>
+                          <td>
+                            <a
+                              href="event-form.php"
+                              class="btn btn-sm btn-dark-soft btn-round me-1 mb-0"
+                            >
+                              <i class="far fa-fw fa-edit"></i>
+                            </a>
+                            <a
+                              href={`${API_URL}/business/events/${event.id}`}
+                              class="btn btn-sm btn-round btn-success-soft "
+                            >
+                              <i class="far fa-fw fa-eye"></i>
+                            </a>
+                            <button class="btn btn-sm btn-danger-soft btn-round mb-0">
+                              <i class="fas fa-fw fa-times"></i>
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  ) : (
                     <tr>
-                      <td>
-                        <div class="d-flex align-items-center">
-                          <div class="w-60px">
-                            <img
-                              src="../assets/img/event/5.jpg"
-                              class="rounded-1"
-                              alt=""
-                            />
-                          </div>
-                          <div class="mb-0 ms-2">
-                            <h6>
-                              <a href="event-detail.php">
-                                Independence Day Spectacular: Fireworks &
-                                Festivities
-                              </a>
-                            </h6>
-                            <div class="d-sm-flex">
-                              <p class="h6 fw-light mb-0 small me-2">
-                                <i class="far fa-calendar-alt text-dark me-1 mb-1"></i>{" "}
-                                321 N MaClay Ave #d, San Fernando
-                              </p>
-                              <p class="h6 fw-gray mb-0 small">
-                                <i class="fas fa-certificate text-gray me-2"></i>
-                                Visual Arts
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="text-center text-sm-start">March 02, 2024</td>
-                      <td>
-                        <div class="badge bg-success bg-opacity-10 text-success">
-                          Live
-                        </div>
-                      </td>
-                      <td>
-                        <a
-                          href="#"
-                          class="btn btn-sm btn-dark-soft btn-round me-1 mb-0"
-                        >
-                          <i class="far fa-fw fa-edit"></i>
-                        </a>
-                        <a
-                          href="event-detail.php"
-                          class="btn btn-sm btn-round btn-success-soft "
-                        >
-                          <i class="far fa-fw fa-eye"></i>
-                        </a>
-                        <button class="btn btn-sm btn-danger-soft btn-round mb-0">
-                          <i class="fas fa-fw fa-times"></i>
-                        </button>
-                      </td>
+                      <p>Event not found! Please create one!</p>
                     </tr>
-                    <tr>
-                      <td>
-                        <div class="d-flex align-items-center">
-                          <div class="w-60px">
-                            <img
-                              src="../assets/img/event/6.jpg"
-                              class="rounded-1"
-                              alt=""
-                            />
-                          </div>
-                          <div class="mb-0 ms-2">
-                            <h6>
-                              <a href="event-detail.php">
-                                American Dream Conference: Inspiring Success
-                                Stories
-                              </a>
-                            </h6>
-                            <div class="d-sm-flex">
-                              <p class="h6 fw-light mb-0 small me-2">
-                                <i class="far fa-calendar-alt text-dark me-1 mb-1"></i>{" "}
-                                321 N MaClay Ave #d, San Fernando
-                              </p>
-                              <p class="h6 fw-gray mb-0 small">
-                                <i class="fas fa-certificate text-gray me-2"></i>
-                                Visual Arts
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="text-center text-sm-start">March 02, 2024</td>
-                      <td>
-                        <div class="badge bg-info bg-opacity-10 text-info">
-                          Applied
-                        </div>
-                      </td>
-                      <td>
-                        <a
-                          href="event-form.php"
-                          class="btn btn-sm btn-dark-soft btn-round me-1 mb-0"
-                        >
-                          <i class="far fa-fw fa-edit"></i>
-                        </a>
-                        <a
-                          href="event-detail.php"
-                          class="btn btn-sm btn-round btn-success-soft "
-                        >
-                          <i class="far fa-fw fa-eye"></i>
-                        </a>
-                        <button class="btn btn-sm btn-danger-soft btn-round mb-0">
-                          <i class="fas fa-fw fa-times"></i>
-                        </button>
-                      </td>
-                    </tr>
-                    {/* <!-- Table item --> */}
-                    <tr>
-                      {/* <!-- Course item --> */}
-                      <td>
-                        <div class="d-flex align-items-center">
-                          <div class="w-60px">
-                            <img
-                              src="../assets/img/event/7.jpg"
-                              class="rounded-1"
-                              alt=""
-                            />
-                          </div>
-                          <div class="mb-0 ms-2">
-                            <h6>
-                              <a href="event-detail.php">
-                                Unity Fest: Bringing Communities Together Across
-                                America
-                              </a>
-                            </h6>
-                            <div class="d-sm-flex">
-                              <p class="h6 fw-light mb-0 small me-2">
-                                <i class="far fa-calendar-alt text-dark me-1 mb-1"></i>{" "}
-                                321 N MaClay Ave #d, San Fernando
-                              </p>
-                              <p class="h6 fw-gray mb-0 small">
-                                <i class="fas fa-certificate text-gray me-2"></i>
-                                Visual Arts
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-                      {/* <!-- Enrolled item --> */}
-                      <td class="text-center text-sm-start">March 02, 2024</td>
-                      {/* <!-- Status item --> */}
-                      <td>
-                        <div class="badge bg-danger bg-opacity-10 text-danger">
-                          Cancelled
-                        </div>
-                      </td>
-                      {/* <!-- Price item --> */}
-                      {/* <!-- Action item --> */}
-                      <td>
-                        <a
-                          href="event-form.php"
-                          class="btn btn-sm btn-dark-soft btn-round me-1 mb-0"
-                        >
-                          <i class="far fa-fw fa-edit"></i>
-                        </a>
-                        <a
-                          href="event-detail.php"
-                          class="btn btn-sm btn-round btn-success-soft "
-                        >
-                          <i class="far fa-fw fa-eye"></i>
-                        </a>
-                        <button class="btn btn-sm btn-danger-soft btn-round mb-0">
-                          <i class="fas fa-fw fa-times"></i>
-                        </button>
-                      </td>
-                    </tr>
-                    {/* <!-- Table item --> */}
-                    <tr>
-                      {/* <!-- Course item --> */}
-                      <td>
-                        <div class="d-flex align-items-center">
-                          <div class="w-60px">
-                            <img
-                              src="../assets/img/event/8.jpg"
-                              class="rounded-1"
-                              alt=""
-                            />
-                          </div>
-                          <div class="mb-0 ms-2">
-                            <h6>
-                              <a href="event-detail.php">
-                                Red, White & Brew: Craft Beer Tasting and BBQ
-                              </a>
-                            </h6>
-                            <div class="d-sm-flex">
-                              <p class="h6 fw-light mb-0 small me-2">
-                                <i class="far fa-calendar-alt text-dark me-1 mb-1"></i>{" "}
-                                321 N MaClay Ave #d, San Fernando
-                              </p>
-                              <p class="h6 fw-gray mb-0 small">
-                                <i class="fas fa-certificate text-gray me-2"></i>
-                                Visual Arts
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-                      {/* <!-- Enrolled item --> */}
-                      <td class="text-center text-sm-start">March 02, 2024</td>
-                      {/* <!-- Status item --> */}
-                      <td>
-                        <div class="badge bg-info bg-opacity-10 text-info">
-                          Applied
-                        </div>
-                      </td>
-                      {/* <!-- Price item --> */}
-                      {/* <!-- Action item --> */}
-                      <td>
-                        <a
-                          href="event-form.php"
-                          class="btn btn-sm btn-dark-soft btn-round me-1 mb-0"
-                        >
-                          <i class="far fa-fw fa-edit"></i>
-                        </a>
-                        <a
-                          href="event-detail.php"
-                          class="btn btn-sm btn-round btn-success-soft "
-                        >
-                          <i class="far fa-fw fa-eye"></i>
-                        </a>
-                        <button class="btn btn-sm btn-danger-soft btn-round mb-0">
-                          <i class="fas fa-fw fa-times"></i>
-                        </button>
-                      </td>
-                    </tr>
-                    {/* <!-- Table item --> */}
-                    <tr>
-                      {/* <!-- Course item --> */}
-                      <td>
-                        <div class="d-flex align-items-center">
-                          <div class="w-60px">
-                            <img
-                              src="../assets/img/event/9.jpg"
-                              class="rounded-1"
-                              alt=""
-                            />
-                          </div>
-                          <div class="mb-0 ms-2">
-                            <h6>
-                              <a href="event-detail.php">
-                                Heritage Week: Embracing Diversity, Uniting
-                                Cultures
-                              </a>
-                            </h6>
-                            <div class="d-sm-flex">
-                              <p class="h6 fw-light mb-0 small me-2">
-                                <i class="far fa-calendar-alt text-dark me-1 mb-1"></i>{" "}
-                                321 N MaClay Ave #d, San Fernando
-                              </p>
-                              <p class="h6 fw-gray mb-0 small">
-                                <i class="fas fa-certificate text-gray me-2"></i>
-                                Visual Arts
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-                      {/* <!-- Enrolled item --> */}
-                      <td class="text-center text-sm-start">March 02, 2024</td>
-                      {/* <!-- Status item --> */}
-                      <td>
-                        <div class="badge bg-success bg-opacity-10 text-success">
-                          Live
-                        </div>
-                      </td>
-                      {/* <!-- Price item --> */}
-                      {/* <!-- Action item --> */}
-                      <td>
-                        <a
-                          href="event-form.php"
-                          class="btn btn-sm btn-dark-soft btn-round me-1 mb-0"
-                        >
-                          <i class="far fa-fw fa-edit"></i>
-                        </a>
-                        <a
-                          href="event-detail.php"
-                          class="btn btn-sm btn-round btn-success-soft "
-                        >
-                          <i class="far fa-fw fa-eye"></i>
-                        </a>
-                        <button class="btn btn-sm btn-danger-soft btn-round mb-0">
-                          <i class="fas fa-fw fa-times"></i>
-                        </button>
-                      </td>
-                    </tr>
-                    {/* <!-- Table item --> */}
-                    <tr>
-                      {/* <!-- Course item --> */}
-                      <td>
-                        <div class="d-flex align-items-center">
-                          <div class="w-60px">
-                            <img
-                              src="../assets/img/event/10.jpg"
-                              class="rounded-1"
-                              alt=""
-                            />
-                          </div>
-                          <div class="mb-0 ms-2">
-                            <h6>
-                              <a href="event-detail.php">
-                                Tech Summit USA: Innovation for a Better
-                                Tomorrow
-                              </a>
-                            </h6>
-                            <div class="d-sm-flex">
-                              <p class="h6 fw-light mb-0 small me-2">
-                                <i class="far fa-calendar-alt text-dark me-1 mb-1"></i>{" "}
-                                321 N MaClay Ave #d, San Fernando
-                              </p>
-                              <p class="h6 fw-gray mb-0 small">
-                                <i class="fas fa-certificate text-gray me-2"></i>
-                                Visual Arts
-                              </p>
-                            </div>
-                          </div>
-                        </div>
-                      </td>
-                      {/* <!-- Enrolled item --> */}
-                      <td class="text-center text-sm-start">March 02, 2024</td>
-                      {/* <!-- Status item --> */}
-                      <td>
-                        <div class="badge bg-success bg-opacity-10 text-success">
-                          Live
-                        </div>
-                      </td>
-                      {/* <!-- Price item -->
-                                    <!-- Action item --> */}
-                      <td>
-                        <a
-                          href="event-form.php"
-                          class="btn btn-sm btn-dark-soft btn-round me-1 mb-0"
-                        >
-                          <i class="far fa-fw fa-edit"></i>
-                        </a>
-                        <a
-                          href="event-detail.php"
-                          class="btn btn-sm btn-round btn-success-soft "
-                        >
-                          <i class="far fa-fw fa-eye"></i>
-                        </a>
-                        <button class="btn btn-sm btn-danger-soft btn-round mb-0">
-                          <i class="fas fa-fw fa-times"></i>
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
+                  )}
+
                   {/* <!-- Table body END --> */}
                 </table>
               </div>

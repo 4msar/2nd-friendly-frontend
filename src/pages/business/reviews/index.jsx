@@ -1,8 +1,33 @@
 import SidebarInformation from "@/components/Business/SidebarInformation";
 import BusinessView from "@/components/HOC/BusinessView";
-import React from "react";
+import useToken from "@/hooks/useToken";
+import BusinessService from "@/services/BusinessService";
+import { useBusinessAboutStore } from "@/store";
+import { useReviewStore } from "@/store/useReviewStore";
+import React, { useEffect, useState } from "react";
 
 const Reviews = () => {
+  const userProfile = useBusinessAboutStore((state) => state.businessProfile);
+  const isAuthenticated = useToken();
+
+  const allReview = useReviewStore((state) => state.allReview);
+  const setReview = useReviewStore((state) => state.setReview);
+  const [viewReview, setViewReview] = useState(null);
+
+  const getAllReviews = async () => {
+    const res = await BusinessService.categorySubCategoryAll().then(
+      (data) => {
+        console.log(reviews);
+        setReview(data.data.allReview);
+      }
+    );
+  };
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      getAllReviews();
+    }
+  }, [isAuthenticated]);
   return (
     <main>
       <section className="p-0 m-0">
@@ -48,7 +73,7 @@ const Reviews = () => {
         <div className="container">
           <div className="row">
             <div className="col-xl-3 col-md-3">
-              <SidebarInformation />
+              <SidebarInformation profile={userProfile} />
             </div>
             <div className="col-xl-9 col-md-9">
               <div class="header">
@@ -82,504 +107,80 @@ const Reviews = () => {
                       <th class="text-dark">Action</th>
                     </tr>
                   </thead>
-                  <tbody>
-                    <tr>
-                      <td>
-                        <div class="d-sm-flex align-items-center mb-1 mb-sm-0">
-                          <div class="avatar avatar-md flex-shrink-0">
-                            <img
-                              class="avatar-img rounded-circle"
-                              src="../assets/img/user/user-2.jpg"
-                              alt="avatar"
-                            />
-                          </div>
-                          <div class="ms-0 ms-sm-2 mt-2 mt-sm-0">
-                            <h6 class="mb-1">Arielle Norheim </h6>
-                            <ul class="list-inline mb-0 small">
-                              <li class="list-inline-item fw-light me-2 mb-1 mb-sm-0">
-                                arinorheim@hotmail.com
+                  {allReview.length > 0 ? (
+                    <tbody>
+                      {allReview.map((review, index) => (
+                        <tr key={index}>
+                          <td>
+                            <div class="d-sm-flex align-items-center mb-1 mb-sm-0">
+                              <div class="avatar avatar-md flex-shrink-0">
+                                <img
+                                  class="avatar-img rounded-circle"
+                                  src="../assets/img/user/user-2.jpg"
+                                  alt="avatar"
+                                />
+                              </div>
+                              <div class="ms-0 ms-sm-2 mt-2 mt-sm-0">
+                                <h6 class="mb-1">Arielle Norheim </h6>
+                                <ul class="list-inline mb-0 small">
+                                  <li class="list-inline-item fw-light me-2 mb-1 mb-sm-0">
+                                    arinorheim@hotmail.com
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </td>
+                          <td>
+                            <ul class="list-inline mb-0">
+                              <li class="list-inline-item me-0 small">
+                                <i class="fas fa-star text-warning"></i>
+                              </li>
+                              <li class="list-inline-item me-0 small">
+                                <i class="fas fa-star text-warning"></i>
+                              </li>
+                              <li class="list-inline-item me-0 small">
+                                <i class="fas fa-star text-warning"></i>
+                              </li>
+                              <li class="list-inline-item me-0 small">
+                                <i class="fas fa-star text-warning"></i>
+                              </li>
+                              <li class="list-inline-item me-0 small">
+                                <i class="fas fa-star text-warning"></i>
                               </li>
                             </ul>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <ul class="list-inline mb-0">
-                          <li class="list-inline-item me-0 small">
-                            <i class="fas fa-star text-warning"></i>
-                          </li>
-                          <li class="list-inline-item me-0 small">
-                            <i class="fas fa-star text-warning"></i>
-                          </li>
-                          <li class="list-inline-item me-0 small">
-                            <i class="fas fa-star text-warning"></i>
-                          </li>
-                          <li class="list-inline-item me-0 small">
-                            <i class="fas fa-star text-warning"></i>
-                          </li>
-                          <li class="list-inline-item me-0 small">
-                            <i class="fas fa-star text-warning"></i>
-                          </li>
-                        </ul>
-                      </td>
-                      <td>January 22, 2024</td>
-                      <td>
-                        <a
-                          href="#"
-                          data-bs-target="#EditReview"
-                          data-bs-toggle="modal"
-                          class="btn btn-xs btn-blue-soft btn-bg-xs mb-0"
-                        >
-                          <i class="fas fa-edit"></i>
-                        </a>
-                        <a
-                          href="#"
-                          data-bs-target="#viewReview"
-                          data-bs-toggle="modal"
-                          class="btn btn-xs btn-success-soft mb-0"
-                        >
-                          <i class="far fa-fw fa-eye"></i>
-                        </a>
-                        <button class="btn btn-xs btn-danger-soft mb-0">
-                          <i class="fas fa-fw fa-times"></i>
-                        </button>
-                      </td>
-                    </tr>
+                          </td>
+                          <td>January 22, 2024</td>
+                          <td>
+                            <a
+                              href="#"
+                              data-bs-target="#EditReview"
+                              data-bs-toggle="modal"
+                              class="btn btn-xs btn-blue-soft btn-bg-xs mb-0"
+                              onClick={() => setViewReview(review)}
+                            >
+                              <i class="fas fa-edit"></i>
+                            </a>
+                            <a
+                              href="#"
+                              data-bs-target="#viewReview"
+                              data-bs-toggle="modal"
+                              class="btn btn-xs btn-success-soft mb-0"
+                              onClick={() => setViewReview(review)}
+                            >
+                              <i class="far fa-fw fa-eye"></i>
+                            </a>
+                            <button class="btn btn-xs btn-danger-soft mb-0">
+                              <i class="fas fa-fw fa-times"></i>
+                            </button>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  ) : (
                     <tr>
-                      <td>
-                        <div class="d-sm-flex align-items-center mb-1 mb-sm-0">
-                          <div class="avatar avatar-md flex-shrink-0">
-                            <img
-                              class="avatar-img rounded-circle"
-                              src="../assets/img/user/user-3.jpg"
-                              alt="avatar"
-                            />
-                          </div>
-                          <div class="ms-0 ms-sm-2 mt-2 mt-sm-0">
-                            <h6 class="mb-1">Arielle Norheim </h6>
-                            <ul class="list-inline mb-0 small">
-                              <li class="list-inline-item fw-light me-2 mb-1 mb-sm-0">
-                                arinorheim@hotmail.com
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <ul class="list-inline mb-0">
-                          <li class="list-inline-item me-0 small">
-                            <i class="fas fa-star text-warning"></i>
-                          </li>
-                          <li class="list-inline-item me-0 small">
-                            <i class="fas fa-star text-warning"></i>
-                          </li>
-                          <li class="list-inline-item me-0 small">
-                            <i class="fas fa-star text-warning"></i>
-                          </li>
-                          <li class="list-inline-item me-0 small">
-                            <i class="fas fa-star text-warning"></i>
-                          </li>
-                          <li class="list-inline-item me-0 small">
-                            <i class="fas fa-star text-warning"></i>
-                          </li>
-                        </ul>
-                      </td>
-                      <td>January 22, 2024</td>
-                      <td>
-                        <a
-                          href="#"
-                          data-bs-target="#EditReview"
-                          data-bs-toggle="modal"
-                          class="btn btn-xs btn-blue-soft btn-bg-xs mb-0"
-                        >
-                          <i class="fas fa-edit"></i>
-                        </a>
-                        <a
-                          href="#"
-                          data-bs-target="#viewReview"
-                          data-bs-toggle="modal"
-                          class="btn btn-xs btn-success-soft mb-0"
-                        >
-                          <i class="far fa-fw fa-eye"></i>
-                        </a>
-                        <button class="btn btn-xs btn-danger-soft mb-0">
-                          <i class="fas fa-fw fa-times"></i>
-                        </button>
-                      </td>
+                      <p>Review not found!</p>
                     </tr>
-                    <tr>
-                      <td>
-                        <div class="d-sm-flex align-items-center mb-1 mb-sm-0">
-                          <div class="avatar avatar-md flex-shrink-0">
-                            <img
-                              class="avatar-img rounded-circle"
-                              src="../assets/img/user/user-4.jpg"
-                              alt="avatar"
-                            />
-                          </div>
-                          <div class="ms-0 ms-sm-2 mt-2 mt-sm-0">
-                            <h6 class="mb-1">Arielle Norheim </h6>
-                            <ul class="list-inline mb-0 small">
-                              <li class="list-inline-item fw-light me-2 mb-1 mb-sm-0">
-                                arinorheim@hotmail.com
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <ul class="list-inline mb-0">
-                          <li class="list-inline-item me-0 small">
-                            <i class="fas fa-star text-warning"></i>
-                          </li>
-                          <li class="list-inline-item me-0 small">
-                            <i class="fas fa-star text-warning"></i>
-                          </li>
-                          <li class="list-inline-item me-0 small">
-                            <i class="fas fa-star text-warning"></i>
-                          </li>
-                          <li class="list-inline-item me-0 small">
-                            <i class="fas fa-star text-warning"></i>
-                          </li>
-                          <li class="list-inline-item me-0 small">
-                            <i class="fas fa-star text-warning"></i>
-                          </li>
-                        </ul>
-                      </td>
-                      <td>January 22, 2024</td>
-                      <td>
-                        <a
-                          href="#"
-                          data-bs-target="#EditReview"
-                          data-bs-toggle="modal"
-                          class="btn btn-xs btn-blue-soft btn-bg-xs mb-0"
-                        >
-                          <i class="fas fa-edit"></i>
-                        </a>
-                        <a
-                          href="#"
-                          data-bs-target="#viewReview"
-                          data-bs-toggle="modal"
-                          class="btn btn-xs btn-success-soft mb-0"
-                        >
-                          <i class="far fa-fw fa-eye"></i>
-                        </a>
-                        <button class="btn btn-xs btn-danger-soft mb-0">
-                          <i class="fas fa-fw fa-times"></i>
-                        </button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div class="d-sm-flex align-items-center mb-1 mb-sm-0">
-                          <div class="avatar avatar-md flex-shrink-0">
-                            <img
-                              class="avatar-img rounded-circle"
-                              src="../assets/img/user/user-5.jpg"
-                              alt="avatar"
-                            />
-                          </div>
-                          <div class="ms-0 ms-sm-2 mt-2 mt-sm-0">
-                            <h6 class="mb-1">Arielle Norheim </h6>
-                            <ul class="list-inline mb-0 small">
-                              <li class="list-inline-item fw-light me-2 mb-1 mb-sm-0">
-                                arinorheim@hotmail.com
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <ul class="list-inline mb-0">
-                          <li class="list-inline-item me-0 small">
-                            <i class="fas fa-star text-warning"></i>
-                          </li>
-                          <li class="list-inline-item me-0 small">
-                            <i class="fas fa-star text-warning"></i>
-                          </li>
-                          <li class="list-inline-item me-0 small">
-                            <i class="fas fa-star text-warning"></i>
-                          </li>
-                          <li class="list-inline-item me-0 small">
-                            <i class="fas fa-star text-warning"></i>
-                          </li>
-                          <li class="list-inline-item me-0 small">
-                            <i class="fas fa-star text-warning"></i>
-                          </li>
-                        </ul>
-                      </td>
-                      <td>January 22, 2024</td>
-                      <td>
-                        <a
-                          href="#"
-                          data-bs-target="#EditReview"
-                          data-bs-toggle="modal"
-                          class="btn btn-xs btn-blue-soft btn-bg-xs mb-0"
-                        >
-                          <i class="fas fa-edit"></i>
-                        </a>
-                        <a
-                          href="#"
-                          data-bs-target="#viewReview"
-                          data-bs-toggle="modal"
-                          class="btn btn-xs btn-success-soft mb-0"
-                        >
-                          <i class="far fa-fw fa-eye"></i>
-                        </a>
-                        <button class="btn btn-xs btn-danger-soft mb-0">
-                          <i class="fas fa-fw fa-times"></i>
-                        </button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div class="d-sm-flex align-items-center mb-1 mb-sm-0">
-                          <div class="avatar avatar-md flex-shrink-0">
-                            <img
-                              class="avatar-img rounded-circle"
-                              src="../assets/img/user/user-6.jpg"
-                              alt="avatar"
-                            />
-                          </div>
-                          <div class="ms-0 ms-sm-2 mt-2 mt-sm-0">
-                            <h6 class="mb-1">Arielle Norheim </h6>
-                            <ul class="list-inline mb-0 small">
-                              <li class="list-inline-item fw-light me-2 mb-1 mb-sm-0">
-                                arinorheim@hotmail.com
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <ul class="list-inline mb-0">
-                          <li class="list-inline-item me-0 small">
-                            <i class="fas fa-star text-warning"></i>
-                          </li>
-                          <li class="list-inline-item me-0 small">
-                            <i class="fas fa-star text-warning"></i>
-                          </li>
-                          <li class="list-inline-item me-0 small">
-                            <i class="fas fa-star text-warning"></i>
-                          </li>
-                          <li class="list-inline-item me-0 small">
-                            <i class="fas fa-star text-warning"></i>
-                          </li>
-                          <li class="list-inline-item me-0 small">
-                            <i class="fas fa-star text-warning"></i>
-                          </li>
-                        </ul>
-                      </td>
-                      <td>January 22, 2024</td>
-                      <td>
-                        <a
-                          href="#"
-                          data-bs-target="#EditReview"
-                          data-bs-toggle="modal"
-                          class="btn btn-xs btn-blue-soft btn-bg-xs mb-0"
-                        >
-                          <i class="fas fa-edit"></i>
-                        </a>
-                        <a
-                          href="#"
-                          data-bs-target="#viewReview"
-                          data-bs-toggle="modal"
-                          class="btn btn-xs btn-success-soft mb-0"
-                        >
-                          <i class="far fa-fw fa-eye"></i>
-                        </a>
-                        <button class="btn btn-xs btn-danger-soft mb-0">
-                          <i class="fas fa-fw fa-times"></i>
-                        </button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div class="d-sm-flex align-items-center mb-1 mb-sm-0">
-                          <div class="avatar avatar-md flex-shrink-0">
-                            <img
-                              class="avatar-img rounded-circle"
-                              src="../assets/img/user/user-7.jpg"
-                              alt="avatar"
-                            />
-                          </div>
-                          <div class="ms-0 ms-sm-2 mt-2 mt-sm-0">
-                            <h6 class="mb-1">Arielle Norheim </h6>
-                            <ul class="list-inline mb-0 small">
-                              <li class="list-inline-item fw-light me-2 mb-1 mb-sm-0">
-                                arinorheim@hotmail.com
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <ul class="list-inline mb-0">
-                          <li class="list-inline-item me-0 small">
-                            <i class="fas fa-star text-warning"></i>
-                          </li>
-                          <li class="list-inline-item me-0 small">
-                            <i class="fas fa-star text-warning"></i>
-                          </li>
-                          <li class="list-inline-item me-0 small">
-                            <i class="fas fa-star text-warning"></i>
-                          </li>
-                          <li class="list-inline-item me-0 small">
-                            <i class="fas fa-star text-warning"></i>
-                          </li>
-                          <li class="list-inline-item me-0 small">
-                            <i class="fas fa-star text-warning"></i>
-                          </li>
-                        </ul>
-                      </td>
-                      <td>January 22, 2024</td>
-                      <td>
-                        <a
-                          href="#"
-                          data-bs-target="#EditReview"
-                          data-bs-toggle="modal"
-                          class="btn btn-xs btn-blue-soft btn-bg-xs mb-0"
-                        >
-                          <i class="fas fa-edit"></i>
-                        </a>
-                        <a
-                          href="#"
-                          data-bs-target="#viewReview"
-                          data-bs-toggle="modal"
-                          class="btn btn-xs btn-success-soft mb-0"
-                        >
-                          <i class="far fa-fw fa-eye"></i>
-                        </a>
-                        <button class="btn btn-xs btn-danger-soft mb-0">
-                          <i class="fas fa-fw fa-times"></i>
-                        </button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div class="d-sm-flex align-items-center mb-1 mb-sm-0">
-                          <div class="avatar avatar-md flex-shrink-0">
-                            <img
-                              class="avatar-img rounded-circle"
-                              src="../assets/img/user/user-8.jpg"
-                              alt="avatar"
-                            />
-                          </div>
-                          <div class="ms-0 ms-sm-2 mt-2 mt-sm-0">
-                            <h6 class="mb-1">Arielle Norheim </h6>
-                            <ul class="list-inline mb-0 small">
-                              <li class="list-inline-item fw-light me-2 mb-1 mb-sm-0">
-                                arinorheim@hotmail.com
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <ul class="list-inline mb-0">
-                          <li class="list-inline-item me-0 small">
-                            <i class="fas fa-star text-warning"></i>
-                          </li>
-                          <li class="list-inline-item me-0 small">
-                            <i class="fas fa-star text-warning"></i>
-                          </li>
-                          <li class="list-inline-item me-0 small">
-                            <i class="fas fa-star text-warning"></i>
-                          </li>
-                          <li class="list-inline-item me-0 small">
-                            <i class="fas fa-star text-warning"></i>
-                          </li>
-                          <li class="list-inline-item me-0 small">
-                            <i class="fas fa-star text-warning"></i>
-                          </li>
-                        </ul>
-                      </td>
-                      <td>January 22, 2024</td>
-                      <td>
-                        <a
-                          href="#"
-                          data-bs-target="#EditReview"
-                          data-bs-toggle="modal"
-                          class="btn btn-xs btn-blue-soft btn-bg-xs mb-0"
-                        >
-                          <i class="fas fa-edit"></i>
-                        </a>
-                        <a
-                          href="#"
-                          data-bs-target="#viewReview"
-                          data-bs-toggle="modal"
-                          class="btn btn-xs btn-success-soft mb-0"
-                        >
-                          <i class="far fa-fw fa-eye"></i>
-                        </a>
-                        <button class="btn btn-xs btn-danger-soft mb-0">
-                          <i class="fas fa-fw fa-times"></i>
-                        </button>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div class="d-sm-flex align-items-center mb-1 mb-sm-0">
-                          <div class="avatar avatar-md flex-shrink-0">
-                            <img
-                              class="avatar-img rounded-circle"
-                              src="../assets/img/user/user-9.jpg"
-                              alt="avatar"
-                            />
-                          </div>
-                          <div class="ms-0 ms-sm-2 mt-2 mt-sm-0">
-                            <h6 class="mb-1">Arielle Norheim </h6>
-                            <ul class="list-inline mb-0 small">
-                              <li class="list-inline-item fw-light me-2 mb-1 mb-sm-0">
-                                arinorheim@hotmail.com
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                      </td>
-                      <td>
-                        <ul class="list-inline mb-0">
-                          <li class="list-inline-item me-0 small">
-                            <i class="fas fa-star text-warning"></i>
-                          </li>
-                          <li class="list-inline-item me-0 small">
-                            <i class="fas fa-star text-warning"></i>
-                          </li>
-                          <li class="list-inline-item me-0 small">
-                            <i class="fas fa-star text-warning"></i>
-                          </li>
-                          <li class="list-inline-item me-0 small">
-                            <i class="fas fa-star text-warning"></i>
-                          </li>
-                          <li class="list-inline-item me-0 small">
-                            <i class="fas fa-star text-warning"></i>
-                          </li>
-                        </ul>
-                      </td>
-                      <td>January 22, 2024</td>
-                      <td>
-                        <a
-                          href="#"
-                          data-bs-target="#EditReview"
-                          data-bs-toggle="modal"
-                          class="btn btn-xs btn-blue-soft btn-bg-xs mb-0"
-                        >
-                          <i class="fas fa-edit"></i>
-                        </a>
-                        <a
-                          href="#"
-                          data-bs-target="#viewReview"
-                          data-bs-toggle="modal"
-                          class="btn btn-xs btn-success-soft mb-0"
-                        >
-                          <i class="far fa-fw fa-eye"></i>
-                        </a>
-                        <button class="btn btn-xs btn-danger-soft mb-0">
-                          <i class="fas fa-fw fa-times"></i>
-                        </button>
-                      </td>
-                    </tr>
-                  </tbody>
+                  )}
                 </table>
               </div>
               <div class="d-sm-flex justify-content-sm-between align-items-sm-center mt-0 mt-sm-1">

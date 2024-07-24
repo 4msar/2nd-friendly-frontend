@@ -1,8 +1,30 @@
 import SidebarInformation from "@/components/Business/SidebarInformation";
 import BusinessView from "@/components/HOC/BusinessView";
+import useToken from "@/hooks/useToken";
+import { useBusinessAboutStore } from "@/store";
 import React from "react";
 
 const Message = () => {
+  const userProfile = useBusinessAboutStore((state) => state.businessProfile);
+  const isAuthenticated = useToken();
+
+  const allMessage = useMessageStore((state) => state.allMessage);
+  const setMessage = useMessageStore((state) => state.setMessage);
+  const [viewMessage, setViewMessage] = useState(null);
+
+  const getAllMessages = async () => {
+    const res = await BusinessService.categorySubCategoryAll().then((data) => {
+      console.log(reviews);
+      setMessage(data.data.allMessage);
+    });
+  };
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      getAllMessages();
+    }
+  }, [isAuthenticated]);
+
   return (
     <main>
       <section className="p-0 m-0">
@@ -48,7 +70,7 @@ const Message = () => {
         <div className="container">
           <div className="row">
             <div className="col-xl-3 col-md-3">
-              <SidebarInformation />
+              <SidebarInformation profile={userProfile} />
             </div>
             <div className="col-xl-9 col-md-9">
               <div class="header pb-2">
@@ -65,312 +87,55 @@ const Message = () => {
                       <th class="text-dark">Action</th>
                     </tr>
                   </thead>
-                  <tbody>
+                  {allMessage.length > 0 ? (
+                    <tbody>
+                      {allMessage.map((message, index) => (
+                        <tr key={index}>
+                          <td>
+                            <div class="d-sm-flex align-items-center mb-1 mb-sm-0">
+                              <div class="avatar avatar-md flex-shrink-0">
+                                <img
+                                  class="avatar-img rounded-circle"
+                                  src="../assets/img/user/user-1.jpg"
+                                  alt="avatar"
+                                />
+                              </div>
+                              <div class="ms-0 ms-sm-2 mt-2 mt-sm-0">
+                                <h6 class="mb-1">{message.name} </h6>
+                                <ul class="list-inline mb-0 small">
+                                  <li class="list-inline-item fw-light me-2 mb-1 mb-sm-0">
+                                    {message.email}
+                                  </li>
+                                </ul>
+                              </div>
+                            </div>
+                          </td>
+                          <td class="text-center text-sm-start">
+                            <span class="fw-normal text-black">
+                              Lorem Ipsum is simply dummy text...
+                            </span>
+                            <br /> It is a long established fact that a
+                            reader...
+                          </td>
+                          <td>
+                            <div class="badge bg-success bg-opacity-10 text-success fw-normal">
+                              Awaiting
+                            </div>
+                          </td>
+                          <td>April 1, 2024</td>
+                          <td>
+                            <a href="message-detail.php" class="text-black">
+                              <i class="bi bi-eye"></i>
+                            </a>
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  ) : (
                     <tr>
-                      <td>
-                        <div class="d-sm-flex align-items-center mb-1 mb-sm-0">
-                          <div class="avatar avatar-md flex-shrink-0">
-                            <img
-                              class="avatar-img rounded-circle"
-                              src="../assets/img/user/user-1.jpg"
-                              alt="avatar"
-                            />
-                          </div>
-                          <div class="ms-0 ms-sm-2 mt-2 mt-sm-0">
-                            <h6 class="mb-1">Arielle Norheim </h6>
-                            <ul class="list-inline mb-0 small">
-                              <li class="list-inline-item fw-light me-2 mb-1 mb-sm-0">
-                                arinorheim@hotmail.com
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="text-center text-sm-start">
-                        <span class="fw-normal text-black">
-                          Lorem Ipsum is simply dummy text...
-                        </span>
-                        <br /> It is a long established fact that a reader...
-                      </td>
-                      <td>
-                        <div class="badge bg-success bg-opacity-10 text-success fw-normal">
-                          Awaiting
-                        </div>
-                      </td>
-                      <td>April 1, 2024</td>
-                      <td>
-                        <a href="message-detail.php" class="text-black">
-                          <i class="bi bi-eye"></i>
-                        </a>
-                      </td>
+                      <p>Message Not found!</p>
                     </tr>
-                    <tr>
-                      <td>
-                        <div class="d-sm-flex align-items-center mb-1 mb-sm-0">
-                          <div class="avatar avatar-md flex-shrink-0">
-                            <img
-                              class="avatar-img rounded-circle"
-                              src="../assets/img/user/user-2.jpg"
-                              alt="avatar"
-                            />
-                          </div>
-                          <div class="ms-0 ms-sm-2 mt-2 mt-sm-0">
-                            <h6 class="mb-1">Arielle Norheim </h6>
-                            <ul class="list-inline mb-0 small">
-                              <li class="list-inline-item fw-light me-2 mb-1 mb-sm-0">
-                                arinorheim@hotmail.com
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="text-center text-sm-start">
-                        <span class="fw-normal text-black">
-                          Lorem Ipsum is simply dummy text...
-                        </span>
-                        <br /> It is a long established fact that a reader...
-                      </td>
-                      <td>
-                        <div class="badge bg-secondary bg-opacity-10 text-secondary">
-                          Replied
-                        </div>
-                      </td>
-                      <td>April 1, 2024</td>
-                      <td>
-                        <a href="message-detail.php" class="text-black">
-                          <i class="bi bi-eye"></i>
-                        </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div class="d-sm-flex align-items-center mb-1 mb-sm-0">
-                          <div class="avatar avatar-md flex-shrink-0">
-                            <img
-                              class="avatar-img rounded-circle"
-                              src="../assets/img/user/user-3.jpg"
-                              alt="avatar"
-                            />
-                          </div>
-                          <div class="ms-0 ms-sm-2 mt-2 mt-sm-0">
-                            <h6 class="mb-1">Arielle Norheim </h6>
-                            <ul class="list-inline mb-0 small">
-                              <li class="list-inline-item fw-light me-2 mb-1 mb-sm-0">
-                                arinorheim@hotmail.com
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="text-center text-sm-start">
-                        <span class="fw-normal text-black">
-                          Lorem Ipsum is simply dummy text...
-                        </span>
-                        <br /> It is a long established fact that a reader...
-                      </td>
-                      <td>
-                        <div class="badge bg-success bg-opacity-10 text-success fw-normal">
-                          Awaiting
-                        </div>
-                      </td>
-                      <td>April 1, 2024</td>
-                      <td>
-                        <a href="message-detail.php" class="text-black">
-                          <i class="bi bi-eye"></i>
-                        </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div class="d-sm-flex align-items-center mb-1 mb-sm-0">
-                          <div class="avatar avatar-md flex-shrink-0">
-                            <img
-                              class="avatar-img rounded-circle"
-                              src="../assets/img/user/user-4.jpg"
-                              alt="avatar"
-                            />
-                          </div>
-                          <div class="ms-0 ms-sm-2 mt-2 mt-sm-0">
-                            <h6 class="mb-1">Arielle Norheim </h6>
-                            <ul class="list-inline mb-0 small">
-                              <li class="list-inline-item fw-light me-2 mb-1 mb-sm-0">
-                                arinorheim@hotmail.com
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="text-center text-sm-start">
-                        <span class="fw-normal text-black">
-                          Lorem Ipsum is simply dummy text...
-                        </span>
-                        <br /> It is a long established fact that a reader...
-                      </td>
-                      <td>
-                        <div class="badge bg-success bg-opacity-10 text-success fw-normal">
-                          Awaiting
-                        </div>
-                      </td>
-                      <td>April 1, 2024</td>
-                      <td>
-                        <a href="message-detail.php" class="text-black">
-                          <i class="bi bi-eye"></i>
-                        </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div class="d-sm-flex align-items-center mb-1 mb-sm-0">
-                          <div class="avatar avatar-md flex-shrink-0">
-                            <img
-                              class="avatar-img rounded-circle"
-                              src="../assets/img/user/user-5.jpg"
-                              alt="avatar"
-                            />
-                          </div>
-                          <div class="ms-0 ms-sm-2 mt-2 mt-sm-0">
-                            <h6 class="mb-1">Arielle Norheim </h6>
-                            <ul class="list-inline mb-0 small">
-                              <li class="list-inline-item fw-light me-2 mb-1 mb-sm-0">
-                                arinorheim@hotmail.com
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="text-center text-sm-start">
-                        <span class="fw-normal text-black">
-                          Lorem Ipsum is simply dummy text...
-                        </span>
-                        <br /> It is a long established fact that a reader...
-                      </td>
-                      <td>
-                        <div class="badge bg-secondary bg-opacity-10 text-secondary">
-                          Replied
-                        </div>
-                      </td>
-                      <td>April 1, 2024</td>
-                      <td>
-                        <a href="message-detail.php" class="text-black">
-                          <i class="bi bi-eye"></i>
-                        </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div class="d-sm-flex align-items-center mb-1 mb-sm-0">
-                          <div class="avatar avatar-md flex-shrink-0">
-                            <img
-                              class="avatar-img rounded-circle"
-                              src="../assets/img/user/user-7.jpg"
-                              alt="avatar"
-                            />
-                          </div>
-                          <div class="ms-0 ms-sm-2 mt-2 mt-sm-0">
-                            <h6 class="mb-1">Arielle Norheim </h6>
-                            <ul class="list-inline mb-0 small">
-                              <li class="list-inline-item fw-light me-2 mb-1 mb-sm-0">
-                                arinorheim@hotmail.com
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="text-center text-sm-start">
-                        <span class="fw-normal text-black">
-                          Lorem Ipsum is simply dummy text...
-                        </span>
-                        <br /> It is a long established fact that a reader...
-                      </td>
-                      <td>
-                        <div class="badge bg-success bg-opacity-10 text-success fw-normal">
-                          Awaiting
-                        </div>
-                      </td>
-                      <td>April 1, 2024</td>
-                      <td>
-                        <a href="message-detail.php" class="text-black">
-                          <i class="bi bi-eye"></i>
-                        </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div class="d-sm-flex align-items-center mb-1 mb-sm-0">
-                          <div class="avatar avatar-md flex-shrink-0">
-                            <img
-                              class="avatar-img rounded-circle"
-                              src="../assets/img/user/user-8.jpg"
-                              alt="avatar"
-                            />
-                          </div>
-                          <div class="ms-0 ms-sm-2 mt-2 mt-sm-0">
-                            <h6 class="mb-1">Arielle Norheim </h6>
-                            <ul class="list-inline mb-0 small">
-                              <li class="list-inline-item fw-light me-2 mb-1 mb-sm-0">
-                                arinorheim@hotmail.com
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="text-center text-sm-start">
-                        <span class="fw-normal text-black">
-                          Lorem Ipsum is simply dummy text...
-                        </span>
-                        <br /> It is a long established fact that a reader...
-                      </td>
-                      <td>
-                        <div class="badge bg-secondary bg-opacity-10 text-secondary">
-                          Replied
-                        </div>
-                      </td>
-                      <td>April 1, 2024</td>
-                      <td>
-                        <a href="message-detail.php" class="text-black">
-                          <i class="bi bi-eye"></i>
-                        </a>
-                      </td>
-                    </tr>
-                    <tr>
-                      <td>
-                        <div class="d-sm-flex align-items-center mb-1 mb-sm-0">
-                          <div class="avatar avatar-md flex-shrink-0">
-                            <img
-                              class="avatar-img rounded-circle"
-                              src="../assets/img/user/user-8.jpg"
-                              alt="avatar"
-                            />
-                          </div>
-                          <div class="ms-0 ms-sm-2 mt-2 mt-sm-0">
-                            <h6 class="mb-1">Arielle Norheim </h6>
-                            <ul class="list-inline mb-0 small">
-                              <li class="list-inline-item fw-light me-2 mb-1 mb-sm-0">
-                                arinorheim@hotmail.com
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
-                      </td>
-                      <td class="text-center text-sm-start">
-                        <span class="fw-normal text-black">
-                          Lorem Ipsum is simply dummy text...
-                        </span>
-                        <br /> It is a long established fact that a reader...
-                      </td>
-                      <td>
-                        <div class="badge bg-success bg-opacity-10 text-success fw-normal">
-                          Awaiting
-                        </div>
-                      </td>
-                      <td>April 1, 2024</td>
-                      <td>
-                        <a href="message-detail.php" class="text-black">
-                          <i class="bi bi-eye"></i>
-                        </a>
-                      </td>
-                    </tr>
-                  </tbody>
+                  )}
                 </table>
               </div>
               {/* <!-- Pagination START --> */}
