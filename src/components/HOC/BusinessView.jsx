@@ -1,5 +1,6 @@
 import useToken from "@/hooks/useToken";
-import { useAuthStore } from "@/store";
+import BusinessService from "@/services/BusinessService";
+import { useAuthStore, useBusinessAboutStore } from "@/store";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
@@ -11,6 +12,17 @@ const BusinessView = (WrapperComponent, title) => {
     const router = useRouter();
     const isAuthenticated = useToken();
     const userProfile = useAuthStore((state) => state.user);
+    const setAllAboutData = useBusinessAboutStore(
+      (state) => state.setAboutAllData
+    );
+
+    const getAboutBusiness = async () => {
+      const res = await BusinessService.aboutBusiness().then((data) => {
+        if (data.data.status === "success") {
+          setAllAboutData(data.data);
+        }
+      });
+    };
     useEffect(() => {
       if (isAuthenticated === null) return; // Wait for the token check to complete
       if (!isAuthenticated) {
@@ -19,6 +31,10 @@ const BusinessView = (WrapperComponent, title) => {
       } else if (isAuthenticated && !userProfile?.isBusiness) {
         // If the user is authenticated but not a business profile, redirect to home page
         router.replace("/");
+      }
+
+      if (isAuthenticated) {
+        getAboutBusiness();
       }
     }, [router, isAuthenticated, userProfile]);
 
