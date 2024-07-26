@@ -3,7 +3,7 @@ import BusinessView from "@/components/HOC/BusinessView";
 import useToken from "@/hooks/useToken";
 import BusinessService from "@/services/BusinessService";
 import { useBusinessAboutStore, useMessageStore } from "@/store";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const Message = () => {
   const userProfile = useBusinessAboutStore((state) => state.businessProfile);
@@ -15,7 +15,7 @@ const Message = () => {
 
   const getAllMessages = async () => {
     const res = await BusinessService.messageAll().then((data) => {
-      console.log(reviews);
+      console.log(data);
       setMessage(data.data.allMessage);
     });
   };
