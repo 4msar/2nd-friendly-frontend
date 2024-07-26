@@ -33,7 +33,38 @@ const BusinessService = {
   albumPhotoUpdate: (data) =>
     axios.post("/business/album-photo-update", { data }),
   albumPhotoDelete: (data) =>
-    axios.post("/business/album-photo-delet", { data })
+    axios.post("/business/album-photo-delet", { data }),
+  embeddedVideoAll: () =>
+    axios.post("/business/embedded-video-all", {  }),
+  embeddedVideoSave: (data) =>
+    axios.post("/business/embedded-video-save", { data }),
+  embeddedVideoUpdate: (data) =>
+    axios.post("/business/embedded-video-update", { data }),
+  embeddedVideoDelete: (data) =>
+    axios.post("/business/embedded-video-delet", { data }),
+  reviewAll: () =>
+    axios.post("/business/review-all", {  }),
+  reviewUpdate: (data) =>
+    axios.post("/business/review-update", { data }),
+  messageAll: () =>
+    axios.post("/business/message-all", {  }),
+  messageUpdate: (data) =>
+    axios.post("/business/message-update", { data }),
+  messageEdit: (data) =>
+    axios.post("/business/message-edit", { data }),
+  eventAll: () =>
+    axios.post("/business/event-all", {  }),
+  eventNew: (data) =>
+    axios.post("/business/event-new", { data }),
+  eventEdit: (data) =>
+    axios.post("/business/event-edit", { data }),
+  eventUpdate: (data) =>
+    axios.post("/business/event-update", { data }),
+  eventView: (data) =>
+    axios.post("/business/event-view", { data }),
+  eventDelete: (data) =>
+    axios.post("/business/event-delet", { data }),
+
 };
 
 export default BusinessService;

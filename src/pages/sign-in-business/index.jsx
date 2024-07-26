@@ -7,6 +7,7 @@ import useSnackbar from "@/hooks/useSnackbar";
 import useToken from "@/hooks/useToken";
 import Authorization from "@/services/Authorization";
 import { useAuthStore } from "@/store";
+import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
@@ -48,6 +49,9 @@ const BusinessSingIn = () => {
 
   return (
     <main>
+      <Head>
+        <title>Sing in Business | 2nd A Friendly</title>
+      </Head>
       <section class="p-0 d-flex align-items-center position-relative overflow-hidden">
         <div class="container-fluid">
           <div class="row">

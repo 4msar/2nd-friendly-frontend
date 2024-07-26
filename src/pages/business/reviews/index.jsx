@@ -2,8 +2,7 @@ import SidebarInformation from "@/components/Business/SidebarInformation";
 import BusinessView from "@/components/HOC/BusinessView";
 import useToken from "@/hooks/useToken";
 import BusinessService from "@/services/BusinessService";
-import { useBusinessAboutStore } from "@/store";
-import { useReviewStore } from "@/store/useReviewStore";
+import { useBusinessAboutStore, useReviewStore } from "@/store";
 import React, { useEffect, useState } from "react";
 
 const Reviews = () => {
@@ -15,9 +14,9 @@ const Reviews = () => {
   const [viewReview, setViewReview] = useState(null);
 
   const getAllReviews = async () => {
-    const res = await BusinessService.categorySubCategoryAll().then(
+    const res = await BusinessService.reviewAll().then(
       (data) => {
-        console.log(reviews);
+        console.log(data);
         setReview(data.data.allReview);
       }
     );
@@ -107,7 +106,7 @@ const Reviews = () => {
                       <th class="text-dark">Action</th>
                     </tr>
                   </thead>
-                  {allReview.length > 0 ? (
+                  {allReview?.length > 0 ? (
                     <tbody>
                       {allReview.map((review, index) => (
                         <tr key={index}>

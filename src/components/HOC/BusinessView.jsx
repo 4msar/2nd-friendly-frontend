@@ -6,6 +6,7 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import Footer from "../Footer/Footer";
 import BusinessHeader from "../Header/BusinessHeader";
+import { isEmpty } from "@/helpers/functions";
 
 const BusinessView = (WrapperComponent, title) => {
   const BusinessComponent = (props) => {
@@ -25,9 +26,9 @@ const BusinessView = (WrapperComponent, title) => {
     };
     useEffect(() => {
       if (isAuthenticated === null) return; // Wait for the token check to complete
-      if (!isAuthenticated) {
+      if (isEmpty(userProfile) && !isAuthenticated && !userProfile?.isBusiness) {
         // If the user is not authenticated, redirect them to the login page
-        // router.replace("/sign-in-business");
+        router.replace("/sign-in-business");
       } else if (isAuthenticated && !userProfile?.isBusiness) {
         // If the user is authenticated but not a business profile, redirect to home page
         router.replace("/");

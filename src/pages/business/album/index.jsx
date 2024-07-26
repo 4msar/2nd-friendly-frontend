@@ -5,6 +5,7 @@ import useToken from "@/hooks/useToken";
 import BusinessService from "@/services/BusinessService";
 import { useBusinessAboutStore } from "@/store";
 import { usePhotoAlbumStore } from "@/store/usePhotoStore";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 
 const Album = () => {
@@ -13,6 +14,7 @@ const Album = () => {
 
   const allAlbum = usePhotoAlbumStore((state) => state.allAlbum);
   const setPhotoAlbum = usePhotoAlbumStore((state) => state.setPhotoAlbum);
+  const setAlbumId = usePhotoAlbumStore((state) => state.setAlbumId);
   const [albumName, setAlbumName] = useState();
   const [convertedImage, setConvertedImage] = useState(null);
   const handleImageChange = (e) => {
@@ -170,7 +172,7 @@ const Album = () => {
                                 </a>
                               </div>
                               <h6 class="mb-0 ms-2 table-responsive-title">
-                                <a href="#">{capitalize(album.name)}</a>
+                                <Link onClick={() => setAlbumId(album.id)} href="/business/album/photos">{capitalize(album.name)}</Link>
                               </h6>
                             </div>
                           </td>
@@ -178,18 +180,19 @@ const Album = () => {
                           <td>Feb 15, 2024</td>
                           <td>March 25, 2024</td>
                           <td>
-                            <a
+                            <Link
                               href="album-form.php"
                               class="btn btn-sm btn-blue-soft btn-round me-1 mb-0"
                             >
                               <i class="far fa-fw fa-edit"></i>
-                            </a>
-                            <a
-                              href="photos.php"
+                            </Link>
+                            <Link
+                              onClick={() => setAlbumId(album.id)}
+                              href="/business/album/photos"
                               class="btn btn-sm btn-success-soft btn-round me-1 mb-0"
                             >
                               <i class="far fa-fw fa-image"></i>
-                            </a>
+                            </Link>
                             <button class="btn btn-sm btn-danger-soft btn-round mb-0">
                               <i class="fas fa-fw fa-times"></i>
                             </button>

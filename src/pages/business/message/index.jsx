@@ -1,7 +1,8 @@
 import SidebarInformation from "@/components/Business/SidebarInformation";
 import BusinessView from "@/components/HOC/BusinessView";
 import useToken from "@/hooks/useToken";
-import { useBusinessAboutStore } from "@/store";
+import BusinessService from "@/services/BusinessService";
+import { useBusinessAboutStore, useMessageStore } from "@/store";
 import React from "react";
 
 const Message = () => {
@@ -13,7 +14,7 @@ const Message = () => {
   const [viewMessage, setViewMessage] = useState(null);
 
   const getAllMessages = async () => {
-    const res = await BusinessService.categorySubCategoryAll().then((data) => {
+    const res = await BusinessService.messageAll().then((data) => {
       console.log(reviews);
       setMessage(data.data.allMessage);
     });

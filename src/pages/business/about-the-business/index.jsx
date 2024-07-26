@@ -27,12 +27,7 @@ const AboutTheBusiness = () => {
     setValue(newValue);
   };
 
-  useEffect(() => {
-
-    if (!isAuthenticated) {
-      router.push("/sign-in-business");
-    }
-  }, [isAuthenticated]);
+  
 
   return (
     <main>

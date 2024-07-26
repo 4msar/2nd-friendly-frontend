@@ -3,7 +3,7 @@ import BusinessService from "@/services/BusinessService";
 import { useBusinessAboutStore } from "@/store";
 import { useEffect, useState } from "react";
 
-const AboutBusiness = () => {
+const  AboutBusiness = () => {
   const isAuthenticated = useToken();
   const [file, setFile] = useState(null);
   const userProfile = useBusinessAboutStore((state) => state.businessProfile);

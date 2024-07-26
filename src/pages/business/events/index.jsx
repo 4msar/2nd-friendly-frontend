@@ -3,8 +3,8 @@ import BusinessView from "@/components/HOC/BusinessView";
 import { API_URL } from "@/helpers/apiUrl";
 import useToken from "@/hooks/useToken";
 import BusinessService from "@/services/BusinessService";
-import { useBusinessAboutStore } from "@/store";
-import { useEventStore } from "@/store/useEventStore";
+import { useBusinessAboutStore, useEventStore } from "@/store";
+import Link from "next/link";
 import React, { useEffect, useState } from "react";
 
 const Events = () => {
@@ -16,8 +16,8 @@ const Events = () => {
   const [viewEvent, setViewEvent] = useState(null);
 
   const getAllEvents = async () => {
-    const res = await BusinessService.categorySubCategoryAll().then((data) => {
-      console.log(reviews);
+    const res = await BusinessService.eventAll().then((data) => {
+      console.log(data);
       setEvent(data.data.allEvent);
     });
   };
@@ -80,9 +80,9 @@ const Events = () => {
                   <h5 class="mb-2 mb-sm-0 text-danger pb-0">All Events</h5>
                 </div>
                 <div class="d-flex align-items-center mt-2 mt-md-0">
-                  <a href="event-form.php" class="btn btn-sm btn-dark mb-2">
+                  <Link href="/business/events/new" class="btn btn-sm btn-dark mb-2">
                     Create Event
-                  </a>
+                  </Link>
                 </div>
               </div>
 
@@ -104,7 +104,7 @@ const Events = () => {
                       </th>
                     </tr>
                   </thead>
-                  {allEvent.length > 0 ? (
+                  {allEvent?.length > 0 ? (
                     <tbody>
                       {allEvent.map((event, index) => (
                         <tr key={index}>
