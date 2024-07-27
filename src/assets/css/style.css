@@ -21276,6 +21276,11 @@ section {
   color: var(--bs-danger) !important;
 }
 
+.active{
+  background-color: rgba(214, 41, 62, 0.1) !important;
+  color: var(--bs-danger) !important;
+}
+
 .bg-primary-soft-hover:hover {
   background-color: rgba(var(--bs-primary-rgb), 0.1);
 }

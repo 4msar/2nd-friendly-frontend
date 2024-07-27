@@ -11,8 +11,10 @@ import user3 from "@/assets/img/user/user-3.jpg";
 import user4 from "@/assets/img/user/user-2.jpg";
 import user5 from "@/assets/img/user/user-1.jpg";
 import Link from "next/link";
+import { useAuthStore } from "@/store";
 
 const BusinessHeader = () => {
+    const logOut = useAuthStore((store) => store.resetAuth);
   return (
     <>
      <div className="navbar-dark bg-light d-none d-xl-block py-1 mx-2 mx-md-4 rounded-bottom-4">
@@ -56,7 +58,7 @@ const BusinessHeader = () => {
     <nav className="navbar navbar-expand-xl z-index-9">
         <div className="container">
             {/* <!-- Logo START --> */}
-            <a className="navbar-brand me-0 py-4" href="/business/../index">
+            <a className="navbar-brand me-0 py-4" href="/">
                 <img className="light-mode-item" src={logo.src} alt="logo"/>
                 <img className="dark-mode-item" src={logo.src} alt="logo"/>
             </a>
@@ -205,7 +207,7 @@ const BusinessHeader = () => {
                         <li><a className="dropdown-item bg-danger-soft-hover" href="/business/about-the-business"><i className="bi bi-gear fa-fw me-2"></i>Account Setting</a></li>
                         <li><a className="dropdown-item bg-danger-soft-hover" href="/business/categories"><i className="fas fa-business-time fa-fw me-2"></i>Business Information</a></li>
                         <li><a className="dropdown-item bg-danger-soft-hover" href="/business/support"><i className="bi bi-headset fa-fw me-2"></i>Support</a></li>
-                        <li><a className="dropdown-item bg-danger-soft-hover" href="/business/#"><i className="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
+                        <li><a onClick={() => logOut()} className="dropdown-item bg-danger-soft-hover" href="#"><i className="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
                         <li>
                             <hr className="dropdown-divider"/>
                         </li>

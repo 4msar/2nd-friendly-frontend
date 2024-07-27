@@ -55,7 +55,7 @@ const BusinessService = {
   eventAll: () =>
     axios.post("/business/event-all", {  }),
   eventNew: (data) =>
-    axios.post("/business/event-new", { data }),
+    axios.post("/business/event-create", { data }),
   eventEdit: (data) =>
     axios.post("/business/event-edit", { data }),
   eventUpdate: (data) =>
@@ -64,6 +64,10 @@ const BusinessService = {
     axios.post("/business/event-view", { data }),
   eventDelete: (data) =>
     axios.post("/business/event-delet", { data }),
+  careerAll: () =>
+    axios.post("/business/career-all", {  }),
+  careerCreate: (data) =>
+    axios.post("/business/career-create", { data }),
 
 };
 

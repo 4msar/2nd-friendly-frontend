@@ -4,10 +4,13 @@ import axios from "axios";
 
 const useToken = () => {
   const expires_in = useAuthStore((state) => state.expires_in);
+  const accessToken = useAuthStore((state) => state.access_token);
   const user = useAuthStore((state) => state.user);
   const isExpired = Date.now() >= expires_in;
-
+console.log(user);
   const expire_remaining = expires_in - Date.now();
+
+  if(accessToken === null) return null;
 
   return !isExpired && !isEmpty(user);
 };

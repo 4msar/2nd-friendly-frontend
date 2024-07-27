@@ -9,7 +9,12 @@ export const useAuthStore = create(
       user: {},
       setAccessToken: (access_token, expires_in) =>
         set((state) => ({ access_token, expires_in })),
-      setUser: (user) => set((state) => ({ user }))
+      setUser: (user) => set((state) => ({ user })),
+      resetAuth: () => set({
+        access_token: undefined,
+        expires_in: 0,
+        user: {},
+      })
     }),
     {
       name: "auth_store"

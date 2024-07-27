@@ -24,6 +24,8 @@ const BusinessView = (WrapperComponent, title) => {
         }
       });
     };
+
+    console.log(isAuthenticated);
     useEffect(() => {
       if (isAuthenticated === null) return; // Wait for the token check to complete
       if (isEmpty(userProfile) && !isAuthenticated && !userProfile?.isBusiness) {
@@ -37,7 +39,7 @@ const BusinessView = (WrapperComponent, title) => {
       if (isAuthenticated) {
         getAboutBusiness();
       }
-    }, [router, isAuthenticated, userProfile]);
+    }, [isAuthenticated, userProfile]);
 
     // If the user is authenticated, render the wrapped component
     return (

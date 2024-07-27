@@ -139,7 +139,7 @@ const EventAdd = () => {
                               ...event,
                               title: e.target.value
                            })
-                        }} />
+                        }} autoComplete="off" />
                         <div class="valid-feedback">
                             Looks good!
                         </div>
@@ -216,7 +216,7 @@ const EventAdd = () => {
                                    ...event,
                                    venue_name: e.target.value
                                 })
-                             }} />
+                             }} autoComplete="off" />
                         <div class="valid-feedback">
                             Looks good!
                         </div>
@@ -231,7 +231,7 @@ const EventAdd = () => {
                                    ...event,
                                    ticket_price: e.target.value
                                 })
-                             }} />
+                             }} autoComplete="off" />
                         <div class="valid-feedback">
                             Looks good!
                         </div>
@@ -247,7 +247,7 @@ const EventAdd = () => {
                                    ...event,
                                    address: e.target.value
                                 })
-                             }} />
+                             }} autoComplete="off" />
                         <div class="valid-feedback">
                             Looks good!
                         </div>
@@ -262,7 +262,7 @@ const EventAdd = () => {
                                    ...event,
                                    phone_no: e.target.value
                                 })
-                             }} />
+                             }} autoComplete="off" />
                         <div class="valid-feedback">
                             Looks good!
                         </div>
@@ -277,7 +277,7 @@ const EventAdd = () => {
                                    ...event,
                                    city: e.target.value
                                 })
-                             }} />
+                             }} autoComplete="off" />
                         <div class="valid-feedback">
                             Looks good!
                         </div>
@@ -303,12 +303,12 @@ const EventAdd = () => {
                     </div>
                     <div class="col-md-6 col-sm-12 bg-light-input">
                         <label class="form-label fw-normal text-dark" for="location">Website <span class="star">*</span></label>
-                        <input class="form-control location" id="location" title="location" type="text" placeholder="www.example.com" autofocus required value={event.website_link}  onChange={(e) => {
+                        <input class="form-control location" id="location" title="location" type="text" placeholder="www.example.com" autofocus required value={event.website}  onChange={(e) => {
                                 setEvent({
                                    ...event,
-                                   website_link: e.target.value
+                                   website: e.target.value
                                 })
-                             }}/>
+                             }} autoComplete="off"/>
                         <div class="valid-feedback">
                             Looks good!
                         </div>
