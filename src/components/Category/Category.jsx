@@ -1,9 +1,10 @@
 import React from "react";
 import CategoryBox from "./CategoryBox";
 import { categories } from "../dummy_data/data";
+import { usePublicPageStore } from "@/store";
 
 const Category = () => {
-  const category_list = categories;
+  const category_list = usePublicPageStore((state) => state.allCategory);
   return (
     <section class="pt-0">
       <div class="container">
@@ -21,13 +22,13 @@ const Category = () => {
         </div>
         <div class="row g-4">
           {category_list.length > 0 &&
-            category_list.map((item) => (
+            category_list.map((item, index) => (
               <CategoryBox
-                title={item.title}
-                subtitle={item.subtitle}
-                icon={item.icon}
-                url={item.link}
-                cls={item.class}
+                title={item.name}
+                subtitle={item.subCategory}
+                icon={"fas fa-home"}
+                url={item.slug}
+                index={index}
               />
             ))}
         </div>

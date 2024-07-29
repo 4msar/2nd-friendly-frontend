@@ -9,3 +9,4 @@ export * from "./usePhotoStore";
 export * from "./useReviewStore";
 export * from "./useVideoStore";
 export * from "./useCareerStore";
+export * from "./usePublicPageStore";
