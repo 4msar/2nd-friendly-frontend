@@ -28,7 +28,7 @@ const BusinessView = (WrapperComponent, title) => {
     console.log(isAuthenticated);
     useEffect(() => {
       if (isAuthenticated === null) return; // Wait for the token check to complete
-      if (isEmpty(userProfile) && !isAuthenticated && !userProfile?.isBusiness) {
+      if (isEmpty(userProfile) && !isAuthenticated) {
         // If the user is not authenticated, redirect them to the login page
         router.replace("/sign-in-business");
       } else if (isAuthenticated && !userProfile?.isBusiness) {
@@ -40,6 +40,10 @@ const BusinessView = (WrapperComponent, title) => {
         getAboutBusiness();
       }
     }, [isAuthenticated, userProfile]);
+
+    useEffect(() => {
+      getAboutBusiness();
+    }, [])
 
     // If the user is authenticated, render the wrapped component
     return (
