@@ -21,6 +21,8 @@ const BusinessView = (WrapperComponent, title) => {
       const res = await BusinessService.aboutBusiness().then((data) => {
         if (data.data.status === "success") {
           setAllAboutData(data.data);
+        } else {
+          router.replace("/sign-in-business");
         }
       });
     };
