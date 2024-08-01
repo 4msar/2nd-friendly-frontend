@@ -28,7 +28,7 @@ const BusinessService = {
     axios.post("/business/photo-album-Update", { data }),
   photoAlbumDelete: (data) =>
     axios.post("/business/photo-album-delet", { data }),
-  albumPhotoAll: () => axios.post("/business/album-photo-all", {}),
+  albumPhotoAll: (data) => axios.post("/business/album-photo-all", {data}),
   albumPhotoSave: (data) => axios.post("/business/album-photo-save", { data }),
   albumPhotoUpdate: (data) =>
     axios.post("/business/album-photo-update", { data }),

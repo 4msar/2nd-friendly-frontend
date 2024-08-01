@@ -21,6 +21,8 @@ const BusinessView = (WrapperComponent, title) => {
       const res = await BusinessService.aboutBusiness().then((data) => {
         if (data.data.status === "success") {
           setAllAboutData(data.data);
+        } else {
+          router.replace("/sign-in-business");
         }
       });
     };
@@ -41,10 +43,7 @@ const BusinessView = (WrapperComponent, title) => {
       }
     }, [isAuthenticated, userProfile]);
 
-    useEffect(() => {
-      getAboutBusiness();
-    }, [])
-
+    
     // If the user is authenticated, render the wrapped component
     return (
       <>
