@@ -40,9 +40,9 @@ const Categories = () => {
     };
     const res = await BusinessService.addRemoveCategory(payload).then(
       (data) => {
-        if (data.data.status === "success") {
+        // if (data.data.status === "success") {
           getCategoriesData();
-        }
+        // }
       }
     );
   };
@@ -53,7 +53,7 @@ const Categories = () => {
     }
   }, [isAuthenticated]);
 
-  console.log({ userProfile });
+  console.log({ allSelectedCategory });
   return (
     <main>
       <section class="p-0 m-0">
@@ -128,12 +128,11 @@ const Categories = () => {
                                   type="checkbox"
                                   class="btn-check"
                                   id="btn-check-1"
-                                  data-id={allSelectedCategory.includes(
-                                    subCategory.id
-                                  )}
-                                  checked={allSelectedCategory.filter(
-                                    (id) => id === subCategory.id
-                                  )}
+                                  data-id={allSelectedCategory.find(i => {
+                                    console.log('Comparing:', i, 'with', subCategory.id);
+                                    return i === subCategory.id;
+                                })}
+                                  checked={allSelectedCategory.find(i => i == subCategory.id)}
                                 />
                                 <label
                                   class="btn btn-sm btn-light btn-primary-soft-check rounded-4"

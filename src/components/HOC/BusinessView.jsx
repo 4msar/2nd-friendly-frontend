@@ -43,10 +43,7 @@ const BusinessView = (WrapperComponent, title) => {
       }
     }, [isAuthenticated, userProfile]);
 
-    useEffect(() => {
-      getAboutBusiness();
-    }, [])
-
+    
     // If the user is authenticated, render the wrapped component
     return (
       <>
