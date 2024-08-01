@@ -1,14 +1,12 @@
-import { useHeaderStyle } from "@/assets/stylesheets/header/headerStylesheet";
-import { Box, Container } from "@mui/material";
-import React from "react";
-import sp from "@/assets/img/flags/sp.svg";
-import uk from "@/assets/img/flags/uk.svg";
+import companyLogo from "@/assets/img/company-logo/7.svg";
 import fr from "@/assets/img/flags/fr.svg";
 import gr from "@/assets/img/flags/gr.svg";
+import sp from "@/assets/img/flags/sp.svg";
+import uk from "@/assets/img/flags/uk.svg";
 import logo from "@/assets/img/logo.png";
-import companyLogo from "@/assets/img/company-logo/7.svg";
+import { useHeaderStyle } from "@/assets/stylesheets/header/headerStylesheet";
+import { Box } from "@mui/material";
 import Link from "next/link";
-
 
 const Header = () => {
   const classes = useHeaderStyle();
@@ -57,35 +55,19 @@ const Header = () => {
                   aria-labelledby="dropdownLanguage"
                 >
                   <Link className="dropdown-item me-4" href="#">
-                    <img
-                      className="fa-fw me-2"
-                      src={uk.src}
-                      alt=""
-                    />
+                    <img className="fa-fw me-2" src={uk.src} alt="" />
                     English
                   </Link>
                   <Link className="dropdown-item me-4" href="#">
-                    <img
-                      className="fa-fw me-2"
-                      src={sp.src}
-                      alt=""
-                    />
+                    <img className="fa-fw me-2" src={sp.src} alt="" />
                     Español
                   </Link>
                   <Link className="dropdown-item me-4" href="#">
-                    <img
-                      className="fa-fw me-2"
-                      src={fr.src}
-                      alt=""
-                    />
+                    <img className="fa-fw me-2" src={fr.src} alt="" />
                     Français
                   </Link>
                   <Link className="dropdown-item me-4" href="#">
-                    <img
-                      className="fa-fw me-2"
-                      src={gr.src}
-                      alt=""
-                    />
+                    <img className="fa-fw me-2" src={gr.src} alt="" />
                     Deutsch
                   </Link>
                 </Box>
@@ -133,16 +115,8 @@ const Header = () => {
           <div className="container">
             {/* <!-- Logo START --> */}
             <Link className="navbar-brand me-0 py-4" href="/">
-              <img
-                className="light-mode-item"
-                src={logo.src}
-                alt="logo"
-              />
-              <img
-                className="dark-mode-item"
-                src={logo.src}
-                alt="logo"
-              />
+              <img className="light-mode-item" src={logo.src} alt="logo" />
+              <img className="dark-mode-item" src={logo.src} alt="logo" />
             </Link>
             {/* <!-- Logo END --> */}
             {/* <!-- Responsive navbar toggler --> */}
@@ -1259,8 +1233,8 @@ const Header = () => {
                   <li className="list-group-item text-primary-hover text-truncate">
                     <Link href="/#" className="text-body">
                       {" "}
-                      <i className="far fa-clock me-1"></i>Digital marketing course
-                      for Beginner
+                      <i className="far fa-clock me-1"></i>Digital marketing
+                      course for Beginner
                     </Link>
                   </li>
                   <li className="list-group-item text-primary-hover text-truncate">
@@ -1364,10 +1338,7 @@ const Header = () => {
                   </Link>
                 </li>
                 <li>
-                  <Link
-                    className="dropdown-item bg-danger-soft-hover"
-                    href="/index"
-                  >
+                  <Link className="dropdown-item bg-danger-soft-hover" href="#">
                     <i className="bi bi-power fa-fw me-2"></i>Sign Out
                   </Link>
                 </li>

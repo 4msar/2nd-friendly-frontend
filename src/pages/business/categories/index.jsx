@@ -32,6 +32,12 @@ const Categories = () => {
     });
   };
 
+  const handleChecked = (id) => {
+    const isChecked = allSelectedCategory.includes(toString(id));
+    console.log(isChecked);
+    return isChecked;
+  };
+
   const addRemoveSubCategory = async (subCatId, event) => {
     event.preventDefault();
     event.stopPropagation();
@@ -41,7 +47,7 @@ const Categories = () => {
     const res = await BusinessService.addRemoveCategory(payload).then(
       (data) => {
         // if (data.data.status === "success") {
-          getCategoriesData();
+        getCategoriesData();
         // }
       }
     );
@@ -99,7 +105,7 @@ const Categories = () => {
         <div class="container">
           <div class="row">
             <div class="col-xl-3 col-md-3">
-              <SidebarInformation profile={userProfile}  />
+              <SidebarInformation profile={userProfile} />
             </div>
             <div class="col-xl-9 col-md-9">
               <div class="row">
@@ -128,17 +134,17 @@ const Categories = () => {
                                   type="checkbox"
                                   class="btn-check"
                                   id="btn-check-1"
-                                  data-id={allSelectedCategory.find(i => {
-                                    console.log('Comparing:', i, 'with', subCategory.id);
-                                    return i === subCategory.id;
-                                })}
-                                  checked={allSelectedCategory.find(i => i == subCategory.id)}
+                                  data-id={subCategory.id}
+                                  checked={allSelectedCategory.find(
+                                    (i) => i == subCategory.id
+                                  )}
                                 />
                                 <label
                                   class="btn btn-sm btn-light btn-primary-soft-check rounded-4"
                                   for="btn-check-1"
                                 >
-                                  {capitalize(subCategory.name)}
+                                  {capitalize(subCategory.name)}{" "}
+                                  {handleChecked(subCategory.id)}
                                 </label>
                               </li>
                             ))}

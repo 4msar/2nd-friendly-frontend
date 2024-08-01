@@ -207,7 +207,7 @@ const BusinessHeader = () => {
                         <li><a className="dropdown-item bg-danger-soft-hover" href="/business/about-the-business"><i className="bi bi-gear fa-fw me-2"></i>Account Setting</a></li>
                         <li><a className="dropdown-item bg-danger-soft-hover" href="/business/categories"><i className="fas fa-business-time fa-fw me-2"></i>Business Information</a></li>
                         <li><a className="dropdown-item bg-danger-soft-hover" href="/business/support"><i className="bi bi-headset fa-fw me-2"></i>Support</a></li>
-                        <li><a onClick={() => logOut()} className="dropdown-item bg-danger-soft-hover" href="#"><i className="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
+                        <li><a onClick={() => logOut()} className="dropdown-item bg-danger-soft-hover" href="/"><i className="bi bi-power fa-fw me-2"></i>Sign Out</a></li>
                         <li>
                             <hr className="dropdown-divider"/>
                         </li>
