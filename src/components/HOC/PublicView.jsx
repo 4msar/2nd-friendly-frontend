@@ -7,7 +7,6 @@ import Header from "../Header/Header";
 
 const PublicView = (WrapperComponent, title) => {
   const PublicComponent = (props) => {
-    
     // const router = useRouter();
     const getHomePageData = async () => {
       const res = await PublicService.homePageData();
@@ -16,7 +15,7 @@ const PublicView = (WrapperComponent, title) => {
         usePublicPageStore.setState({
           allCategory: res.data.allCategory,
           recentAdvertisement: res.data.recentAdvertisement,
-          upcomingEvents: res.data.upcomingEvents
+          upcomingEvents: res.data.upcomingEvents,
         });
       }
     };

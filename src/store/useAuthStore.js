@@ -1,12 +1,14 @@
+"use client";
+
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 export const useAuthStore = create(
   persist(
     (set) => ({
-      access_token: null,
-      expires_in: null,
-      user: {},
+      access_token: "loading",
+      expires_in: 0,
+      user: null,
       setAccessToken: (access_token, expires_in) =>
         set((state) => ({ access_token, expires_in })),
       setUser: (user) => set((state) => ({ user })),
@@ -17,7 +19,13 @@ export const useAuthStore = create(
       })
     }),
     {
-      name: "auth_store"
+      name: "auth_store",
+      partialize: ({access_token, ...state}) =>{
+        return {
+          access_token: access_token ==="loading"?"":access_token,
+          ...state
+        }
+      }
     }
   )
 );

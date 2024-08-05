@@ -2257,7 +2257,7 @@ const CategoryPage = () => {
                       </span>
                     </div>
                     <div className="modal-body">
-                      <form className="row g-3 needs-validation" novalidate>
+                      <form className="row g-3 needs-validation" noValidate>
                         <div className="col-6">
                           <label
                             for="fast_name"
@@ -2271,7 +2271,7 @@ const CategoryPage = () => {
                             id="fast_name"
                             title="fast_name"
                             placeholder="John"
-                            autofocus
+                            
                             required
                           />
                           <div className="valid-feedback">Looks Goods</div>
@@ -2292,7 +2292,7 @@ const CategoryPage = () => {
                             id="last_name"
                             title="last_name"
                             placeholder="Doe"
-                            autofocus
+                            
                             required
                           />
                           <div className="valid-feedback">Looks Goods</div>
@@ -2313,7 +2313,7 @@ const CategoryPage = () => {
                             id="email_address"
                             title="email_address"
                             placeholder="johndoe@gmail.com"
-                            autofocus
+                            
                             required
                           />
                           <div className="valid-feedback">Looks Goods</div>
@@ -2334,7 +2334,7 @@ const CategoryPage = () => {
                             id="mobile_number"
                             title="mobile_number"
                             placeholder="+1-237-3456"
-                            autofocus
+                            
                             required
                           />
                           <div className="valid-feedback">Looks Goods</div>
@@ -2355,7 +2355,7 @@ const CategoryPage = () => {
                             id="your_massage"
                             title="your_massage"
                             placeholder="Share a few details so we can get you in touch with the business"
-                            autofocus
+                            
                             required
                           ></textarea>
                           <div className="valid-feedback">Looks Goods</div>

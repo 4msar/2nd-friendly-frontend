@@ -69,6 +69,11 @@ const BusinessService = {
   careerCreate: (data) =>
     axios.post("/business/career-create", { data }),
 
+  supportAll: () =>
+    axios.post("/business/support-all", {  }),
+  supportCreate: (data) =>
+    axios.post("/business/support-create", { data }),
+
 };
 
 export default BusinessService;

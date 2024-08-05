@@ -109,7 +109,7 @@ const SingIn = () => {
                   <p className="lead mb-4">
                     Nice to see you! Please log in with your account.
                   </p>
-                  <form className="row g-3 needs-validation" novalidate onSubmit={handleSubmit(onSubmit)}>
+                  <form className="row g-3 needs-validation" noValidate onSubmit={handleSubmit(onSubmit)}>
                     <div className="col-md-12">
                       <label for="email" className="form-label">
                         Email <span className="star">*</span>
@@ -120,11 +120,11 @@ const SingIn = () => {
                         title="email"
                         id="email"
                         minlength="4"
-                        maxlength="20"
+                        maxLength="20"
                         placeholder="johndoe@gmail.com"
                         aria-describedby=""
                         aria-required="true"
-                        autofocus
+                        
                         required
                         {...register("username", {
                           required: "Email or username can not be empty!",
@@ -148,11 +148,11 @@ const SingIn = () => {
                         className="form-control password"
                         id="password"
                         minlength="4"
-                        maxlength="20"
+                        maxLength="20"
                         placeholder="**********"
                         aria-describedby=""
                         aria-required="true"
-                        autofocus
+                        
                         required
                         {...register("password", {
                           required: true,

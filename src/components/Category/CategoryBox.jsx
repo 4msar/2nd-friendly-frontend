@@ -2,7 +2,7 @@ import { capitalize } from "@/helpers/functions";
 
 const CategoryBox = ({ icon, title, subtitle, url, index=1 }) => {
   return (
-    <div class="col-sm-6 col-lg-4 col-xl-4">
+    <div class="col-sm-6 col-lg-4 col-xl-4" key={index}>
       <div class="card card-body shadow rounded-3">
         <div class="d-flex align-items-center">
           <div class={`icon-lg ${index%2 === 0 ? 'bg-purple text-purple' : 'bg-danger text-danger'} bg-opacity-15 rounded-circle`}>

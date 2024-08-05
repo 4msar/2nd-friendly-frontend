@@ -92,7 +92,7 @@ const StepForm = () => {
         class="needs-validation shadow p-5"
         id="form-wrapper"
         name="form-wrapper"
-        novalidate=""
+        noValidate=""
         onSubmit={handleSubmit(onSubmit)}
       >
         <Stepper

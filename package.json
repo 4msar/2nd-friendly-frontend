@@ -3,11 +3,13 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
-    "lint": "next lint"
-  },
+        "dev": "next dev",
+        "build": "next build",
+        "start": "next start -p 1339",
+        "lint": "next lint",
+        "lint-start": "yarn add -D prettier && yarn add -D babel-eslint && npx install-peerdeps --dev eslint-config-airbnb && yarn add -D eslint-config-prettier eslint-plugin-prettier",
+        "generate:sitemap": "node ./scripts/sitemap-generate.js"
+    },
   "dependencies": {
     "@emotion/css": "^11.11.2",
     "@emotion/react": "^11.11.4",
@@ -27,6 +29,7 @@
     "react-hook-form": "^7.52.0",
     "react-redux": "^8.0.5",
     "react-slick": "^0.30.2",
+    "sweetalert": "^2.1.2",
     "tiny-slider": "^2.9.4",
     "yup": "^1.4.0",
     "zustand": "^4.5.4"

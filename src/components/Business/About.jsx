@@ -1,3 +1,4 @@
+import { IMAGE_URL } from "@/helpers/apiUrl";
 import useToken from "@/hooks/useToken";
 import BusinessService from "@/services/BusinessService";
 import { useBusinessAboutStore } from "@/store";
@@ -73,18 +74,10 @@ const  AboutBusiness = () => {
     );
   };
 
-  useEffect(() => {
-    if (isAuthenticated) {
-      getAboutBusiness();
-    }
-  }, [isAuthenticated]);
-
-  // console.log(userInfo);
 
   return (
-    <div className="row g-3 needs-validation">
-      
-      {/* <form class="row g-3 needs-validation" novalidate> */}
+    <div className="row g-3 needs-validation">  
+      {/* <form class="row g-3 needs-validation" noValidate> */}
         <div class="col-12 justify-content-center align-items-center">
           <label class="form-label fw-normal text-dark">Business Logo</label>
           <div className="d-flex align-items-center">
@@ -97,7 +90,7 @@ const  AboutBusiness = () => {
                 <img
                   id="uploadfile-1-preview"
                   className="avatar-img rounded-circle border border-white border-3 shadow"
-                  src={selectedImage || "../assets/img/company-logo/1.svg"}
+                  src={selectedImage || `${IMAGE_URL}/uploads/business-logo/${userProfile?.business_logo}`}
                   alt="Preview"
                 />
               </span>
@@ -151,7 +144,7 @@ const  AboutBusiness = () => {
             title="official_email"
             id="official_email"
             placeholder="e. g. johndoe@gmail.com"
-            autofocus
+            
             required
             value={userProfile?.official_email}
             onChange={(e) =>
@@ -171,7 +164,7 @@ const  AboutBusiness = () => {
             title="official_phone"
             id="official_phone"
             placeholder="e.g. (234)567-890"
-            autofocus
+            
             required
             value={userProfile?.official_phone}
             onChange={(e) =>
@@ -194,7 +187,7 @@ const  AboutBusiness = () => {
             title="Official_address_line1"
             type="text"
             placeholder="e.g. 123 Main Street, apt 4B"
-            autofocus
+            
             required
             value={userProfile?.Official_address_line1}
             onChange={(e) =>
@@ -217,7 +210,7 @@ const  AboutBusiness = () => {
             id="city"
             title="city"
             placeholder="e.g. Oxnard"
-            autofocus
+            
             required
             value={userProfile?.city}
             onChange={(e) =>
@@ -236,7 +229,7 @@ const  AboutBusiness = () => {
             id="state"
             title="state"
             aria-label=".form-select-lg"
-            autofocus
+            
             required
             value={userProfile?.state}
             onChange={(e) =>
@@ -262,7 +255,7 @@ const  AboutBusiness = () => {
             id="zip"
             title="zip"
             placeholder="e.g. 93030"
-            autofocus
+            
             required
             value={userProfile?.zip}
             onChange={(e) =>
@@ -282,7 +275,7 @@ const  AboutBusiness = () => {
             id="website_link"
             title="website_link"
             placeholder="e. g. www.2ndafriendly.com"
-            autofocus
+            
             value={userProfile?.website_link}
             onChange={(e) =>
               setUserProfile({ ...userProfile, website_link: e.target.value })
@@ -302,7 +295,7 @@ const  AboutBusiness = () => {
             id="history"
             title="history"
             placeholder="Write the history of your business."
-            autofocus
+            
             required
             value={userProfile?.history}
             onChange={(e) =>

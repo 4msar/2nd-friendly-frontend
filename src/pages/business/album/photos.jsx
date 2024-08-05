@@ -1,11 +1,16 @@
 import SidebarInformation from '@/components/Business/SidebarInformation'
 import useToken from '@/hooks/useToken';
 import { useBusinessAboutStore, usePhotoAlbumStore } from '@/store';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import album from '.';
 import BusinessView from '@/components/HOC/BusinessView';
 import BusinessService from '@/services/BusinessService';
 import { useRouter } from 'next/router';
+import { IMAGE_URL } from '@/helpers/apiUrl';
+import Script from 'next/script';
+import { Box, Dialog, DialogActions, DialogContent, IconButton } from '@mui/material';
+import CloseIcon from "@mui/icons-material/Close";
+import swal from 'sweetalert';
 
 const Photos = () => {
     const userProfile = useBusinessAboutStore((state) => state.businessProfile);
@@ -14,6 +19,10 @@ const Photos = () => {
     const [albumPhoto, setAlbumPhoto] = useState("");
     const [title, setTitle] = useState("");
     const router = useRouter();
+    const setAllPhoto = usePhotoAlbumStore((state) => state.setAllPhoto);
+    const allPhoto = usePhotoAlbumStore((state) => state.allPhoto);
+    const [open, setOpen] = useState(false);
+    const [photoView, setPhotoView] = useState("");
 
     const handleImageChange = (e) => {
         const file = e.target.files[0];
@@ -40,6 +49,18 @@ const Photos = () => {
         };
       };
 
+       // Ref object to reference the input element
+    const inputFile = useRef(null);
+
+    // Function to reset the input element
+    const handleReset = () => {
+        if (inputFile.current) {
+            inputFile.current.value = "";
+            inputFile.current.type = "text";
+            inputFile.current.type = "file";
+        }
+    };
+
       const handleSaveAlbumPhoto =  (e) => {
         e.preventDefault();
         e.stopPropagation();
@@ -53,18 +74,79 @@ const Photos = () => {
         console.log(payload);
         const res =  BusinessService.albumPhotoSave(payload).then((data) => {
             console.log({data});
+            setTitle("");
+            handleReset();
+            handleGetAlbumPhotos(albumId)
         })
       }
+
+      const handleGetAlbumPhotos = (id) => {
+        const payload = {
+            albumId: id
+        }
+        const res = BusinessService.albumPhotoAll(payload).then((data) => {
+            console.log(data.data.allPhoto);
+            setAllPhoto(data.data.allPhoto);
+         });
+      }
+
+      const handleDeletePhoto = async (id) => {
+        const payload = {
+            id: id
+        }
+
+        swal({
+            title: "Are you sure?",
+            text: "Once deleted, you will not be able to recover this item!",
+            icon: "warning",
+            buttons: true,
+            dangerMode: true,
+          }).then(async (willDelete) => {
+            if (willDelete) {
+              try {
+                const response = await BusinessService.albumPhotoDelete(payload);
+        
+                if (response.data.actionStatus == 1) {
+                  swal("Poof! Your item has been deleted!", {
+                    icon: "success",
+                  });
+                  setOpen(true);
+                  // Optionally, you can refresh the list of items or update the UI
+                } else {
+                  swal("Error! There was a problem deleting your item.", {
+                    icon: "error",
+                  });
+                  setOpen(true);
+                }
+              } catch (error) {
+                swal("Error! There was a problem deleting your item.", {
+                  icon: "error",
+                });
+                setOpen(true);
+              }
+            } else {
+              swal("Your item is safe!");
+              setOpen(true);
+            }
+          });
+      }
+
+
+
 
       useEffect(() => {
         if(!albumId){
             router.push("/business/album");
         }
+
+        handleGetAlbumPhotos(albumId);
+
       }, [albumId])
 
     console.log(albumPhoto);
   return (
-    <main>
+    <BusinessView title="Photos">
+ <main>
     <section class="p-0 m-0">
         <div class="container">
             <div class="row">
@@ -115,10 +197,10 @@ const Photos = () => {
                         <div class="py-1 m-2" role="alert">
                             <div class="row">
                                 <div class="col-6">
-                                    <input class="form-control form-control-sm" onChange={(e) => setTitle(e.target.value)} placeholder='Title here...' type="text" id="title" />
+                                    <input class="form-control form-control-sm" onChange={(e) => setTitle(e.target.value)} placeholder='Title here...' type="text" id="title" value={title} />
                                 </div>
                                 <div class="col-6">
-                                    <input class="form-control form-control-sm" onChange={(e) => handleImageChange(e)} type="file" id="formFileMultiple" multiple />
+                                    <input ref={inputFile} class="form-control form-control-sm" onChange={(e) => handleImageChange(e)} type="file" id="formFileMultiple" multiple />
                                 </div>
                             </div>
                         </div>
@@ -160,9 +242,15 @@ const Photos = () => {
                             <button class="btn btn-sm btn-dark" onClick={(e) => handleSaveAlbumPhoto(e)}>Submit</button>
                         </div>
                         <div class="row m-1 mb-0">
-                            <div class="col-2 p-1">
-                                <img id="myImg" src="../assets/img/gallery/gallery-1.jpg" alt="Snow" style={{ width:"100%", maxWidth:"600px" }}/>
-                            </div>
+                            {allPhoto?.length > 0 && allPhoto?.map((photo, index) => (
+                                <div class="col-2 p-1" key={index} style={{cursor: "pointer"}} onClick={() => {
+                                    setPhotoView(photo);
+                                    setOpen(true);
+                                }}>
+                                    <img id="myImg" src={`${IMAGE_URL}/uploads/business-photo/${photo.image}`} alt="Snow" style={{ width:"100%", maxWidth:"600px" }}/>
+                                </div>
+                            ))}
+                            
                             
                         </div>
                         <div class="d-sm-flex justify-content-sm-between align-items-sm-center p-2 mt-3">
@@ -183,8 +271,49 @@ const Photos = () => {
             </div>
         </div>
     </section>
-</main>
+
+    <Dialog
+        class="modal fade"
+        open={open}
+        width="500px"
+        onClose={() => setOpen(false)}
+      >
+        <Box class="modal-dialog modal-dialog-centered" sx={{ padding: "20px !important" }}>
+          <DialogContent class="modal-content">
+            {/* <!-- Modal header --> */}
+            
+            {/* <!-- Modal body --> */}
+            <Box class="modal-body" sx={{ padding: "20px !important" }}>
+                <h5 class="modal-title text-dark mb-0 text-center">{photoView.title}</h5><br />
+                <img id="myImg" src={`${IMAGE_URL}/uploads/business-photo/${photoView.image}`} alt="Snow"/>
+            </Box>
+            {/* <!-- Modal footer --> */}
+
+            <DialogActions>
+              <button
+                type="button"
+                class="btn btn-danger-soft my-0"
+                data-bs-dismiss="modal"
+                onClick={() => setOpen(false)}
+              >
+                Close
+              </button>
+              <button
+                onClick={(event) => handleDeletePhoto(photoView.id)}
+                class="btn btn-danger-soft my-0"
+                data-bs-dismiss="modal"
+              >
+                Delete
+              </button>
+            </DialogActions>
+          </DialogContent>
+        </Box>
+      </Dialog>
+    
+    </main>
+    </BusinessView>
+   
   )
 }
 
-export default BusinessView(Photos, "Photos")
+export default Photos

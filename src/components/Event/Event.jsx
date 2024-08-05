@@ -53,7 +53,7 @@ const Event = () => {
             <Slider {...settings}>
               {event_data.length > 0 &&
                 event_data.map((item, index) => (
-                  <div className="event">
+                  <div className="event" key={index}>
                    <EventCard item={item} />
                   </div>
                 ))}

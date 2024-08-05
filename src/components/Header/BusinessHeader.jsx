@@ -11,10 +11,12 @@ import user3 from "@/assets/img/user/user-3.jpg";
 import user4 from "@/assets/img/user/user-2.jpg";
 import user5 from "@/assets/img/user/user-1.jpg";
 import Link from "next/link";
-import { useAuthStore } from "@/store";
+import { useAuthStore, useBusinessAboutStore } from "@/store";
+import { IMAGE_URL } from "@/helpers/apiUrl";
 
 const BusinessHeader = () => {
     const logOut = useAuthStore((store) => store.resetAuth);
+    const userProfile = useBusinessAboutStore((state) => state.businessProfile);
   return (
     <>
      <div className="navbar-dark bg-light d-none d-xl-block py-1 mx-2 mx-md-4 rounded-bottom-4">
@@ -186,17 +188,17 @@ const BusinessHeader = () => {
                 </li>
                 <li className="nav-item ms-3 dropdown">
                     <Link className="avatar avatar-sm p-0" href="/business/#" id="profileDropdown" role="button" data-bs-auto-close="outside" data-bs-display="static" data-bs-toggle="dropdown" aria-expanded="false">
-                        <img className="avatar-img rounded-circle" src={companyLogo.src} alt="avatar"/>
+                        <img className="avatar-img rounded-circle" src={userProfile?.business_logo ? `${IMAGE_URL}/uploads/business-logo/${userProfile?.business_logo}` : companyLogo.src} alt="avatar"/>
                     </Link>
                     <ul className="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3" aria-labelledby="profileDropdown">
                         <li className="px-0 mb-2">
                             <div className="d-flex align-items-center">
                                 <div className="avatar me-1">
-                                    <img className="avatar-img rounded-circle shadow" src={companyLogo.src} alt="avatar"/>
+                                    <img className="avatar-img rounded-circle shadow" src={userProfile?.business_logo ? `${IMAGE_URL}/uploads/business-logo/${userProfile?.business_logo}` : companyLogo.src} alt="avatar"/>
                                 </div>
                                 <div>
-                                    <a className="h6" href="/business/#">Redwood Solutions Co.</a>
-                                    <p className="small m-0">account@redwood.com</p>
+                                    <a className="h6" href="/business/#">{userProfile?.business_name ?? "Business Name"}.</a>
+                                    <p className="small m-0">{userProfile?.official_email ?? "account@redwood.com"}</p>
                                 </div>
                             </div>
                         </li>

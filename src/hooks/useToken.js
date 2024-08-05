@@ -1,39 +1,24 @@
-import { isEmpty } from "@/helpers/functions";
+import { isEmpty, logOut } from "@/helpers/functions";
 import { useAuthStore } from "@/store";
 import axios from "axios";
+import { useEffect } from "react";
 
 const useToken = () => {
   const expires_in = useAuthStore((state) => state.expires_in);
   const accessToken = useAuthStore((state) => state.access_token);
   const user = useAuthStore((state) => state.user);
   const isExpired = Date.now() >= expires_in;
-console.log(user);
-  const expire_remaining = expires_in - Date.now();
 
-  if(accessToken === null) return null;
+  if (accessToken === "loading") return null;
 
   return !isExpired && !isEmpty(user);
 };
 
-// export const useAppToken = async () => {
-//   const authToken = useAuthStore((state) => state.access_token);
-
-//   try {
-//     const isExpired = Date.now() >= authToken.expires_in * 1000;
-//     if (isExpired) {
-//       const newToken = await Authorization.token();
-//       return newToken;
-//     }
-//     return !isExpired ? authToken : null;
-//   } catch {
-//     return null;
-//   }
-// };
-
 export const useAppToken = async () => {
   const authToken = useAuthStore((state) => state.access_token);
 
-  if (authToken) {
+  if (authToken && authToken !== 'loading') {
+    console.log({ authToken });
     axios.interceptors.request.use((config) => {
       config.headers
         ? (config.headers.Authorization = `Bearer ${authToken}`)

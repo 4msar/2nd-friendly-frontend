@@ -6,58 +6,59 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import Footer from "../Footer/Footer";
 import BusinessHeader from "../Header/BusinessHeader";
-import { isEmpty } from "@/helpers/functions";
 
-const BusinessView = (WrapperComponent, title) => {
-  const BusinessComponent = (props) => {
-    const router = useRouter();
-    const isAuthenticated = useToken();
-    const userProfile = useAuthStore((state) => state.user);
-    const setAllAboutData = useBusinessAboutStore(
-      (state) => state.setAboutAllData
-    );
+const BusinessView = ({ title, children, ...props }) => {
+  const router = useRouter();
+  const isAuthenticated = useToken();
+  const userProfile = useAuthStore((state) => state.user);
+  const expires_in = useAuthStore((state) => state.expires_in);
+  const isExpired = Date.now() >= expires_in;
+  const logOut = useAuthStore((store) => store.resetAuth);
+  const setAllAboutData = useBusinessAboutStore(
+    (state) => state.setAboutAllData
+  );
 
-    const getAboutBusiness = async () => {
-      const res = await BusinessService.aboutBusiness().then((data) => {
-        if (data.data.status === "success") {
-          setAllAboutData(data.data);
-        } else {
-          router.replace("/sign-in-business");
-        }
-      });
-    };
-
-    console.log(isAuthenticated);
-    useEffect(() => {
-      if (isAuthenticated === null) return; // Wait for the token check to complete
-      if (isEmpty(userProfile) && !isAuthenticated) {
-        // If the user is not authenticated, redirect them to the login page
-        router.replace("/sign-in-business");
-      } else if (isAuthenticated && !userProfile?.isBusiness) {
-        // If the user is authenticated but not a business profile, redirect to home page
-        router.replace("/");
+  const getAboutBusiness = async () => {
+    try {
+      const res = await BusinessService.aboutBusiness();
+      if (res.data.status === "success") {
+        setAllAboutData(res.data);
       }
-
-      if (isAuthenticated) {
-        getAboutBusiness();
-      }
-    }, [isAuthenticated, userProfile]);
-
-    
-    // If the user is authenticated, render the wrapped component
-    return (
-      <>
-        <Head>
-          <title>{title} | 2nd A Friendly</title>
-        </Head>
-        <BusinessHeader />
-        <WrapperComponent {...props} />
-        <Footer />
-      </>
-    );
+    } catch (error) {
+      console.error("Failed to fetch business data:", error);
+    }
   };
 
-  return BusinessComponent;
+  console.log("isAuthenticated", isAuthenticated);
+
+  useEffect(() => {
+    if (isAuthenticated === null) return;
+
+    if (!isAuthenticated || isExpired) {
+      // logOut();
+      router.replace("/sign-in-business");
+    } else {
+      getAboutBusiness();
+    }
+  }, [isAuthenticated, isExpired, router, logOut]);
+
+  // If the user is authenticated, render the wrapped component
+  return isAuthenticated && !isExpired ? (
+    <>
+      <Head>
+        <title>{title} | 2nd A Friendly</title>
+      </Head>
+      <BusinessHeader />
+      {children}
+      <Footer />
+    </>
+  ) : (
+    <div class="preloader">
+      <div class="preloader-item">
+        <div class="spinner-grow text-primary"></div>
+      </div>
+    </div> // Show loading state while checking authentication
+  );
 };
 
 export default BusinessView;

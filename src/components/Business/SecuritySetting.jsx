@@ -11,10 +11,10 @@ const SecuritySetting = () => {
         </p>
       </div>
       <div class="row">
-        <form class="needs-validation" novalidate>
+        <form class="needs-validation" noValidate>
           <div class="col-sm-12 col-md-12 col-lg-6">
             <div class="mb-2 pt-2">
-              <label class="form-label fw-normal text-dark" for="old_password">
+              <label class="form-label fw-normal text-dark">
                 Old Password <span class="star">*</span>
               </label>
               <input
@@ -23,14 +23,14 @@ const SecuritySetting = () => {
                 id="old_password"
                 name="old_password"
                 placeholder="************"
-                autofocus
+                
                 required
               />
               <div class="valid-feedback">Looks good!</div>
               <div class="invalid-feedback">Please enter old password.</div>
             </div>
             <div class="mb-2 pt-2">
-              <label class="form-label fw-normal text-dark" for="new_password">
+              <label class="form-label fw-normal text-dark">
                 New Password <span class="star">*</span>
               </label>
               <input
@@ -39,7 +39,7 @@ const SecuritySetting = () => {
                 id="new_password"
                 name="new_password"
                 placeholder="************"
-                autofocus
+                
                 required
               />
               <div class="valid-feedback">Looks good!</div>
@@ -48,7 +48,7 @@ const SecuritySetting = () => {
             <div class="mb-2 pt-2">
               <label
                 class="form-label fw-normal text-dark"
-                for="confirm_new_password"
+                
               >
                 Confirm New Password <span class="star">*</span>
               </label>
@@ -58,7 +58,7 @@ const SecuritySetting = () => {
                 id="confirm_new_password"
                 name="confirm_new_password"
                 placeholder="************"
-                autofocus
+                
                 required
               />
               <div class="valid-feedback">Looks good!</div>
@@ -81,7 +81,7 @@ const SecuritySetting = () => {
         </p>
       </div>
       <div class="row">
-        <form class="needs-validation" novalidate>
+        <form class="needs-validation" noValidate>
           <div class="col-sm-12 col-md-12 col-lg-6">
             <div class="mb-2 pt-2">
               <p>
@@ -90,7 +90,7 @@ const SecuritySetting = () => {
               </p>
             </div>
             <div class="mb-2 pt-2">
-              <label class="form-label fw-normal text-dark" for="new_email">
+              <label class="form-label fw-normal text-dark">
                 Enter your new email ID <span class="star">*</span>
               </label>
               <input
@@ -99,7 +99,7 @@ const SecuritySetting = () => {
                 id="new_email"
                 name="new_email"
                 placeholder="arinorheim@hotmail.com"
-                autofocus
+                
                 required
               />
               <div class="valid-feedback">Looks good!</div>
@@ -124,12 +124,12 @@ const SecuritySetting = () => {
         </p>
       </div>
       <div class="row">
-        <form class="needs-validation" novalidate>
+        <form class="needs-validation" noValidate>
           <div class="col-sm-12 col-md-12 col-lg-6">
             <div class="mb-2 pt-2">
               <label
                 class="form-label fw-normal text-dark"
-                for="old_phone_number"
+                
               >
                 Old Phone Number <span class="star">*</span>
               </label>
@@ -139,7 +139,7 @@ const SecuritySetting = () => {
                 id="old_phone_number"
                 name="old_phone_number"
                 placeholder="+123456789"
-                autofocus
+                
                 required
               />
               <div class="valid-feedback">Looks good!</div>
@@ -148,7 +148,7 @@ const SecuritySetting = () => {
             <div class="mb-2 pt-2">
               <label
                 class="form-label fw-normal text-dark"
-                for="new_phone_number"
+                
               >
                 New Phone Number <span class="star">*</span>
               </label>
@@ -158,7 +158,7 @@ const SecuritySetting = () => {
                 id="new_phone_number"
                 name="new_phone_number"
                 placeholder="+123456789"
-                autofocus
+                
                 required
               />
               <div class="valid-feedback">Looks good!</div>
@@ -167,7 +167,7 @@ const SecuritySetting = () => {
             <div class="mb-2 pt-2">
               <label
                 class="form-label fw-normal text-dark"
-                for="confirm_new_phone_number"
+                
               >
                 Confirm New Phone Number <span class="star">*</span>
               </label>
@@ -177,7 +177,7 @@ const SecuritySetting = () => {
                 id="confirm_new_phone_number"
                 name="confirm_new_phone_number"
                 placeholder="+123456789"
-                autofocus
+                
                 required
               />
               <div class="valid-feedback">Looks good!</div>

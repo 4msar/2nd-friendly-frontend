@@ -6,21 +6,21 @@ import { usePublicPageStore } from "@/store";
 const Category = () => {
   const category_list = usePublicPageStore((state) => state.allCategory);
   return (
-    <section class="pt-0">
-      <div class="container">
-        <div class="row mb-4">
-          <div class="col-12">
-            <h2 class="fw-normal text-center">
-              Our <span class="corporate-color">Categories</span>
+    <section className="pt-0">
+      <div className="container">
+        <div className="row mb-4">
+          <div className="col-12">
+            <h2 className="fw-normal text-center">
+              Our <span className="corporate-color">Categories</span>
             </h2>
-            <p class="mb-0 text-center">
+            <p className="mb-0 text-center">
               Lorem Ipsum is simply dummy text of the printing and typesetting
               industry. Lorem Ipsum has been the industry's standard dummy text
               ever since the 1500s.
             </p>
           </div>
         </div>
-        <div class="row g-4">
+        <div className="row g-4">
           {category_list.length > 0 &&
             category_list.map((item, index) => (
               <CategoryBox
