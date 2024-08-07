@@ -2,7 +2,7 @@ import React from "react";
 
 const CategoryItemBox = ({ item, index }) => {
   return (
-    <div className="card mb-4">
+    <div className="card mb-4" key={index}>
       <div className="row g-3">
         <div className="col-md-4">
           <div
@@ -11,7 +11,7 @@ const CategoryItemBox = ({ item, index }) => {
           >
             <div className="carousel-inner">
                 {item.sliders.length > 0 && item.sliders.map((image, i) => (
-                    <div className={`carousel-item ${i === 0 ? 'active' : ''}`}>
+                    <div className={`carousel-item ${i === 0 ? 'active' : ''}`} key={i}>
                         <img
                         src={image.src}
                         className="d-block w-100 rounded-3 "

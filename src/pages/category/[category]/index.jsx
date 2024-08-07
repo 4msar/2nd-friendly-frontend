@@ -26,9 +26,11 @@ const CategoryPage = () => {
                     <i className="bi bi-house me-1"></i> Home
                   </a>
                 </li>
-                <li className="breadcrumb-item">{makeTitle(query.category)}</li>
+                <li className="breadcrumb-item">{capitalize(query.category)}</li>
               </ol>
-              <h4 className="fs-5 pb-0 mb-0 fw-normal">{makeTitle(query.category)}</h4>
+              <h4 className="fs-5 pb-0 mb-0 fw-normal">
+                {capitalize(query.category)}
+              </h4>
             </div>
           </div>
         </div>
@@ -582,7 +584,7 @@ const CategoryPage = () => {
                 >
                   <ul className="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
                     <li className="page-item mb-0">
-                      <a className="page-link" href="#" tabindex="-1">
+                      <a className="page-link" href="#">
                         <i className="fas fa-angle-double-left"></i>
                       </a>
                     </li>

@@ -646,7 +646,10 @@ export function limitWords(text, maxWords) {
 }
 
 export function makeTitle(slug) {
-  var words = slug.split('-');
+  let words = "dummy-text";
+  if(slug){
+    words = slug.split('-');
+  }
 
   for (var i = 0; i < words.length; i++) {
     var word = words[i];
