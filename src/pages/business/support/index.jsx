@@ -233,7 +233,7 @@ const Support = () => {
                         <td>#102356</td>
                         <td>January 26, 2024</td>
                         <td>
-                          <a href="support-detail.php" class="fw-bold">
+                          <a href="/business/support/test" class="fw-bold">
                             Can't create account
                           </a>
                         </td>
@@ -245,10 +245,10 @@ const Support = () => {
                         </td>
                         <td>May 21, 2023</td>
                         <td>
-                          <a href="support-form.php" class="text-black">
+                          <a href="/business/support/text" class="text-black">
                             <i class="far fa-fw fa-edit"></i>
                           </a>{" "}
-                          <a href="support-detail.php" class="text-black">
+                          <a href="/business/support/test" class="text-black">
                             <i class="far fa-fw fa-eye"></i>
                           </a>
                         </td>

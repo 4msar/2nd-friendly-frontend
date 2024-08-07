@@ -2,6 +2,7 @@ import CategoryItemBox from "@/components/Category/CategoryItemBox";
 import CategorySidebar from "@/components/Category/CategorySidebar";
 import { category_items } from "@/components/dummy_data/data";
 import PublicView from "@/components/HOC/PublicView";
+import { capitalize, makeTitle } from "@/helpers/functions";
 import Head from "next/head";
 import { useRouter } from "next/router";
 
@@ -25,9 +26,9 @@ const CategoryPage = () => {
                     <i className="bi bi-house me-1"></i> Home
                   </a>
                 </li>
-                <li className="breadcrumb-item">{query.category}</li>
+                <li className="breadcrumb-item">{makeTitle(query.category)}</li>
               </ol>
-              <h4 className="fs-5 pb-0 mb-0 fw-normal">{query.category}</h4>
+              <h4 className="fs-5 pb-0 mb-0 fw-normal">{makeTitle(query.category)}</h4>
             </div>
           </div>
         </div>

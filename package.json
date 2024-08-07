@@ -3,19 +3,20 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-        "dev": "next dev",
-        "build": "next build",
-        "start": "next start -p 1339",
-        "lint": "next lint",
-        "lint-start": "yarn add -D prettier && yarn add -D babel-eslint && npx install-peerdeps --dev eslint-config-airbnb && yarn add -D eslint-config-prettier eslint-plugin-prettier",
-        "generate:sitemap": "node ./scripts/sitemap-generate.js"
-    },
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start -p 1339",
+    "lint": "next lint",
+    "lint-start": "yarn add -D prettier && yarn add -D babel-eslint && npx install-peerdeps --dev eslint-config-airbnb && yarn add -D eslint-config-prettier eslint-plugin-prettier",
+    "generate:sitemap": "node ./scripts/sitemap-generate.js"
+  },
   "dependencies": {
     "@emotion/css": "^11.11.2",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
     "@hookform/resolvers": "^3.9.0",
     "@mui/icons-material": "^5.15.17",
+    "@mui/lab": "^5.0.0-alpha.173",
     "@mui/material": "^5.15.17",
     "@reduxjs/toolkit": "^2.2.6",
     "axios": "^1.7.2",

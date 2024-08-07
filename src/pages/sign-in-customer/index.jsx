@@ -13,7 +13,7 @@ import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
-const BusinessSingIn = () => {
+const CustomerSignIn = () => {
   const snackbar = useSnackbar();
   const isAuthenticated = useToken();
   const router = useRouter();
@@ -21,7 +21,7 @@ const BusinessSingIn = () => {
   const {
     handleSubmit,
     register,
-    formState: { errors }
+    formState: { errors },
   } = useForm();
 
   const handleMouseDownPassword = (event) => {
@@ -35,7 +35,7 @@ const BusinessSingIn = () => {
       useAuthStore.setState({
         user: res.user,
         access_token: res.access_token,
-        expires_in: res.expires_in * 1000 + Date.now()
+        expires_in: res.expires_in * 1000 + Date.now(),
       });
       setLoading(false);
     } else {
@@ -48,7 +48,7 @@ const BusinessSingIn = () => {
 
   useEffect(() => {
     if (isAuthenticated) {
-      router.push("/business/about-the-business");
+      router.push("/user/dashboard");
     }
   }, [isAuthenticated]);
 
@@ -116,7 +116,7 @@ const BusinessSingIn = () => {
                 <div className="col-sm-10 col-xl-8 m-auto">
                   {/* <!-- Title --> */}
                   <span className="mb-0 fs-1">👋</span>
-                  <h1 className="fs-2">Login for business account!</h1>
+                  <h1 className="fs-2">Login for customer account!</h1>
                   <p className="lead mb-4">
                     Nice to see you! Please log in with your account.
                   </p>
@@ -144,7 +144,7 @@ const BusinessSingIn = () => {
                           name="email"
                           required
                           {...register("username", {
-                            required: "Email or username can not be empty!"
+                            required: "Email or username can not be empty!",
                           })}
                           error={!!errors.email}
                         />
@@ -173,7 +173,7 @@ const BusinessSingIn = () => {
                           required
                           {...register("password", {
                             required: "Password or username can not be empty!",
-                            type: "password"
+                            type: "password",
                           })}
                           error={!!errors.password}
                         />
@@ -199,7 +199,10 @@ const BusinessSingIn = () => {
                         </label>
                       </div>
                       <div className="text-primary-hover">
-                        <a href="forgot-password.php" className="text-secondary">
+                        <a
+                          href="forgot-password.php"
+                          className="text-secondary"
+                        >
                           <u>Forgot password?</u>
                         </a>
                       </div>
@@ -207,26 +210,54 @@ const BusinessSingIn = () => {
                     {/* <!-- Button --> */}
                     <div className="align-items-center mt-0">
                       <div className="d-grid">
-                        <button className="btn btn-primary mb-0" type="submit" disabled={loading}>
+                        <button
+                          className="btn btn-primary mb-0"
+                          type="submit"
+                          disabled={loading}
+                        >
                           {loading ? "Loading..." : "Login"}
                         </button>
                       </div>
                     </div>
                   </form>
                   {/* <!-- Form END --> */}
+                  {/* <!-- Social buttons and divider --> */}
+                  <div class="row">
+                    {/* <!-- Divider with text --> */}
+                    <div class="position-relative my-4">
+                      <hr />
+                      <p class="small position-absolute top-50 start-50 translate-middle bg-body px-5">
+                        Or
+                      </p>
+                    </div>
+                    {/* <!-- Social btn --> */}
+                    <div class="col-xxl-6 d-grid">
+                      <a href="#" class="btn bg-google mb-2 mb-xxl-0">
+                        <i class="fab fa-fw fa-google text-white me-2"></i>Login
+                        with Google
+                      </a>
+                    </div>
+                    {/* <!-- Social btn --> */}
+                    <div class="col-xxl-6 d-grid">
+                      <a href="#" class="btn bg-facebook mb-0">
+                        <i class="fab fa-fw fa-facebook-f me-2"></i>Login with
+                        Facebook
+                      </a>
+                    </div>
+                  </div>
                   {/* <!-- Sign up link --> */}
                   <div className="mt-4 mb-4 text-center">
                     <span>
                       Don't have an account?{" "}
-                      <Link href="/sign-up-business">Signup here</Link>
+                      <Link href="/sign-up-customer">Signup here</Link>
                     </span>
                   </div>
                   <div className="align-items-center mt-0">
                     <div className="d-grid">
                       <button className="btn btn-success mb-0">
                         {" "}
-                        <Link className="text-white" href="/sign-in-customer">
-                          Customer sign in
+                        <Link className="text-white" href="/sign-in-business">
+                          Business sign in
                         </Link>
                       </button>
                     </div>
@@ -242,4 +273,4 @@ const BusinessSingIn = () => {
   );
 };
 
-export default BusinessSingIn;
+export default CustomerSignIn;

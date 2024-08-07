@@ -56,7 +56,7 @@ const SignUpCustomer = () => {
                                     <label for="first_name" className="form-label">First Name <span className="star">*</span></label>
                                     <div className="input-group input-group-lg">
                                         <span className="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i className="fas fa-user"></i></span>
-                                        <input type="text" className="form-control border-0 bg-light rounded-end ps-1" placeholder="E. g. John." title="first_name" id="first_name" name="first_name" minlength="4" maxLength="20"  required/>
+                                        <input type="text" className="form-control border-0 bg-light rounded-end ps-1" placeholder="E. g. John." title="first_name" id="first_name" name="first_name" minlength="4" maxlength="20"  required/>
                                         <div className="valid-feedback">
                                             Looks good!
                                         </div>
@@ -69,7 +69,7 @@ const SignUpCustomer = () => {
                                     <label for="last_name" className="form-label">Last Name <span className="star">*</span></label>
                                     <div className="input-group input-group-lg">
                                         <span className="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i className="fas fa-user"></i></span>
-                                        <input type="text" className="form-control border-0 bg-light rounded-end ps-1" placeholder="E. g. Doe." title="last_name" id="last_name"name="last_name" minlength="4" maxLength="20"  required/>
+                                        <input type="text" className="form-control border-0 bg-light rounded-end ps-1" placeholder="E. g. Doe." title="last_name" id="last_name"name="last_name" minlength="4" maxlength="20"  required/>
                                         <div className="valid-feedback">
                                             Looks good!
                                         </div>
@@ -83,7 +83,7 @@ const SignUpCustomer = () => {
                                     <label for="email" className="form-label">Email <span className="star">*</span></label>
                                     <div className="input-group input-group-lg">
                                         <span className="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i className="bi bi-envelope-fill"></i></span>
-                                        <input type="email" className="form-control border-0 bg-light rounded-end ps-1" placeholder="E. g. johndoe@gmail.com" id="email" title="email" name="email" minlength="4" maxLength="20"  required/>
+                                        <input type="email" className="form-control border-0 bg-light rounded-end ps-1" placeholder="E. g. johndoe@gmail.com" id="email" title="email" name="email" minlength="4" maxlength="20"  required/>
                                         <div className="valid-feedback">
                                             Looks good!
                                         </div>
@@ -97,7 +97,7 @@ const SignUpCustomer = () => {
                                     <label for="password" className="form-label">Password <span className="star">*</span></label>
                                     <div className="input-group input-group-lg">
                                         <span className="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i className="fas fa-lock"></i></span>
-                                        <input type="password" className="form-control border-0 bg-light rounded-end ps-1" placeholder="*********" id="password" title="password" name="password" minlength="4" maxLength="20"  required/>
+                                        <input type="password" className="form-control border-0 bg-light rounded-end ps-1" placeholder="*********" id="password" title="password" name="password" minlength="4" maxlength="20"  required/>
                                         <div className="valid-feedback">
                                             Looks good!
                                         </div>
@@ -111,7 +111,7 @@ const SignUpCustomer = () => {
                                     <label for="confirm_password" className="form-label">Confirm Password <span className="star">*</span></label>
                                     <div className="input-group input-group-lg">
                                         <span className="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i className="fas fa-lock"></i></span>
-                                        <input type="password" className="form-control border-0 bg-light rounded-end ps-1" placeholder="*********" id="confirm_password" title="confirm_password" name="confirm_password" minlength="4" maxLength="20"  required/>
+                                        <input type="password" className="form-control border-0 bg-light rounded-end ps-1" placeholder="*********" id="confirm_password" title="confirm_password" name="confirm_password" minlength="4" maxlength="20"  required/>
                                         <div className="valid-feedback">
                                             Looks good!
                                         </div>

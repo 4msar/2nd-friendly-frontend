@@ -287,7 +287,7 @@ const Photos = () => {
                 <h5 class="modal-title text-dark mb-0 text-center">{photoView.title}</h5><br />
                 <img id="myImg" src={`${IMAGE_URL}/uploads/business-photo/${photoView.image}`} alt="Snow"/>
             </Box>
-            {/* <!-- Modal footer --> */}
+           
 
             <DialogActions>
               <button

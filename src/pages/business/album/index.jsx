@@ -5,6 +5,15 @@ import useToken from "@/hooks/useToken";
 import BusinessService from "@/services/BusinessService";
 import { useBusinessAboutStore } from "@/store";
 import { usePhotoAlbumStore } from "@/store/usePhotoStore";
+import {
+  Box,
+  Button,
+  CircularProgress,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+} from "@mui/material";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import swal from "sweetalert";
@@ -12,18 +21,19 @@ import swal from "sweetalert";
 const Album = () => {
   const userProfile = useBusinessAboutStore((state) => state.businessProfile);
   const isAuthenticated = useToken();
-
+  const [open, setOpen] = useState(false);
   const allAlbum = usePhotoAlbumStore((state) => state.allAlbum);
   const setPhotoAlbum = usePhotoAlbumStore((state) => state.setPhotoAlbum);
   const setAlbumId = usePhotoAlbumStore((state) => state.setAlbumId);
-  const [albumName, setAlbumName] = useState();
-  const [convertedImage, setConvertedImage] = useState(null);
+  const singleAlbum = usePhotoAlbumStore((state) => state.singleAlbum);
+  const setSingleAlbum = usePhotoAlbumStore((state) => state.setSingleAlbum);
+  const [loading, setLoading] = useState(false);
+
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setSelectedImage(reader.result);
         convertToPNG(reader.result);
       };
       reader.readAsDataURL(file);
@@ -40,7 +50,10 @@ const Album = () => {
       const ctx = canvas.getContext("2d");
       ctx.drawImage(img, 0, 0);
       const pngDataUrl = canvas.toDataURL("image/png");
-      setConvertedImage(pngDataUrl);
+      setSingleAlbum({
+        ...singleAlbum,
+        image: pngDataUrl,
+      });
     };
   };
 
@@ -57,6 +70,7 @@ const Album = () => {
   };
 
   const saveAlbum = async (event) => {
+    setLoading(true);
     event.preventDefault();
     event.stopPropagation();
     const modalElement = document.getElementById("albumCreate");
@@ -67,10 +81,33 @@ const Album = () => {
     };
     const res = await BusinessService.photoAlbumSave(payload).then((data) => {
       if (data.data.status === "success") {
+        swal("Poof! Album Save successfully!", {
+          icon: "success",
+        });
+        setLoading(false);
         getAllPhotoAlbum();
-        modalElement.modal("hide");
-        setAlbumName("");
-        setConvertedImage(null);
+      } else {
+        setLoading(false);
+      }
+    });
+  };
+
+  const updatePhotoAlbum = (data) => {
+    setLoading(true);
+    event.preventDefault();
+    event.stopPropagation();
+    const payload = {
+      ...singleAlbum,
+    };
+    const res = BusinessService.photoAlbumUpdate(payload).then((data) => {
+      if (data.data.status === "success") {
+        swal("Poof! Album Update successfully!", {
+          icon: "success",
+        });
+        setLoading(false);
+        getAllPhotoAlbum();
+      } else {
+        setLoading(false);
       }
     });
   };
@@ -112,6 +149,8 @@ const Album = () => {
       }
     });
   };
+
+  console.log(singleAlbum);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -173,14 +212,12 @@ const Album = () => {
                     <h5 class="mb-2 mb-sm-0 text-danger pb-0">All Album</h5>
                   </div>
                   <div class="d-flex align-items-center mt-2 mt-md-0">
-                    <a
-                      href="#"
-                      data-bs-target="#albumCreate"
-                      data-bs-toggle="modal"
+                    <Button
+                      onClick={() => setOpen(true)}
                       class="btn btn-sm btn-dark mb-0"
                     >
                       Create Album
-                    </a>
+                    </Button>
                   </div>
                 </div>
                 <div class="table-responsive rounded-3 ">
@@ -225,12 +262,15 @@ const Album = () => {
                             <td>Feb 15, 2024</td>
                             <td>March 25, 2024</td>
                             <td>
-                              <Link
-                                href="album-form.php"
+                              <Button
+                                onClick={() => {
+                                  setOpen(true);
+                                  setSingleAlbum(album);
+                                }}
                                 class="btn btn-sm btn-blue-soft btn-round me-1 mb-0"
                               >
                                 <i class="far fa-fw fa-edit"></i>
-                              </Link>
+                              </Button>
                               <Link
                                 onClick={() => setAlbumId(album.id)}
                                 href="/business/album/photos"
@@ -302,86 +342,134 @@ const Album = () => {
             </div>
           </div>
         </section>
-        <div
+        <Dialog
           class="modal fade"
-          id="albumCreate"
-          tabindex="-1"
-          aria-labelledby="albumCreate"
-          aria-hidden="true"
+          open={open}
+          width="500px"
+          onClose={() => {setOpen(false);
+            setSingleAlbum("");
+          }}
+          
         >
-          <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-              {/* <!-- Modal header --> */}
-              <div class="modal-header">
-                <h5 class="modal-title text-dark mb-0" id="albumCreate">
-                  Album Create
-                </h5>
-                <button
-                  type="button"
-                  class="btn btn-sm btn-light mb-0"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                >
-                  <i class="bi bi-x-lg"></i>
-                </button>
-              </div>
-              {/* <!-- Modal body --> */}
-              <div class="modal-body">
-                <div class="row">
-                  <div class="col-md-12 bg-light-input">
-                    <label for="album_name" class="form-label">
-                      Album name <span class="star">*</span>
-                    </label>
-                    <input
-                      type="text"
-                      class="form-control album_name"
-                      id="album_name"
-                      title="album_name"
-                      placeholder="E.g. Pizza Party"
-                      required
-                      onChange={(e) => setAlbumName(e.target.value)}
-                    />
-                    <div class="valid-feedback">Looks good!</div>
-                    <div class="invalid-feedback">Please enter album name.</div>
-                  </div>
-                  <div class="col-md-12 bg-light-input mt-5">
-                    <label for="album_name" class="form-label">
-                      Album Thumbnail <span class="star">*</span>
-                    </label>
-                    <input
-                      type="file"
-                      class="form-control album_name"
-                      id="album_name"
-                      title="album_name"
-                      placeholder="E.g. Pizza Party"
-                      required
-                      onChange={handleImageChange}
-                    />
-                    <div class="valid-feedback">Looks good!</div>
-                    <div class="invalid-feedback">Please enter album name.</div>
-                  </div>
+          <Box
+            class="modal-dialog modal-dialog-centered"
+            sx={{ padding: "20px !important" }}
+          >
+            <DialogContent class="modal-content">
+              <DialogContentText sx={{ padding: "20px" }}>
+                {/* <!-- Modal header --> */}
+                <div class="modal-header">
+                  <h5 class="modal-title text-dark mb-0">Album Create</h5>
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-light mb-0"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                    onClick={() => {setOpen(false);
+                      setSingleAlbum("");
+                    }}
+                    
+                  >
+                    <i class="bi bi-x-lg">x</i>
+                  </button>
                 </div>
-              </div>
-              {/* <!-- Modal footer --> */}
-              <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-danger-soft my-0"
-                  data-bs-dismiss="modal"
+                {/* <!-- Modal body --> */}
+                <Box
+                  class="modal-body"
+                  sx={{
+                    padding: "20px !important",
+                    marginBottom: "20px !important",
+                  }}
                 >
-                  Close
-                </button>
-                <button
-                  onClick={(event) => saveAlbum(event)}
-                  class="btn btn-success-soft my-0"
-                  data-bs-dismiss="modal"
+                  <div class="row">
+                    <div class="col-md-12 bg-light-input">
+                      <label for="album_name" class="form-label">
+                        Album name <span class="star">*</span>
+                      </label>
+                      <input
+                        type="text"
+                        class="form-control album_name"
+                        id="album_name"
+                        title="album_name"
+                        placeholder="E.g. Pizza Party"
+                        required
+                        value={singleAlbum?.name}
+                        onChange={(e) => {
+                          setSingleAlbum({
+                            ...singleAlbum,
+                            name: e.target.value,
+                          });
+                        }}
+                      />
+                      <div class="valid-feedback">Looks good!</div>
+                      <div class="invalid-feedback">
+                        Please enter album name.
+                      </div>
+                    </div>
+                    <div class="col-md-12 bg-light-input mt-5 mb-3">
+                      <label for="album_name" class="form-label">
+                        Album Thumbnail <span class="star">*</span>
+                      </label>
+                      <input
+                        type="file"
+                        class="form-control album_name"
+                        id="album_name"
+                        title="album_name"
+                        placeholder="E.g. Pizza Party"
+                        required
+                        onChange={handleImageChange}
+                      />
+                      <div class="valid-feedback">Looks good!</div>
+                      <div class="invalid-feedback">
+                        Please enter album name.
+                      </div>
+                    </div>
+                  </div>
+                </Box>
+                {/* <!-- Modal footer --> */}
+                <DialogActions
+                  class="modal-footer"
+                  sx={{ paddingTop: "20px !important" }}
                 >
-                  Submit
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+                  <Button
+                    type="button"
+                    class="btn btn-danger-soft my-0"
+                    data-bs-dismiss="modal"
+                    onClick={() => {
+                      setOpen(false);
+                      setSingleAlbum("");
+                      setLoading(false);
+                    }}
+                    sx={{ marginRight: "10px !important" }}
+                  >
+                    Close
+                  </Button>
+                  {singleAlbum.id !== "" ? (
+                    <Button
+                      startIcon={loading ? <CircularProgress size={15} /> : ""}
+                      onClick={(event) => updatePhotoAlbum(event)}
+                      class="btn btn-success-soft my-0"
+                      data-bs-dismiss="modal"
+                      disabled={loading}
+                    >
+                      Update
+                    </Button>
+                  ) : (
+                    <Button
+                      startIcon={loading ? <CircularProgress size={15} /> : ""}
+                      disabled={loading}
+                      onClick={(event) => saveAlbum(event)}
+                      class="btn btn-success-soft my-0"
+                      data-bs-dismiss="modal"
+                    >
+                      Submit
+                    </Button>
+                  )}
+                </DialogActions>
+              </DialogContentText>
+            </DialogContent>
+          </Box>
+        </Dialog>
       </main>
     </BusinessView>
   );

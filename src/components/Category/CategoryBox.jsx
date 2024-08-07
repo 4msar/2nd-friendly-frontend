@@ -1,4 +1,5 @@
 import { capitalize } from "@/helpers/functions";
+import Link from "next/link";
 
 const CategoryBox = ({ icon, title, subtitle, url, index=1 }) => {
   return (
@@ -10,9 +11,9 @@ const CategoryBox = ({ icon, title, subtitle, url, index=1 }) => {
           </div>
           <div class="ms-3">
             <h5 class="mb-0">
-              <a href={url} class="stretched-link">
+              <Link href={`/category/${url}`} class="stretched-link">
                 {capitalize(title)}
-              </a>
+              </Link>
             </h5>
             <span>{`${subtitle} Sub Categories`}</span>
           </div>

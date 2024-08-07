@@ -2,11 +2,13 @@ import { IMAGE_URL } from "@/helpers/apiUrl";
 import useToken from "@/hooks/useToken";
 import BusinessService from "@/services/BusinessService";
 import { useBusinessAboutStore } from "@/store";
+import { Button, CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
+import swal from "sweetalert";
 
 const  AboutBusiness = () => {
   const isAuthenticated = useToken();
-  const [file, setFile] = useState(null);
+  const [loading, setLoading] = useState(false);
   const userProfile = useBusinessAboutStore((state) => state.businessProfile);
   const userInfo = useBusinessAboutStore((state) => state.businessOwner);
   const allState = useBusinessAboutStore((state) => state.allState);
@@ -59,16 +61,23 @@ const  AboutBusiness = () => {
     });
   };
 
-  const updateAboutBusiness = async () => {
+  const updateAboutBusiness =  () => {
+    setLoading(true);
     const payload = {
       ...userProfile,
       image: convertedImage,
       old_image: "",
     };
-    const res = await BusinessService.aboutBusinessSave(payload).then(
+    const res = BusinessService.aboutBusinessSave(payload).then(
       (data) => {
         if (data.status === "success") {
+          swal("Poof! Information Update successfully!", {
+            icon: "success",
+          });
           getAboutBusiness();
+          setLoading(false);
+        } else{
+          setLoading(false)
         }
       }
     );
@@ -313,7 +322,7 @@ const  AboutBusiness = () => {
             First name <span class="star">*</span>
           </label>
           <input
-            value={userInfo?.first_name}
+            value={userProfile?.first_name ?? userInfo?.first_name}
             class="form-control first_name"
             type="text"
             title="first_name"
@@ -321,7 +330,7 @@ const  AboutBusiness = () => {
             placeholder="e. g. John"
             required
             onChange={(e) =>
-              setUserProfile({ ...userInfo, first_name: e.target.value })
+              setUserProfile({ ...userProfile, first_name: e.target.value })
             }
           />
           <div class="valid-feedback">Looks good!</div>
@@ -332,7 +341,7 @@ const  AboutBusiness = () => {
             Last name <span class="star">*</span>
           </label>
           <input
-            value={userInfo?.last_name}
+            value={userProfile?.last_name ?? userInfo?.last_name}
             class="form-control last_name"
             type="text"
             id="last_name"
@@ -340,20 +349,27 @@ const  AboutBusiness = () => {
             placeholder="Type your last here"
             required
             onChange={(e) =>
-              setUserProfile({ ...userInfo, last_name: e.target.value })
+              setUserProfile({ ...userProfile, last_name: e.target.value })
             }
           />
           <div class="valid-feedback">Looks good!</div>
           <div class="invalid-feedback">Please enter last name.</div>
         </div>
         <div class="d-sm-flex justify-content-end mb-3">
-          <button
+          <Button
+            sx={{display: 'flex', justifyContent: 'center', gap:2, background: "#000", color: '#fff'}}
             type="submit"
             class="btn btn-primary-soft mb-0"
             onClick={updateAboutBusiness}
+            disabled={loading}
+            startIcon={loading ?  <CircularProgress size={15} /> : ""}
+            variant="contained"
           >
-            Save changes
-          </button>
+          
+             
+              Save changes
+            
+          </Button>
         </div>
         
       {/* </form> */}

@@ -47,6 +47,9 @@ const Categories = () => {
     const res = await BusinessService.addRemoveCategory(payload).then(
       (data) => {
         // if (data.data.status === "success") {
+          swal(`Poof! ${data.data.message}`, {
+            icon: "success",
+          });
         getCategoriesData();
         // }
       }

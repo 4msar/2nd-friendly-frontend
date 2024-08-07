@@ -54,8 +54,11 @@ const Careers = () => {
   };
 
   useEffect(() => {
-    handleGetCareers();
-  }, []);
+    if(isAuthenticated) {
+
+      handleGetCareers();
+    }
+  }, [isAuthenticated]);
   return (
     <BusinessView title="Careers">
       <main>
@@ -190,98 +193,7 @@ const Careers = () => {
                           </a>
                         </td>
                       </tr>
-                      <tr>
-                        <td>
-                          <h6 class="table-responsive-title mt-2 mt-lg-0 mb-0">
-                            <a href="career-detail.php">Job Title 4</a>
-                          </h6>
-                        </td>
-                        <td>18/1/2023</td>
-                        <td>Marketing</td>
-                        <td>30/2/2023</td>
-                        <td>
-                          <a href="#" class="link-underline-light text-primary">
-                            <i class="fa fa-download"></i>
-                          </a>
-                        </td>
-                        <td>
-                          <a href="career-detail.php" class="text-black">
-                            <i class="far fa-fw fa-edit"></i>
-                          </a>{" "}
-                          <a href="job-form.php" class="text-black">
-                            <i class="far fa-fw fa-eye"></i>
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <h6 class="table-responsive-title mt-2 mt-lg-0 mb-0">
-                            <a href="career-detail.php">Job Title 4</a>
-                          </h6>
-                        </td>
-                        <td>18/1/2023</td>
-                        <td>Marketing</td>
-                        <td>30/2/2023</td>
-                        <td>
-                          <a href="#" class="link-underline-light text-primary">
-                            <i class="fa fa-download"></i>
-                          </a>
-                        </td>
-                        <td>
-                          <a href="career-detail.php" class="text-black">
-                            <i class="far fa-fw fa-edit"></i>
-                          </a>{" "}
-                          <a href="job-form.php" class="text-black">
-                            <i class="far fa-fw fa-eye"></i>
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <h6 class="table-responsive-title mt-2 mt-lg-0 mb-0">
-                            <a href="career-detail.php">Job Title 5</a>
-                          </h6>
-                        </td>
-                        <td>18/1/2023</td>
-                        <td>Marketing</td>
-                        <td>30/2/2023</td>
-                        <td>
-                          <a href="#" class="link-underline-light text-primary">
-                            <i class="fa fa-download"></i>
-                          </a>
-                        </td>
-                        <td>
-                          <a href="career-detail.php" class="text-black">
-                            <i class="far fa-fw fa-edit"></i>
-                          </a>{" "}
-                          <a href="job-form.php" class="text-black">
-                            <i class="far fa-fw fa-eye"></i>
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <h6 class="table-responsive-title mt-2 mt-lg-0 mb-0">
-                            <a href="career-detail.php">Job Title 6</a>
-                          </h6>
-                        </td>
-                        <td>18/1/2023</td>
-                        <td>Marketing</td>
-                        <td>30/2/2023</td>
-                        <td>
-                          <a href="#" class="link-underline-light text-primary">
-                            <i class="fa fa-download"></i>
-                          </a>
-                        </td>
-                        <td>
-                          <a href="career-detail.php" class="text-black">
-                            <i class="far fa-fw fa-edit"></i>
-                          </a>{" "}
-                          <a href="job-form.php" class="text-black">
-                            <i class="far fa-fw fa-eye"></i>
-                          </a>
-                        </td>
-                      </tr>
+                      
                     </tbody>
                   </table>
                 </div>

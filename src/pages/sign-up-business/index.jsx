@@ -16,8 +16,11 @@ import BusinessService from '@/services/BusinessService';
 import axios from 'axios';
 import { API_URL } from '@/helpers/apiUrl';
 import Link from 'next/link';
+import { Button, CircularProgress } from '@mui/material';
 
 const SignUpBusiness = () => {
+    const router = useRouter();
+    const [loading, setLoading] = useState();
   const [business, setBusiness] = useState({
     name: "",
     email: "",
@@ -30,17 +33,20 @@ const SignUpBusiness = () => {
   const handleSignUpBusiness = async (event) => {
     event.preventDefault();
     event.stopPropagation();
-
+    setLoading(true);
     if(business.name === "") {
         snackbar("Please enter business name", { variant: "error" });
+        setLoading(false)
         return false;
     }
 
     if(business.email === "") { 
         snackbar("Please enter name", { variant: "error" });
+        setLoading(false)
         return false;
     }
     if(business.password !== business.confirm_password ) {
+        setLoading(false)
         snackbar("Password mismatch", { variant: "error" });
         return false;
     }
@@ -54,7 +60,11 @@ const SignUpBusiness = () => {
 
     const res = await axios.post(`${API_URL}/business-registration`, payload).then((data) => {
         if(data.status === "success") {
+            setLoading(false)
             snackbar(data.message, {variant: "success"});
+            router.push('/sign-in-business')
+        } else {
+            setLoading(false)
         }
     });
 
@@ -97,13 +107,13 @@ const SignUpBusiness = () => {
                             <h2>Sign up for business account!</h2>
                             <p className="lead mb-4">Nice to see you! Please sign up with your account.</p>
                             {/* <!-- Form START --> */}
-                            <form className="row g-3 needs-validation" noValidate>
+                            <form className="row g-3 needs-validation" novalidate>
                                    {/* <!-- Email --> */}
                                    <div className="mb-4">
                                        <label for="business_name" className="form-label">Business Name <span className="star">*</span></label>
                                        <div className="input-group input-group-lg">
                                            <span className="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i className="bi bi-window-desktop"></i></span>
-                                           <input type="text" className="form-control border-0 bg-light rounded-end ps-1" placeholder="E. g. Xyz Solution Ltd." title="business_name" id="business_name" name="business_name" minlength="4" maxLength="20"  required 
+                                           <input type="text" className="form-control border-0 bg-light rounded-end ps-1" placeholder="E. g. Xyz Solution Ltd." title="business_name" id="business_name" name="business_name" minlength="4" maxlength="20" autofocus required 
                                            onChange={(e) => setBusiness({
                                             ...business,
                                             name: e.target.value
@@ -122,7 +132,7 @@ const SignUpBusiness = () => {
                                        <label for="business_email" className="form-label">Business Email <span className="star">*</span></label>
                                        <div className="input-group input-group-lg">
                                            <span className="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i className="bi bi-envelope-fill"></i></span>
-                                           <input type="email" className="form-control border-0 bg-light rounded-end ps-1" placeholder="E. g. johndoe@gmail.com" id="email" title="business_email" name="business_email" minlength="4" maxLength="30"  required
+                                           <input type="email" className="form-control border-0 bg-light rounded-end ps-1" placeholder="E. g. johndoe@gmail.com" id="email" title="business_email" name="business_email" minlength="4" maxlength="30" autofocus required
                                             onChange={(e) => setBusiness({
                                               ...business,
                                               email: e.target.value
@@ -141,7 +151,7 @@ const SignUpBusiness = () => {
                                        <label for="password" className="form-label">Password <span className="star">*</span></label>
                                        <div className="input-group input-group-lg">
                                            <span className="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i className="fas fa-lock"></i></span>
-                                           <input type="password" className="form-control border-0 bg-light rounded-end ps-1" placeholder="*********" id="password" title="password" minlength="4" maxLength="20"  required
+                                           <input type="password" className="form-control border-0 bg-light rounded-end ps-1" placeholder="*********" id="password" title="password" minlength="4" maxlength="20" autofocus required
                                             onChange={(e) => setBusiness({
                                                 ...business,
                                                 password: e.target.value
@@ -160,7 +170,7 @@ const SignUpBusiness = () => {
                                        <label for="confirm_password" className="form-label">Confirm Password <span className="star">*</span></label>
                                        <div className="input-group input-group-lg">
                                            <span className="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i className="fas fa-lock"></i></span>
-                                           <input type="password" className="form-control border-0 bg-light rounded-end ps-1" placeholder="*********" id="confirm_password" title="confirm_password" minlength="4" maxLength="20"  required 
+                                           <input type="password" className="form-control border-0 bg-light rounded-end ps-1" placeholder="*********" id="confirm_password" title="confirm_password" minlength="4" maxlength="20" autofocus required 
                                             onChange={(e) => setBusiness({
                                                 ...business,
                                                 confirm_password: e.target.value
@@ -184,7 +194,7 @@ const SignUpBusiness = () => {
                                    {/* <!-- Button --> */}
                                    <div className="align-items-center mt-0">
                                        <div className="d-grid">
-                                           <button className="btn btn-primary mb-0" onClick={(e) => handleSignUpBusiness(e)}>Sign Up</button>
+                                           <Button variant="contained" disabled={loading} startIcon={loading ? <CircularProgress size={15} /> : ""} className="btn btn-primary mb-0" onClick={(e) => handleSignUpBusiness(e)}>Sign Up</Button>
                                        </div>
                                    </div>
                                </form>

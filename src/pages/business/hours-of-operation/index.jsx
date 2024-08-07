@@ -3,11 +3,14 @@ import BusinessView from "@/components/HOC/BusinessView";
 import useToken from "@/hooks/useToken";
 import BusinessService from "@/services/BusinessService";
 import { useBusinessAboutStore, useBusinessHoursStore } from "@/store";
-import { useEffect } from "react";
+import { Button, CircularProgress } from "@mui/material";
+import { useEffect, useState } from "react";
+import swal from "sweetalert";
 
 const HoursOfOperation = () => {
   const userProfile = useBusinessAboutStore((state) => state.businessProfile);
   const isAuthenticated = useToken();
+  const [loading, setLoading] = useState(false);
 
   const businessHours = useBusinessHoursStore(
     (state) => state.businessOperation
@@ -35,19 +38,27 @@ const HoursOfOperation = () => {
   };
 
   const updateBusinessHours = async (event) => {
+    setLoading(true);
     event.preventDefault();
     event.stopPropagation();
 
     const res = await BusinessService.operationHoursSave(businessHours).then(
       (data) => {
         if (data.data.status === "success") {
+          setLoading(false);
+          swal(`Poof! ${data.data.message}`, {
+            icon: "success",
+          });
           getHoursOfOperation();
+        } else {
+          setLoading(false);
         }
       }
     );
   };
 
   const updateBusinessClosure = async (event) => {
+    setLoading(true);
     event.preventDefault();
     event.stopPropagation();
 
@@ -55,7 +66,13 @@ const HoursOfOperation = () => {
       businessClosure
     ).then((data) => {
       if (data.data.status === "success") {
+        setLoading(false);
+        swal(`Poof! ${data.data.message}`, {
+          icon: "success",
+        });
         getHoursOfOperation();
+      } else {
+        setLoading(false);
       }
     });
   };
@@ -2008,12 +2025,14 @@ const HoursOfOperation = () => {
                       </div>
                     </div>
                     <div class="col-12 d-grid gap-2 d-md-flex justify-content-md-start">
-                      <button
+                      <Button
+                        disabled={loading}
+                        startIcon={loading ? <CircularProgress size={15} /> : ""}
                         class="btn btn-sm btn-dark"
                         onClick={(e) => updateBusinessHours(e)}
                       >
                         Save Change
-                      </button>
+                      </Button>
                     </div>
                   </form>
                 </div>

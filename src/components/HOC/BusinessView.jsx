@@ -33,8 +33,8 @@ const BusinessView = ({ title, children, ...props }) => {
 
   useEffect(() => {
     if (isAuthenticated === null) return;
-
-    if (!isAuthenticated || isExpired) {
+    
+    if (!isAuthenticated || isExpired && !userProfile.isBusiness) {
       // logOut();
       router.replace("/sign-in-business");
     } else {
@@ -53,9 +53,9 @@ const BusinessView = ({ title, children, ...props }) => {
       <Footer />
     </>
   ) : (
-    <div class="preloader">
-      <div class="preloader-item">
-        <div class="spinner-grow text-primary"></div>
+    <div className="preloader">
+      <div className="preloader-item">
+        <div className="spinner-grow text-primary"></div>
       </div>
     </div> // Show loading state while checking authentication
   );
