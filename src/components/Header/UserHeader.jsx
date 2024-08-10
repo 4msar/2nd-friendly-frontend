@@ -10,8 +10,10 @@ import user3 from "@/assets/img/user/user-3.jpg";
 import user4 from "@/assets/img/user/user-2.jpg";
 import user5 from "@/assets/img/user/user-1.jpg";
 import Link from "next/link";
+import { useAuthStore } from "@/store";
 
 const UserHeader = () => {
+  const logOut = useAuthStore((store) => store.resetAuth);
   return (
     <div>
       <div className="navbar-dark bg-light d-none d-xl-block py-1 mx-2 mx-md-4 rounded-bottom-4">
@@ -32,16 +34,16 @@ const UserHeader = () => {
                 </span>
               </li>
               <li className="nav-item">
-                <Link className="nav-link" href="tel:+1235869328">
+                <a className="nav-link" href="tel:+1235869328">
                   <i className="fas fa-headset me-2"></i>+1 234-456-7890
-                </Link>
+                </a>
               </li>
             </ul>
             {/* <!-- Navbar top Right--> */}
             <div className="nav d-flex align-items-center justify-content-center">
               {/* <!-- Language --> */}
               <div className="dropdown me-3">
-                <Link
+                <a
                   className="nav-link dropdown-toggle"
                   href="#"
                   id="dropdownLanguage"
@@ -50,7 +52,7 @@ const UserHeader = () => {
                   aria-expanded="false"
                 >
                   <i className="fas fa-globe me-2"></i>Language
-                </Link>
+                </a>
                 <div
                   className="dropdown-menu mt-2 min-w-auto shadow"
                   aria-labelledby="dropdownLanguage"
@@ -130,7 +132,7 @@ const UserHeader = () => {
         <nav className="navbar navbar-expand-xl z-index-9">
           <div className="container">
             {/* <!-- Logo START --> */}
-            <Link className="navbar-brand me-0 py-4" href="/">
+            <a className="navbar-brand me-0 py-4" href="/">
               <img
                 className="light-mode-item"
                 src={logo.src}
@@ -141,7 +143,7 @@ const UserHeader = () => {
                 src={logo.src}
                 alt="logo"
               />
-            </Link>
+            </a>
             {/* <!-- Logo END --> */}
             {/* <!-- Responsive navbar toggler --> */}
             <button
@@ -165,33 +167,33 @@ const UserHeader = () => {
               <ul className="navbar-nav navbar-nav-scroll">
                 <li className="nav-item dropdown">
                   {" "}
-                  <Link className="nav-link" href="/user">
+                  <a className="nav-link" href="/user">
                     <i className="bi bi-house me-2"></i>Home
-                  </Link>{" "}
+                  </a>{" "}
                 </li>
                 <li className="nav-item dropdown">
                   {" "}
-                  <Link className="nav-link" href="/user/message">
+                  <a className="nav-link" href="/user/message">
                     <i className="bi bi-chat-right-dots me-2"></i>Message
-                  </Link>{" "}
+                  </a>{" "}
                 </li>
                 <li className="nav-item dropdown">
                   {" "}
-                  <Link className="nav-link" href="/user/reviews">
+                  <a className="nav-link" href="/user/reviews">
                     <i className="bi bi-bell-fill me-2"></i>Reviews
-                  </Link>{" "}
+                  </a>{" "}
                 </li>
                 <li className="nav-item dropdown">
                   {" "}
-                  <Link className="nav-link" href="/user/wishlist">
+                  <a className="nav-link" href="/user/wishlist">
                     <i className="bi bi-check-circle-fill me-2"></i>Wishlist
-                  </Link>{" "}
+                  </a>{" "}
                 </li>
                 <li className="nav-item dropdown">
                   {" "}
-                  <Link className="nav-link" href="/user/support">
+                  <a className="nav-link" href="/user/support">
                     <i className="bi bi-headset me-2"></i>Support
-                  </Link>{" "}
+                  </a>{" "}
                 </li>
               </ul>
               {/* <!-- Nav Main menu END --> */}
@@ -461,7 +463,7 @@ const UserHeader = () => {
                     </Link>
                   </li>
                   <li>
-                    <Link className="dropdown-item bg-danger-soft-hover" href="#">
+                    <Link onClick={() => logOut()} className="dropdown-item bg-danger-soft-hover" href="#">
                       <i className="bi bi-power fa-fw me-2"></i>Sign Out
                     </Link>
                   </li>

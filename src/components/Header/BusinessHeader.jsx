@@ -73,14 +73,14 @@ const BusinessHeader = () => {
             </button>
             <div className="navbar-collapse collapse" id="navbarCollapse">
                 <ul className="navbar-nav navbar-nav-scroll">
-                    <li className="nav-item dropdown"> <Link className="nav-link" href="/business/categories"><i className="bi bi-speedometer2 me-2"></i>Categories</Link> </li>
-                    <li className="nav-item dropdown"> <Link className="nav-link" href="/business/amenities"><i className="bi bi-speedometer2 me-2"></i>Amenities</Link> </li>
-                    <li className="nav-item dropdown"> <Link className="nav-link" href="/business/hours-of-operation"><i className="bi bi-speedometer2 me-2"></i>Hours</Link> </li>
-                    <li className="nav-item dropdown"> <Link className="nav-link" href="/business/album"><i className="bi bi-speedometer2 me-2"></i>Photos</Link> </li>
-                    <li className="nav-item dropdown"> <Link className="nav-link" href="/business/videos"><i className="bi bi-speedometer2 me-2"></i>Videos</Link> </li>
-                    <li className="nav-item dropdown"> <Link className="nav-link" href="/business/reviews"><i className="bi bi-speedometer2 me-2"></i>Reviews</Link> </li>
-                    <li className="nav-item dropdown"> <Link className="nav-link" href="/business/message"><i className="bi bi-speedometer2 me-2"></i>Messages</Link> </li>
-                    <li className="nav-item dropdown"> <Link className="nav-link" href="/business/events"><i className="bi bi-speedometer2 me-2"></i>Events</Link> </li>
+                    <li className="nav-item dropdown"> <a className="nav-link" href="/business/categories"><i className="bi bi-speedometer2 me-2"></i>Categories</a> </li>
+                    <li className="nav-item dropdown"> <a className="nav-link" href="/business/amenities"><i className="bi bi-speedometer2 me-2"></i>Amenities</a> </li>
+                    <li className="nav-item dropdown"> <a className="nav-link" href="/business/hours-of-operation"><i className="bi bi-speedometer2 me-2"></i>Hours</a> </li>
+                    <li className="nav-item dropdown"> <a className="nav-link" href="/business/album"><i className="bi bi-speedometer2 me-2"></i>Photos</a> </li>
+                    <li className="nav-item dropdown"> <a className="nav-link" href="/business/videos"><i className="bi bi-speedometer2 me-2"></i>Videos</a> </li>
+                    <li className="nav-item dropdown"> <a className="nav-link" href="/business/reviews"><i className="bi bi-speedometer2 me-2"></i>Reviews</a> </li>
+                    <li className="nav-item dropdown"> <a className="nav-link" href="/business/message"><i className="bi bi-speedometer2 me-2"></i>Messages</a> </li>
+                    <li className="nav-item dropdown"> <a className="nav-link" href="/business/events"><i className="bi bi-speedometer2 me-2"></i>Events</a> </li>
                 </ul>
             </div>
             <ul className="nav flex-row align-items-center list-unstyled ms-xl-auto">

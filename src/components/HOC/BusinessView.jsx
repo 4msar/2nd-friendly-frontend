@@ -3,9 +3,10 @@ import BusinessService from "@/services/BusinessService";
 import { useAuthStore, useBusinessAboutStore } from "@/store";
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Footer from "../Footer/Footer";
 import BusinessHeader from "../Header/BusinessHeader";
+import { isEmpty } from "@/helpers/functions";
 
 const BusinessView = ({ title, children, ...props }) => {
   const router = useRouter();
@@ -17,6 +18,15 @@ const BusinessView = ({ title, children, ...props }) => {
   const setAllAboutData = useBusinessAboutStore(
     (state) => state.setAboutAllData
   );
+  const [loading, setLoading] = useState(true)
+  const checkUser = () => {
+      if( !isEmpty(userProfile) && !userProfile.isBusiness) {
+        if(userProfile.isCustomer){
+          router.replace("/user/dashboard");
+        }
+        router.replace("/sign-in-business");
+      }
+  }
 
   const getAboutBusiness = async () => {
     try {
@@ -29,18 +39,33 @@ const BusinessView = ({ title, children, ...props }) => {
     }
   };
 
-  console.log("isAuthenticated", isAuthenticated);
+  // console.log("isAuthenticated", userProfile);
 
   useEffect(() => {
     if (isAuthenticated === null) return;
     
-    if (!isAuthenticated || isExpired && !userProfile.isBusiness) {
+    if (!isAuthenticated || isExpired) {
       // logOut();
       router.replace("/sign-in-business");
-    } else {
+    } 
+
+    if(isAuthenticated){
       getAboutBusiness();
     }
-  }, [isAuthenticated, isExpired, router, logOut]);
+  }, [isAuthenticated, isExpired, router, logOut, userProfile]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      checkUser();
+      
+    }, 2000);
+  }, [userProfile]);
+
+  useEffect(() => {
+    setTimeout(() => {
+      setLoading(false);
+    }, 2000);
+  }, [router])
 
   // If the user is authenticated, render the wrapped component
   return isAuthenticated && !isExpired ? (

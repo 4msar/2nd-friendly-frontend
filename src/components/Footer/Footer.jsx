@@ -170,7 +170,7 @@ const Footer = () => {
                   <li className="nav-item">
                     <Link
                       className="nav-link footer-nav-link"
-                      href="advertisements"
+                      href="/advertisements"
                     >
                       Advertisements
                     </Link>
@@ -178,20 +178,20 @@ const Footer = () => {
                   <li className="nav-item">
                     <Link
                       className="nav-link footer-nav-link"
-                      href="success-stories"
+                      href="/success-stories"
                     >
                       Success Stories
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link footer-nav-link" href="support">
+                    <Link className="nav-link footer-nav-link" href="/support">
                       Business Support
                     </Link>
                   </li>
                   <li className="nav-item">
                     <Link
                       className="nav-link footer-nav-link"
-                      href="blog-business"
+                      href="/blog-business"
                     >
                       Blog for Business
                     </Link>

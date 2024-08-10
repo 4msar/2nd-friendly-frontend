@@ -16,6 +16,7 @@ import { useForm } from "react-hook-form";
 const BusinessSingIn = () => {
   const snackbar = useSnackbar();
   const isAuthenticated = useToken();
+  const userProfile = useAuthStore((state) => state.user);
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const {
@@ -38,19 +39,20 @@ const BusinessSingIn = () => {
         expires_in: res.expires_in * 1000 + Date.now()
       });
       setLoading(false);
+      router.push("/business");
     } else {
       setLoading(false);
       console.log("Error", { res });
-      //   snackbar("Something is wrong", { variant: "error" });
+      snackbar(res.err.message, { variant: "error" });
     }
     // toggleLoading(false);
   };
 
   useEffect(() => {
-    if (isAuthenticated) {
-      router.push("/business/about-the-business");
+    if (isAuthenticated && userProfile.isBusiness) {
+      router.push("/business");
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, userProfile]);
 
   return (
     <main>

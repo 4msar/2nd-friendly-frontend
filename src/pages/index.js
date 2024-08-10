@@ -9,10 +9,12 @@ import Advertisement from "@/components/Advertisements/Advertisement";
 import Blog from "@/components/Blog/Blog";
 import Event from "@/components/Event/Event";
 import Partner from "@/components/Partner/Partner";
+import { useState } from "react";
 
 const inter = Inter({ subsets: ["latin"] });
 
 const  Home = () => {
+  
   return (
     <>
       <Head>

@@ -3441,7 +3441,6 @@ textarea.form-control-lg {
 }
 
 .valid-feedback {
-  display: none;
   width: 100%;
   margin-top: 0.25rem;
   font-size: 0.875em;
@@ -3452,7 +3451,6 @@ textarea.form-control-lg {
   position: absolute;
   top: 100%;
   z-index: 5;
-  display: none;
   max-width: 100%;
   padding: 0.25rem 0.5rem;
   margin-top: 0.1rem;
@@ -4506,6 +4504,7 @@ fieldset:disabled .btn {
   background-color: transparent;
   border: 0;
   border-radius: var(--bs-dropdown-item-border-radius, 0);
+  text-transform: capitalize;
 }
 .dropdown-item:hover,
 .dropdown-item:focus {
@@ -4705,6 +4704,7 @@ fieldset:disabled .btn {
   color: var(--bs-nav-link-color);
   background: none;
   border: 0;
+  text-transform: capitalize;
   -webkit-transition: color 0.15s ease-in-out,
     background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
@@ -21852,6 +21852,25 @@ small,
   top: 0;
   left: 0;
 }
+
+.preloader-api {
+  background-color: #ffffffba;
+  position: fixed;
+  z-index: 1190;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  left: 0;
+}
+
+.preloader-api .preloader-item {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  text-align: center;
+  -webkit-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
 .preloader .preloader-item {
   position: absolute;
   top: 50%;
@@ -23892,3 +23911,7 @@ html[dir="rtl"] .choices__input {
 }
 /*User CSS*/
 /*# sourceMappingURL=style.css.map */
+
+#loom-companion-mv3{
+  display: none !important;
+}

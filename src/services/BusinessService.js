@@ -74,6 +74,11 @@ const BusinessService = {
   supportCreate: (data) =>
     axios.post("/business/support-create", { data }),
 
+  passwordChange: (data) =>
+    axios.post("/business/change-password", { data }),
+  phoneChange: (data) =>
+    axios.post("/business/change-phone-no", { data }),
+
 };
 
 export default BusinessService;

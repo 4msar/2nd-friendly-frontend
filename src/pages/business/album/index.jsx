@@ -1,6 +1,6 @@
 import SidebarInformation from "@/components/Business/SidebarInformation";
 import BusinessView from "@/components/HOC/BusinessView";
-import { capitalize } from "@/helpers/functions";
+import { capitalize, isEmpty } from "@/helpers/functions";
 import useToken from "@/hooks/useToken";
 import BusinessService from "@/services/BusinessService";
 import { useBusinessAboutStore } from "@/store";
@@ -15,12 +15,21 @@ import {
   DialogContentText,
 } from "@mui/material";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import swal from "sweetalert";
 
 const Album = () => {
   const userProfile = useBusinessAboutStore((state) => state.businessProfile);
   const isAuthenticated = useToken();
+  const router = useRouter();
+  const currentPage = parseInt(router.query.page) || 1;
+
+  const handlePageChange = (page, totalPages) => {
+    if (page > 0 && page <= totalPages) {
+      router.push(`/business/album?page=${page}`);
+    }
+  };
   const [open, setOpen] = useState(false);
   const allAlbum = usePhotoAlbumStore((state) => state.allAlbum);
   const setPhotoAlbum = usePhotoAlbumStore((state) => state.setPhotoAlbum);
@@ -57,9 +66,9 @@ const Album = () => {
     };
   };
 
-  const getAllPhotoAlbum = async () => {
-    const res = await BusinessService.photoAlbumAll().then((data) => {
-      console.log(data.data);
+  const getAllPhotoAlbum = () => {
+    const res = BusinessService.photoAlbumAll().then((data) => {
+      // console.log(data.data);
 
       if (data.data.status === "success") {
         setPhotoAlbum(data.data.allAlbum);
@@ -75,17 +84,18 @@ const Album = () => {
     event.stopPropagation();
     const modalElement = document.getElementById("albumCreate");
     const payload = {
-      name: albumName,
-      image: convertedImage,
+      ...singleAlbum,
       old_image: "",
     };
     const res = await BusinessService.photoAlbumSave(payload).then((data) => {
       if (data.data.status === "success") {
+        setLoading(false);
+        setOpen(false);
+        getAllPhotoAlbum();
         swal("Poof! Album Save successfully!", {
           icon: "success",
         });
-        setLoading(false);
-        getAllPhotoAlbum();
+        
       } else {
         setLoading(false);
       }
@@ -150,7 +160,7 @@ const Album = () => {
     });
   };
 
-  console.log(singleAlbum);
+  // console.log(singleAlbum);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -159,7 +169,7 @@ const Album = () => {
   }, [isAuthenticated]);
 
   return (
-    <BusinessView title="ALbum">
+    <BusinessView title="Album">
       <main>
         <section className="p-0 m-0">
           <div className="container">
@@ -300,43 +310,80 @@ const Album = () => {
                   </table>
                   {/* <!-- Table END --> */}
                 </div>
-                <div class="d-sm-flex justify-content-sm-between align-items-sm-center my-1 ps-2">
-                  <p class="mb-0 text-center text-sm-start">
-                    Showing 1 to 8 of 20 entries
+                <div className="d-sm-flex justify-content-sm-between align-items-sm-center my-1 ps-2">
+                  <p className="mb-0 text-center text-sm-start">
+                    Showing {(currentPage - 1) * 10 + 1} to{" "}
+                    {Math.min(currentPage * 10, allAlbum?.length)} of{" "}
+                    {allAlbum?.length} entries
                   </p>
-                  {/* <!-- Pagination --> */}
-                  <nav
-                    class="d-flex justify-content-center mb-0"
+                  {allAlbum?.length > 10 && (
+                    <nav
+                    className="d-flex justify-content-center mb-0"
                     aria-label="navigation"
                   >
-                    <ul class="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
-                      <li class="page-item mb-0">
-                        <a class="page-link" href="#" tabindex="-1">
-                          <i class="fas fa-angle-left"></i>
+                    <ul className="pagination pagination-sm pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
+                      <li
+                        className={`page-item mb-0 ${
+                          currentPage === 1 && "disabled"
+                        }`}
+                      >
+                        <a
+                          className="page-link"
+                          href="#"
+                          onClick={() =>
+                            handlePageChange(
+                              currentPage - 1,
+                              Math.ceil(allAlbum?.length / 10)
+                            )
+                          }
+                          tabIndex="-1"
+                        >
+                          <i className="fas fa-angle-left"></i>
                         </a>
                       </li>
-                      <li class="page-item mb-0">
-                        <a class="page-link" href="#">
-                          1
-                        </a>
-                      </li>
-                      <li class="page-item mb-0 active">
-                        <a class="page-link" href="#">
-                          2
-                        </a>
-                      </li>
-                      <li class="page-item mb-0">
-                        <a class="page-link" href="#">
-                          3
-                        </a>
-                      </li>
-                      <li class="page-item mb-0">
-                        <a class="page-link" href="#">
-                          <i class="fas fa-angle-right"></i>
+                      {Array.from({ length: allAlbum?.length }, (_, index) => (
+                        <li
+                          key={index + 1}
+                          className={`page-item mb-0 ${
+                            currentPage === index + 1 && "active"
+                          }`}
+                        >
+                          <a
+                            className="page-link"
+                            href="#"
+                            onClick={() =>
+                              handlePageChange(
+                                index + 1,
+                                Math.ceil(allAlbum?.length / 10)
+                              )
+                            }
+                          >
+                            {index + 1}
+                          </a>
+                        </li>
+                      ))}
+                      <li
+                        className={`page-item mb-0 ${
+                          currentPage === allAlbum?.length && "disabled"
+                        }`}
+                      >
+                        <a
+                          className="page-link"
+                          href="#"
+                          onClick={() =>
+                            handlePageChange(
+                              currentPage + 1,
+                              Math.ceil(allAlbum?.length / 10)
+                            )
+                          }
+                        >
+                          <i className="fas fa-angle-right"></i>
                         </a>
                       </li>
                     </ul>
                   </nav>
+                  )}
+                  
                 </div>
               </div>
             </div>
@@ -346,10 +393,11 @@ const Album = () => {
           class="modal fade"
           open={open}
           width="500px"
-          onClose={() => {setOpen(false);
+          onClose={() => {
+            setOpen(false);
             setSingleAlbum("");
+            setLoading(false);
           }}
-          
         >
           <Box
             class="modal-dialog modal-dialog-centered"
@@ -365,10 +413,11 @@ const Album = () => {
                     class="btn btn-sm btn-light mb-0"
                     data-bs-dismiss="modal"
                     aria-label="Close"
-                    onClick={() => {setOpen(false);
+                    onClick={() => {
+                      setOpen(false);
                       setSingleAlbum("");
+                      setLoading(false);
                     }}
-                    
                   >
                     <i class="bi bi-x-lg">x</i>
                   </button>
@@ -444,7 +493,7 @@ const Album = () => {
                   >
                     Close
                   </Button>
-                  {singleAlbum.id !== "" ? (
+                  {!isEmpty(singleAlbum.id) ? (
                     <Button
                       startIcon={loading ? <CircularProgress size={15} /> : ""}
                       onClick={(event) => updatePhotoAlbum(event)}

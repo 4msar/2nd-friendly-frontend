@@ -5,11 +5,14 @@ import sp from "@/assets/img/flags/sp.svg";
 import uk from "@/assets/img/flags/uk.svg";
 import logo from "@/assets/img/logo.png";
 import { useHeaderStyle } from "@/assets/stylesheets/header/headerStylesheet";
+import { useAuthStore, usePublicPageStore } from "@/store";
 import { Box } from "@mui/material";
 import Link from "next/link";
 
 const Header = () => {
   const classes = useHeaderStyle();
+  const userProfile = useAuthStore((store) => store.user);
+  const topMenu = usePublicPageStore((store) => store.topMenu);
   return (
     <div className={classes.root}>
       <div className="navbar-dark bg-light d-none d-xl-block py-1 mx-2 mx-md-4 rounded-bottom-4">
@@ -25,14 +28,24 @@ const Header = () => {
                 data-bs-placement="bottom"
                 data-bs-original-title="Sunday CLOSED"
               >
-                <span>
+                <Link href="mailto:support@2ndafriendly.com">
                   <i className="far fa-envelope me-1"></i>
                   support@2ndafriendly.com
-                </span>
+                </Link>
               </li>
               <li className="nav-item">
                 <Link className="nav-link" href="tel:+1235869328">
                   <i className="fas fa-headset me-2"></i>+1 235-869-328
+                </Link>
+              </li>
+              <li class="nav-item">
+                <Link class="nav-link" href="/sign-up-business">
+                  <i class="fas fa-lock-open me-2"></i>Sign Up
+                </Link>
+              </li>
+              <li class="nav-item">
+                <Link class="nav-link" href="/sign-in-business">
+                  <i class="fas fa-lock me-2"></i>Sign In
                 </Link>
               </li>
             </ul>
@@ -143,45 +156,41 @@ const Header = () => {
               {/* <!-- Nav Search END --> */}
               <ul className="navbar-nav navbar-nav-scroll">
                 {/* <!-- Nav item 1 link --> */}
-                <li className="nav-item dropdown">
-                  <Link
-                    className="nav-link dropdown-toggle"
-                    href="/category/food-dining"
-                    id="demoMenu"
-                    data-bs-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    Food & Dining
-                  </Link>
-                  <ul
-                    className="dropdown-menu dropdown-menu-end min-w-auto"
-                    data-bs-popper="none"
-                  >
-                    <li>
-                      <Link className="dropdown-item" href="/category/food-dining">
-                        Desserts, Catering & Supplies
+                {topMenu?.length > 0 &&
+                  topMenu?.map((top, index) => (
+                    <li className="nav-item dropdown" key={index}>
+                      <Link
+                        className="nav-link dropdown-toggle"
+                        href={`/category/${top.slug}`}
+                        id="demoMenu"
+                        data-bs-toggle="dropdown"
+                        aria-haspopup="true"
+                        aria-expanded="false"
+                      >
+                        {top.name}
                       </Link>
+                      <ulg
+                        className="dropdown-menu dropdown-menu-end min-w-auto"
+                        data-bs-popper="none"
+                      >
+                        {top.subCategory?.length > 0 && top.subCategory.map((sub, index) => (
+                          <li key={index}>
+                          <Link
+                            className="dropdown-item"
+                            href={`/category/${top.slug}/${sub.slug}`}
+                          >
+                            {sub.name}
+                          </Link>
+                        </li>
+                        ))}
+                        
+                        
+                      </ulg>
                     </li>
-                    <li>
-                      <Link className="dropdown-item" href="/category/food-dining">
-                        Fast Food & Carry Out
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="dropdown-item" href="/category/food-dining">
-                        Grocery, Beverage & Tobacco
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="dropdown-item" href="/category/food-dining">
-                        Restaurants
-                      </Link>
-                    </li>
-                  </ul>
-                </li>
+                  ))}
+
                 {/* <!-- Nav item 2 link --> */}
-                <li className="nav-item dropdown">
+                {/* <li className="nav-item dropdown">
                   <Link
                     className="nav-link dropdown-toggle"
                     href="/category/home-garden"
@@ -252,9 +261,9 @@ const Header = () => {
                       </Link>
                     </li>
                   </ul>
-                </li>
+                </li> */}
                 {/* <!-- Nav item 2 link --> */}
-                <li className="nav-item dropdown">
+                {/* <li className="nav-item dropdown">
                   <Link
                     className="nav-link dropdown-toggle"
                     href="/category/travel-transportation"
@@ -315,9 +324,9 @@ const Header = () => {
                       </Link>{" "}
                     </li>
                   </ul>
-                </li>
+                </li> */}
                 {/* <!-- Nav item 3 link --> */}
-                <li className="nav-item dropdown">
+                {/* <li className="nav-item dropdown">
                   <Link
                     className="nav-link dropdown-toggle"
                     href="/category/automotive"
@@ -378,9 +387,9 @@ const Header = () => {
                       </Link>
                     </li>
                   </ul>
-                </li>
+                </li> */}
                 {/* <!-- Nav item 3 link --> */}
-                <li className="nav-item dropdown">
+                {/* <li className="nav-item dropdown">
                   <Link
                     className="nav-link dropdown-toggle"
                     href="/category/personal-care-services"
@@ -468,7 +477,7 @@ const Header = () => {
                       </Link>
                     </li>
                   </ul>
-                </li>
+                </li> */}
                 {/* <!-- Nav item 6 Megamenu--> */}
                 <li className="nav-item dropdown dropdown-fullwidth">
                   <Link
@@ -628,7 +637,9 @@ const Header = () => {
                           </li>
                         </ul>
                         <h6 className="mb-2 border-bottom pb-2 mt-4">
-                          <Link href="/category/miscellaneous">Miscellaneous</Link>
+                          <Link href="/category/miscellaneous">
+                            Miscellaneous
+                          </Link>
                         </h6>
                         <ul className="list-unstyled">
                           <li>
@@ -672,7 +683,9 @@ const Header = () => {
                       {/* <!-- Dropdown column item --> */}
                       <div className="col-xl-6 col-xxl-3 mb-3">
                         <h6 className="mb-2 border-bottom pb-2">
-                          <Link href="/category/entertainment">Entertainment</Link>
+                          <Link href="/category/entertainment">
+                            Entertainment
+                          </Link>
                         </h6>
                         <ul className="list-unstyled">
                           <li>
@@ -722,7 +735,9 @@ const Header = () => {
                           </li>
                         </ul>
                         <h6 className="mb-2 border-bottom pb-2 mt-4">
-                          <Link href="/category/legal-financial">Legal & Financial</Link>
+                          <Link href="/category/legal-financial">
+                            Legal & Financial
+                          </Link>
                         </h6>
                         <ul className="list-unstyled">
                           <li>
@@ -876,7 +891,9 @@ const Header = () => {
                           </li>
                         </ul>
                         <h6 className="mb-2 border-bottom pb-2 mt-4">
-                          <Link href="/category/merchants">Merchants (Retail)</Link>
+                          <Link href="/category/merchants">
+                            Merchants (Retail)
+                          </Link>
                         </h6>
                         <ul className="list-unstyled">
                           <li>
@@ -1022,7 +1039,9 @@ const Header = () => {
                       </div>
                       <div className="col-xl-6 col-xxl-3 mb-3">
                         <h6 className="mb-2 border-bottom pb-2">
-                          <Link href="/category/health-medicine">Health & Medicine</Link>
+                          <Link href="/category/health-medicine">
+                            Health & Medicine
+                          </Link>
                         </h6>
                         <ul className="list-unstyled">
                           <li>
@@ -1323,7 +1342,11 @@ const Header = () => {
                 <li>
                   <Link
                     className="dropdown-item bg-danger-soft-hover"
-                    href="/business/about-the-business"
+                    href={`${
+                      userProfile?.isCustomer
+                        ? "/user/account-information"
+                        : "/business/about-the-business"
+                    }`}
                   >
                     <i className="fas fa-business-time fa-fw me-2"></i>Business
                     Information

@@ -133,3 +133,207 @@ export const category_items = [
     {title: "Palatial Epicurean Oasis", subtitle: "The Loop Oddly enough, this feels like a place that although specializes in pizza excels in everything else they make. That isn't a knock to the pizza But they manage…", tags: [{name:"Chinese", link: "#"}, {name:"Japanese", link: "#"}, {name:"Sushi Bars", link: "#"}], sliders: [slider1, slider2, slider3], avatar: companyLogo},
     {title: "Palatial Epicurean Oasis", subtitle: "The Loop Oddly enough, this feels like a place that although specializes in pizza excels in everything else they make. That isn't a knock to the pizza But they manage…", tags: [{name:"Chinese", link: "#"}, {name:"Japanese", link: "#"}, {name:"Sushi Bars", link: "#"}], sliders: [slider1, slider2, slider3], avatar: companyLogo}
 ]
+
+
+export const allStateData = [
+    {
+        "name": "alabama",
+        "id": "668f50201f002619a1664d5b"
+    },
+    {
+        "name": "alaska",
+        "id": "668f51121f002619a1664d5c"
+    },
+    {
+        "name": "arizona",
+        "id": "668f51241f002619a1664d5d"
+    },
+    {
+        "name": "arkansas",
+        "id": "668f51371f002619a1664d5e"
+    },
+    {
+        "name": "california",
+        "id": "668f51451f002619a1664d5f"
+    },
+    {
+        "name": "colorado",
+        "id": "668f51551f002619a1664d60"
+    },
+    {
+        "name": "connecticut",
+        "id": "668f51751f002619a1664d61"
+    },
+    {
+        "name": "delaware",
+        "id": "668f51891f002619a1664d62"
+    },
+    {
+        "name": "florida",
+        "id": "668f51dd1f002619a1664d63"
+    },
+    {
+        "name": "georgia",
+        "id": "668f51f61f002619a1664d64"
+    },
+    {
+        "name": "hawaii",
+        "id": "668f52111f002619a1664d65"
+    },
+    {
+        "name": "idaho",
+        "id": "668f52201f002619a1664d66"
+    },
+    {
+        "name": "illinois",
+        "id": "668f522c1f002619a1664d67"
+    },
+    {
+        "name": "indiana",
+        "id": "668f523b1f002619a1664d68"
+    },
+    {
+        "name": "iowa",
+        "id": "668f52471f002619a1664d69"
+    },
+    {
+        "name": "kansas",
+        "id": "668f52541f002619a1664d6a"
+    },
+    {
+        "name": "kentucky",
+        "id": "668f52621f002619a1664d6b"
+    },
+    {
+        "name": "louisiana",
+        "id": "668f52711f002619a1664d6c"
+    },
+    {
+        "name": "maine",
+        "id": "668f52841f002619a1664d6d"
+    },
+    {
+        "name": "maryland",
+        "id": "668f52951f002619a1664d6e"
+    },
+    {
+        "name": "massachusetts",
+        "id": "668f52a71f002619a1664d6f"
+    },
+    {
+        "name": "michigan",
+        "id": "668f52b31f002619a1664d70"
+    },
+    {
+        "name": "minnesota",
+        "id": "668f52c11f002619a1664d71"
+    },
+    {
+        "name": "mississippi",
+        "id": "668f52cc1f002619a1664d72"
+    },
+    {
+        "name": "missouri",
+        "id": "668f52da1f002619a1664d73"
+    },
+    {
+        "name": "montana",
+        "id": "668f52f41f002619a1664d74"
+    },
+    {
+        "name": "nebraska",
+        "id": "668f53021f002619a1664d75"
+    },
+    {
+        "name": "nevada",
+        "id": "668f530d1f002619a1664d76"
+    },
+    {
+        "name": "new hampshire",
+        "id": "668f531d1f002619a1664d77"
+    },
+    {
+        "name": "new jersey",
+        "id": "668f532d1f002619a1664d78"
+    },
+    {
+        "name": "new mexico",
+        "id": "668f533a1f002619a1664d79"
+    },
+    {
+        "name": "new york",
+        "id": "668f53471f002619a1664d7a"
+    },
+    {
+        "name": "north carolina",
+        "id": "668f53521f002619a1664d7b"
+    },
+    {
+        "name": "north dakota",
+        "id": "668f535d1f002619a1664d7c"
+    },
+    {
+        "name": "ohio",
+        "id": "668f536c1f002619a1664d7d"
+    },
+    {
+        "name": "oklahoma",
+        "id": "668f537a1f002619a1664d7e"
+    },
+    {
+        "name": "oregon",
+        "id": "668f53871f002619a1664d7f"
+    },
+    {
+        "name": "pennsylvania",
+        "id": "668f53971f002619a1664d80"
+    },
+    {
+        "name": "rhode island",
+        "id": "668f53a31f002619a1664d81"
+    },
+    {
+        "name": "south carolina",
+        "id": "668f53b01f002619a1664d82"
+    },
+    {
+        "name": "south dakota",
+        "id": "668f53be1f002619a1664d83"
+    },
+    {
+        "name": "tennessee",
+        "id": "668f53cb1f002619a1664d84"
+    },
+    {
+        "name": "texas",
+        "id": "668f53d81f002619a1664d85"
+    },
+    {
+        "name": "utah",
+        "id": "668f53e31f002619a1664d86"
+    },
+    {
+        "name": "vermont",
+        "id": "668f53ef1f002619a1664d87"
+    },
+    {
+        "name": "virginia",
+        "id": "668f53fe1f002619a1664d88"
+    },
+    {
+        "name": "washington",
+        "id": "668f540b1f002619a1664d89"
+    },
+    {
+        "name": "west virginia",
+        "id": "668f541b1f002619a1664d8a"
+    },
+    {
+        "name": "wisconsin",
+        "id": "668f542a1f002619a1664d8b"
+    },
+    {
+        "name": "wyoming",
+        "id": "668f54391f002619a1664d8c"
+    }
+]

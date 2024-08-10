@@ -5,6 +5,7 @@ import useToken from "@/hooks/useToken";
 import BusinessService from "@/services/BusinessService";
 import { useBusinessAboutStore, useBusinessCategoryStore } from "@/store";
 import { useEffect } from "react";
+import swal from "sweetalert";
 
 const Categories = () => {
   const isAuthenticated = useToken();

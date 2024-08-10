@@ -14,8 +14,9 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
 const CustomerSignIn = () => {
-  const snackbar = useSnackbar();
   const isAuthenticated = useToken();
+  const snackbar = useSnackbar();
+  const userProfile = useAuthStore((state) => state.user);
   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const {
@@ -47,10 +48,13 @@ const CustomerSignIn = () => {
   };
 
   useEffect(() => {
-    if (isAuthenticated) {
+    if (isAuthenticated && userProfile.isCustomer) {
       router.push("/user/dashboard");
     }
-  }, [isAuthenticated]);
+    if (isAuthenticated && userProfile.isBusiness) {
+      router.push("/business/dashboard");
+    }
+  }, [isAuthenticated, userProfile]);
 
   return (
     <main>

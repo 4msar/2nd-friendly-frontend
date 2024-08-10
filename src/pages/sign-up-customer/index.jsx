@@ -1,9 +1,10 @@
-import React from 'react'
+import React, { useState } from 'react'
 import avatar1 from "@/assets/img/avatar/01.jpg";
 import avatar2 from "@/assets/img/avatar/02.jpg";
 import avatar3 from "@/assets/img/avatar/03.jpg";
 import avatar4 from "@/assets/img/avatar/04.jpg";
 import img1 from "@/assets/img/element/02.svg";
+import img2 from "@/assets/img/element/03.svg";
 import useSnackbar from "@/hooks/useSnackbar";
 import useToken from "@/hooks/useToken";
 import Authorization from "@/services/Authorization";
@@ -12,8 +13,69 @@ import { useRouter } from "next/router";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import Link from 'next/link';
+import { Button, CircularProgress } from '@mui/material';
+import axios from 'axios';
+import { API_URL } from '@/helpers/apiUrl';
 
 const SignUpCustomer = () => {
+    const router = useRouter();
+    const [loading, setLoading] = useState();
+  const [customer, setCustomer] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    password: "",
+    confirm_password: "",
+  });
+
+  const snackbar = useSnackbar();
+
+  const handleSignUpCustomer = async (event) => {
+    event.preventDefault();
+    event.stopPropagation();
+    setLoading(true);
+    if(customer.first_name === "") {
+        snackbar("Please enter customer first name", { variant: "error" });
+        setLoading(false)
+        return false;
+    }
+
+    if(customer.last_name === "") {
+        snackbar("Please enter customer last name", { variant: "error" });
+        setLoading(false)
+        return false;
+    }
+
+    if(customer.email === "") { 
+        snackbar("Please enter name", { variant: "error" });
+        setLoading(false)
+        return false;
+    }
+    if(customer.password !== customer.confirm_password ) {
+        setLoading(false)
+        snackbar("Password mismatch", { variant: "error" });
+        return false;
+    }
+
+    const payload = {
+        customer_name: customer.name,
+        email: customer.email,
+        password: customer.password,
+        confirm_password: customer.confirm_password
+    }
+
+    const res = await axios.post(`${API_URL}/customer-registration`, payload).then((data) => {
+        if(data.status === "success") {
+            setLoading(false)
+            snackbar(data.message, {variant: "success"});
+            router.push('/sign-in-customer')
+        } else {
+            setLoading(false)
+            snackbar(data.message, {variant: "success"});
+        }
+    });
+
+  }
   return (
     <main>
     <section className="p-0 d-flex align-items-center position-relative overflow-hidden">
@@ -47,7 +109,7 @@ const SignUpCustomer = () => {
                     <div className="row my-5">
                         <div className="col-sm-10 col-xl-8 m-auto">
                             {/* <!-- Title --> */}
-                            <img src={img1.src} className="h-40px mb-2" alt=""/>
+                            <img src={img2.src} className="h-40px mb-2" alt=""/>
                             <h2>Sign up for customer your account!</h2>
                             <p className="lead mb-4">Nice to see you! Please sign up with your account.</p>
                             {/* <!-- Form START --> */}
@@ -56,7 +118,12 @@ const SignUpCustomer = () => {
                                     <label for="first_name" className="form-label">First Name <span className="star">*</span></label>
                                     <div className="input-group input-group-lg">
                                         <span className="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i className="fas fa-user"></i></span>
-                                        <input type="text" className="form-control border-0 bg-light rounded-end ps-1" placeholder="E. g. John." title="first_name" id="first_name" name="first_name" minlength="4" maxlength="20"  required/>
+                                        <input type="text" className="form-control border-0 bg-light rounded-end ps-1" placeholder="E. g. John." title="first_name" id="first_name" name="first_name" minlength="4" maxlength="20"  required 
+                                            onChange={(e) => setCustomer({
+                                                ...customer,
+                                                first_name: e.target.value
+                                               })}
+                                        />
                                         <div className="valid-feedback">
                                             Looks good!
                                         </div>
@@ -69,7 +136,12 @@ const SignUpCustomer = () => {
                                     <label for="last_name" className="form-label">Last Name <span className="star">*</span></label>
                                     <div className="input-group input-group-lg">
                                         <span className="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i className="fas fa-user"></i></span>
-                                        <input type="text" className="form-control border-0 bg-light rounded-end ps-1" placeholder="E. g. Doe." title="last_name" id="last_name"name="last_name" minlength="4" maxlength="20"  required/>
+                                        <input type="text" className="form-control border-0 bg-light rounded-end ps-1" placeholder="E. g. Doe." title="last_name" id="last_name"name="last_name" minlength="4" maxlength="30"  required 
+                                             onChange={(e) => setCustomer({
+                                                ...customer,
+                                                last_name: e.target.value
+                                               })}
+                                        />
                                         <div className="valid-feedback">
                                             Looks good!
                                         </div>
@@ -83,7 +155,12 @@ const SignUpCustomer = () => {
                                     <label for="email" className="form-label">Email <span className="star">*</span></label>
                                     <div className="input-group input-group-lg">
                                         <span className="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i className="bi bi-envelope-fill"></i></span>
-                                        <input type="email" className="form-control border-0 bg-light rounded-end ps-1" placeholder="E. g. johndoe@gmail.com" id="email" title="email" name="email" minlength="4" maxlength="20"  required/>
+                                        <input type="email" className="form-control border-0 bg-light rounded-end ps-1" placeholder="E. g. johndoe@gmail.com" id="email" title="email" name="email" minlength="4" maxlength="20"  required 
+                                            onChange={(e) => setCustomer({
+                                                ...customer,
+                                                email: e.target.value
+                                               })}
+                                        />
                                         <div className="valid-feedback">
                                             Looks good!
                                         </div>
@@ -97,7 +174,12 @@ const SignUpCustomer = () => {
                                     <label for="password" className="form-label">Password <span className="star">*</span></label>
                                     <div className="input-group input-group-lg">
                                         <span className="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i className="fas fa-lock"></i></span>
-                                        <input type="password" className="form-control border-0 bg-light rounded-end ps-1" placeholder="*********" id="password" title="password" name="password" minlength="4" maxlength="20"  required/>
+                                        <input type="password" className="form-control border-0 bg-light rounded-end ps-1" placeholder="*********" id="password" title="password" name="password" minlength="4" maxlength="20"  required 
+                                            onChange={(e) => setCustomer({
+                                                ...customer,
+                                                password: e.target.value
+                                               })}
+                                        />
                                         <div className="valid-feedback">
                                             Looks good!
                                         </div>
@@ -111,7 +193,12 @@ const SignUpCustomer = () => {
                                     <label for="confirm_password" className="form-label">Confirm Password <span className="star">*</span></label>
                                     <div className="input-group input-group-lg">
                                         <span className="input-group-text bg-light rounded-start border-0 text-secondary px-3"><i className="fas fa-lock"></i></span>
-                                        <input type="password" className="form-control border-0 bg-light rounded-end ps-1" placeholder="*********" id="confirm_password" title="confirm_password" name="confirm_password" minlength="4" maxlength="20"  required/>
+                                        <input type="password" className="form-control border-0 bg-light rounded-end ps-1" placeholder="*********" id="confirm_password" title="confirm_password" name="confirm_password" minlength="4" maxlength="20"  required 
+                                            onChange={(e) => setCustomer({
+                                                ...customer,
+                                                confirm_password: e.target.value
+                                               })}
+                                        />
                                         <div className="valid-feedback">
                                             Looks good!
                                         </div>
@@ -130,7 +217,7 @@ const SignUpCustomer = () => {
                                 {/* <!-- Button --> */}
                                 <div className="align-items-center mt-0">
                                     <div className="d-grid">
-                                        <button className="btn btn-primary mb-0" type="submit">Sign Up</button>
+                                        <Button variant="contained" disabled={loading} startIcon={loading ? <CircularProgress size={15} /> : ""} className="btn btn-primary mb-0" onClick={(e) => handleSignUpCustomer(e)}>Sign Up</Button>
                                     </div>
                                 </div>
                             </form>

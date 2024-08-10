@@ -16,6 +16,8 @@ const  AboutBusiness = () => {
     (state) => state.setBusinessProfile
   );
 
+  const [fieldError, setFieldError] = useState("");
+
   const setAllAboutData = useBusinessAboutStore(
     (state) => state.setAboutAllData
   );
@@ -62,21 +64,27 @@ const  AboutBusiness = () => {
   };
 
   const updateAboutBusiness =  () => {
+  
     setLoading(true);
     const payload = {
       ...userProfile,
       image: convertedImage,
-      old_image: "",
+      old_image: userProfile.business_logo ?? "",
+      first_name : userProfile.first_name ?? userInfo.first_name,
+      last_name : userProfile.last_name ?? userInfo.last_name,
     };
     const res = BusinessService.aboutBusinessSave(payload).then(
       (data) => {
-        if (data.status === "success") {
-          swal("Poof! Information Update successfully!", {
+        console.log(data.data);
+        if (data.data.status === "success") {
+          swal(data.data.message, {
             icon: "success",
           });
           getAboutBusiness();
           setLoading(false);
+          setFieldError("");
         } else{
+          setFieldError(data.data.fieldErrors)
           setLoading(false)
         }
       }
@@ -141,7 +149,9 @@ const  AboutBusiness = () => {
             }
           />
           <div class="valid-feedback">Looks good!</div>
-          <div class="invalid-feedback">Please enter company name.</div>
+          {fieldError?.business_name && (
+            <div class="text-danger">Please enter company name.</div>
+           )}
         </div>
         <div class="col-md-6 col-sm-12 bg-light-input">
           <label class="form-label fw-normal text-dark" for="official_email">
@@ -161,7 +171,9 @@ const  AboutBusiness = () => {
             }
           />
           <div class="valid-feedback">Looks good!</div>
-          <div class="invalid-feedback">Please enter email address.</div>
+          {fieldError?.official_email && (
+          <div class="text-danger">Please enter email address.</div>
+          )}
         </div>
         <div class="col-md-6 col-sm-12 bg-light-input">
           <label class="form-label fw-normal text-dark" for="official_phone">
@@ -181,7 +193,9 @@ const  AboutBusiness = () => {
             }
           />
           <div class="valid-feedback">Looks good!</div>
-          <div class="invalid-feedback">Please enter phone number.</div>
+          {fieldError?.official_phone && (
+            <div class="text-danger">Please enter phone number.</div>
+          )}
         </div>
         <div class="col-md-6 col-sm-12 bg-light-input">
           <label
@@ -207,7 +221,9 @@ const  AboutBusiness = () => {
             }
           />
           <div class="valid-feedback">Looks good!</div>
-          <div class="invalid-feedback">Please enter office address 1 .</div>
+          {fieldError?.Official_address_line1 && (
+            <div class="text-danger">Please enter office address 1 .</div>
+          )}
         </div>
         <div class="col-md-6 col-sm-4 bg-light-input">
           <label class="form-label fw-normal text-dark" for="city">
@@ -227,7 +243,9 @@ const  AboutBusiness = () => {
             }
           />
           <div class="valid-feedback">Looks good!</div>
-          <div class="invalid-feedback">Please enter city.</div>
+          {fieldError?.city && (
+            <div class="text-danger">Please enter city.</div>
+          )}
         </div>
         <div class="col-md-6 col-sm-4 bg-light-input">
           <label class="form-label fw-normal text-dark" for="state">
@@ -252,7 +270,9 @@ const  AboutBusiness = () => {
             
           </select>
           <div class="valid-feedback">Looks good!</div>
-          <div class="invalid-feedback">Please select state.</div>
+          {fieldError?.state && (
+            <div class="text-danger">Please select state.</div>
+          )}
         </div>
         <div class="col-md-6 col-sm-4 bg-light-input">
           <label class="form-label fw-normal text-dark" for="zip">
@@ -272,7 +292,9 @@ const  AboutBusiness = () => {
             }
           />
           <div class="valid-feedback">Looks good!</div>
-          <div class="invalid-feedback">Please enter zip code.</div>
+          {fieldError?.zip && (
+            <div class="text-danger">Please enter zip code.</div>
+          )}
         </div>
         <div class="col-md-6 col-sm-4 bg-light-input">
           <label class="form-label fw-normal text-dark" for="website_link">
@@ -291,7 +313,10 @@ const  AboutBusiness = () => {
             }
           />
           <div class="valid-feedback">Looks good!</div>
-          <div class="invalid-feedback">Please enter website.</div>
+          {fieldError?.website_link && (
+
+          <div class="text-danger">Please enter website.</div>
+          )}
         </div>
         <div class="col-md-12 col-sm-4 bg-light-input">
           <label class="form-label fw-normal text-dark" for="history">
@@ -312,7 +337,10 @@ const  AboutBusiness = () => {
             }
           ></textarea>
           <div class="valid-feedback">Looks good!</div>
-          <div class="invalid-feedback">Please enter history.</div>
+          {fieldError?.history && (
+
+          <div class="text-danger">Please enter history.</div>
+          )}
         </div>
         <div class="header mb-2 border-bottom">
           <h5 class="header-title text-danger mb-0 pb-1">Company Owner</h5>
@@ -334,7 +362,10 @@ const  AboutBusiness = () => {
             }
           />
           <div class="valid-feedback">Looks good!</div>
-          <div class="invalid-feedback">Please enter first name.</div>
+          {fieldError?.first_name && (
+
+          <div class="text-danger">Please enter first name.</div>
+          )}
         </div>
         <div class="col-md-6 col-sm-12 bg-light-input">
           <label class="form-label fw-normal text-dark" for="last_name">
@@ -353,7 +384,9 @@ const  AboutBusiness = () => {
             }
           />
           <div class="valid-feedback">Looks good!</div>
-          <div class="invalid-feedback">Please enter last name.</div>
+          {fieldError?.last_name && (
+            <div class="text-danger">Please enter last name.</div>
+          )}
         </div>
         <div class="d-sm-flex justify-content-end mb-3">
           <Button

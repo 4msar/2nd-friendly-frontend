@@ -5,28 +5,28 @@ import CustomerService from "@/services/CustomerService";
 import { useAuthStore, useCustomerStore } from "@/store";
 import React, { useEffect, useState } from "react";
 
-const UserSupport = () => {
-  const userProfile = useAuthStore((state) => state.user);
+const UserCareer = () => {
+    const userProfile = useAuthStore((state) => state.user);
   const isAuthenticated = useToken();
 
-  const allSupport = useCustomerStore((state) => state.supportAll);
-  const setSupport = useCustomerStore((state) => state.setSupportAll);
+  const allCareer = useCustomerStore((state) => state.careerAll);
+  const setSupport = useCustomerStore((state) => state.setCareerAll);
   const [viewSupport, setViewSupport] = useState(null);
 
-  const getAllSupports = async () => {
-    const res = await CustomerService.supportAll().then((data) => {
+  const getAllCareer = async () => {
+    const res = await CustomerService.careerAll().then((data) => {
       console.log(data);
-      setSupport(data.data.allSupport);
+      setSupport(data.data.allCareer);
     });
   };
 
   useEffect(() => {
     if (isAuthenticated) {
-      getAllSupports();
+      getAllCareer();
     }
   }, [isAuthenticated]);
   return (
-    <UserView title="Support">
+    <UserView title="Career">
       <main>
         <section className="p-0 m-0">
           <div className="container">
@@ -106,8 +106,8 @@ const UserSupport = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {allSupport?.length > 0 &&
-                        allSupport.map((support, index) => (
+                      {allCareer?.length > 0 &&
+                        allCareer.map((career, index) => (
                           <tr key={key}>
                             <td>January 26, 2024</td>
                             <td>
@@ -182,7 +182,7 @@ const UserSupport = () => {
         </section>
       </main>
     </UserView>
-  );
-};
+  )
+}
 
-export default UserSupport;
+export default UserCareer;
