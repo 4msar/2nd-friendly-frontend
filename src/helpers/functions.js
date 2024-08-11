@@ -80,6 +80,12 @@ export const formatDateWithTz = (date, format = "DD MMM, YYYY - hh:mma") =>
 export const formatDate = (date, format = "DD MMM, YYYY - hh:mma") =>
   dayjs(date).format(format);
 
+export const formatTime = (timeString, format = "h:mm A") => {
+  // Combine the time string with today's date
+  const fullDate = dayjs().format("YYYY-MM-DD") + " " + timeString;
+  return dayjs(fullDate).format(format);
+};
+
 export const formatNumber = (number) =>
   number.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,");
 

@@ -1,6 +1,7 @@
 import SidebarInformation from "@/components/Business/SidebarInformation";
 import BusinessView from "@/components/HOC/BusinessView";
 import { API_URL } from "@/helpers/apiUrl";
+import { capitalize, formatDate, formatTime } from "@/helpers/functions";
 import useToken from "@/hooks/useToken";
 import BusinessService from "@/services/BusinessService";
 import { useBusinessAboutStore, useEventStore } from "@/store";
@@ -76,7 +77,11 @@ const EventAdd = () => {
 
     const payload = {
       ...event,
-      website: event.website_link
+      website: event.website_link,
+      start_date: formatDate(event.start_date, "DD-MM-YYYY"),
+      start_time: formatTime(event.start_time),
+      end_date: formatDate(event.end_date, "DD-MM-YYYY"),
+      end_time: formatTime(event.end_time)
     };
     console.log(payload);
     const res = BusinessService.eventNew(payload).then((data) => {
@@ -88,6 +93,7 @@ const EventAdd = () => {
         setLoading(false);
       }
     });
+    // setLoading(false);
   };
 
   // console.log(event);
@@ -521,12 +527,16 @@ const EventAdd = () => {
                               ...event,
                               state: e.target.value,
                             });
+                            setFieldErrors({
+                              ...fieldErrors,
+                              
+                            })
                           }}
                         >
                           <option value="">Select State</option>
                           {allState.length > 0 &&
                             allState.map((state) => (
-                              <option value={state.id}>{state.name}</option>
+                              <option value={state.id}>{capitalize(state.name)}</option>
                             ))}
                         </select>
                         {fieldErrors?.state && (

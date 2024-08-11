@@ -11,10 +11,10 @@ const PublicView = (WrapperComponent, title) => {
     const [loading, setLoading] = useState(true)
     // const router = useRouter();
 
-    const getHomePageData = async () => {
-      const res = await PublicService.homePageData();
+    const getHomePageData =  () => {
+      const res = PublicService.homePageData();
       console.log("res", res);
-      if (res.data.status === "success") {
+      if (res?.data?.status === "success") {
         usePublicPageStore.setState({
           allCategory: res.data.allCategory,
           recentAdvertisement: res.data.recentAdvertisement,
@@ -27,7 +27,7 @@ const PublicView = (WrapperComponent, title) => {
     const getMenuData = () => {
       const res = PublicService.topMenu().then((menu) => {
         console.log(menu);
-        if(menu.data.actionStatus === 1) {
+        if(menu?.data?.actionStatus === 1) {
           usePublicPageStore.setState({
             topMenu: menu.data.fiveCategory,
             moreMenu: menu.data.moreCategory

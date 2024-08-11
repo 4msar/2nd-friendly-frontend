@@ -169,7 +169,7 @@ const Header = () => {
                       >
                         {top.name}
                       </Link>
-                      <ulg
+                      <ul
                         className="dropdown-menu dropdown-menu-end min-w-auto"
                         data-bs-popper="none"
                       >
@@ -185,7 +185,7 @@ const Header = () => {
                         ))}
                         
                         
-                      </ulg>
+                      </ul>
                     </li>
                   ))}
 
@@ -1281,14 +1281,14 @@ const Header = () => {
             {/* <!-- Profile START --> */}
             <div className="dropdown ms-1 ms-lg-0">
               <Link
-                className="avatar avatar-sm p-0 show"
-                href="/#"
-                id="profileDropdown"
-                role="button"
-                data-bs-auto-close="outside"
-                data-bs-display="static"
-                data-bs-toggle="dropdown"
-                aria-expanded="true"
+               className="nav-link"
+               role="button"
+               href="#"
+               id="profileDropdown"
+               data-bs-toggle="dropdown"
+               aria-expanded="true"
+               data-bs-auto-close="outside"
+               data-bs-display="static"
               >
                 <img
                   className="avatar-img rounded-circle"
@@ -1299,7 +1299,7 @@ const Header = () => {
               <ul
                 className="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3"
                 aria-labelledby="profileDropdown"
-                data-bs-popper="static"
+                data-bs-popper="none"
               >
                 {/* <!-- Profile info --> */}
                 <li className="px-3 mb-3">

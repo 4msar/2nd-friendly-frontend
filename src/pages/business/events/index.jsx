@@ -1,6 +1,6 @@
 import SidebarInformation from "@/components/Business/SidebarInformation";
 import BusinessView from "@/components/HOC/BusinessView";
-import { API_URL } from "@/helpers/apiUrl";
+import { API_URL, IMAGE_URL } from "@/helpers/apiUrl";
 import useToken from "@/hooks/useToken";
 import BusinessService from "@/services/BusinessService";
 import { useBusinessAboutStore, useEventStore } from "@/store";
@@ -116,33 +116,32 @@ const Events = () => {
                               <div class="d-flex align-items-center">
                                 <div class="w-60px">
                                   <img
-                                    src="../assets/img/event/3.jpg"
+                                    src={`${IMAGE_URL}/uploads/business-event/${event.image}`}
                                     class="rounded-1"
                                     alt=""
                                   />
                                 </div>
                                 <div class="mb-0 ms-2">
                                   <h6>
-                                    <a href="event-detail.php">
-                                      The Great American Food Festival: A Taste
-                                      of the Nation
+                                    <a href="event-detail">
+                                      {event.title}
                                     </a>
                                   </h6>
                                   <div class="d-sm-flex">
                                     <p class="h6 fw-light mb-0 small me-2">
                                       <i class="far fa-map text-dark me-1 mb-1"></i>{" "}
-                                      321 N MaClay Ave #d, San Fernando
+                                      {event.address}
                                     </p>
                                     <p class="h6 fw-gray mb-0 small">
                                       <i class="fas fa-certificate text-gray me-2"></i>
-                                      Visual Arts
+                                      {event.venue_name}
                                     </p>
                                   </div>
                                 </div>
                               </div>
                             </td>
                             <td class="text-center text-sm-start">
-                              March 02, 2024
+                              {event.start_date_time}
                             </td>
                             <td>
                               <div class="badge bg-success bg-opacity-10 text-success">
