@@ -57,15 +57,11 @@ const BusinessView = ({ title, children, ...props }) => {
   useEffect(() => {
     setTimeout(() => {
       checkUser();
-      
-    }, 2000);
-  }, [userProfile]);
-
-  useEffect(() => {
-    setTimeout(() => {
       setLoading(false);
     }, 2000);
-  }, [router])
+  }, [userProfile, router]);
+
+ 
 
   // If the user is authenticated, render the wrapped component
   return isAuthenticated && !isExpired ? (

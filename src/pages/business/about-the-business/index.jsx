@@ -18,6 +18,7 @@ import LockIcon from "@mui/icons-material/Lock";
 import SecurityIcon from "@mui/icons-material/Security";
 import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import DeleteIcon from "@mui/icons-material/Delete";
+import AccountSidebar from "@/components/Business/AccountSidebar";
 
 function a11yProps(index) {
   return {
@@ -33,6 +34,7 @@ const AboutTheBusiness = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  
 
   return (
     <BusinessView title="About the business">
@@ -80,7 +82,8 @@ const AboutTheBusiness = () => {
           <div class="container">
             <div class="row">
               <div class="col-xl-3">
-                <Box sx={{ flexGrow: 1, display: "flex" }}>
+                <AccountSidebar />
+                {/* <Box sx={{ flexGrow: 1, display: "flex" }}>
                   <Tabs
                     orientation="vertical"
                     variant="scrollable"
@@ -129,7 +132,7 @@ const AboutTheBusiness = () => {
                       label="Delete Account"
                     />
                   </Tabs>
-                </Box>
+                </Box> */}
               </div>
               <div class="col-xl-9">
                 {/* {handleComponent(value)} */}

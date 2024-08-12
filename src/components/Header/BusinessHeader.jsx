@@ -205,7 +205,7 @@ const BusinessHeader = () => {
                         <li>
                             <hr className="dropdown-divider"/>
                         </li>
-                        <li><a className="dropdown-item bg-danger-soft-hover" href="/business/index"><i className="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard</a></li>
+                        <li><a className="dropdown-item bg-danger-soft-hover" href="/business"><i className="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard</a></li>
                         <li><a className="dropdown-item bg-danger-soft-hover" href="/business/about-the-business"><i className="bi bi-gear fa-fw me-2"></i>Account Setting</a></li>
                         <li><a className="dropdown-item bg-danger-soft-hover" href="/business/categories"><i className="fas fa-business-time fa-fw me-2"></i>Business Information</a></li>
                         <li><a className="dropdown-item bg-danger-soft-hover" href="/business/support"><i className="bi bi-headset fa-fw me-2"></i>Support</a></li>

@@ -64,7 +64,7 @@ const UserView = ({ title, children, ...props }) => {
       checkUser();
       setLoading(false);
     }, 2000);
-  }, [userProfile]);
+  }, [userProfile, router]);
 
   if (loading) {
     return (
