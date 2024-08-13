@@ -121,7 +121,7 @@ const Videos = () => {
                           <iframe
                             width="220"
                             height="220"
-                            src={video.link}
+                            src={`https://www.youtube.com/embed/${video.link}`}
                             title="YouTube video player"
                             frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
