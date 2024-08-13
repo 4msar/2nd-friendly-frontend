@@ -52,7 +52,7 @@ const PublicView = (WrapperComponent, title) => {
       <div className="preloader-item">
         <div className="spinner-grow text-primary"></div>
       </div>
-    </div> // Show loading state while checking authentication
+    </div> 
       )
     }
 
