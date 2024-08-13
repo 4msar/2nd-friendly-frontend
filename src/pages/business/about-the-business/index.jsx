@@ -136,7 +136,7 @@ const AboutTheBusiness = () => {
               </div>
               <div class="col-xl-9">
                 {/* {handleComponent(value)} */}
-                {value === 0 && <AboutBusiness />}
+                  <AboutBusiness />
                 {value === 1 && <Notification />}
                 {value === 2 && <ExternalApplication />}
                 {value === 3 && <SecuritySetting />}
