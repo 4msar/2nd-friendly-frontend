@@ -197,11 +197,11 @@ const Careers = () => {
                     </tbody>
                   </table>
                 </div>
-                <div class="d-sm-flex justify-content-sm-between align-items-sm-center mt-4 mt-sm-3">
+                {/* <div class="d-sm-flex justify-content-sm-between align-items-sm-center mt-4 mt-sm-3">
                   <p class="mb-0 text-center text-sm-start">
                     Showing 1 to 8 of 20 entries
                   </p>
-                  {/* <!-- Pagination --> */}
+                  
                   <nav
                     class="d-flex justify-content-center mb-0"
                     aria-label="navigation"
@@ -234,7 +234,7 @@ const Careers = () => {
                       </li>
                     </ul>
                   </nav>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

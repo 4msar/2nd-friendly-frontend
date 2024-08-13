@@ -7,12 +7,14 @@ export const usePublicPageStore = create(
       allCategory: [],
       recentAdvertisement: [],
       upcomingEvents: [],
+      recentBlog: [],
       topMenu: [],
       moreMenu: [],
       setPublicPageData: (
         allCategory,
         recentAdvertisement,
         upcomingEvents,
+        recentBlog,
         topMenu,
         moreMenu
       ) =>
@@ -20,6 +22,7 @@ export const usePublicPageStore = create(
           allCategory,
           recentAdvertisement,
           upcomingEvents,
+          recentBlog,
           topMenu,
           moreMenu
         }))

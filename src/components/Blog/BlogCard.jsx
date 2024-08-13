@@ -9,7 +9,7 @@ const BlogCard = ({ item, index }) => {
         className="carousel slide carousel-fade"
       >
         <div className="carousel-inner">
-          {item.images.length > 0 &&
+          {item.images?.length > 0 &&
             item.images.map((data, i) => (
               <div className={`carousel-item ${data.class}`} key={i}>
                 <img

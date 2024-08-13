@@ -1,15 +1,18 @@
 import SidebarInformation from "@/components/Business/SidebarInformation";
 import BusinessView from "@/components/HOC/BusinessView";
+import { isEmpty } from "@/helpers/functions";
 import useToken from "@/hooks/useToken";
 import BusinessService from "@/services/BusinessService";
 import { useBusinessAboutStore, useVideoStore } from "@/store";
+import { Box, Button, CircularProgress, Dialog, DialogActions, DialogContent, DialogContentText } from "@mui/material";
 import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 
 const Videos = () => {
   const userProfile = useBusinessAboutStore((state) => state.businessProfile);
   const isAuthenticated = useToken();
-  const [videoState, setVideoState] = useState({
+  const [open, setOpen] = useState(false);
+   const [videoState, setVideoState] = useState({
     title: "",
     link: "",
   });
@@ -19,6 +22,7 @@ const Videos = () => {
   const allVideo = useVideoStore((state) => state.allVideo);
   const setVideo = useVideoStore((state) => state.setVideo);
   const [viewVideo, setViewVideo] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const getAllVideos = async () => {
     const res = await BusinessService.embeddedVideoAll().then((data) => {
@@ -28,6 +32,7 @@ const Videos = () => {
   };
 
   const handleSaveVideo = async (event) => {
+    setLoading(true);
     event.preventDefault();
     event.stopPropagation();
     const payload = {
@@ -39,6 +44,10 @@ const Videos = () => {
       (data) => {
         if (data.data.status === "success") {
           getAllVideos();
+          setOpen(false);
+          setLoading(false);
+        } else {
+          setLoading(false);
         }
       }
     );
@@ -52,6 +61,13 @@ const Videos = () => {
   return (
     <BusinessView title="Videos">
       <main>
+      {loading && (
+          <div className="preloader-api">
+            <div className="preloader-item">
+              <div className="spinner-grow text-primary"></div>
+            </div>
+          </div>
+        )}
         <section class="p-0 m-0">
           <div class="container">
             <div class="row">
@@ -103,14 +119,12 @@ const Videos = () => {
                     <h5 class="mb-2 mb-sm-0 text-danger pb-0">All Videos</h5>
                   </div>
                   <div class="d-flex align-items-center mt-2 mt-md-0">
-                    <a
-                      href="#"
+                    <span
+                      onClick={() => setOpen(true)}
                       class="btn btn-sm btn-dark mb-0"
-                      data-bs-target="#videoCreateDialog"
-                      data-bs-toggle="modal"
                     >
                       Add Video
-                    </a>
+                    </span>
                   </div>
                 </div>
                 <div class="row p-2">
@@ -137,11 +151,11 @@ const Videos = () => {
                   )}
                 </div>
                 {/* <!-- Pagination --> */}
-                <div class="d-sm-flex justify-content-sm-between align-items-sm-center p-2 mt-3">
+                {/* <div class="d-sm-flex justify-content-sm-between align-items-sm-center p-2 mt-3">
                   <p class="mb-0 text-center text-sm-start">
                     Showing 1 to 8 of 20 entries
                   </p>
-                  {/* <!-- Pagination --> */}
+                 
                   <nav
                     class="d-flex justify-content-center mb-0"
                     aria-label="navigation"
@@ -174,42 +188,59 @@ const Videos = () => {
                       </li>
                     </ul>
                   </nav>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>
         </section>
-        <div
+
+        <Dialog
           class="modal fade"
-          id="videoCreateDialog"
-          tabindex="-1"
-          aria-labelledby="videoCreateDialog"
-          aria-hidden="true"
+          open={open}
+          width="500px"
+          onClose={() => {
+            setOpen(false);
+            setSingleAlbum("");
+            setLoading(false);
+          }}
         >
-          <div class="modal-dialog modal-dialog-centered">
-            <div class="modal-content">
-              {/* <!-- Modal header --> */}
-              <div class="modal-header">
-                <h5 class="modal-title text-dark mb-0" id="videoCreateDialog">
-                  Vide Add
-                </h5>
-                <button
-                  type="button"
-                  class="btn btn-sm btn-light mb-0"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
+          <Box
+            class="modal-dialog modal-dialog-centered"
+            sx={{ padding: "20px !important" }}
+          >
+            <DialogContent class="modal-content">
+              <DialogContentText sx={{ padding: "20px" }}>
+                {/* <!-- Modal header --> */}
+                <div class="modal-header">
+                  <h5 class="modal-title text-dark mb-0">Video Add</h5>
+                  <button
+                    type="button"
+                    class="btn btn-sm btn-light mb-0"
+                    data-bs-dismiss="modal"
+                    aria-label="Close"
+                    onClick={() => {
+                      setOpen(false);
+                      setSingleAlbum("");
+                      setLoading(false);
+                    }}
+                  >
+                    <i class="bi bi-x-lg">x</i>
+                  </button>
+                </div>
+                {/* <!-- Modal body --> */}
+                <Box
+                  class="modal-body"
+                  sx={{
+                    padding: "20px !important",
+                    marginBottom: "20px !important",
+                  }}
                 >
-                  <i class="bi bi-x-lg"></i>
-                </button>
-              </div>
-              {/* <!-- Modal body --> */}
-              <div class="modal-body">
-                <div class="row">
-                  <div class="col-md-12 bg-light-input">
-                    <label for="video_title" class="form-label">
-                      Video title
-                    </label>
-                    <input
+                  <div class="row">
+                    <div class="col-md-12 bg-light-input">
+                      <label for="album_name" class="form-label">
+                        Video Title <span class="star">*</span>
+                      </label>
+                      <input
                       type="text"
                       class="form-control video_title"
                       id="video_title"
@@ -223,19 +254,21 @@ const Videos = () => {
                         })
                       }
                     />
-                    <div class="valid-feedback">Looks good!</div>
-                    <div class="invalid-feedback">Please enter album name.</div>
-                  </div>
-                  <div class="col-md-12 bg-light-input mt-5">
-                    <label for="album_name" class="form-label">
-                      Video Link <span class="star">*</span>
-                    </label>
-                    <input
+                      <div class="valid-feedback">Looks good!</div>
+                      <div class="invalid-feedback">
+                        Please enter album name.
+                      </div>
+                    </div>
+                    <div class="col-md-12 bg-light-input mt-5 mb-3">
+                      <label for="album_name" class="form-label">
+                        Album Thumbnail <span class="star">*</span>
+                      </label>
+                      <input
                       type="text"
                       class="form-control album_name"
                       id="album_name"
                       title="album_name"
-                      placeholder="http"
+                      placeholder="xzAQU0qSRHM"
                       required
                       onChange={(e) =>
                         setVideoState({
@@ -244,31 +277,47 @@ const Videos = () => {
                         })
                       }
                     />
-                    <div class="valid-feedback">Looks good!</div>
-                    <div class="invalid-feedback">Please enter album name.</div>
+                      <div class="valid-feedback">Looks good!</div>
+                      <div class="invalid-feedback">
+                        Please enter album name.
+                      </div>
+                    </div>
                   </div>
-                </div>
-              </div>
-              {/* <!-- Modal footer --> */}
-              <div class="modal-footer">
-                <button
-                  type="button"
-                  class="btn btn-danger-soft my-0"
-                  data-bs-dismiss="modal"
+                </Box>
+                {/* <!-- Modal footer --> */}
+                <DialogActions
+                  class="modal-footer"
+                  sx={{ paddingTop: "20px !important" }}
                 >
-                  Close
-                </button>
-                <button
-                  onClick={(event) => handleSaveVideo(event)}
-                  class="btn btn-success-soft my-0"
-                  data-bs-dismiss="modal"
-                >
-                  Submit
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
+                  <Button
+                    type="button"
+                    class="btn btn-danger-soft my-0"
+                    data-bs-dismiss="modal"
+                    onClick={() => {
+                      setOpen(false);
+                      setSingleAlbum("");
+                      setLoading(false);
+                    }}
+                    sx={{ marginRight: "10px !important" }}
+                  >
+                    Close
+                  </Button>
+                  
+                    <Button
+                      startIcon={loading ? <CircularProgress size={15} /> : ""}
+                      disabled={loading}
+                      onClick={(event) => handleSaveVideo(event)}
+                      class="btn btn-success-soft my-0"
+                      data-bs-dismiss="modal"
+                    >
+                      Submit
+                    </Button>
+                </DialogActions>
+              </DialogContentText>
+            </DialogContent>
+          </Box>
+        </Dialog>
+        
       </main>
     </BusinessView>
   );

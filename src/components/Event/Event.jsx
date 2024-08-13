@@ -3,9 +3,11 @@ import Slider from "react-slick";
 import { events } from "../dummy_data/data";
 import EventCard from "./EventCard";
 import Link from "next/link";
+import { usePublicPageStore } from "@/store";
 
 const Event = () => {
-  const event_data = events;
+  // const event_data = events;
+  const event_data = usePublicPageStore((state) => state.upcomingEvents);
   const settings = {
     dots: false,
     infinite: true,
@@ -51,7 +53,7 @@ const Event = () => {
         <div className="row">
           
             <Slider {...settings}>
-              {event_data.length > 0 &&
+              {event_data?.length > 0 &&
                 event_data.map((item, index) => (
                   <div className="event" key={index}>
                    <EventCard item={item} />

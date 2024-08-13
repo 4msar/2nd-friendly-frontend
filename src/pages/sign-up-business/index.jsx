@@ -21,6 +21,7 @@ import { Button, CircularProgress } from '@mui/material';
 const SignUpBusiness = () => {
     const router = useRouter();
     const [loading, setLoading] = useState();
+    const [fieldErrors, setFieldErrors] = useState("");
   const [business, setBusiness] = useState({
     name: "",
     email: "",
@@ -59,11 +60,14 @@ const SignUpBusiness = () => {
     }
 
     const res = await axios.post(`${API_URL}/business-registration`, payload).then((data) => {
-        if(data.status === "success") {
+        if(data?.data?.status === "success") {
             setLoading(false)
-            snackbar(data.message, {variant: "success"});
+            snackbar("Successfully sign up!", {variant: "success"});
             router.push('/sign-in-business')
         } else {
+            console.log(data?.data?.fieldErrors?.email?.message);
+            setFieldErrors(data?.data?.fieldErrors);
+            
             setLoading(false)
         }
     });
@@ -119,13 +123,14 @@ const SignUpBusiness = () => {
                                             name: e.target.value
                                            })}
                                             />
-                                           <div className="valid-feedback">
+                                           
+                                       </div>
+                                       <div className="valid-feedback">
                                                Looks good!
                                            </div>
                                            <div className="invalid-feedback">
                                                Please enter business name.
                                            </div>
-                                       </div>
                                    </div>
                                    {/* <!-- Email --> */}
                                    <div className="mb-4">
@@ -138,13 +143,17 @@ const SignUpBusiness = () => {
                                               email: e.target.value
                                             })}
                                            />
-                                           <div className="valid-feedback">
+                                           
+                                           
+                                       </div>
+                                       <div className="valid-feedback">
                                                Looks good!
                                            </div>
-                                           <div className="invalid-feedback">
-                                               Please enter business email.
+                                           {fieldErrors?.email && (
+                                            <div className="text-danger">
+                                               {fieldErrors?.email?.message}
                                            </div>
-                                       </div>
+                                           )}
                                    </div>
                                    {/* <!-- Password --> */}
                                    <div className="mb-4">

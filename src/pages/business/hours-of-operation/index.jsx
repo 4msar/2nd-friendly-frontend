@@ -85,6 +85,13 @@ const HoursOfOperation = () => {
   return (
     <BusinessView title="Hours of Operation">
       <main>
+      {loading && (
+          <div className="preloader-api">
+            <div className="preloader-item">
+              <div className="spinner-grow text-primary"></div>
+            </div>
+          </div>
+        )}
         <section className="p-0 m-0">
           <div className="container">
             <div className="row">
@@ -379,6 +386,7 @@ const HoursOfOperation = () => {
                               setBusinessHours({
                                 ...businessHours,
                                 is_sunday_24open: e.target.value,
+                                is_sunday_close: false,
                               })
                             }
                             checked={businessHours?.is_sunday_24open}
@@ -400,6 +408,7 @@ const HoursOfOperation = () => {
                               setBusinessHours({
                                 ...businessHours,
                                 is_sunday_close: e.target.value,
+                                is_sunday_24open: false,
                               })
                             }
                             checked={businessHours?.is_sunday_close}
@@ -648,6 +657,7 @@ const HoursOfOperation = () => {
                               setBusinessHours({
                                 ...businessHours,
                                 is_monday_24open: e.target.value,
+                                is_monday_close: false,
                               })
                             }
                             checked={businessHours?.is_monday_24open}
@@ -669,6 +679,7 @@ const HoursOfOperation = () => {
                               setBusinessHours({
                                 ...businessHours,
                                 is_monday_close: e.target.value,
+                                is_monday_24open: false,
                               })
                             }
                             checked={businessHours?.is_monday_close}
@@ -917,6 +928,7 @@ const HoursOfOperation = () => {
                               setBusinessHours({
                                 ...businessHours,
                                 is_tuesday_24open: e.target.value,
+                                is_tuesday_close: false,
                               })
                             }
                             checked={businessHours?.is_tuesday_24open}
@@ -938,6 +950,7 @@ const HoursOfOperation = () => {
                               setBusinessHours({
                                 ...businessHours,
                                 is_tuesday_close: e.target.value,
+                                is_tuesday_24open: false,
                               })
                             }
                             checked={businessHours?.is_tuesday_close}
@@ -1186,6 +1199,7 @@ const HoursOfOperation = () => {
                               setBusinessHours({
                                 ...businessHours,
                                 is_wednesday_24open: e.target.value,
+                                is_wednesday_close: false,
                               })
                             }
                             checked={businessHours?.is_wednesday_24open}
@@ -1207,6 +1221,7 @@ const HoursOfOperation = () => {
                               setBusinessHours({
                                 ...businessHours,
                                 is_wednesday_close: e.target.value,
+                                is_wednesday_24open: false,
                               })
                             }
                             checked={businessHours?.is_wednesday_close}
@@ -1455,6 +1470,7 @@ const HoursOfOperation = () => {
                               setBusinessHours({
                                 ...businessHours,
                                 is_thursday_24open: e.target.value,
+                                is_thursday_close: false,
                               })
                             }
                             checked={businessHours?.is_thursday_24open}
@@ -1476,6 +1492,7 @@ const HoursOfOperation = () => {
                               setBusinessHours({
                                 ...businessHours,
                                 is_thursday_close: e.target.value,
+                                is_thursday_24open: false,
                               })
                             }
                             checked={businessHours?.is_thursday_close}
@@ -1724,6 +1741,7 @@ const HoursOfOperation = () => {
                               setBusinessHours({
                                 ...businessHours,
                                 is_friday_24open: e.target.value,
+                                is_friday_close: false,
                               })
                             }
                             checked={businessHours?.is_friday_24open}
@@ -1745,6 +1763,7 @@ const HoursOfOperation = () => {
                               setBusinessHours({
                                 ...businessHours,
                                 is_friday_close: e.target.value,
+                                is_friday_24open: false
                               })
                             }
                             checked={businessHours?.is_friday_close}
@@ -1993,6 +2012,7 @@ const HoursOfOperation = () => {
                               setBusinessHours({
                                 ...businessHours,
                                 is_saturday_24open: e.target.value,
+                                is_saturday_close: false,
                               })
                             }
                             checked={businessHours?.is_saturday_24open}
@@ -2014,6 +2034,7 @@ const HoursOfOperation = () => {
                               setBusinessHours({
                                 ...businessHours,
                                 is_saturday_close: e.target.value,
+                                is_saturday_24open: false,
                               })
                             }
                             checked={businessHours?.is_saturday_close}

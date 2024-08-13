@@ -4,7 +4,9 @@ import { capitalize } from "@/helpers/functions";
 import useToken from "@/hooks/useToken";
 import BusinessService from "@/services/BusinessService";
 import { useBusinessAboutStore, useBusinessAmenitiesStore } from "@/store";
-import { useEffect } from "react";
+import { Box } from "@mui/material";
+import { useEffect, useState } from "react";
+import swal from "sweetalert";
 
 const Amenities = () => {
   const userProfile = useBusinessAboutStore((state) => state.businessProfile);
@@ -13,6 +15,8 @@ const Amenities = () => {
   const allSelectedAmenity = useBusinessAmenitiesStore(
     (state) => state.selectedAmenity
   );
+  const [loading, setLoading] = useState(false);
+  const [dataLoading, setDataLoading] = useState(false);
 
   const setAllAmenityData = useBusinessAmenitiesStore(
     (state) => state.setBusinessAmenity
@@ -22,17 +26,22 @@ const Amenities = () => {
   );
 
   const getAmenitiesData = async (e) => {
+    setDataLoading(true);
     const res = await BusinessService.amenityAllAndSelected().then((data) => {
       console.log(data.data);
       if (data.data.status === "success") {
         setAllAmenityData(data.data.allAmenity);
         setAllSubAmenityData(data.data.selectedAmenity);
+        setDataLoading(false);
         // setAllSubCategoryData(data.date)
+      } else {
+        setDataLoading(false);
       }
     });
   };
 
   const addRemoveAminity = async (aminityId, event) => {
+    setLoading(true);
     event.preventDefault();
     event.stopPropagation();
     const payload = {
@@ -40,7 +49,13 @@ const Amenities = () => {
     };
     const res = await BusinessService.amenityAddRemove(payload).then((data) => {
       if (data.data.status === "success") {
+        swal(`Poof! ${data.data.message}`, {
+          icon: "success",
+        });
+        setLoading(false);
         getAmenitiesData();
+      } else {
+        setLoading(false);
       }
     });
   };
@@ -56,6 +71,13 @@ const Amenities = () => {
   return (
     <BusinessView title="Amenities">
       <main>
+        {loading && (
+          <div className="preloader-api">
+            <div className="preloader-item">
+              <div className="spinner-grow text-primary"></div>
+            </div>
+          </div>
+        )}
         <section className="p-0 m-0">
           <div className="container">
             <div className="row">
@@ -107,32 +129,50 @@ const Amenities = () => {
                     These preferences apply to this 2nd A Friendly account only.
                   </p>
                 </div>
-                <div className="row">
-                  {allAmenity.length > 0 &&
-                    allAmenity.map((amenity, index) => (
-                      <div className="col-sm-12 col-lg-6">
-                        <div
-                          className="form-check form-switch form-check-md mb-3"
-                          key={index}
-                          onClick={(event) =>
-                            addRemoveAminity(amenity.id, event)
-                          }
-                        >
-                          <input
-                            className="form-check-input"
-                            type="checkbox"
-                            id="checkPrivacy1"
-                            checked={allSelectedAmenity.includes(amenity.id)}
-                          />
-                          <label
-                            className="form-check-label"
-                            for="checkPrivacy1"
-                          >
-                            {capitalize(amenity.title)}
-                          </label>
-                        </div>
-                      </div>
-                    ))}
+
+                <div className="row" style={{ position: "relative" }}>
+                  {dataLoading ? (
+                    <Box
+                      sx={{
+                        position: "absolute",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <div className="spinner-grow text-primary"></div>
+                    </Box>
+                  ) : (
+                    <>
+                      {allAmenity.length > 0 &&
+                        allAmenity.map((amenity, index) => (
+                          <div className="col-sm-12 col-lg-6">
+                            <div
+                              className="form-check form-switch form-check-md mb-3"
+                              key={index}
+                              onClick={(event) =>
+                                addRemoveAminity(amenity.id, event)
+                              }
+                            >
+                              <input
+                                className="form-check-input"
+                                type="checkbox"
+                                id="checkPrivacy1"
+                                checked={allSelectedAmenity.includes(
+                                  amenity.id
+                                )}
+                              />
+                              <label
+                                className="form-check-label"
+                                for="checkPrivacy1"
+                              >
+                                {capitalize(amenity.title)}
+                              </label>
+                            </div>
+                          </div>
+                        ))}
+                    </>
+                  )}
                 </div>
               </div>
             </div>

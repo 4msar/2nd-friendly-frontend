@@ -104,8 +104,7 @@ const Album = () => {
 
   const updatePhotoAlbum = (data) => {
     setLoading(true);
-    event.preventDefault();
-    event.stopPropagation();
+    
     const payload = {
       ...singleAlbum,
     };
@@ -114,6 +113,7 @@ const Album = () => {
         swal("Poof! Album Update successfully!", {
           icon: "success",
         });
+        setOpen(false);
         setLoading(false);
         getAllPhotoAlbum();
       } else {
@@ -171,6 +171,13 @@ const Album = () => {
   return (
     <BusinessView title="Album">
       <main>
+      {loading && (
+          <div className="preloader-api">
+            <div className="preloader-item">
+              <div className="spinner-grow text-primary"></div>
+            </div>
+          </div>
+        )}
         <section className="p-0 m-0">
           <div className="container">
             <div className="row">
@@ -310,7 +317,7 @@ const Album = () => {
                   </table>
                   {/* <!-- Table END --> */}
                 </div>
-                <div className="d-sm-flex justify-content-sm-between align-items-sm-center my-1 ps-2">
+                {/* <div className="d-sm-flex justify-content-sm-between align-items-sm-center my-1 ps-2">
                   <p className="mb-0 text-center text-sm-start">
                     Showing {(currentPage - 1) * 10 + 1} to{" "}
                     {Math.min(currentPage * 10, allAlbum?.length)} of{" "}
@@ -384,7 +391,7 @@ const Album = () => {
                   </nav>
                   )}
                   
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

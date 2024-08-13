@@ -2,9 +2,11 @@ import React from "react";
 import BlogCard from "./BlogCard";
 import { blogPosts } from "../dummy_data/data";
 import Link from "next/link";
+import { usePublicPageStore } from "@/store";
 
 const Blog = () => {
-    const posts = blogPosts;
+    // const posts = blogPosts;
+    const posts = usePublicPageStore((state) => state.recentBlog);
   return (
     <section className="py-5">
       <div className="container position-relative">

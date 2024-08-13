@@ -181,11 +181,11 @@ const Reviews = () => {
                     )}
                   </table>
                 </div>
-                <div class="d-sm-flex justify-content-sm-between align-items-sm-center mt-0 mt-sm-1">
+                {/* <div class="d-sm-flex justify-content-sm-between align-items-sm-center mt-0 mt-sm-1">
                   <p class="mb-0 text-center text-sm-start">
                     Showing 1 to 10 of 20 entries
                   </p>
-                  {/* <!-- Pagination --> */}
+                  
                   <nav
                     class="d-flex justify-content-center mb-0"
                     aria-label="navigation"
@@ -218,7 +218,7 @@ const Reviews = () => {
                       </li>
                     </ul>
                   </nav>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

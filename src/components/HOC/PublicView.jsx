@@ -12,15 +12,18 @@ const PublicView = (WrapperComponent, title) => {
     // const router = useRouter();
 
     const getHomePageData =  () => {
-      const res = PublicService.homePageData();
-      console.log("res", res);
-      if (res?.data?.status === "success") {
-        usePublicPageStore.setState({
-          allCategory: res.data.allCategory,
-          recentAdvertisement: res.data.recentAdvertisement,
-          upcomingEvents: res.data.upcomingEvents,
-        });
-      }
+      const res = PublicService.homePageData().then((data) => {
+        if (data?.data?.status === "success") {
+          usePublicPageStore.setState({
+            allCategory: data.data.allCategory,
+            recentAdvertisement: data.data.recentAdvertisement,
+            upcomingEvents: data.data.upcomingEvents,
+            recentBlog: data.data.recentBlog,
+          });
+        }
+        console.log("res", data.data);
+      });
+      
     };
 
 

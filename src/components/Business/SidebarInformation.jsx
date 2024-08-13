@@ -35,7 +35,7 @@ const SidebarInformation = React.memo(({ profile }) => {
               </Link>
             </h5>
             <p className="small mb-0 mb-sm-0 pb-2">
-              {`${profile?.zip}, ${profile?.Official_address_line1}, ${profile?.city}`}
+              {`${profile?.zip ?? "1000"}, ${profile?.Official_address_line1 ?? "Dallas"}, ${profile?.city ?? "Texas"}`}
             </p>
           </div>
           <div className="list-group list-group-dark list-group-borderless pt-1 ps-0">

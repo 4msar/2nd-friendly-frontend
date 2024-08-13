@@ -1,9 +1,11 @@
 import React from "react";
 import AdvertisementCard from "./AdvertisementCard";
-import { advertisements } from "../dummy_data/data";
+import { usePublicPageStore } from "@/store";
 
 const Advertisement = () => {
-  const advertisement = advertisements;
+  const advertisement = usePublicPageStore((state) => state.recentAdvertisement);
+  console.log(advertisement);
+  
   return (
     <section className="bg-light position-relative overflow-hidden">
       <figure className="position-absolute bottom-0 end-0 mb-n5">
@@ -36,7 +38,7 @@ const Advertisement = () => {
           </div>
         </div>
         <div className="row g-4 justify-content-center">
-          {advertisement.length > 0 &&
+          {advertisement?.length > 0 &&
             advertisement.map((item, i) => (
               <div className="col-lg-10 col-xl-6" key={i}>
                 <AdvertisementCard item={item} index={i} />

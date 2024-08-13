@@ -8,7 +8,7 @@ const AdvertisementCard = ({item, index}) => {
         <div className="col-md-4">
           <div id={`carouselExampleFade${index}`} className="carousel slide carousel-fade">
             <div className="carousel-inner">
-                {item.images.length > 0 && item.images.map((item, i) => (
+                {item.images?.length > 0 && item.images.map((item, i) => (
                      <div className={`carousel-item ${item.className}`} key={i}>
                      <img
                        src={item.img.src}

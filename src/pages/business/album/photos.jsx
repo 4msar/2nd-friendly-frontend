@@ -35,6 +35,7 @@ const Photos = () => {
   const [albumPhoto, setAlbumPhoto] = useState("");
   const [title, setTitle] = useState("Test Title");
   const [loading, setLoading] = useState(false);
+  const [dataLoading, setDataLoading] = useState(false);
   const setAllPhoto = usePhotoAlbumStore((state) => state.setAllPhoto);
   const allPhoto = usePhotoAlbumStore((state) => state.allPhoto);
   const [open, setOpen] = useState(false);
@@ -98,12 +99,14 @@ const Photos = () => {
   };
 
   const handleGetAlbumPhotos = (id) => {
+    setDataLoading(true);
     const payload = {
       albumId: id,
     };
     const res = BusinessService.albumPhotoAll(payload).then((data) => {
       console.log(data.data.allPhoto);
       setAllPhoto(data.data.allPhoto);
+      setDataLoading(false)
     });
   };
 
@@ -159,6 +162,13 @@ const Photos = () => {
   return (
     <BusinessView title="Photos">
       <main>
+      {loading && (
+          <div className="preloader-api">
+            <div className="preloader-item">
+              
+            </div>
+          </div>
+        )}
         <section class="p-0 m-0">
           <div class="container">
             <div class="row">
@@ -216,7 +226,7 @@ const Photos = () => {
                   </div>
                   <div class="py-1 m-2" role="alert">
                     <div class="row">
-                      <div class="col-6">
+                      {/* <div class="col-6">
                         <input
                           class="form-control form-control-sm"
                           onChange={(e) => setTitle(e.target.value)}
@@ -225,7 +235,7 @@ const Photos = () => {
                           id="title"
                           value={title}
                         />
-                      </div>
+                      </div> */}
                       <div class="col-6">
                         <input
                           ref={inputFile}
@@ -233,13 +243,11 @@ const Photos = () => {
                           onChange={(e) => handleImageChange(e)}
                           type="file"
                           id="formFileMultiple"
-                          multiple
+                          // multiple
                         />
                       </div>
-                    </div>
-                  </div>
-
-                  <div class="d-grid gap-2 d-md-flex justify-content-md-end me-2">
+                      <div className="col-2">
+                      <div class="d-grid gap-2 d-md-flex justify-content-md-end me-2">
                     <Button
                       disabled={loading}
                       startIcon={loading ? <CircularProgress size={15} /> : ""}
@@ -250,8 +258,26 @@ const Photos = () => {
                       Submit
                     </Button>
                   </div>
-                  <div class="row m-1 mb-0">
-                    {allPhoto?.length > 0 &&
+                      </div>
+                    </div>
+                  </div>
+
+                  
+                  <div class="row m-1 mb-0" style={{position: 'relative'}}>
+                    {dataLoading ? (
+                      <Box
+                      sx={{
+                        position: "absolute",
+                        display: "flex",
+                        justifyContent: "center",
+                        alignItems: "center",
+                      }}
+                    >
+                      <div className="spinner-grow text-primary"></div>
+                    </Box>
+                    ) : (
+                      <>
+                      {allPhoto?.length > 0 &&
                       allPhoto?.map((photo, index) => (
                         <div
                           class="col-2 p-1"
@@ -270,6 +296,9 @@ const Photos = () => {
                           />
                         </div>
                       ))}
+                      </>
+                    )}
+                    
                   </div>
                   {/* <div class="d-sm-flex justify-content-sm-between align-items-sm-center p-2 mt-3">
                             <p class="mb-0 text-center text-sm-start">Showing 1 to 8 of 20 entries</p>
@@ -284,7 +313,7 @@ const Photos = () => {
                                 </ul>
                             </nav>
                         </div> */}
-                  <div className="d-sm-flex justify-content-sm-between align-items-sm-center my-1 ps-2">
+                  {/* <div className="d-sm-flex justify-content-sm-between align-items-sm-center my-1 ps-2">
                     <p className="mb-0 text-center text-sm-start">
                       Showing {(currentPage - 1) * 10 + 1} to{" "}
                       {Math.min(currentPage * 10, allPhoto?.length)} of{" "}
@@ -360,7 +389,7 @@ const Photos = () => {
                         </ul>
                       </nav>
                     )}
-                  </div>
+                  </div> */}
                 </div>
               </div>
             </div>

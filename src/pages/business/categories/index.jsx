@@ -4,7 +4,7 @@ import { camelCaseToText, capitalize } from "@/helpers/functions";
 import useToken from "@/hooks/useToken";
 import BusinessService from "@/services/BusinessService";
 import { useBusinessAboutStore, useBusinessCategoryStore } from "@/store";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import swal from "sweetalert";
 
 const Categories = () => {
@@ -14,6 +14,8 @@ const Categories = () => {
   const allSelectedCategory = useBusinessCategoryStore(
     (state) => state.selectedSubCategory
   );
+
+  const [loading, setLoading] = useState(false);
 
   const setAllCategoryData = useBusinessCategoryStore(
     (state) => state.setBusinessCategory
@@ -40,6 +42,7 @@ const Categories = () => {
   };
 
   const addRemoveSubCategory = async (subCatId, event) => {
+    setLoading(true);
     event.preventDefault();
     event.stopPropagation();
     const payload = {
@@ -51,6 +54,7 @@ const Categories = () => {
           swal(`Poof! ${data.data.message}`, {
             icon: "success",
           });
+          setLoading(false);
         getCategoriesData();
         // }
       }
@@ -63,10 +67,18 @@ const Categories = () => {
     }
   }, [isAuthenticated]);
 
+ 
   // console.log({ allSelectedCategory });
   return (
     <BusinessView>
       <main>
+        {loading && (
+          <div className="preloader-api">
+          <div className="preloader-item">
+            <div className="spinner-grow text-primary"></div>
+          </div>
+        </div>
+        )}
         <section class="p-0 m-0">
           <div class="container">
             <div class="row">
@@ -156,7 +168,7 @@ const Categories = () => {
                           </ul>
                         </div>
                       </>
-                    ))}
+                  ))}
                 </div>
               </div>
             </div>
