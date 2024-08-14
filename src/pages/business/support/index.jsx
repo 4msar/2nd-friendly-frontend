@@ -7,15 +7,11 @@ import {
   Box,
   Button,
   Dialog,
-  DialogActions,
   DialogContent,
-  DialogContentText,
-  IconButton,
-  Modal,
+  DialogContentText
 } from "@mui/material";
 import Link from "next/link";
-import React, { useRef, useState } from "react";
-import CloseIcon from "@mui/icons-material/Close";
+import { useEffect, useRef, useState } from "react";
 
 const style = {
   position: "absolute",
@@ -26,7 +22,7 @@ const style = {
   backgroundColor: "#ffffff",
   borderRadius: "10px",
   boxShadow: 24,
-  padding: "20px",
+  padding: "20px"
 };
 
 const Support = () => {
@@ -39,7 +35,7 @@ const Support = () => {
     category: "",
     details: "",
     image: "",
-    old_image: "",
+    old_image: ""
   });
 
   const handleImageChange = (e) => {
@@ -65,7 +61,7 @@ const Support = () => {
       const pngDataUrl = canvas.toDataURL("image/png");
       setSupport({
         ...support,
-        image: pngDataUrl,
+        image: pngDataUrl
       });
     };
   };
@@ -82,11 +78,17 @@ const Support = () => {
     }
   };
 
+  const handleGetSupport = () => {
+    const res = BusinessService.supportAll().then((support) => {
+      console.log({ support });
+    });
+  };
+
   const handleSupportCreate = (e) => {
     e.preventDefault();
     e.stopPropagation();
     const payload = {
-      ...support,
+      ...support
     };
 
     const res = BusinessService.supportCreate(payload).then((data) => {
@@ -97,6 +99,12 @@ const Support = () => {
       }
     });
   };
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      handleGetSupport();
+    }
+  }, [isAuthenticated]);
   return (
     <BusinessView title="Support">
       <main>
@@ -340,7 +348,7 @@ const Support = () => {
                         onChange={(e) =>
                           setSupport({
                             ...support,
-                            title: e.target.value,
+                            title: e.target.value
                           })
                         }
                       />
@@ -360,12 +368,11 @@ const Support = () => {
                         class="form-select bg-light category"
                         id="category"
                         name="category"
-                        
                         required
                         onChange={(e) =>
                           setSupport({
                             ...support,
-                            category: e.target.value,
+                            category: e.target.value
                           })
                         }
                       >
@@ -398,12 +405,11 @@ const Support = () => {
                         title="details"
                         name="details"
                         placeholder="E. g. Please write your job details here..."
-                        
                         required
                         onChange={(e) =>
                           setSupport({
                             ...support,
-                            details: e.target.value,
+                            details: e.target.value
                           })
                         }
                       ></textarea>
@@ -428,7 +434,7 @@ const Support = () => {
                   <Button
                     type="button"
                     class="btn btn-danger-soft my-0"
-                    data-bs-dismiss="modal"
+                    onClick={() => setOpen(false)}
                     sx={{ marginRight: "10px !important" }}
                   >
                     Close
@@ -436,7 +442,6 @@ const Support = () => {
                   <Button
                     onClick={(event) => handleSupportCreate(event)}
                     class="btn btn-success-soft my-0"
-                    data-bs-dismiss="modal"
                   >
                     Submit
                   </Button>

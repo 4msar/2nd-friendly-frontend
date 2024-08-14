@@ -8,17 +8,16 @@ import {
   Box,
   Button,
   Dialog,
-  DialogActions,
   DialogContent,
-  DialogContentText,
-  Modal,
+  DialogContentText
 } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 
 const Careers = () => {
   const userProfile = useBusinessAboutStore((state) => state.businessProfile);
   const isAuthenticated = useToken();
   const [open, setOpen] = useState(false);
+  const [loading, setLoading] = useState(false);
 
   const [job, setJob] = useState({
     title: "",
@@ -27,7 +26,7 @@ const Careers = () => {
     department: 0,
     details: "",
     expiration_date: "",
-    status: "",
+    status: ""
   });
 
   const handleGetCareers = () => {
@@ -37,31 +36,41 @@ const Careers = () => {
   };
 
   const handleJobCreate = (e) => {
+    setLoading(true);
     e.preventDefault();
     e.stopPropagation();
     const payload = {
       ...job,
-      expiration_date: formatDate(job.expiration_date, "DD-MM-YYYY"),
+      expiration_date: formatDate(job.expiration_date, "DD-MM-YYYY")
     };
 
     const res = BusinessService.careerCreate(payload).then((data) => {
       console.log({ data });
       if (data.data.status === "success") {
-        //   getCategoriesData();
+        handleGetCareers();
+        setLoading(false);
         setOpen(false);
+      } else {
+        setLoading(false);
       }
     });
   };
 
   useEffect(() => {
-    if(isAuthenticated) {
-
+    if (isAuthenticated) {
       handleGetCareers();
     }
   }, [isAuthenticated]);
   return (
     <BusinessView title="Careers">
       <main>
+        {loading && (
+          <div className="preloader-api">
+            <div className="preloader-item">
+              <div className="spinner-grow text-primary"></div>
+            </div>
+          </div>
+        )}
         <section className="p-0 m-0">
           <div className="container">
             <div className="row">
@@ -193,7 +202,6 @@ const Careers = () => {
                           </a>
                         </td>
                       </tr>
-                      
                     </tbody>
                   </table>
                 </div>
@@ -282,7 +290,7 @@ const Careers = () => {
                         onChange={(e) =>
                           setJob({
                             ...job,
-                            title: e.target.value,
+                            title: e.target.value
                           })
                         }
                       />
@@ -302,12 +310,11 @@ const Careers = () => {
                         class="form-select bg-light job_type"
                         id="job_type"
                         name="job_type"
-                        
                         required
                         onChange={(e) =>
                           setJob({
                             ...job,
-                            job_type: e.target.value,
+                            job_type: e.target.value
                           })
                         }
                       >
@@ -333,12 +340,11 @@ const Careers = () => {
                         class="form-select bg-light job_level"
                         id="job_level"
                         name="job_level"
-                        
                         required
                         onChange={(e) =>
                           setJob({
                             ...job,
-                            job_level: e.target.value,
+                            job_level: e.target.value
                           })
                         }
                       >
@@ -363,12 +369,11 @@ const Careers = () => {
                         class="form-select bg-light department"
                         id="department"
                         name="department"
-                        
                         required
                         onChange={(e) =>
                           setJob({
                             ...job,
-                            department: e.target.value,
+                            department: e.target.value
                           })
                         }
                       >
@@ -397,12 +402,11 @@ const Careers = () => {
                         title="job_details"
                         name="job_details"
                         placeholder="E. g. Please write your job details here..."
-                        
                         required
                         onChange={(e) =>
                           setJob({
                             ...job,
-                            details: e.target.value,
+                            details: e.target.value
                           })
                         }
                       ></textarea>
@@ -429,7 +433,7 @@ const Careers = () => {
                         onChange={(e) => {
                           setJob({
                             ...job,
-                            expiration_date: e.target.value,
+                            expiration_date: e.target.value
                           });
                         }}
                       />
@@ -446,12 +450,11 @@ const Careers = () => {
                         class="form-select bg-light status"
                         id="status"
                         name="status"
-                        
                         required
                         onChange={(e) =>
                           setJob({
                             ...job,
-                            status: e.target.value,
+                            status: e.target.value
                           })
                         }
                       >

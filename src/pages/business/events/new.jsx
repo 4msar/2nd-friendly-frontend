@@ -1,14 +1,12 @@
 import SidebarInformation from "@/components/Business/SidebarInformation";
 import BusinessView from "@/components/HOC/BusinessView";
-import { API_URL } from "@/helpers/apiUrl";
 import { capitalize, formatDate, formatTime } from "@/helpers/functions";
 import useToken from "@/hooks/useToken";
 import BusinessService from "@/services/BusinessService";
-import { useBusinessAboutStore, useEventStore } from "@/store";
+import { useBusinessAboutStore } from "@/store";
 import { Button } from "@mui/material";
-import axios from "axios";
 import { useRouter } from "next/router";
-import React, { useState } from "react";
+import { useState } from "react";
 
 const EventAdd = () => {
   const userProfile = useBusinessAboutStore((state) => state.businessProfile);
@@ -37,10 +35,38 @@ const EventAdd = () => {
     end_date: "",
     end_time: "",
     image: "",
-    old_image: "",
+    old_image: ""
   });
 
   const router = useRouter();
+
+  // const handleImageChange = (e) => {
+  //   const file = e.target.files[0];
+  //   if (file) {
+  //     const reader = new FileReader();
+  //     reader.onloadend = () => {
+  //       convertToPNG(reader.result);
+  //     };
+  //     reader.readAsDataURL(file);
+  //   }
+  // };
+
+  // const convertToPNG = (dataUrl) => {
+  //   const img = new Image();
+  //   img.src = `${dataUrl}`;
+  //   img.onload = () => {
+  //     const canvas = document.createElement("canvas");
+  //     canvas.width = img.width;
+  //     canvas.height = img.height;
+  //     const ctx = canvas.getContext("2d");
+  //     ctx.drawImage(img, 0, 0);
+  //     const pngDataUrl = canvas.toDataURL("image/png");
+  //     setEvent({
+  //       ...event,
+  //       image: pngDataUrl,
+  //     });
+  //   };
+  // };
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -58,14 +84,24 @@ const EventAdd = () => {
     img.src = `${dataUrl}`;
     img.onload = () => {
       const canvas = document.createElement("canvas");
-      canvas.width = img.width;
-      canvas.height = img.height;
+
+      // Resize the image if necessary
+      const MAX_WIDTH = 800; // or any desired width
+      const scaleSize = MAX_WIDTH / img.width;
+      canvas.width = MAX_WIDTH;
+      canvas.height = img.height * scaleSize;
+
       const ctx = canvas.getContext("2d");
-      ctx.drawImage(img, 0, 0);
+      ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
+
+      // Convert to PNG
       const pngDataUrl = canvas.toDataURL("image/png");
+
+      // Optionally compress the image using other libraries here
+
       setEvent({
         ...event,
-        image: pngDataUrl,
+        image: pngDataUrl
       });
     };
   };
@@ -87,9 +123,9 @@ const EventAdd = () => {
     const res = BusinessService.eventNew(payload).then((data) => {
       if (data.data.status === "success") {
         setLoading(false);
-        router.push('/business/events')
+        router.push("/business/events");
       } else {
-        setFieldErrors(data.data.fieldErrors)
+        setFieldErrors(data.data.fieldErrors);
         setLoading(false);
       }
     });
@@ -101,13 +137,13 @@ const EventAdd = () => {
   return (
     <BusinessView title="Event Create">
       <main>
-      {loading && (
-        <div className="preloader-api">
-        <div className="preloader-item">
-          <div className="spinner-grow text-primary"></div>
-        </div>
-      </div>
-      )} 
+        {loading && (
+          <div className="preloader-api">
+            <div className="preloader-item">
+              <div className="spinner-grow text-primary"></div>
+            </div>
+          </div>
+        )}
         <section class="p-0 m-0">
           <div class="container">
             <div class="row">
@@ -179,7 +215,7 @@ const EventAdd = () => {
                           onChange={(e) => {
                             setEvent({
                               ...event,
-                              title: e.target.value,
+                              title: e.target.value
                             });
                           }}
                           autoComplete="off"
@@ -187,10 +223,9 @@ const EventAdd = () => {
                         <div class="valid-feedback">Looks good!</div>
                         {fieldErrors?.title && (
                           <div class="text-danger">
-                          Please enter event name.
-                        </div>
+                            Please enter event name.
+                          </div>
                         )}
-                        
                       </div>
                       <div class="col-md-6 col-sm-12 bg-light-input">
                         <label
@@ -209,13 +244,10 @@ const EventAdd = () => {
                         />
                         <div class="valid-feedback">Looks good!</div>
                         {fieldErrors?.image && (
-                          <div class="text-danger">
-                          Please upload image.
-                        </div>
+                          <div class="text-danger">Please upload image.</div>
                         )}
-                        
                       </div>
-                      
+
                       <div class="col-md-6 col-sm-12 bg-light-input">
                         <label
                           class="form-label fw-normal text-dark"
@@ -225,49 +257,47 @@ const EventAdd = () => {
                         </label>
                         <div className="row">
                           <div className="col-md-8 col-sm-12 bg-light-input">
-                          <input
-                          class="form-control date_time"
-                          id="date_time"
-                          title="date_time"
-                          type="date"
-                          placeholder=""
-                          required
-                          value={event.start_date}
-                          onChange={(e) => {
-                            setEvent({
-                              ...event,
-                              start_date: e.target.value,
-                            });
-                          }}
-                        />
+                            <input
+                              class="form-control date_time"
+                              id="date_time"
+                              title="date_time"
+                              type="date"
+                              placeholder=""
+                              required
+                              value={event.start_date}
+                              onChange={(e) => {
+                                setEvent({
+                                  ...event,
+                                  start_date: e.target.value
+                                });
+                              }}
+                            />
                           </div>
                           <div className="col-md-4 col-sm-12 bg-light-input">
-                          <input
-                          class="form-control date_time"
-                          id="date_time"
-                          title="date_time"
-                          type="time"
-                          placeholder=""
-                          required
-                          value={event.start_time}
-                          onChange={(e) => {
-                            setEvent({
-                              ...event,
-                              start_time: e.target.value,
-                            });
-                          }}
-                        />
+                            <input
+                              class="form-control date_time"
+                              id="date_time"
+                              title="date_time"
+                              type="time"
+                              placeholder=""
+                              required
+                              value={event.start_time}
+                              onChange={(e) => {
+                                setEvent({
+                                  ...event,
+                                  start_time: e.target.value
+                                });
+                              }}
+                            />
                           </div>
                         </div>
-                       
-                       
+
                         <div class="valid-feedback">Looks good!</div>
                         {fieldErrors?.start_date && fieldErrors?.start_time && (
                           <div class="text-danger">
-                          Please enter date & time.
-                        </div>
+                            Please enter date & time.
+                          </div>
                         )}
-                        
                       </div>
                       <div class="col-md-6 col-sm-12 bg-light-input">
                         <label
@@ -278,47 +308,46 @@ const EventAdd = () => {
                         </label>
                         <div className="row">
                           <div className="col-md-8 col-sm-12 bg-light-input">
-                          <input
-                          class="form-control date_time"
-                          id="date_time"
-                          title="date_time"
-                          type="date"
-                          required
-                          value={event.end_date}
-                          onChange={(e) => {
-                            setEvent({
-                              ...event,
-                              end_date: e.target.value,
-                            });
-                          }}
-                        />
+                            <input
+                              class="form-control date_time"
+                              id="date_time"
+                              title="date_time"
+                              type="date"
+                              required
+                              value={event.end_date}
+                              onChange={(e) => {
+                                setEvent({
+                                  ...event,
+                                  end_date: e.target.value
+                                });
+                              }}
+                            />
                           </div>
                           <div className="col-md-4 col-sm-12 bg-light-input">
-                          <input
-                          class="form-control end_time"
-                          id="end_time"
-                          title="end_time"
-                          type="time"
-                          placeholder=""
-                          required
-                          value={event.end_time}
-                          onChange={(e) => {
-                            setEvent({
-                              ...event,
-                              end_time: e.target.value,
-                            });
-                          }}
-                        />
+                            <input
+                              class="form-control end_time"
+                              id="end_time"
+                              title="end_time"
+                              type="time"
+                              placeholder=""
+                              required
+                              value={event.end_time}
+                              onChange={(e) => {
+                                setEvent({
+                                  ...event,
+                                  end_time: e.target.value
+                                });
+                              }}
+                            />
                           </div>
                         </div>
-                        
+
                         <div class="valid-feedback">Looks good!</div>
                         {fieldErrors?.end_date && fieldErrors?.end_time && (
                           <div class="text-danger">
-                          Please enter date & time.
-                        </div>
+                            Please enter date & time.
+                          </div>
                         )}
-                       
                       </div>
                       <div class="col-md-6 bg-light-input">
                         <label for="" class="form-label fw-bold text-dark">
@@ -327,13 +356,12 @@ const EventAdd = () => {
                         <select
                           class="form-select bg-light"
                           id=""
-                          
                           required
                           value={event.category}
                           onChange={(e) => {
                             setEvent({
                               ...event,
-                              category: e.target.value,
+                              category: e.target.value
                             });
                           }}
                         >
@@ -345,10 +373,9 @@ const EventAdd = () => {
                         <div class="valid-feedback">Looks good!</div>
                         {fieldErrors?.category && (
                           <div class="text-danger">
-                          Please select a category.
-                        </div>
+                            Please select a category.
+                          </div>
                         )}
-                        
                       </div>
                       <div class="col-md-6 col-sm-12 bg-light-input">
                         <label
@@ -363,13 +390,12 @@ const EventAdd = () => {
                           title="location"
                           type="text"
                           placeholder="Inter continent Park "
-                          
                           required
                           value={event.venue_name}
                           onChange={(e) => {
                             setEvent({
                               ...event,
-                              venue_name: e.target.value,
+                              venue_name: e.target.value
                             });
                           }}
                           autoComplete="off"
@@ -377,10 +403,9 @@ const EventAdd = () => {
                         <div class="valid-feedback">Looks good!</div>
                         {fieldErrors?.venue_name && (
                           <div class="text-danger">
-                          Please enter venue name.
-                        </div>
+                            Please enter venue name.
+                          </div>
                         )}
-                        
                       </div>
                       <div class="col-md-6 col-sm-12 bg-light-input">
                         <label
@@ -395,13 +420,12 @@ const EventAdd = () => {
                           title="location"
                           type="text"
                           placeholder="0.00"
-                          
                           required
                           value={event.ticket_price}
                           onChange={(e) => {
                             setEvent({
                               ...event,
-                              ticket_price: e.target.value,
+                              ticket_price: e.target.value
                             });
                           }}
                           autoComplete="off"
@@ -409,10 +433,9 @@ const EventAdd = () => {
                         <div class="valid-feedback">Looks good!</div>
                         {fieldErrors?.ticket_price && (
                           <div class="text-danger">
-                          Please enter ticket price.
-                        </div>
+                            Please enter ticket price.
+                          </div>
                         )}
-                        
                       </div>
 
                       <div class="col-md-6 col-sm-12 bg-light-input">
@@ -428,24 +451,20 @@ const EventAdd = () => {
                           title="location"
                           type="text"
                           placeholder="W 13th St, New York"
-                          
                           required
                           value={event.address}
                           onChange={(e) => {
                             setEvent({
                               ...event,
-                              address: e.target.value,
+                              address: e.target.value
                             });
                           }}
                           autoComplete="off"
                         />
                         <div class="valid-feedback">Looks good!</div>
                         {fieldErrors?.address && (
-                          <div class="text-danger">
-                          Please enter address
-                        </div>
+                          <div class="text-danger">Please enter address</div>
                         )}
-                       
                       </div>
                       <div class="col-md-6 col-sm-12 bg-light-input">
                         <label
@@ -460,22 +479,19 @@ const EventAdd = () => {
                           title="location"
                           type="text"
                           placeholder="01234567890"
-                          
                           required
                           value={event.phone_no}
                           onChange={(e) => {
                             setEvent({
                               ...event,
-                              phone_no: e.target.value,
+                              phone_no: e.target.value
                             });
                           }}
                           autoComplete="off"
                         />
                         <div class="valid-feedback">Looks good!</div>
                         {fieldErrors?.phone_no && (
-                          <div class="text-danger">
-                          Please enter phone.
-                        </div>
+                          <div class="text-danger">Please enter phone.</div>
                         )}
                       </div>
                       <div class="col-md-6 col-sm-12 bg-light-input">
@@ -491,24 +507,20 @@ const EventAdd = () => {
                           title="location"
                           type="text"
                           placeholder="Oxnard"
-                          
                           required
                           value={event.city}
                           onChange={(e) => {
                             setEvent({
                               ...event,
-                              city: e.target.value,
+                              city: e.target.value
                             });
                           }}
                           autoComplete="off"
                         />
                         <div class="valid-feedback">Looks good!</div>
                         {fieldErrors?.city && (
-                          <div class="text-danger">
-                          Please enter city.
-                        </div>
+                          <div class="text-danger">Please enter city.</div>
                         )}
-                        
                       </div>
                       <div class="col-md-6 col-sm-12 bg-light-input">
                         <label
@@ -525,24 +537,23 @@ const EventAdd = () => {
                           onChange={(e) => {
                             setEvent({
                               ...event,
-                              state: e.target.value,
+                              state: e.target.value
                             });
                             setFieldErrors({
-                              ...fieldErrors,
-                              
-                            })
+                              ...fieldErrors
+                            });
                           }}
                         >
                           <option value="">Select State</option>
                           {allState.length > 0 &&
                             allState.map((state) => (
-                              <option value={state.id}>{capitalize(state.name)}</option>
+                              <option value={state.id}>
+                                {capitalize(state.name)}
+                              </option>
                             ))}
                         </select>
                         {fieldErrors?.state && (
-                          <div class="text-danger">
-                          Please enter state.
-                        </div>
+                          <div class="text-danger">Please enter state.</div>
                         )}
                       </div>
                       <div class="col-md-6 col-sm-12 bg-light-input">
@@ -558,22 +569,19 @@ const EventAdd = () => {
                           title="location"
                           type="text"
                           placeholder="www.example.com"
-                          
                           required
                           value={event.website}
                           onChange={(e) => {
                             setEvent({
                               ...event,
-                              website_link: e.target.value,
+                              website_link: e.target.value
                             });
                           }}
                           autoComplete="off"
                         />
                         <div class="valid-feedback">Looks good!</div>
                         {fieldErrors?.city && (
-                          <div class="text-danger">
-                          Please enter website.
-                        </div>
+                          <div class="text-danger">Please enter website.</div>
                         )}
                       </div>
 
@@ -596,15 +604,15 @@ const EventAdd = () => {
                           onChange={(e) => {
                             setEvent({
                               ...event,
-                              details: e.target.value,
+                              details: e.target.value
                             });
                           }}
                         ></textarea>
                         <div class="valid-feedback">Looks good!</div>
                         {fieldErrors?.details && (
                           <div class="text-danger">
-                          Please enter event details.
-                        </div>
+                            Please enter event details.
+                          </div>
                         )}
                       </div>
                       <div class="d-sm-flex justify-content-end mb-3">

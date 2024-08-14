@@ -5,7 +5,7 @@ const EventCard = ({ item }) => {
   return (
     <div className="card bg-transparent" key={item.id}>
       <div className="position-relative">
-        <img src={`${IMAGE_URL}/uploads/business-events/${item.image}`} className="card-img" alt="course image" />
+        <img src={`${IMAGE_URL}/uploads/business-event/${item.image}`} className="card-img" alt="course image" />
         <div className="card-img-overlay d-flex align-items-start flex-column p-3">
           <div className="w-100 mb-auto d-flex justify-content-end">
             <a href="#" className="icon-sm bg-white rounded-2">
