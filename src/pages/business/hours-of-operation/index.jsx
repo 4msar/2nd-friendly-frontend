@@ -115,7 +115,7 @@ const HoursOfOperation = () => {
           <div className="container">
             <div className="row">
               <div className="col-12">
-                <h5 className="text-danger mb-2">Categories & Services</h5>
+                <h5 className="text-danger mb-2">Hours of Operation</h5>
                 <div className="d-flex justify-content-left">
                   <nav aria-label="breadcrumb">
                     <ol className="breadcrumb breadcrumb-dots my-0 py-0">
@@ -123,7 +123,7 @@ const HoursOfOperation = () => {
                         <a href="index.php">Home</a>
                       </li>
                       <li className="breadcrumb-item">Business Information</li>
-                      <li className="breadcrumb-item">Amenities</li>
+                      <li className="breadcrumb-item">Hours of Operation</li>
                     </ol>
                   </nav>
                 </div>
@@ -2078,6 +2078,7 @@ const HoursOfOperation = () => {
                             setBusinessClosure({
                               ...businessClosure,
                               is_temporarily_closed: e.target.value,
+                              is_permanently_closed: "",
                             })
                           }
                         />
@@ -2124,6 +2125,7 @@ const HoursOfOperation = () => {
                         class="form-control when_will_your_business_reopen"
                         title="when_will_your_business_reopen"
                         required
+                        disabled={!businessClosure?.is_temporarily_closed}
                         onChange={(e) =>
                           setBusinessClosure({
                             ...businessClosure,
@@ -2167,6 +2169,8 @@ const HoursOfOperation = () => {
                             setBusinessClosure({
                               ...businessClosure,
                               is_permanently_closed: e.target.value,
+                              is_temporarily_closed: "",
+                              reopen_date: "",
                             })
                           }
                         />

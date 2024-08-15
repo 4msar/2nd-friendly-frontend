@@ -5,7 +5,7 @@ import useToken from "@/hooks/useToken";
 import BusinessService from "@/services/BusinessService";
 import { useBusinessAboutStore, useBusinessCategoryStore } from "@/store";
 import { useEffect, useState } from "react";
-import swal from "sweetalert";
+// import swal from "sweetalert";
 
 const Categories = () => {
   const isAuthenticated = useToken();
@@ -51,9 +51,9 @@ const Categories = () => {
     const res = await BusinessService.addRemoveCategory(payload).then(
       (data) => {
         // if (data.data.status === "success") {
-          swal(`Poof! ${data.data.message}`, {
-            icon: "success",
-          });
+          // swal(`Poof! ${data.data.message}`, {
+          //   icon: "success",
+          // });
           setLoading(false);
         getCategoriesData();
         // }

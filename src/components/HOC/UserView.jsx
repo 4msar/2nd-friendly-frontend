@@ -14,6 +14,7 @@ const UserView = ({ title, children, ...props }) => {
   const router = useRouter();
   const isAuthenticated = useToken();
   const userProfile = useAuthStore((state) => state.user);
+  const customerProfile = useCustomerAboutStore((state) => state.customerProfile);
   const expires_in = useAuthStore((state) => state.expires_in);
   const isExpired = Date.now() >= expires_in;
   const logOut = useAuthStore((store) => store.resetAuth);
@@ -24,6 +25,17 @@ const UserView = ({ title, children, ...props }) => {
   const [loading, setLoading] = useState(true)
 
   const getAboutCustomer = async () => {
+    try {
+      const res = await CustomerService.aboutCustomer();
+      if (res.data.status === "success") {
+        setAllAboutData(res.data);
+      }
+    } catch (error) {
+      console.error("Failed to fetch Customer data:", error);
+    }
+  };
+
+  const getCustomerNotification = async () => {
     try {
       const res = await CustomerService.aboutCustomer();
       if (res.data.status === "success") {
@@ -81,7 +93,7 @@ const UserView = ({ title, children, ...props }) => {
       <Head>
         <title>{title} | 2nd A Friendly</title>
       </Head>
-      <UserHeader />
+      <UserHeader user={customerProfile} />
       {children}
       <Footer />
     </>

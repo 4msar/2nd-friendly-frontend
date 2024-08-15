@@ -7,8 +7,11 @@ const CustomerService = {
  
   aboutCustomer: () => axios.post("/customer/account-information-all", {  }),
   aboutCustomerSave: (data) => axios.post("/customer/account-information-save", { data }),
+  changePassword: (data) => axios.post("/customer/change-password", { data }),
   notificationAll: () => axios.post("/customer/account-notification-all", {  }),
   notificationSave: (data) => axios.post("/customer/account-notification-save", { data }),
+  settingsNotificationAll: () => axios.post("/customer/setting-notification-all", {  }),
+  settingsNotificationUpdate: (data) => axios.post("/customer/setting-notification-update", { data }),
   reviewAll: () =>
     axios.post("/customer/post-review-all", {  }),
   reviewPostToBusiness: (data) =>

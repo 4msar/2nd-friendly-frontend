@@ -11,8 +11,9 @@ import user4 from "@/assets/img/user/user-2.jpg";
 import user5 from "@/assets/img/user/user-1.jpg";
 import Link from "next/link";
 import { useAuthStore } from "@/store";
+import { IMAGE_URL } from "@/helpers/apiUrl";
 
-const UserHeader = () => {
+const UserHeader = ({user}) => {
   const logOut = useAuthStore((store) => store.resetAuth);
   return (
     <div>
@@ -133,16 +134,9 @@ const UserHeader = () => {
           <div className="container">
             {/* <!-- Logo START --> */}
             <a className="navbar-brand me-0 py-4" href="/">
-              <img
-                className="light-mode-item"
-                src={logo.src}
-                alt="logo"
-              />
-              <img
-                className="dark-mode-item"
-                src={logo.src}
-                alt="logo"
-              />
+            <img className="light-mode-item" src={logo.src} alt="logo"/>
+            <img className="dark-mode-item" src={logo.src} alt="logo"/>
+              
             </a>
             {/* <!-- Logo END --> */}
             {/* <!-- Responsive navbar toggler --> */}
@@ -396,11 +390,12 @@ const UserHeader = () => {
                   data-bs-toggle="dropdown"
                   aria-expanded="false"
                 >
+                 
                   <img
-                    className="avatar-img rounded-circle"
-                    src={user2.src}
-                    alt="avatar"
-                  />
+                className="avatar-img rounded-circle"
+                src={`${IMAGE_URL}/uploads/customer-image/${user?.image}`}
+                alt="logo"
+              />
                 </a>
 
                 {/* <!-- Profile dropdown START --> */}

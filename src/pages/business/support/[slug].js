@@ -1,12 +1,31 @@
 import SidebarInformation from '@/components/Business/SidebarInformation'
 import BusinessView from '@/components/HOC/BusinessView'
 import useToken from '@/hooks/useToken';
+import BusinessService from '@/services/BusinessService';
 import { useBusinessAboutStore } from '@/store';
-import React from 'react'
+import React, { useEffect } from 'react'
 
-const SupportDetails = () => {
+const SupportDetails = ({slug}) => {
     const userProfile = useBusinessAboutStore((state) => state.businessProfile);
     const isAuthenticated = useToken();
+    
+
+    const payload = {
+        id: slug
+    }
+    const handleGetDetails = () => {
+        const res = BusinessService.supportView(payload).then((data) => {
+            console.log(data);
+            
+        })
+    }
+    
+
+    useEffect(() => {
+        if(isAuthenticated) {
+            handleGetDetails();
+        }
+    }, [slug, isAuthenticated])
   return (
     <BusinessView title="Details">
          <main>
@@ -159,3 +178,17 @@ const SupportDetails = () => {
 }
 
 export default SupportDetails
+
+export async function getServerSideProps(context) {
+    const { params, query } = context;
+    
+    const { slug } = params;
+    console.log(slug);
+   
+
+    return {
+        props: {
+            slug,
+        },
+    };
+}

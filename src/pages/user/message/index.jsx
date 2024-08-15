@@ -2,7 +2,7 @@ import UserView from "@/components/HOC/UserView";
 import UserSidebar from "@/components/User/UserSidebar";
 import useToken from "@/hooks/useToken";
 import CustomerService from "@/services/CustomerService";
-import { useAuthStore } from "@/store";
+import { useAuthStore, useUserStore } from "@/store";
 import { useCustomerStore } from "@/store/useCustomerStore";
 import React, { useEffect, useState } from "react";
 
@@ -10,8 +10,8 @@ const Message = () => {
   const userProfile = useAuthStore((state) => state.user);
   const isAuthenticated = useToken();
 
-  const allMessage = useCustomerStore((state) => state.messageAll);
-  const setMessage = useCustomerStore((state) => state.setMessageAll);
+  const allMessage = useUserStore((state) => state.allMessage);
+  const setMessage = useUserStore((state) => state.setMessage);
   const [viewMessage, setViewMessage] = useState(null);
 
   const getAllMessages = async () => {
@@ -149,12 +149,12 @@ const Message = () => {
                     </tbody>
                   </table>
                 </div>
-                {/* <!-- Pagination START --> */}
-                <div className="d-sm-flex justify-content-sm-between align-items-sm-center mt-4 mt-sm-3">
+                
+                {/* <div className="d-sm-flex justify-content-sm-between align-items-sm-center mt-4 mt-sm-3">
                   <p className="mb-0 text-center text-sm-start">
                     Showing 1 to 8 of 20 entries
                   </p>
-                  {/* <!-- Pagination --> */}
+                 
                   <nav
                     className="d-flex justify-content-center mb-0"
                     aria-label="navigation"
@@ -187,7 +187,7 @@ const Message = () => {
                       </li>
                     </ul>
                   </nav>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

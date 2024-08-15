@@ -18,6 +18,7 @@ import External from "@/components/User/ExternalApplication";
 import UserSecurity from "@/components/User/UserSecurity";
 import UserPrivacy from "@/components/User/UserPrivacy";
 import Link from "next/link";
+import UserAccountSidebar from "@/components/User/AccountSidebar";
 
 const AccountInfo = () => {
   const [value, setValue] = useState(0);
@@ -72,77 +73,12 @@ const AccountInfo = () => {
           <div class="container">
             <div class="row">
               <div class="col-xl-3">
-                <div class="d-sm-flex justify-content-sm-between align-items-center mb-2 border-bottom pb-2">
-                  <div class="d-flex align-items-center">
-                    <div class="avatar avatar-lg">
-                      <img
-                        class="avatar-img rounded-circle"
-                        src="../assets/img/user/arielle.jpg"
-                        alt="avatar"
-                      />
-                    </div>
-                    <div class="ms-2">
-                      <h5 class="mb-0">Arielle Norheim</h5>
-                      <p class="small mb-0 mb-sm-0 pb-0">
-                        arinorheim@hotmail.com
-                      </p>
-                    </div>
-                  </div>
-                </div>
-                <Box sx={{ flexGrow: 1, display: "flex" }}>
-                  <Tabs
-                    orientation="vertical"
-                    variant="scrollable"
-                    value={value}
-                    onChange={handleChange}
-                    aria-label="Vertical tabs example"
-                    sx={{
-                      borderRight: 1,
-                      borderColor: "divider",
-                      textAlign: "left",
-                    }}
-                  >
-                    <Tab
-                      icon={<InfoIcon />}
-                      iconPosition="start"
-                      label="Account Information"
-                    />
-                    <Tab
-                      icon={<NotificationsIcon />}
-                      iconPosition="start"
-                      label="Notification"
-                    />
-                    <Tab
-                      icon={<OpenInNewIcon />}
-                      iconPosition="start"
-                      label="External Application"
-                    />
-                    <Tab
-                      icon={<LockIcon />}
-                      iconPosition="start"
-                      label="Security Settings"
-                    />
-                    <Tab
-                      icon={<SecurityIcon />}
-                      iconPosition="start"
-                      label="Privacy Settings"
-                    />
-                    <Tab
-                      icon={<ManageAccountsIcon />}
-                      iconPosition="start"
-                      label="Activity Logs"
-                    />
-                    <Tab
-                      icon={<DeleteIcon />}
-                      iconPosition="start"
-                      label="Delete Account"
-                    />
-                  </Tabs>
-                </Box>
+                
+                <UserAccountSidebar />
               </div>
               <div class="col-xl-9">
                 {/* {handleComponent(value)} */}
-                {value === 0 && <AboutUser />}
+                <AboutUser />
                 {value === 1 && <UserNotification />}
                 {value === 2 && <External />}
                 {value === 3 && <UserSecurity />}

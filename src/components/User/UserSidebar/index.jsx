@@ -3,15 +3,17 @@ import user2 from "@/assets/img/user/user-4.jpg";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { IMAGE_URL } from "@/helpers/apiUrl";
+import { useCustomerAboutStore } from "@/store/useCustomerAboutStore";
 const UserSidebar = React.memo(({profile}) => {
-
+  const customer = useCustomerAboutStore((state) => state.customer);
+  const customerProfile = useCustomerAboutStore((state) => state.customerProfile);
   const router = useRouter();
 
   const lastPart = useMemo(() => {
     const pathParts = router.asPath.split('/');
     return pathParts[pathParts.length - 1] || pathParts[pathParts.length - 2];
   }, [router.asPath]);
-
+ 
   const links = useMemo(() => [
     { href: '/user/message', icon: 'fas fa-envelope-open', label: 'Messages', key: 'message' },
     { href: '/user/reviews', icon: 'fas fa-star', label: 'Reviews', key: 'reviews' },
@@ -30,13 +32,13 @@ const UserSidebar = React.memo(({profile}) => {
               <div className="avatar avatar-lg">
                 <img
                   className="avatar-img rounded-circle"
-                  src={profile?.business_logo ? `${IMAGE_URL}/uploads/customer-logo/${profile?.business_logo}` : user2.src}
+                  src={customerProfile?.image ? `${IMAGE_URL}/uploads/customer-image/${customerProfile?.image}` : user2.src}
                   alt="avatar"
                 />
               </div>
               <div className="ms-2">
-                <h5 className="mb-0">{profile?.name ?? "Jahangir Hossain"}</h5>
-                <p className="small mb-0 mb-sm-0 pb-0">{profile?.official_email ?? "account@redwood.com"}</p>
+                <h5 className="mb-0">{customer?.first_name ?? "Jahangir Hossain"}</h5>
+                <p className="small mb-0 mb-sm-0 pb-0">{customer?.email ?? "account@redwood.com"}</p>
               </div>
             </div>
           </div> 

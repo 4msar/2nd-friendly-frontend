@@ -7,11 +7,13 @@ export const useCustomerStore = create(
       messageAll: [],
       careerAll: [],
       supportAll: [],
+      notificationSetting: null,
 
       setCustomerProfile: (customerProfile) => set({customerProfile}),
       setMessageAll: (messageAll) => set({messageAll}),
       setCareerAll: (careerAll) => set({careerAll}),
       setSupportAll: (supportAll) => set({supportAll}),
+      setNotificationSetting: (notificationSetting) => set({notificationSetting}),
 
       setAboutAllData: ({allState, customerProfile}) =>{
         set({ allState, customerProfile })

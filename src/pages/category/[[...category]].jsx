@@ -11,10 +11,12 @@ const CategoryPage = () => {
   const items = category_items;
   const { query } = route;
 
+  // console.log(query);
+
   return (
     <main>
       <Head>
-        <title>{query.category} | 2nd A Friendly</title>
+        <title>{capitalize(query.category[query.category?.length - 1])} | 2nd A Friendly</title>
       </Head>
       <section className="pt-4 pb-3  bg-light mb-4">
         <div className="container">
@@ -26,10 +28,12 @@ const CategoryPage = () => {
                     <i className="bi bi-house me-1"></i> Home
                   </a>
                 </li>
-                <li className="breadcrumb-item">{capitalize(query.category)}</li>
+                <li className="breadcrumb-item">
+                {capitalize(query.category[query.category?.length - 1])}
+                </li>
               </ol>
               <h4 className="fs-5 pb-0 mb-0 fw-normal">
-                {capitalize(query.category)}
+                {capitalize(query.category[query.category?.length - 1])}
               </h4>
             </div>
           </div>
@@ -179,7 +183,7 @@ const CategoryPage = () => {
                           </div>
                           <div className="ms-2">
                             <h5 className="mb-0">
-                              <a href="listing-detail.php">
+                              <a href={`/category/details/464584`}>
                                 Palatial Epicurean Oasis
                               </a>
                             </h5>
@@ -298,7 +302,7 @@ const CategoryPage = () => {
                                 Order
                               </button>
                             </a>
-                            <a href="book-restaurant.php">
+                            <a href="/book-restaurant">
                               <button className="btn btn-sm btn-outline-dark border-dark-subtle me-2">
                                 Reservation
                               </button>
@@ -405,7 +409,7 @@ const CategoryPage = () => {
                           </div>
                           <div className="ms-2">
                             <h5 className="mb-0">
-                              <a href="listing-detail.php">
+                              <a href={`/category/details/464584`}>
                                 Delectable Dining Domain
                               </a>
                             </h5>
@@ -576,7 +580,7 @@ const CategoryPage = () => {
                   <CategoryItemBox item={item} index={index} />
                 ))}
             </div>
-            <div className="row g-3">
+            {/* <div className="row g-3">
               <div className="col-12">
                 <nav
                   className="mt-4 d-flex justify-content-center"
@@ -616,10 +620,167 @@ const CategoryPage = () => {
                   </ul>
                 </nav>
               </div>
-            </div>
+            </div> */}
           </div>
         </div>
       </section>
+      <div
+        className="modal fade"
+        id="SendMassage"
+        tabindex="-1"
+        aria-labelledby="SendMassage"
+        aria-hidden="true"
+      >
+        <div className="modal-dialog modal-dialog-scrollable modal-md">
+          <div className="modal-content">
+            <div className="header bg-transparent border-bottom p-3">
+              <h5 className="header-title text-danger">
+                Send Massage
+                <button
+                  style={{ float: "right", fontSize: "12px" }}
+                  type="button"
+                  className="btn-close justify-content-end float-right"
+                  data-bs-dismiss="modal"
+                  aria-label="Close"
+                ></button>
+              </h5>
+              <span>
+                We'll remind you when to join based on live wait times
+              </span>
+            </div>
+            <div className="modal-body">
+              <form className="row g-3 needs-validation" noValidate>
+                <div className="col-6">
+                  <label
+                    for="fast_name"
+                    className="form-label fw-bold text-dark"
+                  >
+                    Fast Name <span className="star">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control fast_name"
+                    id="fast_name"
+                    title="fast_name"
+                    placeholder="John"
+                    required
+                  />
+                  <div className="valid-feedback">Looks Goods</div>
+                  <div className="invalid-feedback">
+                    Please enter fast name.
+                  </div>
+                </div>
+                <div className="col-6">
+                  <label
+                    for="last_name"
+                    className="form-label fw-bold text-dark"
+                  >
+                    Last name <span className="star">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control last_name"
+                    id="last_name"
+                    title="last_name"
+                    placeholder="Doe"
+                    required
+                  />
+                  <div className="valid-feedback">Looks Goods</div>
+                  <div className="invalid-feedback">
+                    Please enter last name.
+                  </div>
+                </div>
+                <div className="col-12">
+                  <label
+                    for="email_address"
+                    className="form-label fw-bold text-dark"
+                  >
+                    Email Address <span className="star">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control email_address"
+                    id="email_address"
+                    title="email_address"
+                    placeholder="johndoe@gmail.com"
+                    required
+                  />
+                  <div className="valid-feedback">Looks Goods</div>
+                  <div className="invalid-feedback">
+                    Please enter your email address.
+                  </div>
+                </div>
+                <div className="col-12">
+                  <label
+                    for="mobile_number"
+                    className="form-label fw-bold text-dark"
+                  >
+                    Mobile number <span className="star">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control mobile_number"
+                    id="mobile_number"
+                    title="mobile_number"
+                    placeholder="+1-237-3456"
+                    required
+                  />
+                  <div className="valid-feedback">Looks Goods</div>
+                  <div className="invalid-feedback">
+                    Please enter your mobile number.
+                  </div>
+                </div>
+                <div className="col-12">
+                  <label
+                    for="your_massage"
+                    className="form-label fw-bold text-dark"
+                  >
+                    Your Massage <span className="star">*</span>
+                  </label>
+                  <textarea
+                    type="text"
+                    className="form-control your_massage"
+                    id="your_massage"
+                    title="your_massage"
+                    placeholder="Share a few details so we can get you in touch with the business"
+                    required
+                  ></textarea>
+                  <div className="valid-feedback">Looks Goods</div>
+                  <div className="invalid-feedback">
+                    Please enter your massage.
+                  </div>
+                </div>
+                <p className="mt-0 mb-0 pt-2 pb-0">
+                  We will send your information to the business to help get you
+                  a response. By continuing you agree 2nd A friendly{" "}
+                  <a href="terms-and-condition.php">
+                    <span className="text-primary">Terms of service</span>
+                  </a>{" "}
+                  and{" "}
+                  <a href="privacy-policy.php">
+                    <span className="text-primary">Privecy Policy.</span>
+                  </a>
+                </p>
+                <div className="col-6">
+                  <div className="mt-3 ms-1">
+                    <span>
+                      Already have an account?
+                      <a href="sign-in.php"> Sign in</a>
+                    </span>
+                  </div>
+                </div>
+                <div className="col-6">
+                  <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+                    <button type="submit" className=" btn btn-primary-soft">
+                      Send Massage
+                    </button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
   );
 };

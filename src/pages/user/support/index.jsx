@@ -2,15 +2,15 @@ import UserView from "@/components/HOC/UserView";
 import UserSidebar from "@/components/User/UserSidebar";
 import useToken from "@/hooks/useToken";
 import CustomerService from "@/services/CustomerService";
-import { useAuthStore, useCustomerStore } from "@/store";
+import { useAuthStore, useCustomerStore, useUserStore } from "@/store";
 import React, { useEffect, useState } from "react";
 
 const UserSupport = () => {
   const userProfile = useAuthStore((state) => state.user);
   const isAuthenticated = useToken();
 
-  const allSupport = useCustomerStore((state) => state.supportAll);
-  const setSupport = useCustomerStore((state) => state.setSupportAll);
+  const allSupport = useUserStore((state) => state.allSupport);
+  const setSupport = useUserStore((state) => state.setAllSupport);
   const [viewSupport, setViewSupport] = useState(null);
 
   const getAllSupports = async () => {
@@ -106,43 +106,54 @@ const UserSupport = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {allSupport?.length > 0 &&
-                        allSupport.map((support, index) => (
-                          <tr key={key}>
-                            <td>January 26, 2024</td>
-                            <td>
-                              <h6 className="mt-2 mt-lg-0 mb-0">
-                                <a href="/user/support-detail">
-                                  Technical Issue
+                      {allSupport?.length ? (
+                        <>
+                          {allSupport.map((support, index) => (
+                            <tr key={key}>
+                              <td>January 26, 2024</td>
+                              <td>
+                                <h6 className="mt-2 mt-lg-0 mb-0">
+                                  <a href="/user/support-detail">
+                                    Technical Issue
+                                  </a>
+                                </h6>
+                              </td>
+                              <td>#102356</td>
+                              <td className="text-center text-sm-start">
+                                <span className="badge bg-success bg-opacity-10 text-success">
+                                  Closed
+                                </span>
+                              </td>
+                              <td>May 21, 2023</td>
+                              <td>
+                                <a
+                                  href="/user/support-detail"
+                                  className="text-black"
+                                >
+                                  <i className="far fa-fw fa-eye"></i>
                                 </a>
-                              </h6>
-                            </td>
-                            <td>#102356</td>
-                            <td className="text-center text-sm-start">
-                              <span className="badge bg-success bg-opacity-10 text-success">
-                                Closed
-                              </span>
-                            </td>
-                            <td>May 21, 2023</td>
-                            <td>
-                              <a
-                                href="/user/support-detail"
-                                className="text-black"
-                              >
-                                <i className="far fa-fw fa-eye"></i>
-                              </a>
-                            </td>
-                          </tr>
-                        ))}
+                              </td>
+                            </tr>
+                          ))}
+                        </>
+                      ) : (
+                        <tr>
+                          <td colSpan={6}>
+                            <h4 style={{ textAlign: "center" }}>
+                              Support not found!
+                            </h4>
+                          </td>
+                        </tr>
+                      )}
                     </tbody>
                   </table>
                 </div>
-                {/* <!-- Pagination START --> */}
-                <div className="d-sm-flex justify-content-sm-between align-items-sm-center mt-4 mt-sm-3">
+
+                {/* <div className="d-sm-flex justify-content-sm-between align-items-sm-center mt-4 mt-sm-3">
                   <p className="mb-0 text-center text-sm-start">
                     Showing 1 to 8 of 20 entries
                   </p>
-                  {/* <!-- Pagination --> */}
+                  
                   <nav
                     className="d-flex justify-content-center mb-0"
                     aria-label="navigation"
@@ -175,7 +186,7 @@ const UserSupport = () => {
                       </li>
                     </ul>
                   </nav>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

@@ -1,11 +1,14 @@
 import AccountSidebar from '@/components/Business/AccountSidebar'
-import SecuritySetting from '@/components/Business/SecuritySetting'
+import PrivacySetting from '@/components/Business/PrivacySetting'
 import BusinessView from '@/components/HOC/BusinessView'
+import UserView from '@/components/HOC/UserView'
+import UserAccountSidebar from '@/components/User/AccountSidebar'
+import UserPrivacy from '@/components/User/UserPrivacy'
 import React from 'react'
 
-const Security = () => {
+const Privacy = () => {
   return (
-    <BusinessView title="Security Settings">
+    <UserView title="Privacy Settings">
     <main>
       <section class="p-0 m-0">
         <div class="container">
@@ -19,7 +22,7 @@ const Security = () => {
                   data-bs-target="#offcanvasSidebar"
                   aria-controls="offcanvasSidebar"
                 >
-                  <i class="fas fa-sliders-h"></i> Security Settings
+                  <i class="fas fa-sliders-h"></i> Privacy Settings
                 </button>
               </div>
             </div>
@@ -30,7 +33,7 @@ const Security = () => {
         <div class="container">
           <div class="row">
             <div class="col-12">
-              <h5 class="text-danger mb-2">Security Settings</h5>
+              <h5 class="text-danger mb-2">Privacy Settings</h5>
               <div class="d-flex justify-content-left">
                 <nav aria-label="breadcrumb">
                   <ol class="breadcrumb breadcrumb-dots my-0 py-0">
@@ -38,7 +41,7 @@ const Security = () => {
                       <a href="index.php">Home</a>
                     </li>
                     <li class="breadcrumb-item">Business</li>
-                    <li class="breadcrumb-item">Security Settings</li>
+                    <li class="breadcrumb-item">Privacy Settings</li>
                   </ol>
                 </nav>
               </div>
@@ -50,19 +53,19 @@ const Security = () => {
         <div class="container">
           <div class="row">
             <div class="col-xl-3">
-              <AccountSidebar />
+              <UserAccountSidebar />
               
             </div>
             <div class="col-xl-9">
-              <SecuritySetting />
+              <UserPrivacy />
               
             </div>
           </div>
         </div>
       </section>
     </main>
-    </BusinessView>
+    </UserView>
   )
 }
 
-export default Security
+export default Privacy

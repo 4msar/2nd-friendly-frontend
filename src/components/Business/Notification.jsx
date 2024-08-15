@@ -1,6 +1,44 @@
-import React from "react";
+import useSnackbar from "@/hooks/useSnackbar";
+import useToken from "@/hooks/useToken";
+import BusinessService from "@/services/BusinessService";
+import { useBusinessAboutStore } from "@/store";
+import React, { useEffect } from "react";
 
 const Notification = () => {
+  const isAuthenticated = useToken();
+  const notificationSetting = useBusinessAboutStore((store) => store.notificationSetting);
+  const setNotificationSetting = useBusinessAboutStore((store) => store.setNotificationSetting);
+
+  const snackbar = useSnackbar();
+
+
+  const handleGetNotificationAll = () => {
+    const res = BusinessService.settingsBusinessNotificationAll().then((data) => {
+      console.log(data.data);
+      setNotificationSetting(data.data.sinExistdata[0]);
+    })
+  }
+
+  const handleUpdateNotification = (data) => {
+    const payload = {
+      ...data
+    }
+
+    const res = BusinessService.settingsBusinessNotificationUpdate(payload).then((data) => {
+      if(data.data.status === 'success') { 
+        snackbar(data.data.message, { variant: "success" });
+        handleGetNotificationAll(); 
+      }
+    })
+  }
+
+  useEffect(() => {
+    if(isAuthenticated) {
+      handleGetNotificationAll();
+    }
+  }, [isAuthenticated]);
+
+  console.log(notificationSetting);
   return (
     <div class="row">
       <div class="col-md-12 col-sm-12 ">

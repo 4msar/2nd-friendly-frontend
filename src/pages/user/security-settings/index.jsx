@@ -1,11 +1,14 @@
 import AccountSidebar from '@/components/Business/AccountSidebar'
 import SecuritySetting from '@/components/Business/SecuritySetting'
 import BusinessView from '@/components/HOC/BusinessView'
+import UserView from '@/components/HOC/UserView'
+import UserAccountSidebar from '@/components/User/AccountSidebar'
+import UserSecurity from '@/components/User/UserSecurity'
 import React from 'react'
 
 const Security = () => {
   return (
-    <BusinessView title="Security Settings">
+    <UserView title="Security Settings">
     <main>
       <section class="p-0 m-0">
         <div class="container">
@@ -50,18 +53,18 @@ const Security = () => {
         <div class="container">
           <div class="row">
             <div class="col-xl-3">
-              <AccountSidebar />
+              <UserAccountSidebar />
               
             </div>
             <div class="col-xl-9">
-              <SecuritySetting />
+              <UserSecurity />
               
             </div>
           </div>
         </div>
       </section>
     </main>
-    </BusinessView>
+    </UserView>
   )
 }
 

@@ -42,8 +42,14 @@ const SecuritySetting = () => {
         });
         setLoading(false);
         setFieldError("");
+        setPassword({
+          old_password: "",
+          password: "",
+          confirm_password: "",
+        });
       } else {
-        setFieldError(data.data.fieldError)
+        setFieldError(data.data.fieldErrors);
+        setLoading(false);
       }
     });
   };
@@ -62,6 +68,8 @@ const SecuritySetting = () => {
     };
 
     const res = BusinessService.phoneChange(payload).then((data) => {
+      console.log(data.data);
+      
       if (data.data.status === "success") {
         swal(data.data.message, {
           icon: "success",
@@ -69,7 +77,8 @@ const SecuritySetting = () => {
         setLoading(false);
         setFieldError("");
       } else {
-        setFieldError(data.data.fieldError)
+        setFieldError(data.data.fieldErrors);
+        setLoading(false);
       }
     });
   }
@@ -98,16 +107,23 @@ const SecuritySetting = () => {
                 placeholder="************"
                 value={password?.old_password}
                 onChange={(e) =>
+                {
                   setPassword({
                     ...password,
                     old_password: e.target.value,
+                  });
+                  setFieldError({
+                    ...fieldError,
+                    old_password: ""
                   })
+                }
+                  
                 }
                 required
               />
               <div class="valid-feedback">Looks good!</div>
               {fieldError?.old_password && (
-                <div class="text-danger">Please enter old password.</div>
+                <div class="text-danger">{fieldError.old_password.message}</div>
               )}
             </div>
             <div class="mb-2 pt-2">
@@ -122,16 +138,22 @@ const SecuritySetting = () => {
                 placeholder="************"
                 value={password?.password}
                 onChange={(e) =>
+                {
                   setPassword({
                     ...password,
                     password: e.target.value,
+                  });
+                  setFieldError({
+                    ...fieldError,
+                    password: ""
                   })
+                }
                 }
                 required
               />
               <div class="valid-feedback">Looks good!</div>
               {fieldError?.password && (
-                <div class="text-danger">Please enter password.</div>
+                <div class="text-danger">{fieldError.password.message}</div>
               )}
             </div>
             <div class="mb-2 pt-2">
@@ -146,16 +168,22 @@ const SecuritySetting = () => {
                 placeholder="************"
                 value={password?.confirm_password}
                 onChange={(e) =>
+                 {
                   setPassword({
                     ...password,
                     confirm_password: e.target.value,
+                  });
+                  setFieldError({
+                    ...fieldError,
+                    confirm_password: ""
                   })
+                 }
                 }
                 required
               />
               <div class="valid-feedback">Looks good!</div>
               {fieldError?.confirm_password && (
-                <div class="text-danger">Please enter confirm password.</div>
+                <div class="text-danger">{fieldError.confirm_password.message}</div>
               )}
             </div>
             <div class="mb-2 pt-2">

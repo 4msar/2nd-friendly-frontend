@@ -101,7 +101,7 @@ const Amenities = () => {
           <div className="container">
             <div className="row">
               <div className="col-12">
-                <h5 className="text-danger mb-2">Categories & Services</h5>
+                <h5 className="text-danger mb-2">Amenities</h5>
                 <div className="d-flex justify-content-left">
                   <nav aria-label="breadcrumb">
                     <ol className="breadcrumb breadcrumb-dots my-0 py-0">

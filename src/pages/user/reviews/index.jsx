@@ -1,8 +1,30 @@
 import UserView from "@/components/HOC/UserView";
 import UserSidebar from "@/components/User/UserSidebar";
-import React from "react";
+import useToken from "@/hooks/useToken";
+import CustomerService from "@/services/CustomerService";
+import { useAuthStore, useUserStore } from "@/store";
+import React, { useEffect, useState } from "react";
 
 const Reviews = () => {
+  const userProfile = useAuthStore((state) => state.user);
+  const isAuthenticated = useToken();
+
+  const allReview = useUserStore((state) => state.allReview);
+  const setReview = useUserStore((state) => state.setReview);
+  const [viewMessage, setViewMessage] = useState(null);
+
+  const getAllReview = async () => {
+    const res = await CustomerService.reviewAll().then((data) => {
+      console.log(data);
+      setReview(data.data.allMessage);
+    });
+  };
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      getAllReview();
+    }
+  }, [isAuthenticated]);
   return (
     <UserView title="Reviews">
       <main>
@@ -49,7 +71,6 @@ const Reviews = () => {
           <div className="container">
             <div className="row">
               <div className="col-xl-3">
-                
                 <UserSidebar />
               </div>
               <div className="col-xl-9">
@@ -63,535 +84,91 @@ const Reviews = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>
-                          <div className="d-flex align-items-center">
-                            <div className="w-60px">
-                              <img
-                                src="../assets/img/company-logo/1.svg"
-                                className="rounded-circle"
-                                alt=""
-                              />
-                            </div>
-                            <div className="mb-0 ms-2">
-                              <h6 className="mb-0">
-                                <a href="../listing-detail.php" target="_blank">
-                                  Serenade Spiritsand Sips Salon
-                                </a>
-                              </h6>
-                              <div className="d-sm-flex small">
-                                <span className="badge bg-danger bg-opacity-10 text-danger">
-                                  Closed &nbsp; until 11:00 PM
-                                </span>
+                      {allReview?.length > 0 ? (
+                        <tr>
+                          <td>
+                            <div className="d-flex align-items-center">
+                              <div className="w-60px">
+                                <img
+                                  src="../assets/img/company-logo/1.svg"
+                                  className="rounded-circle"
+                                  alt=""
+                                />
+                              </div>
+                              <div className="mb-0 ms-2">
+                                <h6 className="mb-0">
+                                  <a
+                                    href="../listing-detail.php"
+                                    target="_blank"
+                                  >
+                                    Serenade Spiritsand Sips Salon
+                                  </a>
+                                </h6>
+                                <div className="d-sm-flex small">
+                                  <span className="badge bg-danger bg-opacity-10 text-danger">
+                                    Closed &nbsp; until 11:00 PM
+                                  </span>
+                                </div>
                               </div>
                             </div>
-                          </div>
-                        </td>
-                        <td>
-                          <ul className="list-inline mb-0">
-                            <li className="list-inline-item me-0 small">
-                              <i className="fas fa-star text-warning"></i>
-                            </li>
-                            <li className="list-inline-item me-0 small">
-                              <i className="fas fa-star text-warning"></i>
-                            </li>
-                            <li className="list-inline-item me-0 small">
-                              <i className="fas fa-star text-warning"></i>
-                            </li>
-                            <li className="list-inline-item me-0 small">
-                              <i className="fas fa-star text-warning"></i>
-                            </li>
-                            <li className="list-inline-item me-0 small">
-                              <i className="fas fa-star text-warning"></i>
-                            </li>
-                          </ul>
-                        </td>
-                        <td>
-                          <a
-                            href="#"
-                            data-bs-target="#EditReview"
-                            data-bs-toggle="modal"
-                            className="btn btn-xs btn-blue-soft btn-bg-xs mb-0"
-                          >
-                            <i className="fas fa-edit"></i>
-                          </a>
-                          <a
-                            href="#"
-                            data-bs-target="#viewReview"
-                            data-bs-toggle="modal"
-                            className="btn btn-xs btn-success-soft mb-0"
-                          >
-                            <i className="far fa-fw fa-eye"></i>
-                          </a>
-                          <button className="btn btn-xs btn-danger-soft mb-0">
-                            <i className="fas fa-fw fa-times"></i>
-                          </button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div className="d-flex align-items-center">
-                            <div className="w-60px">
-                              <img
-                                src="../assets/img/company-logo/2.svg"
-                                className="rounded-circle"
-                                alt=""
-                              />
-                            </div>
-                            <div className="mb-0 ms-2">
-                              <h6 className="mb-0">
-                                <a href="../listing-detail.php" target="_blank">
-                                  Serenade Spiritsand Sips Salon
-                                </a>
-                              </h6>
-                              <div className="d-sm-flex small">
-                                <span className="badge bg-blue bg-opacity-10 text-success">
-                                  Open Until 09:22 am{" "}
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <ul className="list-inline mb-0">
-                            <li className="list-inline-item me-0 small">
-                              <i className="fas fa-star text-warning"></i>
-                            </li>
-                            <li className="list-inline-item me-0 small">
-                              <i className="fas fa-star text-warning"></i>
-                            </li>
-                            <li className="list-inline-item me-0 small">
-                              <i className="fas fa-star text-warning"></i>
-                            </li>
-                            <li className="list-inline-item me-0 small">
-                              <i className="fas fa-star text-warning"></i>
-                            </li>
-                            <li className="list-inline-item me-0 small">
-                              <i className="fas fa-star text-warning"></i>
-                            </li>
-                          </ul>
-                        </td>
-                        <td>
-                          <a
-                            href="#"
-                            data-bs-target="#EditReview"
-                            data-bs-toggle="modal"
-                            className="btn btn-xs btn-blue-soft btn-bg-xs mb-0"
-                          >
-                            <i className="fas fa-edit"></i>
-                          </a>
-                          <a
-                            href="#"
-                            data-bs-target="#viewReview"
-                            data-bs-toggle="modal"
-                            className="btn btn-xs btn-success-soft mb-0"
-                          >
-                            <i className="far fa-fw fa-eye"></i>
-                          </a>
-                          <button className="btn btn-xs btn-danger-soft mb-0">
-                            <i className="fas fa-fw fa-times"></i>
-                          </button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div className="d-flex align-items-center">
-                            <div className="w-60px">
-                              <img
-                                src="../assets/img/company-logo/3.svg"
-                                className="rounded-circle"
-                                alt=""
-                              />
-                            </div>
-                            <div className="mb-0 ms-2">
-                              <h6 className="mb-0">
-                                <a href="../listing-detail.php" target="_blank">
-                                  Serenade Spiritsand Sips Salon
-                                </a>
-                              </h6>
-                              <div className="d-sm-flex small">
-                                <span className="badge bg-danger bg-opacity-10 text-danger">
-                                  Closed &nbsp; until 11:00 PM
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <ul className="list-inline mb-0">
-                            <li className="list-inline-item me-0 small">
-                              <i className="fas fa-star text-warning"></i>
-                            </li>
-                            <li className="list-inline-item me-0 small">
-                              <i className="fas fa-star text-warning"></i>
-                            </li>
-                            <li className="list-inline-item me-0 small">
-                              <i className="fas fa-star text-warning"></i>
-                            </li>
-                            <li className="list-inline-item me-0 small">
-                              <i className="fas fa-star text-warning"></i>
-                            </li>
-                            <li className="list-inline-item me-0 small">
-                              <i className="fas fa-star text-warning"></i>
-                            </li>
-                          </ul>
-                        </td>
-                        <td>
-                          <a
-                            href="#"
-                            data-bs-target="#EditReview"
-                            data-bs-toggle="modal"
-                            className="btn btn-xs btn-blue-soft btn-bg-xs mb-0"
-                          >
-                            <i className="fas fa-edit"></i>
-                          </a>
-                          <a
-                            href="#"
-                            data-bs-target="#viewReview"
-                            data-bs-toggle="modal"
-                            className="btn btn-xs btn-success-soft mb-0"
-                          >
-                            <i className="far fa-fw fa-eye"></i>
-                          </a>
-                          <button className="btn btn-xs btn-danger-soft mb-0">
-                            <i className="fas fa-fw fa-times"></i>
-                          </button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div className="d-flex align-items-center">
-                            <div className="w-60px">
-                              <img
-                                src="../assets/img/company-logo/3.svg"
-                                className="rounded-circle"
-                                alt=""
-                              />
-                            </div>
-                            <div className="mb-0 ms-2">
-                              <h6 className="mb-0">
-                                <a href="../listing-detail.php" target="_blank">
-                                  Serenade Spiritsand Sips Salon
-                                </a>
-                              </h6>
-                              <div className="d-sm-flex small">
-                                <span className="badge bg-blue bg-opacity-10 text-success">
-                                  Open Until 09:22 am{" "}
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <ul className="list-inline mb-0">
-                            <li className="list-inline-item me-0 small">
-                              <i className="fas fa-star text-warning"></i>
-                            </li>
-                            <li className="list-inline-item me-0 small">
-                              <i className="fas fa-star text-warning"></i>
-                            </li>
-                            <li className="list-inline-item me-0 small">
-                              <i className="fas fa-star text-warning"></i>
-                            </li>
-                            <li className="list-inline-item me-0 small">
-                              <i className="fas fa-star text-warning"></i>
-                            </li>
-                            <li className="list-inline-item me-0 small">
-                              <i className="fas fa-star text-warning"></i>
-                            </li>
-                          </ul>
-                        </td>
-                        <td>
-                          <a
-                            href="#"
-                            data-bs-target="#EditReview"
-                            data-bs-toggle="modal"
-                            className="btn btn-xs btn-blue-soft btn-bg-xs mb-0"
-                          >
-                            <i className="fas fa-edit"></i>
-                          </a>
-                          <a
-                            href="#"
-                            data-bs-target="#viewReview"
-                            data-bs-toggle="modal"
-                            className="btn btn-xs btn-success-soft mb-0"
-                          >
-                            <i className="far fa-fw fa-eye"></i>
-                          </a>
-                          <button className="btn btn-xs btn-danger-soft mb-0">
-                            <i className="fas fa-fw fa-times"></i>
-                          </button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div className="d-flex align-items-center">
-                            <div className="w-60px">
-                              <img
-                                src="../assets/img/company-logo/4.svg"
-                                className="rounded-circle"
-                                alt=""
-                              />
-                            </div>
-                            <div className="mb-0 ms-2">
-                              <h6 className="mb-0">
-                                <a href="../listing-detail.php" target="_blank">
-                                  Serenade Spiritsand Sips Salon
-                                </a>
-                              </h6>
-                              <div className="d-sm-flex small">
-                                <span className="badge bg-danger bg-opacity-10 text-danger">
-                                  Closed &nbsp; until 11:00 PM
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <ul className="list-inline mb-0">
-                            <li className="list-inline-item me-0 small">
-                              <i className="fas fa-star text-warning"></i>
-                            </li>
-                            <li className="list-inline-item me-0 small">
-                              <i className="fas fa-star text-warning"></i>
-                            </li>
-                            <li className="list-inline-item me-0 small">
-                              <i className="fas fa-star text-warning"></i>
-                            </li>
-                            <li className="list-inline-item me-0 small">
-                              <i className="fas fa-star text-warning"></i>
-                            </li>
-                            <li className="list-inline-item me-0 small">
-                              <i className="fas fa-star text-warning"></i>
-                            </li>
-                          </ul>
-                        </td>
-                        <td>
-                          <a
-                            href="#"
-                            data-bs-target="#EditReview"
-                            data-bs-toggle="modal"
-                            className="btn btn-xs btn-blue-soft btn-bg-xs mb-0"
-                          >
-                            <i className="fas fa-edit"></i>
-                          </a>
-                          <a
-                            href="#"
-                            data-bs-target="#viewReview"
-                            data-bs-toggle="modal"
-                            className="btn btn-xs btn-success-soft mb-0"
-                          >
-                            <i className="far fa-fw fa-eye"></i>
-                          </a>
-                          <button className="btn btn-xs btn-danger-soft mb-0">
-                            <i className="fas fa-fw fa-times"></i>
-                          </button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div className="d-flex align-items-center">
-                            <div className="w-60px">
-                              <img
-                                src="../assets/img/company-logo/5.svg"
-                                className="rounded-circle"
-                                alt=""
-                              />
-                            </div>
-                            <div className="mb-0 ms-2">
-                              <h6 className="mb-0">
-                                <a href="../listing-detail.php" target="_blank">
-                                  Serenade Spiritsand Sips Salon
-                                </a>
-                              </h6>
-                              <div className="d-sm-flex small">
-                                <span className="badge bg-blue bg-opacity-10 text-success">
-                                  Open Until 09:22 am{" "}
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <ul className="list-inline mb-0">
-                            <li className="list-inline-item me-0 small">
-                              <i className="fas fa-star text-warning"></i>
-                            </li>
-                            <li className="list-inline-item me-0 small">
-                              <i className="fas fa-star text-warning"></i>
-                            </li>
-                            <li className="list-inline-item me-0 small">
-                              <i className="fas fa-star text-warning"></i>
-                            </li>
-                            <li className="list-inline-item me-0 small">
-                              <i className="fas fa-star text-warning"></i>
-                            </li>
-                            <li className="list-inline-item me-0 small">
-                              <i className="fas fa-star text-warning"></i>
-                            </li>
-                          </ul>
-                        </td>
-                        <td>
-                          <a
-                            href="#"
-                            data-bs-target="#EditReview"
-                            data-bs-toggle="modal"
-                            className="btn btn-xs btn-blue-soft btn-bg-xs mb-0"
-                          >
-                            <i className="fas fa-edit"></i>
-                          </a>
-                          <a
-                            href="#"
-                            data-bs-target="#viewReview"
-                            data-bs-toggle="modal"
-                            className="btn btn-xs btn-success-soft mb-0"
-                          >
-                            <i className="far fa-fw fa-eye"></i>
-                          </a>
-                          <button className="btn btn-xs btn-danger-soft mb-0">
-                            <i className="fas fa-fw fa-times"></i>
-                          </button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div className="d-flex align-items-center">
-                            <div className="w-60px">
-                              <img
-                                src="../assets/img/company-logo/6.svg"
-                                className="rounded-circle"
-                                alt=""
-                              />
-                            </div>
-                            <div className="mb-0 ms-2">
-                              <h6 className="mb-0">
-                                <a href="../listing-detail.php" target="_blank">
-                                  Serenade Spiritsand Sips Salon
-                                </a>
-                              </h6>
-                              <div className="d-sm-flex small">
-                                <span className="badge bg-danger bg-opacity-10 text-danger">
-                                  Closed &nbsp; until 11:00 PM
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <ul className="list-inline mb-0">
-                            <li className="list-inline-item me-0 small">
-                              <i className="fas fa-star text-warning"></i>
-                            </li>
-                            <li className="list-inline-item me-0 small">
-                              <i className="fas fa-star text-warning"></i>
-                            </li>
-                            <li className="list-inline-item me-0 small">
-                              <i className="fas fa-star text-warning"></i>
-                            </li>
-                            <li className="list-inline-item me-0 small">
-                              <i className="fas fa-star text-warning"></i>
-                            </li>
-                            <li className="list-inline-item me-0 small">
-                              <i className="fas fa-star text-warning"></i>
-                            </li>
-                          </ul>
-                        </td>
-                        <td>
-                          <a
-                            href="#"
-                            data-bs-target="#EditReview"
-                            data-bs-toggle="modal"
-                            className="btn btn-xs btn-blue-soft btn-bg-xs mb-0"
-                          >
-                            <i className="fas fa-edit"></i>
-                          </a>
-                          <a
-                            href="#"
-                            data-bs-target="#viewReview"
-                            data-bs-toggle="modal"
-                            className="btn btn-xs btn-success-soft mb-0"
-                          >
-                            <i className="far fa-fw fa-eye"></i>
-                          </a>
-                          <button className="btn btn-xs btn-danger-soft mb-0">
-                            <i className="fas fa-fw fa-times"></i>
-                          </button>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div className="d-flex align-items-center">
-                            <div className="w-60px">
-                              <img
-                                src="../assets/img/company-logo/7.svg"
-                                className="rounded-circle"
-                                alt=""
-                              />
-                            </div>
-                            <div className="mb-0 ms-2">
-                              <h6 className="mb-0">
-                                <a href="../listing-detail.php" target="_blank">
-                                  Serenade Spiritsand Sips Salon
-                                </a>
-                              </h6>
-                              <div className="d-sm-flex small">
-                                <span className="badge bg-blue bg-opacity-10 text-success">
-                                  Open Until 09:22 am{" "}
-                                </span>
-                              </div>
-                            </div>
-                          </div>
-                        </td>
-                        <td>
-                          <ul className="list-inline mb-0">
-                            <li className="list-inline-item me-0 small">
-                              <i className="fas fa-star text-warning"></i>
-                            </li>
-                            <li className="list-inline-item me-0 small">
-                              <i className="fas fa-star text-warning"></i>
-                            </li>
-                            <li className="list-inline-item me-0 small">
-                              <i className="fas fa-star text-warning"></i>
-                            </li>
-                            <li className="list-inline-item me-0 small">
-                              <i className="fas fa-star text-warning"></i>
-                            </li>
-                            <li className="list-inline-item me-0 small">
-                              <i className="fas fa-star text-warning"></i>
-                            </li>
-                          </ul>
-                        </td>
-                        <td>
-                          <a
-                            href="#"
-                            data-bs-target="#EditReview"
-                            data-bs-toggle="modal"
-                            className="btn btn-xs btn-blue-soft btn-bg-xs mb-0"
-                          >
-                            <i className="fas fa-edit"></i>
-                          </a>
-                          <a
-                            href="#"
-                            data-bs-target="#viewReview"
-                            data-bs-toggle="modal"
-                            className="btn btn-xs btn-success-soft mb-0"
-                          >
-                            <i className="far fa-fw fa-eye"></i>
-                          </a>
-                          <button className="btn btn-xs btn-danger-soft mb-0">
-                            <i className="fas fa-fw fa-times"></i>
-                          </button>
-                        </td>
-                      </tr>
+                          </td>
+                          <td>
+                            <ul className="list-inline mb-0">
+                              <li className="list-inline-item me-0 small">
+                                <i className="fas fa-star text-warning"></i>
+                              </li>
+                              <li className="list-inline-item me-0 small">
+                                <i className="fas fa-star text-warning"></i>
+                              </li>
+                              <li className="list-inline-item me-0 small">
+                                <i className="fas fa-star text-warning"></i>
+                              </li>
+                              <li className="list-inline-item me-0 small">
+                                <i className="fas fa-star text-warning"></i>
+                              </li>
+                              <li className="list-inline-item me-0 small">
+                                <i className="fas fa-star text-warning"></i>
+                              </li>
+                            </ul>
+                          </td>
+                          <td>
+                            <a
+                              href="#"
+                              data-bs-target="#EditReview"
+                              data-bs-toggle="modal"
+                              className="btn btn-xs btn-blue-soft btn-bg-xs mb-0"
+                            >
+                              <i className="fas fa-edit"></i>
+                            </a>
+                            <a
+                              href="#"
+                              data-bs-target="#viewReview"
+                              data-bs-toggle="modal"
+                              className="btn btn-xs btn-success-soft mb-0"
+                            >
+                              <i className="far fa-fw fa-eye"></i>
+                            </a>
+                            <button className="btn btn-xs btn-danger-soft mb-0">
+                              <i className="fas fa-fw fa-times"></i>
+                            </button>
+                          </td>
+                        </tr>
+                      ) : (
+                        <tr>
+                          <td colSpan={3}>
+                          <h4 style={{textAlign:"center"}}>Review not found!</h4>
+                          </td>
+                        </tr>
+                      )}
                     </tbody>
                   </table>
                 </div>
-                {/* <!-- Pagination START --> */}
-                <div className="d-sm-flex justify-content-sm-between align-items-sm-center mt-4 mt-sm-3">
+
+                {/* <div className="d-sm-flex justify-content-sm-between align-items-sm-center mt-4 mt-sm-3">
                   <p className="mb-0 text-center text-sm-start">
                     Showing 1 to 8 of 20 entries
                   </p>
-                  {/* <!-- Pagination --> */}
+                  
                   <nav
                     className="d-flex justify-content-center mb-0"
                     aria-label="navigation"
@@ -624,7 +201,7 @@ const Reviews = () => {
                       </li>
                     </ul>
                   </nav>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

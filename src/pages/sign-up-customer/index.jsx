@@ -65,13 +65,13 @@ const SignUpCustomer = () => {
     }
 
     const res = await axios.post(`${API_URL}/customer-registration`, payload).then((data) => {
-        if(data.status === "success") {
+        if(data.data.status === "success") {
             setLoading(false)
-            snackbar(data.message, {variant: "success"});
+            snackbar(data.data.message, {variant: "success"});
             router.push('/sign-in-customer')
         } else {
             setLoading(false)
-            snackbar(data.message, {variant: "success"});
+            snackbar(data.data.message, {variant: "error"});
         }
     });
 

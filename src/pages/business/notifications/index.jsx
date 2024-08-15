@@ -30,7 +30,7 @@ const Notifications = () => {
         <div class="container">
           <div class="row">
             <div class="col-12">
-              <h5 class="text-danger mb-2">About the Business</h5>
+              <h5 class="text-danger mb-2">Notifications</h5>
               <div class="d-flex justify-content-left">
                 <nav aria-label="breadcrumb">
                   <ol class="breadcrumb breadcrumb-dots my-0 py-0">

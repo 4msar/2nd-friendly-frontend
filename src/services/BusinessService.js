@@ -71,13 +71,20 @@ const BusinessService = {
 
   supportAll: () =>
     axios.post("/business/support-all", {  }),
+  supportType: () =>
+    axios.post("/business/support-new", {  }),
   supportCreate: (data) =>
     axios.post("/business/support-create", { data }),
+  supportView: (data) =>
+    axios.post("/business/support-view", { data }),
 
   passwordChange: (data) =>
     axios.post("/business/change-password", { data }),
   phoneChange: (data) =>
     axios.post("/business/change-phone-no", { data }),
+
+  settingsBusinessNotificationAll: () => axios.post("/business/setting-notification-all", {  }),
+  settingsBusinessNotificationUpdate: (data) => axios.post("/business/setting-notification-update", { data }),
 
 };
 

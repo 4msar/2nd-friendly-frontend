@@ -1,3 +1,4 @@
+import { IMAGE_URL } from "@/helpers/apiUrl";
 import Link from "next/link";
 import React from "react";
 
@@ -8,7 +9,7 @@ const AdvertisementCard = ({item, index}) => {
         <div className="col-md-4">
           <div id={`carouselExampleFade${index}`} className="carousel slide carousel-fade">
             <div className="carousel-inner">
-                {item.images?.length > 0 && item.images.map((item, i) => (
+                {/* {item.images?.length > 0 && item.images.map((item, i) => (
                      <div className={`carousel-item ${item.className}`} key={i}>
                      <img
                        src={item.img.src}
@@ -16,7 +17,14 @@ const AdvertisementCard = ({item, index}) => {
                        alt="..."
                      />
                    </div>
-                ))}
+                ))} */}
+
+                    
+                <img
+                  src={`${IMAGE_URL}/uploads/business-event/${item.image}`}
+                  className="d-block w-100 rounded-start-2"
+                  alt="..."
+                />
               
             </div>
             <button

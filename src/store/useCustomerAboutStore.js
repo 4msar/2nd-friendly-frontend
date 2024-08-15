@@ -3,14 +3,14 @@ import { create } from "zustand";
 export const useCustomerAboutStore = create(
     (set) => ({
       allState: [],
-      customerOwner: null,
+      customer: null,
       customerProfile: null,
 
       setCustomerProfile: (customerProfile) => set({customerProfile}),
-      setCustomerOwner: (customerOwner) => set({customerOwner}),
+      setCustomerOwner: (customer) => set({customer}),
 
-      setAboutAllData: ({allState, customerOwner, customerProfile}) =>{
-        set({ allState, customerOwner, customerProfile })
+      setAboutAllData: ({allState, customer, customerProfile}) =>{
+        set({ allState, customer, customerProfile })
       }
     })
 );

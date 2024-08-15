@@ -2,15 +2,15 @@ import UserView from "@/components/HOC/UserView";
 import UserSidebar from "@/components/User/UserSidebar";
 import useToken from "@/hooks/useToken";
 import CustomerService from "@/services/CustomerService";
-import { useAuthStore, useCustomerStore } from "@/store";
+import { useAuthStore, useCustomerStore, useUserStore } from "@/store";
 import React, { useEffect, useState } from "react";
 
 const UserCareer = () => {
     const userProfile = useAuthStore((state) => state.user);
   const isAuthenticated = useToken();
 
-  const allCareer = useCustomerStore((state) => state.careerAll);
-  const setSupport = useCustomerStore((state) => state.setCareerAll);
+  const allCareer = useUserStore((state) => state.allCareer);
+  const setSupport = useUserStore((state) => state.setAllCareer);
   const [viewSupport, setViewSupport] = useState(null);
 
   const getAllCareer = async () => {
@@ -56,7 +56,7 @@ const UserCareer = () => {
                   <nav aria-label="breadcrumb">
                     <ol className="breadcrumb breadcrumb-dots my-0 py-0">
                       <li className="breadcrumb-item">
-                        /user/<a href="index">Home</a>
+                        <a href="/">Home</a>
                       </li>
                       <li className="breadcrumb-item">My Collection</li>
                       <li className="breadcrumb-item active">Support</li>
@@ -106,8 +106,9 @@ const UserCareer = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      {allCareer?.length > 0 &&
-                        allCareer.map((career, index) => (
+                      {allCareer?.length ? (
+                        <>
+                          {allCareer.map((career, index) => (
                           <tr key={key}>
                             <td>January 26, 2024</td>
                             <td>
@@ -134,15 +135,23 @@ const UserCareer = () => {
                             </td>
                           </tr>
                         ))}
+                        </>
+                      ) : (
+                        <tr>
+                          <td colSpan={6}>
+                          <h4 style={{textAlign:"center"}}>Career not found!</h4>
+                          </td>
+                        </tr>
+                      )}
                     </tbody>
                   </table>
                 </div>
-                {/* <!-- Pagination START --> */}
-                <div className="d-sm-flex justify-content-sm-between align-items-sm-center mt-4 mt-sm-3">
+                
+                {/* <div className="d-sm-flex justify-content-sm-between align-items-sm-center mt-4 mt-sm-3">
                   <p className="mb-0 text-center text-sm-start">
                     Showing 1 to 8 of 20 entries
                   </p>
-                  {/* <!-- Pagination --> */}
+                  
                   <nav
                     className="d-flex justify-content-center mb-0"
                     aria-label="navigation"
@@ -175,7 +184,7 @@ const UserCareer = () => {
                       </li>
                     </ul>
                   </nav>
-                </div>
+                </div> */}
               </div>
             </div>
           </div>

@@ -4,6 +4,7 @@ import useToken from "@/hooks/useToken";
 import BusinessService from "@/services/BusinessService";
 import CustomerService from "@/services/CustomerService";
 import { useBusinessAboutStore, useUserStore } from "@/store";
+import { useCustomerAboutStore } from "@/store/useCustomerAboutStore";
 import { Button, CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
 import swal from "sweetalert";
@@ -11,10 +12,11 @@ import swal from "sweetalert";
 const AboutUser = () => {
   const isAuthenticated = useToken();
   const [loading, setLoading] = useState(false);
-  const userProfile = useUserStore((state) => state.userProfile);
+  const userProfile = useCustomerAboutStore((state) => state.customerProfile);
+  const customer = useCustomerAboutStore((state) => state.customer);
   const userInfo = useUserStore((state) => state.userOwner);
   // const allState = useUserStore((state) => state.allState);
-  const setUserProfile = useUserStore((state) => state.setUserProfile);
+  const setUserProfile = useCustomerAboutStore((state) => state.setCustomerProfile);
   const allState = allStateData;
   const setAllAboutData = useUserStore((state) => state.setAboutAllData);
   const [fieldErrors, setFieldErrors] = useState("");
@@ -52,7 +54,7 @@ const AboutUser = () => {
     document.getElementById("uploadfile-1").value = "";
   };
   const getAboutUser = async () => {
-    const res = await CustomerService.aboutUser().then((data) => {
+    const res = await CustomerService.aboutCustomer().then((data) => {
       if (data.data.status === "success") {
         setAllAboutData(data.data);
       }
@@ -63,8 +65,8 @@ const AboutUser = () => {
     setLoading(true);
     const payload = {
       ...userProfile,
-      image: convertedImage,
-      old_image: "",
+      image: convertedImage ?? "",
+      old_image: userProfile.image ?? "",
     };
     const res = CustomerService.aboutCustomerSave(payload).then((data) => {
       if (data.data.status === "success") {
@@ -79,6 +81,9 @@ const AboutUser = () => {
       }
     });
   };
+
+  // console.log(customer);
+  
 
   return (
     <>
@@ -105,7 +110,7 @@ const AboutUser = () => {
                   className="avatar-img rounded-circle border border-white border-3 shadow"
                   src={
                     selectedImage ||
-                    `${IMAGE_URL}/uploads/business-logo/${userProfile?.business_logo}`
+                    `${IMAGE_URL}/uploads/customer-image/${userProfile?.image}`
                   }
                   alt="Preview"
                 />
@@ -136,7 +141,7 @@ const AboutUser = () => {
             First name <span class="star">*</span>
           </label>
           <input
-            value={userProfile?.first_name ?? userInfo?.first_name}
+            value={userProfile?.first_name ?? customer?.first_name}
             class="form-control first_name"
             type="text"
             title="first_name"
@@ -157,7 +162,7 @@ const AboutUser = () => {
             Last name <span class="star">*</span>
           </label>
           <input
-            value={userProfile?.last_name ?? userInfo?.last_name}
+            value={userProfile?.last_name ?? customer?.last_name}
             class="form-control last_name"
             type="text"
             id="last_name"
@@ -173,7 +178,7 @@ const AboutUser = () => {
             <div class="text-danger">Please enter last name.</div>
           )}
         </div>
-        <div class="col-md-6 col-sm-12 bg-light-input">
+        {/* <div class="col-md-6 col-sm-12 bg-light-input">
           <label class="form-label fw-normal text-dark" for="username">
             Username <span class="star">*</span>
           </label>
@@ -193,7 +198,7 @@ const AboutUser = () => {
           {fieldErrors?.username && (
             <div class="text-danger">Please enter last name.</div>
           )}
-        </div>
+        </div> */}
 
         <div class="col-md-6 col-sm-12 bg-light-input">
           <label class="form-label fw-normal text-dark" for="email">
@@ -206,7 +211,8 @@ const AboutUser = () => {
             id="email"
             placeholder="example@example.com"
             required
-            value={userProfile?.email}
+            disabled={customer?.email}
+            value={customer?.email}
             onChange={(e) =>
               setUserProfile({ ...userProfile, email: e.target.value })
             }

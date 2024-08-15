@@ -1,14 +1,16 @@
 import SidebarInformation from "@/components/Business/SidebarInformation";
 import BusinessView from "@/components/HOC/BusinessView";
+import { capitalize } from "@/helpers/functions";
 import useToken from "@/hooks/useToken";
+import UserSupport from "@/pages/user/support";
 import BusinessService from "@/services/BusinessService";
-import { useBusinessAboutStore } from "@/store";
+import { useBusinessAboutStore, useSupportStore } from "@/store";
 import {
   Box,
   Button,
   Dialog,
   DialogContent,
-  DialogContentText
+  DialogContentText,
 } from "@mui/material";
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
@@ -22,21 +24,26 @@ const style = {
   backgroundColor: "#ffffff",
   borderRadius: "10px",
   boxShadow: 24,
-  padding: "20px"
+  padding: "20px",
 };
 
 const Support = () => {
   const userProfile = useBusinessAboutStore((state) => state.businessProfile);
   const isAuthenticated = useToken();
   const [open, setOpen] = useState(false);
-
+  const allSupport = useSupportStore((state) => state.allSupport);
+  const allTicketType = useSupportStore((state) => state.allTicketType);
+  const setSupports = useSupportStore((state) => state.setSupports);
+  const setSupportType = useSupportStore((state) => state.setSupportType);
   const [support, setSupport] = useState({
     title: "",
-    category: "",
-    details: "",
+    siteTicketType: "",
+    message: "",
     image: "",
-    old_image: ""
+    old_image: "",
   });
+
+  const [loading, setLoading] = useState(false);
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -61,7 +68,7 @@ const Support = () => {
       const pngDataUrl = canvas.toDataURL("image/png");
       setSupport({
         ...support,
-        image: pngDataUrl
+        image: pngDataUrl,
       });
     };
   };
@@ -81,21 +88,38 @@ const Support = () => {
   const handleGetSupport = () => {
     const res = BusinessService.supportAll().then((support) => {
       console.log({ support });
+      if (support.data.status === "success") {
+        setSupports(support.data.allTicket);
+      }
+    });
+  };
+
+  const handleGetSupportType = () => {
+    const res = BusinessService.supportType().then((support) => {
+      console.log({ support });
+      if (support.data.status === "success") {
+        setSupportType(support.data.allTicketType);
+      }
     });
   };
 
   const handleSupportCreate = (e) => {
+    setLoading(true);
     e.preventDefault();
     e.stopPropagation();
     const payload = {
-      ...support
+      ...support,
     };
 
     const res = BusinessService.supportCreate(payload).then((data) => {
       console.log({ data });
       if (data.data.status === "success") {
-        //   getCategoriesData();
-        handleReset();
+          handleGetSupport();
+          handleReset();
+          setOpen(false);
+          setLoading(false);
+      } else {
+        setLoading(false);
       }
     });
   };
@@ -103,11 +127,19 @@ const Support = () => {
   useEffect(() => {
     if (isAuthenticated) {
       handleGetSupport();
+      handleGetSupportType();
     }
   }, [isAuthenticated]);
   return (
     <BusinessView title="Support">
       <main>
+      {loading && (
+          <div className="preloader-api">
+            <div className="preloader-item">
+              <div className="spinner-grow text-primary"></div>
+            </div>
+          </div>
+        )}
         <section className="p-0 m-0">
           <div className="container">
             <div className="row">
@@ -131,7 +163,7 @@ const Support = () => {
           <div className="container">
             <div className="row">
               <div className="col-12">
-                <h5 className="text-danger mb-2">Careers</h5>
+                <h5 className="text-danger mb-2">Supports</h5>
                 <div className="d-flex justify-content-left">
                   <nav aria-label="breadcrumb">
                     <ol className="breadcrumb breadcrumb-dots my-0 py-0">
@@ -139,7 +171,7 @@ const Support = () => {
                         <a href="index.php">Home</a>
                       </li>
                       <li className="breadcrumb-item">Business Information</li>
-                      <li className="breadcrumb-item">Careers</li>
+                      <li className="breadcrumb-item">Supports</li>
                     </ol>
                   </nav>
                 </div>
@@ -237,30 +269,41 @@ const Support = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>#102356</td>
-                        <td>January 26, 2024</td>
-                        <td>
-                          <a href="/business/support/test" class="fw-bold">
-                            Can't create account
-                          </a>
-                        </td>
-                        <td>Account related</td>
-                        <td class="text-center text-sm-start">
-                          <span class="badge bg-success bg-opacity-10 text-success">
-                            In-Progress
-                          </span>
-                        </td>
-                        <td>May 21, 2023</td>
-                        <td>
-                          <a href="/business/support/text" class="text-black">
-                            <i class="far fa-fw fa-edit"></i>
-                          </a>{" "}
-                          <a href="/business/support/test" class="text-black">
-                            <i class="far fa-fw fa-eye"></i>
-                          </a>
-                        </td>
-                      </tr>
+                      {allSupport.length > 0 ? (
+                        <>
+                          {allSupport.map((support, index) => (
+                          <tr key={index}>
+                          <td>#102356</td>
+                          <td>January 26, 2024</td>
+                          <td>
+                            <a href={`/business/support/${support.id}`} class="fw-bold">
+                              {support.title}
+                            </a>
+                          </td>
+                          <td>{capitalize(support?.siteTicketType?.name)}</td>
+                          <td class="text-center text-sm-start">
+                            <span class="badge bg-success bg-opacity-10 text-success">
+                              In-Progress
+                            </span>
+                          </td>
+                          <td>May 21, 2023</td>
+                          <td>
+                            <a href="/business/support/text" class="text-black">
+                              <i class="far fa-fw fa-edit"></i>
+                            </a>{" "}
+                            <a href={`/business/support/${support.id}`} class="text-black">
+                              <i class="far fa-fw fa-eye"></i>
+                            </a>
+                          </td>
+                          </tr>
+                          ))}
+                        </>
+                      ) : (
+                        <tr>
+                          <h4>Data not found!</h4>
+                        </tr>
+                      )}
+                     
                     </tbody>
                   </table>
                 </div>
@@ -348,7 +391,7 @@ const Support = () => {
                         onChange={(e) =>
                           setSupport({
                             ...support,
-                            title: e.target.value
+                            title: e.target.value,
                           })
                         }
                       />
@@ -360,29 +403,28 @@ const Support = () => {
                     <div class="col-md-6 bg-light-input">
                       <label
                         class="form-label fw-bold text-dark"
-                        for="category"
+                        for="siteTicketType"
                       >
-                        Job Type <span class="star">*</span>
+                        Support Type <span class="star">*</span>
                       </label>
                       <select
                         class="form-select bg-light category"
-                        id="category"
-                        name="category"
+                        id="siteTicketType"
+                        name="siteTicketType"
                         required
                         onChange={(e) =>
                           setSupport({
                             ...support,
-                            category: e.target.value
+                            siteTicketType: e.target.value,
                           })
                         }
                       >
                         <option value="">Please Select</option>
-                        <option value="1">Technical Issues</option>
-                        <option value="2">Billing and Payments</option>
-                        <option value="3">Product Inquiries</option>
-                        <option value="4">Complaints and Feedback</option>
-                        <option value="5">Account Management</option>
-                        <option value="6">Policy Questions</option>
+                        {allTicketType?.length > 0 && allTicketType.map((type, index) => (
+
+                        <option key={index} value={type.id}>{capitalize(type.name)}</option>
+                        ))}
+                        
                       </select>
                       <div class="valid-feedback">Looks good!</div>
                       <div class="invalid-feedback">
@@ -409,7 +451,7 @@ const Support = () => {
                         onChange={(e) =>
                           setSupport({
                             ...support,
-                            details: e.target.value
+                            message: e.target.value,
                           })
                         }
                       ></textarea>

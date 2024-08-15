@@ -1,3 +1,4 @@
+import { IMAGE_URL } from "@/helpers/apiUrl";
 import Link from "next/link";
 import React from "react";
 
@@ -9,7 +10,7 @@ const BlogCard = ({ item, index }) => {
         className="carousel slide carousel-fade"
       >
         <div className="carousel-inner">
-          {item.images?.length > 0 &&
+          {/* {item.images?.length > 0 &&
             item.images.map((data, i) => (
               <div className={`carousel-item ${data.class}`} key={i}>
                 <img
@@ -18,7 +19,12 @@ const BlogCard = ({ item, index }) => {
                   alt="..."
                 />
               </div>
-            ))}
+            ))} */}
+            <img
+                  src={`${IMAGE_URL}/uploads/blog-image/${item.image}`}
+                  className="d-block w-100 rounded-1"
+                  alt="..."
+                />
         </div>
         <button
           className="carousel-control-prev"
@@ -47,12 +53,10 @@ const BlogCard = ({ item, index }) => {
       </div>
       <div className="card-body px-0">
         <h5 className="card-title">
-          <Link href="blogs">Student Loan Survey: Many Owe $50K-plus</Link>
+          <a href={`/blogs/${item.id}`}>{item.title}</a>
         </h5>
         <p className="text-truncate-2">
-          Affronting imprudence do he he everything. Offered chiefly farther of
-          my no colonel shyness. Such on help ye some door if in. Laughter
-          proposal laughing any son law consider. Needed except up piqued an.
+          {item.details}
         </p>
         <div className="d-flex justify-content-between">
           <h6 className="mb-0">Arielle Norheim</h6>

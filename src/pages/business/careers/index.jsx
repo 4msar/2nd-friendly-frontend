@@ -3,7 +3,7 @@ import BusinessView from "@/components/HOC/BusinessView";
 import { formatDate } from "@/helpers/functions";
 import useToken from "@/hooks/useToken";
 import BusinessService from "@/services/BusinessService";
-import { useBusinessAboutStore } from "@/store";
+import { useBusinessAboutStore, useCareerStore } from "@/store";
 import {
   Box,
   Button,
@@ -19,6 +19,13 @@ const Careers = () => {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
 
+  const allCareers = useCareerStore(
+    (state) => state.allCareer
+  );
+  const setCareer = useCareerStore(
+    (state) => state.setCareer
+  );
+
   const [job, setJob] = useState({
     title: "",
     job_type: "",
@@ -32,6 +39,9 @@ const Careers = () => {
   const handleGetCareers = () => {
     const res = BusinessService.careerAll().then((careers) => {
       console.log({ careers });
+      if(careers.data.status === "success") {
+        setCareer(careers.data.allCareer);
+      }
     });
   };
 
@@ -156,10 +166,13 @@ const Careers = () => {
                     </thead>
                     {/* <!-- Table body START --> */}
                     <tbody>
-                      <tr>
+                      {allCareers?.length > 0 ? (
+                        <>
+                          { allCareers.map((career, index) => (
+                        <tr key={index}>
                         <td>
                           <h6 class="table-responsive-title mt-2 mt-lg-0 mb-0">
-                            <a href="career-detail.php">Job Title 1</a>
+                            <a href={`/business/careers/${career.id}`}>{career.title}</a>
                           </h6>
                         </td>
                         <td>18/1/2023</td>
@@ -171,7 +184,7 @@ const Careers = () => {
                           </a>
                         </td>
                         <td>
-                          <a href="career-detail.php" class="text-black">
+                          <a href="/business/careers/" class="text-black">
                             <i class="far fa-fw fa-edit"></i>
                           </a>{" "}
                           <a href="job-form.php" class="text-black">
@@ -179,29 +192,15 @@ const Careers = () => {
                           </a>
                         </td>
                       </tr>
-                      <tr>
-                        <td>
-                          <h6 class="table-responsive-title mt-2 mt-lg-0 mb-0">
-                            <a href="career-detail.php">Job Title 2</a>
-                          </h6>
-                        </td>
-                        <td>18/1/2023</td>
-                        <td>Marketing</td>
-                        <td>30/2/2023</td>
-                        <td>
-                          <a href="#" class="link-underline-light text-primary">
-                            <i class="fa fa-download"></i>
-                          </a>
-                        </td>
-                        <td>
-                          <a href="career-detail.php" class="text-black">
-                            <i class="far fa-fw fa-edit"></i>
-                          </a>{" "}
-                          <a href="job-form.php" class="text-black">
-                            <i class="far fa-fw fa-eye"></i>
-                          </a>
-                        </td>
-                      </tr>
+                      ))}
+                        </>
+                      ) : (
+                        <tr style={{textAlign: "center"}}>
+                          <h4>Data not found!</h4>
+                        </tr>
+                      ) } 
+                      
+                     
                     </tbody>
                   </table>
                 </div>
