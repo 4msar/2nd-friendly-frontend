@@ -13,6 +13,13 @@ export const useBusinessAboutStore = create(
       
       setAboutAllData: ({allState, businessOwner, businessProfile}) =>{
         set({ allState, businessOwner, businessProfile })
-      }
+      },
+
+      resetBusinessAboutData: () => set({
+        allState: [],
+        businessOwner: null,
+        businessProfile: null,
+        notificationSetting: null,
+      })
     })
 );

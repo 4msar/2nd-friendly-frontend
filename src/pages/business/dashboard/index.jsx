@@ -1,7 +1,27 @@
 import BusinessView from "@/components/HOC/BusinessView";
-import React from "react";
+import useToken from "@/hooks/useToken";
+import BusinessService from "@/services/BusinessService";
+import { useBusinessStore } from "@/store";
+import React, { useEffect, useState } from "react";
 
 const Dashboard = () => {
+  const dashboard = useBusinessStore((store) => store.dashboard);
+  const setDashboard = useBusinessStore((store) => store.setDashboard);
+  const isAuthenticated = useToken();
+  const handleGetDashboardData = () => {
+    const res = BusinessService.businessDashboard().then((data) => {
+      // console.log(data);
+      setDashboard(data.data);
+    });
+  };
+
+  console.log("dashboard", dashboard);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      handleGetDashboardData();
+    }
+  }, [isAuthenticated]);
   return (
     <BusinessView title="Dashboard">
       <main>

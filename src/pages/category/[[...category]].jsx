@@ -2,21 +2,96 @@ import CategoryItemBox from "@/components/Category/CategoryItemBox";
 import CategorySidebar from "@/components/Category/CategorySidebar";
 import { category_items } from "@/components/dummy_data/data";
 import PublicView from "@/components/HOC/PublicView";
+import CustomerLoginModal from "@/components/Modal/CustomerLoginModal";
 import { capitalize, makeTitle } from "@/helpers/functions";
+import CustomerService from "@/services/CustomerService";
+import PublicService from "@/services/PublicService";
+import { useCustomerAboutStore } from "@/store/useCustomerAboutStore";
+import { Box, Dialog, DialogContent, DialogContentText } from "@mui/material";
 import Head from "next/head";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
-const CategoryPage = () => {
+const CategoryPage = ({category}) => {
   const route = useRouter();
+  const userProfile = useCustomerAboutStore((state) => state.customer);
   const items = category_items;
-  const { query } = route;
+  const [categories, setCategories] = useState({
+    regular_data: [],
+    sponsored_data: [],
+  })
+  const [messageData, setMessageData] = useState({
+    first_name: "",
+    last_name: "",
+    email: "",
+    mobile_no: "",
+    message: "",
+  });
+  const [messageOpen, setMessageOpen] = useState(false);
+  const [loginOpen, setLoginOpen] = useState(false);
 
-  // console.log(query);
+  const mainCategory = category[0];
+  const subCategory = category[1];
+  
+  const handleGetDetails = () => {
+      if(subCategory) {
+        const subPayload = {
+          slug: subCategory
+        }
+        const res = PublicService.subCategoryDetails(subPayload).then((details) => {
+          console.log(details);
+          setCategories({
+            sponsored_data: details.data.sponsored,
+            regular_data: details.data.allData
+          });
+        })
+      } else {
+        const catPayload = {
+          slug: mainCategory
+        }
+        const response = PublicService.subCategoryDetails(catPayload).then((details) => {
+          console.log(details);
+          console.log(details);
+          setCategories({
+            sponsored_data: details.data.sponsored,
+            regular_data: details.data.allData
+          });
+        })
+      }
+  }
+
+  const handleSubmitMessage = () => {
+    const payload = {
+      ...messageData,
+      business_profile: "6693c02e1f002619a1664e31",
+    }
+
+    const res = CustomerService.sendMessageToBusiness(payload).then((data) => {
+      console.log(data);
+    })
+  }
+
+  useEffect(() => {
+    handleGetDetails();
+  }, [category]);
+
+  useEffect(() => {
+    if(userProfile) {
+      setMessageData({
+        first_name: userProfile.first_name,
+        last_name: userProfile.last_name,
+        email: userProfile.email,
+        mobile_no: userProfile.mobile_no,
+      })
+    }
+  }, [userProfile])
+
+  console.log(userProfile);
 
   return (
     <main>
       <Head>
-        <title>{capitalize(query.category[query.category?.length - 1])} | 2nd A Friendly</title>
+        <title>{capitalize(category[category?.length - 1])} | 2nd A Friendly</title>
       </Head>
       <section className="pt-4 pb-3  bg-light mb-4">
         <div className="container">
@@ -29,11 +104,11 @@ const CategoryPage = () => {
                   </a>
                 </li>
                 <li className="breadcrumb-item">
-                {capitalize(query.category[query.category?.length - 1])}
+                {capitalize(category[category?.length - 1])}
                 </li>
               </ol>
               <h4 className="fs-5 pb-0 mb-0 fw-normal">
-                {capitalize(query.category[query.category?.length - 1])}
+                {capitalize(category[category?.length - 1])}
               </h4>
             </div>
           </div>
@@ -43,7 +118,7 @@ const CategoryPage = () => {
         <div className="container">
           <div className="row">
             <CategorySidebar />
-            <div className="col-xl-9 col-xxl-9">
+            <div className="col-xl-9 col-xxl-9" key={category[category?.length -1]}>
               {/* <!-- Short by filter --> */}
               <div className="row mb-3">
                 <form>
@@ -105,16 +180,16 @@ const CategoryPage = () => {
                   </div>
                 </form>
               </div>
-              <h5 className="mt-0 mb-0">Sponsored Results</h5>
+              {/* <h5 className="mt-0 mb-0">Sponsored Results</h5>
               <p className="mt-0 mb-1">
                 Business owners paid for these ads. For more information visit{" "}
-                <a href="for-business-owner.php">
+                <a href="for-business-owner">
                   {" "}
                   2nd A Friendly for Business.
                 </a>
-              </p>
-              <hr className="mt-0" />
-              <div className="card mb-4">
+              </p> */}
+              {/* <hr className="mt-0" /> */}
+              {/* <div className="card mb-4">
                 <div className="row g-3">
                   <div className="col-md-4">
                     <div
@@ -316,9 +391,8 @@ const CategoryPage = () => {
                               </button>
                             </a>
                             <a
-                              href=""
-                              data-bs-toggle="modal"
-                              data-bs-target="#SendMassage"
+                              href="#"
+                              onClick={() => setMessageOpen(true)}
                             >
                               <button className="btn btn-sm btn-outline-dark border-dark-subtle me-2">
                                 Message
@@ -339,8 +413,8 @@ const CategoryPage = () => {
                     </div>
                   </div>
                 </div>
-              </div>
-              <div className="card mb-4">
+              </div> */}
+              {/* <div className="card mb-4">
                 <div className="row g-3">
                   <div className="col-md-4">
                     <div
@@ -541,7 +615,7 @@ const CategoryPage = () => {
                                 Call
                               </button>
                             </a>
-                            <a
+                            <span
                               href=""
                               data-bs-toggle="modal"
                               data-bs-target="#SendMassage"
@@ -549,7 +623,7 @@ const CategoryPage = () => {
                               <button className="btn btn-sm btn-outline-dark border-dark-subtle me-2">
                                 Message
                               </button>
-                            </a>
+                            </span>
                             <a
                               href=""
                               data-bs-toggle="modal"
@@ -565,7 +639,7 @@ const CategoryPage = () => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
               <h5 className="mt-0 mb-0">Regular Results</h5>
               <p className="mt-0 mb-1">
                 Business owners paid for these ads. For more information visit{" "}
@@ -575,9 +649,9 @@ const CategoryPage = () => {
                 </a>
               </p>
               <hr className="mt-0" />
-              {items.length > 0 &&
-                items.map((item, index) => (
-                  <CategoryItemBox item={item} index={index} />
+              {categories?.regular_data.length > 0 &&
+                categories?.regular_data.map((item, index) => (
+                  <CategoryItemBox item={item} index={index} messageOpen={() => setMessageOpen(true)} />
                 ))}
             </div>
             {/* <div className="row g-3">
@@ -624,15 +698,18 @@ const CategoryPage = () => {
           </div>
         </div>
       </section>
-      <div
-        className="modal fade"
-        id="SendMassage"
-        tabindex="-1"
-        aria-labelledby="SendMassage"
-        aria-hidden="true"
+      <Dialog
+        class="modal fade"
+          open={messageOpen}
+          maxWidth="sm"
+          onClose={() => {
+            setMessageOpen(false);
+            setMessageData("");
+          }}
       >
-        <div className="modal-dialog modal-dialog-scrollable modal-md">
-          <div className="modal-content">
+        <Box className="modal-dialog modal-dialog-scrollable modal-md">
+          <DialogContent className="modal-content">
+            <DialogContentText>
             <div className="header bg-transparent border-bottom p-3">
               <h5 className="header-title text-danger">
                 Send Massage
@@ -640,15 +717,15 @@ const CategoryPage = () => {
                   style={{ float: "right", fontSize: "12px" }}
                   type="button"
                   className="btn-close justify-content-end float-right"
-                  data-bs-dismiss="modal"
                   aria-label="Close"
+                  onClick={() => setMessageOpen(false)}
                 ></button>
               </h5>
               <span>
                 We'll remind you when to join based on live wait times
               </span>
             </div>
-            <div className="modal-body">
+              <Box className="modal-body" sx={{padding: "10px"}}>
               <form className="row g-3 needs-validation" noValidate>
                 <div className="col-6">
                   <label
@@ -664,6 +741,13 @@ const CategoryPage = () => {
                     title="fast_name"
                     placeholder="John"
                     required
+                    value={messageData?.first_name}
+                    onChange={(e) => {
+                      setMessageData({
+                        ...messageData,
+                        first_name: e.target.value
+                      })
+                    }}
                   />
                   <div className="valid-feedback">Looks Goods</div>
                   <div className="invalid-feedback">
@@ -684,13 +768,20 @@ const CategoryPage = () => {
                     title="last_name"
                     placeholder="Doe"
                     required
+                    value={messageData?.last_name}
+                    onChange={(e) => {
+                      setMessageData({
+                        ...messageData,
+                        last_name: e.target.value
+                      })
+                    }}
                   />
                   <div className="valid-feedback">Looks Goods</div>
                   <div className="invalid-feedback">
                     Please enter last name.
                   </div>
                 </div>
-                <div className="col-12">
+                <div className="col-6">
                   <label
                     for="email_address"
                     className="form-label fw-bold text-dark"
@@ -704,13 +795,20 @@ const CategoryPage = () => {
                     title="email_address"
                     placeholder="johndoe@gmail.com"
                     required
+                    value={messageData?.email}
+                    onChange={(e) => {
+                      setMessageData({
+                        ...messageData,
+                        email: e.target.value
+                      })
+                    }}
                   />
                   <div className="valid-feedback">Looks Goods</div>
                   <div className="invalid-feedback">
                     Please enter your email address.
                   </div>
                 </div>
-                <div className="col-12">
+                <div className="col-6">
                   <label
                     for="mobile_number"
                     className="form-label fw-bold text-dark"
@@ -724,6 +822,13 @@ const CategoryPage = () => {
                     title="mobile_number"
                     placeholder="+1-237-3456"
                     required
+                    value={messageData?.mobile_no}
+                    onChange={(e) => {
+                      setMessageData({
+                        ...messageData,
+                        mobile_no: e.target.value
+                      })
+                    }}
                   />
                   <div className="valid-feedback">Looks Goods</div>
                   <div className="invalid-feedback">
@@ -744,6 +849,13 @@ const CategoryPage = () => {
                     title="your_massage"
                     placeholder="Share a few details so we can get you in touch with the business"
                     required
+                    value={messageData?.message}
+                    onChange={(e) => {
+                      setMessageData({
+                        ...messageData,
+                        message: e.target.value
+                      })
+                    }}
                   ></textarea>
                   <div className="valid-feedback">Looks Goods</div>
                   <div className="invalid-feedback">
@@ -763,10 +875,13 @@ const CategoryPage = () => {
                 </p>
                 <div className="col-6">
                   <div className="mt-3 ms-1">
-                    <span>
+                    {!userProfile && (
+                      <span>
                       Already have an account?
-                      <a href="sign-in.php"> Sign in</a>
+                      <span style={{color: "#066ac9", cursor: "pointer"}} onClick={() => setLoginOpen(true)}> Sign in</span>
                     </span>
+                    )}
+                    
                   </div>
                 </div>
                 <div className="col-6">
@@ -777,12 +892,29 @@ const CategoryPage = () => {
                   </div>
                 </div>
               </form>
-            </div>
-          </div>
-        </div>
-      </div>
+            </Box>
+            </DialogContentText>
+           
+          </DialogContent>
+        </Box>
+      </Dialog>
+      <CustomerLoginModal openLogin={loginOpen} closeModal={() => setLoginOpen(false)} />
     </main>
   );
 };
 
 export default PublicView(CategoryPage);
+
+export async function getServerSideProps(context) {
+  const { params } = context;
+  
+  const { category } = params;
+  // console.log("Category List", category);
+ 
+
+  return {
+      props: {
+        category,
+      },
+  };
+}

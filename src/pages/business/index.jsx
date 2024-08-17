@@ -1,7 +1,28 @@
 import BusinessView from "@/components/HOC/BusinessView";
-import React from "react";
+import { formatDate } from "@/helpers/functions";
+import useToken from "@/hooks/useToken";
+import BusinessService from "@/services/BusinessService";
+import { useBusinessStore } from "@/store";
+import React, { useEffect, useState } from "react";
 
 const Business = () => {
+  const dashboard = useBusinessStore((store) => store.dashboard);
+  const setDashboard = useBusinessStore((store) => store.setDashboard);
+  const isAuthenticated = useToken();
+  const handleGetDashboardData = () => {
+    const res = BusinessService.businessDashboard().then((data) => {
+      // console.log(data);
+      setDashboard(data.data);
+    });
+  };
+
+  console.log("dashboard", dashboard);
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      handleGetDashboardData();
+    }
+  }, [isAuthenticated]);
   return (
     <BusinessView title="Business">
       <main>
@@ -12,7 +33,7 @@ const Business = () => {
                 <nav aria-label="breadcrumb">
                   <ol class="breadcrumb breadcrumb-dots my-0 py-0">
                     <li class="breadcrumb-item">
-                      <a href="dashboard.php">
+                      <a href="/">
                         <i class="bi bi-house me-1"></i> Home
                       </a>
                     </li>
@@ -41,7 +62,7 @@ const Business = () => {
                             data-purecounter-end="25"
                             data-purecounter-delay="200"
                           >
-                            0
+                            {dashboard?.allTicket?.length ?? 0}
                           </h5>
                         </div>
                         <span class="mb-0 h6 fw-light">Support Tickets</span>
@@ -124,111 +145,33 @@ const Business = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>January 26, 2024</td>
-                        <td>
-                          <h6 class="mt-2 mt-lg-0 mb-0">
-                            <a href="support-detail.php">
-                              Urgent Assistance Needed
-                            </a>
-                          </h6>
-                        </td>
-                        <td>#102356</td>
-                        <td class="text-center text-sm-start">
-                          <span class="badge bg-success bg-opacity-10 text-success">
-                            Closed
-                          </span>
-                        </td>
-                        <td>May 21, 2023</td>
-                        <td>
-                          <a href="support-detail.php" class="text-black">
-                            <i class="far fa-fw fa-eye"></i>
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>January 26, 2024</td>
-                        <td>
-                          <h6 class="mt-2 mt-lg-0 mb-0">
-                            <a href="support-detail.php">Technical Issue</a>
-                          </h6>
-                        </td>
-                        <td>#102356</td>
-                        <td class="text-center text-sm-start">
-                          <span class="badge bg-success bg-opacity-10 text-success">
-                            Closed
-                          </span>
-                        </td>
-                        {/* <!-- Table data --> */}
-                        <td>May 21, 2023</td>
-                        <td>
-                          <a href="support-detail.php" class="text-black">
-                            <i class="far fa-fw fa-eye"></i>
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>January 26, 2024</td>
-                        <td>
-                          <h6 class="mt-2 mt-lg-0 mb-0">
-                            <a href="support-detail.php">Service Disruption</a>
-                          </h6>
-                        </td>
-                        <td>#102356</td>
-                        <td class="text-center text-sm-start">
-                          <span class="badge bg-danger bg-opacity-10 text-danger">
-                            Cancelled{" "}
-                          </span>
-                        </td>
-                        <td>May 21, 2023</td>
-                        <td>
-                          <a href="support-detail.php" class="text-black">
-                            <i class="far fa-fw fa-eye"></i>
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>January 26, 2024</td>
-                        <td>
-                          <h6 class="mt-2 mt-lg-0 mb-0">
-                            <a href="support-detail.php">
-                              Account Access Problem
-                            </a>
-                          </h6>
-                        </td>
-                        <td>#102356</td>
-                        <td class="text-center text-sm-start">
-                          <span class="badge bg-success bg-opacity-10 text-success">
-                            Closed
-                          </span>
-                        </td>
-                        <td>May 21, 2023</td>
-                        <td>
-                          <a href="support-detail.php" class="text-black">
-                            <i class="far fa-fw fa-eye"></i>
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>January 26, 2024</td>
-                        <td>
-                          <h6 class="mt-2 mt-lg-0 mb-0">
-                            <a href="support-detail.php">Billing Inquiry</a>
-                          </h6>
-                        </td>
-                        <td>#102356</td>
-                        <td class="text-center text-sm-start">
-                          <span class="badge bg-orange bg-opacity-10 text-orange">
-                            Pending
-                          </span>
-                        </td>
-                        <td>May 21, 2023</td>
-                        <td>
-                          <a href="support-detail.php" class="text-black">
-                            <i class="far fa-fw fa-eye"></i>
-                          </a>
-                        </td>
-                      </tr>
+                      {dashboard?.allTicket?.length > 0 &&
+                        dashboard?.allTicket.map((ticket, i) => (
+                          <tr key={i}>
+                            <td>
+                              {formatDate(ticket.createdAt, "MMMM DD, YYYY")}
+                            </td>
+                            <td>
+                              <h6 class="mt-2 mt-lg-0 mb-0">
+                                <a href="support-detail">{ticket.title}</a>
+                              </h6>
+                            </td>
+                            <td>#10235{i + 1}</td>
+                            <td class="text-center text-sm-start">
+                              <span class="badge bg-success bg-opacity-10 text-success">
+                                {ticket?.status ? "Open" : "Closed"}
+                              </span>
+                            </td>
+                            <td>
+                              {formatDate(ticket.updatedAt, "MMMM DD, YYYY")}
+                            </td>
+                            <td>
+                              <a href="support-detail.php" class="text-black">
+                                <i class="far fa-fw fa-eye"></i>
+                              </a>
+                            </td>
+                          </tr>
+                        ))}
                     </tbody>
                   </table>
                 </div>
@@ -249,221 +192,55 @@ const Business = () => {
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center">
-                            <div class="w-60px">
-                              <img
-                                src="../assets/img/company-logo/1.svg"
-                                class="rounded-circle"
-                                alt=""
-                              />
-                            </div>
-                            <div class="mb-0 ms-2">
-                              <h6>
-                                <a href="../listing-detail.php" target="_blank">
-                                  Serenade Spiritsand
-                                </a>
-                              </h6>
-                              <div class="d-sm-flex">
-                                <i class="fas fa-star fa-sm text-warning"></i>
-                                <i class="fas fa-star fa-sm text-warning"></i>
-                                <i class="fas fa-star fa-sm text-warning"></i>
-                                <i class="fas fa-star fa-sm text-warning"></i>
-                                <i class="fas fa-star fa-sm text-warning"></i>
+                      {dashboard?.allMessage?.length > 0 &&
+                        dashboard?.allMessage.map((message, i) => (
+                          <tr key={i}>
+                            <td>
+                              <div class="d-flex align-items-center">
+                                <div class="w-60px">
+                                  <img
+                                    src="../assets/img/company-logo/1.svg"
+                                    class="rounded-circle"
+                                    alt=""
+                                  />
+                                </div>
+                                <div class="mb-0 ms-2">
+                                  <h6>
+                                    <a
+                                      href={`/listing-details/${message?.businessProfile?.slug}`}
+                                      target="_blank"
+                                    >
+                                      Serenade Spiritsand
+                                    </a>
+                                  </h6>
+                                  <div class="d-sm-flex">
+                                    <i class="fas fa-star fa-sm text-warning"></i>
+                                    <i class="fas fa-star fa-sm text-warning"></i>
+                                    <i class="fas fa-star fa-sm text-warning"></i>
+                                    <i class="fas fa-star fa-sm text-warning"></i>
+                                    <i class="fas fa-star fa-sm text-warning"></i>
+                                  </div>
+                                </div>
                               </div>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="text-center text-sm-start">
-                          <span class="fw-normal text-black">
-                            Relax & Rejuvenate: Unwind with our Signature
-                          </span>
-                        </td>
-                        <td>
-                          <div class="badge bg-success bg-opacity-10 text-success fw-normal">
-                            Awaiting
-                          </div>
-                        </td>
-                        <td>April 1, 2024</td>
-                        <td>
-                          <a href="message-detail.php" class="text-black">
-                            <i class="far fa-fw fa-eye"></i>
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center">
-                            <div class="w-60px">
-                              <img
-                                src="../assets/img/company-logo/2.svg"
-                                class="rounded-circle"
-                                alt=""
-                              />
-                            </div>
-                            <div class="mb-0 ms-2">
-                              <h6>
-                                <a href="../listing-detail.php" target="_blank">
-                                  Burger king
-                                </a>
-                              </h6>
-                              <div class="d-sm-flex">
-                                <i class="fas fa-star fa-sm text-warning"></i>
-                                <i class="fas fa-star fa-sm text-warning"></i>
-                                <i class="fas fa-star fa-sm text-warning"></i>
-                                <i class="fas fa-star fa-sm text-warning"></i>
-                                <i class="fas fa-star fa-sm text-warning"></i>
+                            </td>
+                            <td class="text-center text-sm-start">
+                              <span class="fw-normal text-black">
+                                Relax & Rejuvenate: Unwind with our Signature
+                              </span>
+                            </td>
+                            <td>
+                              <div class="badge bg-success bg-opacity-10 text-success fw-normal">
+                                Awaiting
                               </div>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="text-center text-sm-start">
-                          <span class="fw-normal text-black">
-                            Therapeutic Bliss: Experience Deep{" "}
-                          </span>
-                        </td>
-                        <td>
-                          <div class="badge bg-secondary bg-opacity-10 text-secondary">
-                            Replied
-                          </div>
-                        </td>
-                        <td>April 1, 2024</td>
-                        <td>
-                          <a href="message-detail.php" class="text-black">
-                            <i class="far fa-fw fa-eye"></i>
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center">
-                            <div class="w-60px">
-                              <img
-                                src="../assets/img/company-logo/3.svg"
-                                class="rounded-circle"
-                                alt=""
-                              />
-                            </div>
-                            <div class="mb-0 ms-2">
-                              <h6>
-                                <a href="../listing-detail.php" target="_blank">
-                                  Palatial Epicurean
-                                </a>
-                              </h6>
-                              <div class="d-sm-flex">
-                                <i class="fas fa-star fa-sm text-warning"></i>
-                                <i class="fas fa-star fa-sm text-warning"></i>
-                                <i class="fas fa-star fa-sm text-warning"></i>
-                                <i class="fas fa-star fa-sm text-warning"></i>
-                                <i class="fas fa-star fa-sm text-warning"></i>
-                              </div>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="text-center text-sm-start">
-                          <span class="fw-normal text-black">
-                            Serenity Escape: Indulge in a Tranquil{" "}
-                          </span>
-                        </td>
-                        <td>
-                          <div class="badge bg-success bg-opacity-10 text-success fw-normal">
-                            Awaiting
-                          </div>
-                        </td>
-                        <td>April 1, 2024</td>
-                        <td>
-                          <a href="message-detail.php" class="text-black">
-                            <i class="far fa-fw fa-eye"></i>
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center">
-                            <div class="w-60px">
-                              <img
-                                src="../assets/img/company-logo/4.svg"
-                                class="rounded-circle"
-                                alt=""
-                              />
-                            </div>
-                            <div class="mb-0 ms-2">
-                              <h6>
-                                <a href="../listing-detail.php" target="_blank">
-                                  Epicurean Delights
-                                </a>
-                              </h6>
-                              <div class="d-sm-flex">
-                                <i class="fas fa-star fa-sm text-warning"></i>
-                                <i class="fas fa-star fa-sm text-warning"></i>
-                                <i class="fas fa-star fa-sm text-warning"></i>
-                                <i class="fas fa-star fa-sm text-warning"></i>
-                                <i class="fas fa-star fa-sm text-warning"></i>
-                              </div>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="text-center text-sm-start">
-                          <span class="fw-normal text-black">
-                            Recharge & Renew: Energize with a Sports
-                          </span>
-                        </td>
-                        <td>
-                          <div class="badge bg-success bg-opacity-10 text-success fw-normal">
-                            Awaiting
-                          </div>
-                        </td>
-                        <td>April 1, 2024</td>
-                        <td>
-                          <a href="message-detail.php" class="text-black">
-                            <i class="far fa-fw fa-eye"></i>
-                          </a>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div class="d-flex align-items-center">
-                            <div class="w-60px">
-                              <img
-                                src="../assets/img/company-logo/5.svg"
-                                class="rounded-circle"
-                                alt=""
-                              />
-                            </div>
-                            <div class="mb-0 ms-2">
-                              <h6>
-                                <a href="../listing-detail.php" target="_blank">
-                                  ProCare Home Solutions
-                                </a>
-                              </h6>
-                              <div class="d-sm-flex">
-                                <i class="fas fa-star fa-sm text-warning"></i>
-                                <i class="fas fa-star fa-sm text-warning"></i>
-                                <i class="fas fa-star fa-sm text-warning"></i>
-                                <i class="fas fa-star fa-sm text-warning"></i>
-                                <i class="fas fa-star fa-sm text-warning"></i>
-                              </div>
-                            </div>
-                          </div>
-                        </td>
-                        <td class="text-center text-sm-start">
-                          <span class="fw-normal text-black">
-                            Mind & Body Harmony: Explore the Benefits{" "}
-                          </span>
-                        </td>
-                        <td>
-                          <div class="badge bg-secondary bg-opacity-10 text-secondary">
-                            Replied
-                          </div>
-                        </td>
-                        <td>April 1, 2024</td>
-                        <td>
-                          <a href="message-detail.php" class="text-black">
-                            <i class="far fa-fw fa-eye"></i>
-                          </a>
-                        </td>
-                      </tr>
+                            </td>
+                            <td>{formatDate(message.updatedAt, "MMMM DD, YYYY")}</td>
+                            <td>
+                              <a href="message-detail.php" class="text-black">
+                                <i class="far fa-fw fa-eye"></i>
+                              </a>
+                            </td>
+                          </tr>
+                        ))}
                     </tbody>
                   </table>
                 </div>

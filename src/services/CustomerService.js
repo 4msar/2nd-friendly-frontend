@@ -5,6 +5,7 @@ axios.defaults.baseURL = API_URL;
 
 const CustomerService = {
  
+  customerDashboard: () => axios.post("/customer/dashboard", {  }),
   aboutCustomer: () => axios.post("/customer/account-information-all", {  }),
   aboutCustomerSave: (data) => axios.post("/customer/account-information-save", { data }),
   changePassword: (data) => axios.post("/customer/change-password", { data }),

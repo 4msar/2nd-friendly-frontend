@@ -1,13 +1,23 @@
 import PublicView from "@/components/HOC/PublicView";
+import PublicService from "@/services/PublicService";
 import Head from "next/head";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 const Faq = () => {
+  const [faqs, setFaqs] = useState([]);
+
+  const handleGetFaqList = () => {
+    const res = PublicService.siteFaqList().then((data) => {
+      console.log(data);
+      
+    })
+  }
+
+  useEffect(() => {
+    handleGetFaqList();
+  }, []);
   return (
     <main>
-      <Head>
-        <title>Faq</title>
-      </Head>
       <section className="pt-4 pb-2">
         <div className="container">
           <div className="row">
@@ -447,4 +457,4 @@ const Faq = () => {
   );
 };
 
-export default PublicView(Faq);
+export default PublicView(Faq, "Faq");

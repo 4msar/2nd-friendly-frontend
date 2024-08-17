@@ -1,3 +1,4 @@
+import { IMAGE_URL } from "@/helpers/apiUrl";
 import React from "react";
 
 const CategoryItemBox = ({ item, index }) => {
@@ -10,7 +11,7 @@ const CategoryItemBox = ({ item, index }) => {
             className="carousel slide carousel-fade"
           >
             <div className="carousel-inner">
-                {item.sliders.length > 0 && item.sliders.map((image, i) => (
+                {/* {item.sliders.length > 0 && item.sliders.map((image, i) => (
                     <div className={`carousel-item ${i === 0 ? 'active' : ''}`} key={i}>
                         <img
                         src={image.src}
@@ -18,8 +19,14 @@ const CategoryItemBox = ({ item, index }) => {
                         alt="..."
                         />
                     </div>
-                ))}
-              
+                ))} */}
+              <div className={`carousel-item active`} key={1}>
+                        <img
+                        src={item?.businessProfile?.business_logo ? `${IMAGE_URL}/uploads/business-logo/${item?.businessProfile?.business_logo}` : ""}
+                        className="d-block w-100 rounded-3 "
+                        alt="..."
+                        />
+                    </div>
               
             </div>
             <button
@@ -55,13 +62,13 @@ const CategoryItemBox = ({ item, index }) => {
                 <div className="avatar avatar-sm">
                   <img
                     className="avatar-img rounded-circle"
-                    src={item.avatar.src}
+                    src={item?.businessProfile?.business_logo ? `${IMAGE_URL}/uploads/business-logo/${item?.businessProfile?.business_logo}` : ""}
                     alt="avatar"
                   />
                 </div>
                 <div className="ms-2">
                   <h5 className="mb-0">
-                    <a href="listing-detail.php">Savory Sensations Sanctuary</a>
+                    <a href={`/category/details/${item?.businessProfile.id}`}>{item?.businessProfile?.business_name}</a>
                   </h5>
                   <p className="small mb-0 mb-sm-0 pb-0">
                     <i className="fas fa-star text-warning"></i>
@@ -92,13 +99,11 @@ const CategoryItemBox = ({ item, index }) => {
               </li>
             </ul>
             <p className="text-truncate-2 d-none d-lg-block pb-0 mb-2">
-              This place never fails. Make sure to arrive early because by 7pm
-              wait times are really long. The staff is very attentive and the
-              food is great. Music helps...
+              {item?.businessProfile?.business_description}
             </p>
             <ul className="list-inline mb-1">
-                {item.tags.length > 0 && item.tags.map((tag) => (
-                    <li className="list-inline-item fw-light">
+                {/* {item.tags.length > 0 && item.tags.map((tag, i) => (
+                    <li className="list-inline-item fw-light" key={i}>
                         <a
                         className="btn btn-light btn-sm py-0 px-1 btn-secondary-soft"
                         href="#"
@@ -106,7 +111,7 @@ const CategoryItemBox = ({ item, index }) => {
                         {tag.name}
                         </a>
                     </li>
-                ))}
+                ))} */}
              
              
             </ul>

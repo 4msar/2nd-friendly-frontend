@@ -10,6 +10,7 @@ const BusinessService = {
   addRemoveCategory: (data) =>
     axios.post("/business/single-subcategory-add-remove", { data }),
 
+  businessDashboard: () => axios.post("/business/dashboard"),
   aboutBusiness: () => axios.post("/business/about-the-business-all"),
   aboutBusinessSave: (data) =>
     axios.post("/business/about-the-business-save", { data }),

@@ -5,14 +5,41 @@ import sp from "@/assets/img/flags/sp.svg";
 import uk from "@/assets/img/flags/uk.svg";
 import logo from "@/assets/img/logo.png";
 import { useHeaderStyle } from "@/assets/stylesheets/header/headerStylesheet";
-import { useAuthStore, usePublicPageStore } from "@/store";
+import { IMAGE_URL } from "@/helpers/apiUrl";
+import { isEmpty } from "@/helpers/functions";
+import {
+  useAuthStore,
+  useBusinessAboutStore,
+  usePublicPageStore,
+} from "@/store";
+import { useCustomerAboutStore } from "@/store/useCustomerAboutStore";
 import { Box } from "@mui/material";
 import Link from "next/link";
 
 const Header = () => {
   const classes = useHeaderStyle();
   const userProfile = useAuthStore((store) => store.user);
+  const expires_in = useAuthStore((state) => state.expires_in);
+  const isExpired = Date.now() >= expires_in;
   const topMenu = usePublicPageStore((store) => store.topMenu);
+  const customer = useCustomerAboutStore((store) => store.customer);
+  const customerProfile = useCustomerAboutStore((store) => store.customerProfile);
+  const businessProfile = useBusinessAboutStore((store) => store.businessProfile);
+  const logOut = useAuthStore((store) => store.resetAuth);
+  const resetAbout = useCustomerAboutStore((store) => store.resetAboutData);
+  const resetBusinessAbout = useBusinessAboutStore(
+    (store) => store.resetBusinessAboutData
+  );
+
+  const handleLogout = () => {
+    if (userProfile?.isCustomer) {
+      resetAbout();
+    } else {
+      resetBusinessAbout();
+    }
+    logOut();
+  };
+
   return (
     <div className={classes.root}>
       <div className="navbar-dark bg-light d-none d-xl-block py-1 mx-2 mx-md-4 rounded-bottom-4">
@@ -38,16 +65,30 @@ const Header = () => {
                   <i className="fas fa-headset me-2"></i>+1 235-869-328
                 </Link>
               </li>
-              <li class="nav-item">
-                <Link class="nav-link" href="/sign-up-business">
-                  <i class="fas fa-lock-open me-2"></i>Sign Up
-                </Link>
-              </li>
-              <li class="nav-item">
-                <Link class="nav-link" href="/sign-in-business">
-                  <i class="fas fa-lock me-2"></i>Sign In
-                </Link>
-              </li>
+              {isExpired ? (
+                <>
+                  <li class="nav-item">
+                    <Link class="nav-link" href="/sign-up-business">
+                      <i class="fas fa-lock-open me-2"></i>Sign Up
+                    </Link>
+                  </li>
+                  <li class="nav-item">
+                    <Link class="nav-link" href="/sign-in-business">
+                      <i class="fas fa-lock me-2"></i>Sign In
+                    </Link>
+                  </li>
+                </>
+              ) : (
+                <li class="nav-item">
+                  <Link
+                    class="nav-link"
+                    href="#"
+                    onClick={() => handleLogout()}
+                  >
+                    <i class="fas fa-lock-open me-2"></i>Sign Out
+                  </Link>
+                </li>
+              )}
             </ul>
             {/* <!-- Navbar top Right--> */}
             <Box className="nav d-flex align-items-center justify-content-center">
@@ -159,32 +200,44 @@ const Header = () => {
                 {topMenu?.length > 0 &&
                   topMenu?.map((top, index) => (
                     <li className="nav-item dropdown" key={index}>
-                      <Link
-                        className="nav-link dropdown-toggle"
-                        href={`/category/${top.slug}`}
-                        id="demoMenu"
-                        data-bs-toggle="dropdown"
-                        aria-haspopup="true"
-                        aria-expanded="false"
+                      <Box
+                        sx={{
+                          display: "flex",
+                          alignItems: "center",
+                          padding: "0 14px",
+                        }}
                       >
-                        {top.name}
-                      </Link>
+                        <Link
+                          className="nav-link p-0"
+                          href={`/category/${top.slug}`}
+                        >
+                          {top.name}
+                        </Link>
+                        <a
+                          className="nav-link dropdown-toggle p-0"
+                          href="#"
+                          id={`dropdownMenu${index}`}
+                          role="button"
+                          data-bs-toggle="dropdown"
+                          aria-haspopup="true"
+                          aria-expanded="false"
+                        ></a>
+                      </Box>
                       <ul
                         className="dropdown-menu dropdown-menu-end min-w-auto"
                         data-bs-popper="none"
                       >
-                        {top.subCategory?.length > 0 && top.subCategory.map((sub, index) => (
-                          <li key={index}>
-                          <Link
-                            className="dropdown-item"
-                            href={`/category/${top.slug}/${sub.slug}`}
-                          >
-                            {sub.name}
-                          </Link>
-                        </li>
-                        ))}
-                        
-                        
+                        {top.subCategory?.length > 0 &&
+                          top.subCategory.map((sub, index) => (
+                            <li key={index}>
+                              <Link
+                                className="dropdown-item"
+                                href={`/category/${top.slug}/${sub.slug}`}
+                              >
+                                {sub.name}
+                              </Link>
+                            </li>
+                          ))}
                       </ul>
                     </li>
                   ))}
@@ -481,7 +534,7 @@ const Header = () => {
                 {/* <!-- Nav item 6 Megamenu--> */}
                 <li className="nav-item dropdown dropdown-fullwidth">
                   <Link
-                    className="nav-link dropdown-toggle"
+                    className="nav-link dropdown-toggle p-0"
                     href="#"
                     data-bs-toggle="dropdown"
                     aria-haspopup="true"
@@ -1279,158 +1332,331 @@ const Header = () => {
             </div>
             {/* <!-- Nav Search END --> */}
             {/* <!-- Profile START --> */}
-            <div className="dropdown ms-1 ms-lg-0">
-              <Link
-               className="nav-link"
-               role="button"
-               href="#"
-               id="profileDropdown"
-               data-bs-toggle="dropdown"
-               aria-expanded="true"
-               data-bs-auto-close="outside"
-               data-bs-display="static"
-              >
-                <img
-                  className="avatar-img rounded-circle"
-                  src={companyLogo.src}
-                  alt="avatar"
-                />
-              </Link>
-              <ul
-                className="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3"
-                aria-labelledby="profileDropdown"
-                data-bs-popper="none"
-              >
-                {/* <!-- Profile info --> */}
-                <li className="px-3 mb-3">
-                  <div className="d-flex align-items-center">
-                    <div className="avatar me-3">
-                      <img
-                        className="avatar-img rounded-circle shadow"
-                        src={companyLogo.src}
-                        alt="avatar"
-                      />
+            {userProfile.isCustomer ? (
+              <div className="dropdown ms-1 ms-lg-0">
+                <Link
+                  className="nav-link"
+                  role="button"
+                  href="#"
+                  id="profileDropdown"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="true"
+                  data-bs-auto-close="outside"
+                  data-bs-display="static"
+                >
+                  <div className="avatar me-3">
+                        <img
+                          className="avatar-img rounded-circle shadow"
+                          src={customerProfile?.image ? `${IMAGE_URL}/uploads/customer-image/${customerProfile?.image}` : companyLogo.src}
+                          alt="avatar"
+                        />
+                      </div>
+                  {/* <img
+                    className="avatar-img rounded-circle"
+                    src={`${IMAGE_URL}/uploads/customer-image/${customerProfile?.image}`}
+                    alt="logo"
+                  /> */}
+                </Link>
+                <ul
+                  className="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3"
+                  aria-labelledby="profileDropdown"
+                  data-bs-popper="none"
+                >
+                  {/* <!-- Profile info --> */}
+                  <li className="px-3 mb-3">
+                    <div className="d-flex align-items-center">
+                      <div className="avatar me-3">
+                        <img
+                          className="avatar-img rounded-circle shadow"
+                          
+                          src={customerProfile?.image ? `${IMAGE_URL}/uploads/customer-image/${customerProfile?.image}` : companyLogo.src}
+                          alt="avatar"
+                        />
+                      </div>
+                      <div>
+                        <Link className="h6" href="/#">
+                          {`${customer?.first_name} ${customer?.last_name}`}
+                        </Link>
+                        <p className="small m-0">{userProfile?.email}</p>
+                      </div>
                     </div>
-                    <div>
-                      <Link className="h6" href="/#">
-                        Redwood Solutions
-                      </Link>
-                      <p className="small m-0">redwood@hotmail.com</p>
+                  </li>
+                  <li>
+                    {" "}
+                    <hr className="dropdown-divider" />
+                  </li>
+                  <li>
+                    <Link
+                      className="dropdown-item bg-danger-soft-hover"
+                      href="/user/dashboard"
+                    >
+                      <i className="bi bi-ui-checks-grid fa-fw me-2"></i>
+                      Dashboard
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      className="dropdown-item bg-danger-soft-hover"
+                      href="/user/account-information"
+                    >
+                      <i className="bi bi-gear fa-fw me-2"></i>Account Setting
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      className="dropdown-item bg-danger-soft-hover"
+                      href={`/user/account-information"`}
+                    >
+                      <i className="fas fa-business-time fa-fw me-2"></i>
+                      Customer Information
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      className="dropdown-item bg-danger-soft-hover"
+                      href="/user/support"
+                    >
+                      <i className="bi bi-headset fa-fw me-2"></i>Support
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      className="dropdown-item bg-danger-soft-hover"
+                      href="#"
+                      onClick={() => handleLogout()}
+                    >
+                      <i className="bi bi-power fa-fw me-2"></i>Sign Out
+                    </Link>
+                  </li>
+                  <li>
+                    {" "}
+                    <hr className="dropdown-divider" />
+                  </li>
+                  {/* <li>
+                    <div className="bg-light dark-mode-switch theme-icon-active d-flex align-items-center p-1 rounded mt-2">
+                      <button
+                        type="button"
+                        className="btn btn-sm mb-0"
+                        data-bs-theme-value="light"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          fill="currentColor"
+                          className="bi bi-sun fa-fw mode-switch"
+                          viewBox="0 0 16 16"
+                        >
+                          <path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z" />
+                          <use href="#"></use>
+                        </svg>{" "}
+                        Light
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-sm mb-0"
+                        data-bs-theme-value="dark"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          fill="currentColor"
+                          className="bi bi-moon-stars fa-fw mode-switch"
+                          viewBox="0 0 16 16"
+                        >
+                          <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278zM4.858 1.311A7.269 7.269 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.316 7.316 0 0 0 5.205-2.162c-.337.042-.68.063-1.029.063-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286z" />
+                          <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z" />
+                          <use href="#"></use>
+                        </svg>{" "}
+                        Dark
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-sm mb-0 active"
+                        data-bs-theme-value="auto"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          fill="currentColor"
+                          className="bi bi-circle-half fa-fw mode-switch"
+                          viewBox="0 0 16 16"
+                        >
+                          <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z" />
+                          <use href="#"></use>
+                        </svg>{" "}
+                        Auto
+                      </button>
                     </div>
-                  </div>
-                </li>
-                <li>
-                  {" "}
-                  <hr className="dropdown-divider" />
-                </li>
-                <li>
-                  <Link
-                    className="dropdown-item bg-danger-soft-hover"
-                    href="/business/dashboard"
-                  >
-                    <i className="bi bi-ui-checks-grid fa-fw me-2"></i>Dashboard
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="dropdown-item bg-danger-soft-hover"
-                    href="/business/my-subscription"
-                  >
-                    <i className="bi bi-gear fa-fw me-2"></i>Account Setting
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="dropdown-item bg-danger-soft-hover"
-                    href={`${
-                      userProfile?.isCustomer
-                        ? "/user/account-information"
-                        : "/business/about-the-business"
-                    }`}
-                  >
-                    <i className="fas fa-business-time fa-fw me-2"></i>Business
-                    Information
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    className="dropdown-item bg-danger-soft-hover"
-                    href="/business/support"
-                  >
-                    <i className="bi bi-headset fa-fw me-2"></i>Support
-                  </Link>
-                </li>
-                <li>
-                  <Link className="dropdown-item bg-danger-soft-hover" href="#">
-                    <i className="bi bi-power fa-fw me-2"></i>Sign Out
-                  </Link>
-                </li>
-                <li>
-                  {" "}
-                  <hr className="dropdown-divider" />
-                </li>
-                <li>
-                  <div className="bg-light dark-mode-switch theme-icon-active d-flex align-items-center p-1 rounded mt-2">
-                    <button
-                      type="button"
-                      className="btn btn-sm mb-0"
-                      data-bs-theme-value="light"
+                  </li> */}
+                  {/* <!-- Dark mode options END--> */}
+                </ul>
+              </div>
+            ) : (
+              <div className="dropdown ms-1 ms-lg-0">
+                <Link
+                  className="nav-link"
+                  role="button"
+                  href="#"
+                  id="profileDropdown"
+                  data-bs-toggle="dropdown"
+                  aria-expanded="true"
+                  data-bs-auto-close="outside"
+                  data-bs-display="static"
+                >
+                  
+                  <div className="avatar me-3">
+                        <img
+                          className="avatar-img rounded-circle shadow"
+                          src={businessProfile?.image ? `${IMAGE_URL}/uploads/business-logo/${businessProfile?.image}` : companyLogo.src}
+                          alt="avatar"
+                        />
+                      </div>
+                </Link>
+                <ul
+                  className="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3"
+                  aria-labelledby="profileDropdown"
+                  data-bs-popper="none"
+                >
+                  {/* <!-- Profile info --> */}
+                  <li className="px-3 mb-3">
+                    <div className="d-flex align-items-center">
+                      <div className="avatar me-3">
+                        <img
+                          className="avatar-img rounded-circle shadow"
+                          src={companyLogo.src}
+                          alt="avatar"
+                        />
+                      </div>
+                      <div>
+                        <Link className="h6" href="/#">
+                          Redwood Solutions
+                        </Link>
+                        <p className="small m-0">{userProfile?.email}</p>
+                      </div>
+                    </div>
+                  </li>
+                  <li>
+                    {" "}
+                    <hr className="dropdown-divider" />
+                  </li>
+                  <li>
+                    <Link
+                      className="dropdown-item bg-danger-soft-hover"
+                      href="/business/dashboard"
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        fill="currentColor"
-                        className="bi bi-sun fa-fw mode-switch"
-                        viewBox="0 0 16 16"
-                      >
-                        <path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z" />
-                        <use href="#"></use>
-                      </svg>{" "}
-                      Light
-                    </button>
-                    <button
-                      type="button"
-                      className="btn btn-sm mb-0"
-                      data-bs-theme-value="dark"
+                      <i className="bi bi-ui-checks-grid fa-fw me-2"></i>
+                      Dashboard
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      className="dropdown-item bg-danger-soft-hover"
+                      href="/business/my-subscription"
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        fill="currentColor"
-                        className="bi bi-moon-stars fa-fw mode-switch"
-                        viewBox="0 0 16 16"
-                      >
-                        <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278zM4.858 1.311A7.269 7.269 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.316 7.316 0 0 0 5.205-2.162c-.337.042-.68.063-1.029.063-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286z" />
-                        <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z" />
-                        <use href="#"></use>
-                      </svg>{" "}
-                      Dark
-                    </button>
-                    <button
-                      type="button"
-                      className="btn btn-sm mb-0 active"
-                      data-bs-theme-value="auto"
+                      <i className="bi bi-gear fa-fw me-2"></i>Account Setting
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      className="dropdown-item bg-danger-soft-hover"
+                      href={`${
+                        userProfile?.isCustomer
+                          ? "/user/account-information"
+                          : "/business/about-the-business"
+                      }`}
                     >
-                      <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        width="16"
-                        height="16"
-                        fill="currentColor"
-                        className="bi bi-circle-half fa-fw mode-switch"
-                        viewBox="0 0 16 16"
+                      <i className="fas fa-business-time fa-fw me-2"></i>
+                      Business Information
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      className="dropdown-item bg-danger-soft-hover"
+                      href="/business/support"
+                    >
+                      <i className="bi bi-headset fa-fw me-2"></i>Support
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      className="dropdown-item bg-danger-soft-hover"
+                      href="#"
+                      onClick={() => handleLogout()}
+                    >
+                      <i className="bi bi-power fa-fw me-2"></i>Sign Out
+                    </Link>
+                  </li>
+                  <li>
+                    {" "}
+                    <hr className="dropdown-divider" />
+                  </li>
+                  {/* <li>
+                    <div className="bg-light dark-mode-switch theme-icon-active d-flex align-items-center p-1 rounded mt-2">
+                      <button
+                        type="button"
+                        className="btn btn-sm mb-0"
+                        data-bs-theme-value="light"
                       >
-                        <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z" />
-                        <use href="#"></use>
-                      </svg>{" "}
-                      Auto
-                    </button>
-                  </div>
-                </li>
-                {/* <!-- Dark mode options END--> */}
-              </ul>
-            </div>
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          fill="currentColor"
+                          className="bi bi-sun fa-fw mode-switch"
+                          viewBox="0 0 16 16"
+                        >
+                          <path d="M8 11a3 3 0 1 1 0-6 3 3 0 0 1 0 6zm0 1a4 4 0 1 0 0-8 4 4 0 0 0 0 8zM8 0a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 0zm0 13a.5.5 0 0 1 .5.5v2a.5.5 0 0 1-1 0v-2A.5.5 0 0 1 8 13zm8-5a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2a.5.5 0 0 1 .5.5zM3 8a.5.5 0 0 1-.5.5h-2a.5.5 0 0 1 0-1h2A.5.5 0 0 1 3 8zm10.657-5.657a.5.5 0 0 1 0 .707l-1.414 1.415a.5.5 0 1 1-.707-.708l1.414-1.414a.5.5 0 0 1 .707 0zm-9.193 9.193a.5.5 0 0 1 0 .707L3.05 13.657a.5.5 0 0 1-.707-.707l1.414-1.414a.5.5 0 0 1 .707 0zm9.193 2.121a.5.5 0 0 1-.707 0l-1.414-1.414a.5.5 0 0 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .707zM4.464 4.465a.5.5 0 0 1-.707 0L2.343 3.05a.5.5 0 1 1 .707-.707l1.414 1.414a.5.5 0 0 1 0 .708z" />
+                          <use href="#"></use>
+                        </svg>{" "}
+                        Light
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-sm mb-0"
+                        data-bs-theme-value="dark"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          fill="currentColor"
+                          className="bi bi-moon-stars fa-fw mode-switch"
+                          viewBox="0 0 16 16"
+                        >
+                          <path d="M6 .278a.768.768 0 0 1 .08.858 7.208 7.208 0 0 0-.878 3.46c0 4.021 3.278 7.277 7.318 7.277.527 0 1.04-.055 1.533-.16a.787.787 0 0 1 .81.316.733.733 0 0 1-.031.893A8.349 8.349 0 0 1 8.344 16C3.734 16 0 12.286 0 7.71 0 4.266 2.114 1.312 5.124.06A.752.752 0 0 1 6 .278zM4.858 1.311A7.269 7.269 0 0 0 1.025 7.71c0 4.02 3.279 7.276 7.319 7.276a7.316 7.316 0 0 0 5.205-2.162c-.337.042-.68.063-1.029.063-4.61 0-8.343-3.714-8.343-8.29 0-1.167.242-2.278.681-3.286z" />
+                          <path d="M10.794 3.148a.217.217 0 0 1 .412 0l.387 1.162c.173.518.579.924 1.097 1.097l1.162.387a.217.217 0 0 1 0 .412l-1.162.387a1.734 1.734 0 0 0-1.097 1.097l-.387 1.162a.217.217 0 0 1-.412 0l-.387-1.162A1.734 1.734 0 0 0 9.31 6.593l-1.162-.387a.217.217 0 0 1 0-.412l1.162-.387a1.734 1.734 0 0 0 1.097-1.097l.387-1.162zM13.863.099a.145.145 0 0 1 .274 0l.258.774c.115.346.386.617.732.732l.774.258a.145.145 0 0 1 0 .274l-.774.258a1.156 1.156 0 0 0-.732.732l-.258.774a.145.145 0 0 1-.274 0l-.258-.774a1.156 1.156 0 0 0-.732-.732l-.774-.258a.145.145 0 0 1 0-.274l.774-.258c.346-.115.617-.386.732-.732L13.863.1z" />
+                          <use href="#"></use>
+                        </svg>{" "}
+                        Dark
+                      </button>
+                      <button
+                        type="button"
+                        className="btn btn-sm mb-0 active"
+                        data-bs-theme-value="auto"
+                      >
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="16"
+                          height="16"
+                          fill="currentColor"
+                          className="bi bi-circle-half fa-fw mode-switch"
+                          viewBox="0 0 16 16"
+                        >
+                          <path d="M8 15A7 7 0 1 0 8 1v14zm0 1A8 8 0 1 1 8 0a8 8 0 0 1 0 16z" />
+                          <use href="#"></use>
+                        </svg>{" "}
+                        Auto
+                      </button>
+                    </div>
+                  </li> */}
+                  {/* <!-- Dark mode options END--> */}
+                </ul>
+              </div>
+            )}
+
             {/* <!-- Profile START --> */}
           </div>
         </nav>

@@ -1,16 +1,20 @@
 import PublicService from "@/services/PublicService";
-import { usePublicPageStore } from "@/store";
+import { useBusinessAboutStore, usePublicPageStore } from "@/store";
 import Head from "next/head";
 import { useEffect, useState } from "react";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import { upcomingEvents } from "../dummy_data/data";
+import useToken from "@/hooks/useToken";
+import { useCustomerAboutStore } from "@/store/useCustomerAboutStore";
+import CustomerService from "@/services/CustomerService";
+import BusinessService from "@/services/BusinessService";
 
 const PublicView = (WrapperComponent, title) => {
   const PublicComponent = (props) => {
     const [loading, setLoading] = useState(true)
     // const router = useRouter();
-
+    const isAuthenticated = useToken();
     const getHomePageData =  () => {
       const res = PublicService.homePageData().then((data) => {
         if (data?.data?.status === "success") {
@@ -21,15 +25,45 @@ const PublicView = (WrapperComponent, title) => {
             recentBlog: data.data.recentBlog,
           });
         }
-        console.log("res", data.data);
+        // console.log("res", data.data);
       });
       
+    };
+
+    const setAllAboutData = useBusinessAboutStore(
+      (state) => state.setAboutAllData
+    );
+
+    const setCustomerAllAboutData = useCustomerAboutStore(
+      (state) => state.setAboutAllData
+    );
+
+    const getAboutBusiness = async () => {
+      try {
+        const res = await BusinessService.aboutBusiness();
+        if (res.data.status === "success") {
+          setAllAboutData(res.data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch business data:", error);
+      }
+    };
+
+    const getAboutCustomer = async () => {
+      try {
+        const res = await CustomerService.aboutCustomer();
+        if (res.data.status === "success") {
+          setCustomerAllAboutData(res.data);
+        }
+      } catch (error) {
+        console.error("Failed to fetch Customer data:", error);
+      }
     };
 
 
     const getMenuData = () => {
       const res = PublicService.topMenu().then((menu) => {
-        console.log(menu);
+        // console.log(menu);
         if(menu?.data?.actionStatus === 1) {
           usePublicPageStore.setState({
             topMenu: menu.data.fiveCategory,
@@ -39,6 +73,7 @@ const PublicView = (WrapperComponent, title) => {
       })
     }
 
+    console.log(isAuthenticated);
     
 
     useEffect(() => {
@@ -48,6 +83,13 @@ const PublicView = (WrapperComponent, title) => {
         setLoading(false);
       }, 2000)
     }, []);
+
+    useEffect(() => {
+      if(isAuthenticated) {
+        getAboutBusiness();
+        getAboutCustomer();
+      }
+    }, [isAuthenticated])
 
     if(loading) {
       return (

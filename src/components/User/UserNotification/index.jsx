@@ -22,6 +22,7 @@ const UserNotification = () => {
 
   const handleUpdateNotification = (data) => {
     const payload = {
+      ...notificationSetting,
       ...data
     }
 

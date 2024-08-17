@@ -83,7 +83,7 @@ const Photos = () => {
     e.preventDefault();
     e.stopPropagation();
     const payload = {
-      title: title,
+      title: "Empty title",
       image: albumPhoto,
       image_old: "",
       album_id: albumId,

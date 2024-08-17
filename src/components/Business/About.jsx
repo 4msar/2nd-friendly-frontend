@@ -1,12 +1,13 @@
 import { IMAGE_URL } from "@/helpers/apiUrl";
+import useSnackbar from "@/hooks/useSnackbar";
 import useToken from "@/hooks/useToken";
 import BusinessService from "@/services/BusinessService";
 import { useBusinessAboutStore } from "@/store";
 import { Button, CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
-import swal from "sweetalert";
 
 const  AboutBusiness = () => {
+  const snackbar = useSnackbar();
   const isAuthenticated = useToken();
   const [loading, setLoading] = useState(false);
   const userProfile = useBusinessAboutStore((state) => state.businessProfile);
@@ -77,9 +78,7 @@ const  AboutBusiness = () => {
       (data) => {
         console.log(data.data);
         if (data.data.status === "success") {
-          swal(data.data.message, {
-            icon: "success",
-          });
+          snackbar(data.data.message, {variant: "success"})
           getAboutBusiness();
           setLoading(false);
           setFieldError("");

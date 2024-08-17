@@ -1,6 +1,7 @@
 import SidebarInformation from "@/components/Business/SidebarInformation";
 import BusinessView from "@/components/HOC/BusinessView";
 import { capitalize, isEmpty } from "@/helpers/functions";
+import useSnackbar from "@/hooks/useSnackbar";
 import useToken from "@/hooks/useToken";
 import BusinessService from "@/services/BusinessService";
 import { useBusinessAboutStore } from "@/store";
@@ -23,6 +24,7 @@ const Album = () => {
   const userProfile = useBusinessAboutStore((state) => state.businessProfile);
   const isAuthenticated = useToken();
   const router = useRouter();
+  const snackbar = useSnackbar();
   const currentPage = parseInt(router.query.page) || 1;
 
   const handlePageChange = (page, totalPages) => {
@@ -92,9 +94,8 @@ const Album = () => {
         setLoading(false);
         setOpen(false);
         getAllPhotoAlbum();
-        swal("Poof! Album Save successfully!", {
-          icon: "success",
-        });
+        setSingleAlbum({});
+        snackbar(data.data.message, { variant: "success" });
         
       } else {
         setLoading(false);
@@ -110,12 +111,11 @@ const Album = () => {
     };
     const res = BusinessService.photoAlbumUpdate(payload).then((data) => {
       if (data.data.status === "success") {
-        swal("Poof! Album Update successfully!", {
-          icon: "success",
-        });
+        snackbar(data.data.message, { variant: "success" });
         setOpen(false);
         setLoading(false);
         getAllPhotoAlbum();
+        setSingleAlbum({});
       } else {
         setLoading(false);
       }

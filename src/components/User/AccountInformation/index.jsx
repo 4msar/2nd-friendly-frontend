@@ -1,5 +1,6 @@
 import { allStateData } from "@/components/dummy_data/data";
 import { IMAGE_URL } from "@/helpers/apiUrl";
+import useSnackbar from "@/hooks/useSnackbar";
 import useToken from "@/hooks/useToken";
 import BusinessService from "@/services/BusinessService";
 import CustomerService from "@/services/CustomerService";
@@ -7,10 +8,10 @@ import { useBusinessAboutStore, useUserStore } from "@/store";
 import { useCustomerAboutStore } from "@/store/useCustomerAboutStore";
 import { Button, CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
-import swal from "sweetalert";
 
 const AboutUser = () => {
   const isAuthenticated = useToken();
+  const snackbar = useSnackbar();
   const [loading, setLoading] = useState(false);
   const userProfile = useCustomerAboutStore((state) => state.customerProfile);
   const customer = useCustomerAboutStore((state) => state.customer);
@@ -70,9 +71,7 @@ const AboutUser = () => {
     };
     const res = CustomerService.aboutCustomerSave(payload).then((data) => {
       if (data.data.status === "success") {
-        swal("Poof! Information Update successfully!", {
-          icon: "success",
-        });
+        snackbar(data.data.message, {variant: "success"})
         getAboutUser();
         setLoading(false);
       } else {

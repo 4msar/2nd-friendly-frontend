@@ -11,6 +11,12 @@ export const useCustomerAboutStore = create(
 
       setAboutAllData: ({allState, customer, customerProfile}) =>{
         set({ allState, customer, customerProfile })
-      }
+      },
+
+      resetAboutData: () => set({
+        allState: [],
+        customer: null,
+        customerProfile: null,
+      })
     })
 );

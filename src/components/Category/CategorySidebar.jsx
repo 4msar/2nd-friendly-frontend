@@ -41,7 +41,7 @@ const CategorySidebar = () => {
                       type="checkbox"
                       value=""
                       id="flexCheckDefault9"
-                      checked
+                      defaultChecked
                     />
                     <label className="form-check-label" for="flexCheckDefault9">
                       All
@@ -142,7 +142,7 @@ const CategorySidebar = () => {
                       type="checkbox"
                       value=""
                       id="flexCheckDefault9"
-                      checked
+                      defaultChecked
                     />
                     <label className="form-check-label" for="flexCheckDefault9">
                       All
@@ -226,7 +226,7 @@ const CategorySidebar = () => {
                       type="checkbox"
                       value=""
                       id="flexCheckDefault9"
-                      checked
+                      defaultChecked
                     />
                     <label className="form-check-label" for="flexCheckDefault9">
                       All
@@ -310,7 +310,7 @@ const CategorySidebar = () => {
                       type="checkbox"
                       value=""
                       id="flexCheckDefault9"
-                      checked
+                      defaultChecked
                     />
                     <label className="form-check-label" for="flexCheckDefault9">
                       All

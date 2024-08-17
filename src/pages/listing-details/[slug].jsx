@@ -1,12 +1,58 @@
 import { category_items } from "@/components/dummy_data/data";
 import PublicView from "@/components/HOC/PublicView";
+import { formatDate } from "@/helpers/functions";
+import PublicService from "@/services/PublicService";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
 
-const CategoryPage = () => {
+const ListingDetails = ({slug}) => {
   const route = useRouter();
   const items = category_items;
   const { query } = route;
 
+  const [details, setDetails] = useState({
+    allAlbum:[],
+    sinData: null,
+    userInfo: null,
+    allAminity: [],
+    allAlbum: [],
+    photo: [],
+    career: [],
+    allEmbeddedVideo: [],
+    events: [],
+    extendedClosure: [],
+    allFaq: [],
+    review: [],
+
+  })
+
+  const handleGetDetails = (slug) => {
+    const payload = {
+      slug
+    }
+
+    const res = PublicService.advertisementDetails(payload).then((details) => {
+      console.log(details.data.allAlbum);
+      setDetails({
+        allAlbum:details.data.allAlbum,
+        sinData: details.data.sinData,
+        userInfo: details.data.userInfo,
+        allAminity: details.data.allAminity,
+        photo: details.data.photo,
+        career: details.data.career,
+        allEmbeddedVideo: details.data.allEmbeddedVideo,
+        events: details.data.events,
+        extendedClosure: details.data.extendedClosure,
+        allFaq: details.data.allFaq,
+        review: details.data.review,
+      })
+      
+    })
+  }
+
+  useEffect(() => {
+    handleGetDetails(slug);
+  }, slug)
   return (
     <main>
       <section className="pt-5 pb-0 bg-light">
@@ -25,7 +71,7 @@ const CategoryPage = () => {
                     <a href="restaurent.php">Restaurants</a>
                   </li>
                   <li className="breadcrumb-item">
-                    Brothers and Sisters Restaurant Limited
+                    {details?.sinData?.business_name}
                   </li>
                 </ol>
               </nav>
@@ -38,13 +84,10 @@ const CategoryPage = () => {
           <div className="row">
             <div className="col-lg-8">
               <h2 className="fw-normal">
-                Brothers and Sisters Restaurant Limited
+                {details?.sinData?.business_name}
               </h2>
               <p>
-                Satisfied conveying a dependent contented agreeable do be.
-                Warrant private blushes removed an in equally totally if.
-                Delivered dejection necessary objection do Mr prevailed. Mr
-                feeling does chiefly cordial in do..
+                {details?.sinData?.history}
               </p>
               <ul className="list-inline mb-0">
                 <li className="list-inline-item h6 me-3 mb-1 mb-sm-0">
@@ -59,7 +102,7 @@ const CategoryPage = () => {
                 </li>
                 <li className="list-inline-item h6 me-3 mb-1 mb-sm-0">
                   <i className="bi bi-patch-exclamation-fill text-danger me-2"></i>
-                  Last updated 09/2021
+                  Last updated {formatDate(details?.sinData?.updatedAt, "DD/YYYY")}
                 </li>
                 <li className="list-inline-item h6 mb-0">
                   <i className="fas fa-globe text-info me-2"></i>English
@@ -2410,4 +2453,19 @@ const CategoryPage = () => {
   );
 };
 
-export default PublicView(CategoryPage);
+export default PublicView(ListingDetails);
+
+
+export async function getServerSideProps(context) {
+  const { params } = context;
+  
+  const { slug } = params;
+  // console.log("Category List", category);
+ 
+
+  return {
+      props: {
+        slug
+      },
+  };
+}

@@ -1,4 +1,5 @@
 import { IMAGE_URL } from "@/helpers/apiUrl";
+import { formatDate } from "@/helpers/functions";
 import Link from "next/link";
 import React from "react";
 
@@ -21,7 +22,7 @@ const AdvertisementCard = ({item, index}) => {
 
                     
                 <img
-                  src={`${IMAGE_URL}/uploads/business-event/${item.image}`}
+                  src={`${IMAGE_URL}/uploads/business-logo/${item.business_logo}`}
                   className="d-block w-100 rounded-start-2"
                   alt="..."
                 />
@@ -58,9 +59,9 @@ const AdvertisementCard = ({item, index}) => {
             <div className="d-sm-flex justify-content-sm-between mb-2 mb-sm-2">
               <div>
                 <h5 className="card-title mb-0 fw-normal mb-1">
-                  <Link href="listing-detail">
-                    {item.title}
-                  </Link>
+                  <a href={`/listing-details/${item?.businessProfile?.slug}`}>
+                    {item?.businessProfile.business_name}
+                  </a>
                 </h5>
                 <p className="small mb-0 mb-sm-0 pb-0">
                   <i className="fas fa-star text-warning"></i>
@@ -69,7 +70,7 @@ const AdvertisementCard = ({item, index}) => {
                   <i className="fas fa-star text-warning"></i>
                   <i className="fas fa-star text-warning"></i> <strong>5.0</strong>{" "}
                   ({item.starCount} Reviews) .{" "}
-                  <span className="fw-bold text-danger">{item.status}</span> until {item.time} PM
+                  <span className="fw-bold text-danger">{item.status}</span> until {formatDate(item.time, "DD")} PM
                 </p>
               </div>
             </div>

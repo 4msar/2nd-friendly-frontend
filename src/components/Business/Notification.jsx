@@ -21,6 +21,7 @@ const Notification = () => {
 
   const handleUpdateNotification = (data) => {
     const payload = {
+      ...notificationSetting,
       ...data
     }
 
@@ -81,7 +82,7 @@ const Notification = () => {
           </label>
         </div>
         <div class="form-check form-switch form-check-md mb-2">
-          <input class="form-check-input" type="checkbox" id="checkPrivacy5" />
+          <input class="form-check-input" type="checkbox" id="checkPrivacy5"/>
           <label class="form-check-label" for="checkPrivacy5">
             {" "}
             Send me an email when I receive leads from Nearby Jobs.
