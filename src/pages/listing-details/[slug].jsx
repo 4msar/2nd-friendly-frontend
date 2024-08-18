@@ -1,17 +1,21 @@
+import eventImg from "@/assets/img/event/1.jpg";
+import eventImg3 from "@/assets/img/event/4.jpg";
+import licence from "@/assets/img/licence.svg";
 import { category_items } from "@/components/dummy_data/data";
 import PublicView from "@/components/HOC/PublicView";
-import { formatDate } from "@/helpers/functions";
+import { IMAGE_URL } from "@/helpers/apiUrl";
+import { capitalize, formatDate } from "@/helpers/functions";
 import PublicService from "@/services/PublicService";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-const ListingDetails = ({slug}) => {
+const ListingDetails = ({ slug }) => {
   const route = useRouter();
   const items = category_items;
   const { query } = route;
 
   const [details, setDetails] = useState({
-    allAlbum:[],
+    allAlbum: [],
     sinData: null,
     userInfo: null,
     allAminity: [],
@@ -22,19 +26,18 @@ const ListingDetails = ({slug}) => {
     events: [],
     extendedClosure: [],
     allFaq: [],
-    review: [],
-
-  })
+    review: []
+  });
 
   const handleGetDetails = (slug) => {
     const payload = {
       slug
-    }
+    };
 
     const res = PublicService.advertisementDetails(payload).then((details) => {
       console.log(details.data.allAlbum);
       setDetails({
-        allAlbum:details.data.allAlbum,
+        allAlbum: details.data.allAlbum,
         sinData: details.data.sinData,
         userInfo: details.data.userInfo,
         allAminity: details.data.allAminity,
@@ -44,15 +47,14 @@ const ListingDetails = ({slug}) => {
         events: details.data.events,
         extendedClosure: details.data.extendedClosure,
         allFaq: details.data.allFaq,
-        review: details.data.review,
-      })
-      
-    })
-  }
+        review: details.data.review
+      });
+    });
+  };
 
   useEffect(() => {
     handleGetDetails(slug);
-  }, slug)
+  }, slug);
   return (
     <main>
       <section className="pt-5 pb-0 bg-light">
@@ -83,12 +85,8 @@ const ListingDetails = ({slug}) => {
         <div className="container">
           <div className="row">
             <div className="col-lg-8">
-              <h2 className="fw-normal">
-                {details?.sinData?.business_name}
-              </h2>
-              <p>
-                {details?.sinData?.history}
-              </p>
+              <h2 className="fw-normal">{details?.sinData?.business_name}</h2>
+              <p>{details?.sinData?.history}</p>
               <ul className="list-inline mb-0">
                 <li className="list-inline-item h6 me-3 mb-1 mb-sm-0">
                   <i className="fas fa-star text-warning me-2"></i>4.5/5.0
@@ -102,7 +100,8 @@ const ListingDetails = ({slug}) => {
                 </li>
                 <li className="list-inline-item h6 me-3 mb-1 mb-sm-0">
                   <i className="bi bi-patch-exclamation-fill text-danger me-2"></i>
-                  Last updated {formatDate(details?.sinData?.updatedAt, "DD/YYYY")}
+                  Last updated{" "}
+                  {formatDate(details?.sinData?.updatedAt, "DD/YYYY")}
                 </li>
                 <li className="list-inline-item h6 mb-0">
                   <i className="fas fa-globe text-info me-2"></i>English
@@ -121,165 +120,37 @@ const ListingDetails = ({slug}) => {
               </h5>
               <div className="row g-3">
                 {/* <!-- Course item --> */}
-                <div className="col-sm-6 col-lg-4 col-xl-3">
-                  {/* <!-- Image --> */}
-                  <div className="card card-metro overflow-hidden rounded-2">
-                    <img src="assets/img/event/4.jpg" alt="" />
-                    {/* <!-- Image overlay --> */}
-                    <div className="card-img-overlay d-flex">
-                      {/* <!-- Info --> */}
-                      <div className="mt-auto card-text">
-                        <a
-                          href="#"
-                          className="text-white mt-auto h5 stretched-link"
-                        >
-                          Figma
-                        </a>
-                        <div className="text-white">6 Photos | 23 Reviews</div>
+                {details?.photo?.length > 0 &&
+                  details?.photo?.map((item) => (
+                    <div className="col-sm-6 col-lg-4 col-xl-3">
+                      {/* <!-- Image --> */}
+                      <div className="card card-metro overflow-hidden rounded-2">
+                        <img
+                          src={
+                            item?.image
+                              ? `${IMAGE_URL}/uploads/business-photo/${item?.image}`
+                              : eventImg3.src
+                          }
+                          alt="img"
+                        />
+                        {/* <!-- Image overlay --> */}
+                        <div className="card-img-overlay d-flex">
+                          {/* <!-- Info --> */}
+                          <div className="mt-auto card-text">
+                            <a
+                              href="#"
+                              className="text-white mt-auto h5 stretched-link"
+                            >
+                              {item.title}
+                            </a>
+                            <div className="text-white">
+                              6 Photos | 23 Reviews
+                            </div>
+                          </div>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                </div>
-                {/* <!-- Course item --> */}
-                <div className="col-sm-6 col-lg-4 col-xl-3">
-                  {/* <!-- Image --> */}
-                  <div className="card card-metro overflow-hidden rounded-2">
-                    <img src="assets/img/event/14.jpg" alt="" />
-                    {/* <!-- Image overlay --> */}
-                    <div className="card-img-overlay d-flex">
-                      {/* <!-- Info --> */}
-                      <div className="mt-auto card-text">
-                        <a
-                          href="#"
-                          className="text-white mt-auto h5 stretched-link"
-                        >
-                          Figma
-                        </a>
-                        <div className="text-white">16 Courses</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                {/* <!-- Course item --> */}
-                <div className="col-sm-6 col-lg-4 col-xl-3">
-                  {/* <!-- Image --> */}
-                  <div className="card card-metro overflow-hidden rounded-2">
-                    <img src="assets/img/event/15.jpg" alt="" />
-                    {/* <!-- Image overlay --> */}
-                    <div className="card-img-overlay d-flex">
-                      {/* <!-- Info --> */}
-                      <div className="mt-auto card-text">
-                        <a
-                          href="#"
-                          className="text-white mt-auto h5 stretched-link"
-                        >
-                          Python
-                        </a>
-                        <div className="text-white">32 Courses</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                {/* <!-- Course item --> */}
-                <div className="col-sm-6 col-lg-4 col-xl-3">
-                  {/* <!-- Image --> */}
-                  <div className="card card-metro overflow-hidden rounded-2">
-                    <img src="assets/img/event/6.jpg" alt="" />
-                    {/* <!-- Image overlay --> */}
-                    <div className="card-img-overlay d-flex">
-                      {/* <!-- Info --> */}
-                      <div className="mt-auto card-text">
-                        <a
-                          href="#"
-                          className="text-white mt-auto h5 stretched-link"
-                        >
-                          Angular
-                        </a>
-                        <div className="text-white">48 Courses</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                {/* <!-- Course item --> */}
-                <div className="col-sm-6 col-lg-4 col-xl-3">
-                  {/* <!-- Image --> */}
-                  <div className="card card-metro overflow-hidden rounded-3">
-                    <img src="assets/img/event/7.jpg" alt="" />
-                    {/* <!-- Image overlay --> */}
-                    <div className="card-img-overlay d-flex">
-                      {/* <!-- Info --> */}
-                      <div className="mt-auto card-text">
-                        <a
-                          href="#"
-                          className="text-white mt-auto h5 stretched-link"
-                        >
-                          React-Native
-                        </a>
-                        <div className="text-white">31 Courses</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                {/* <!-- Course item --> */}
-                <div className="col-sm-6 col-lg-4 col-xl-3">
-                  {/* <!-- Image --> */}
-                  <div className="card card-metro overflow-hidden rounded-3">
-                    <img src="assets/img/event/8.jpg" alt="" />
-                    {/* <!-- Image overlay --> */}
-                    <div className="card-img-overlay d-flex">
-                      {/* <!-- Info --> */}
-                      <div className="mt-auto card-text">
-                        <a
-                          href="#"
-                          className="text-white mt-auto h5 stretched-link"
-                        >
-                          Sketch
-                        </a>
-                        <div className="text-white">38 Courses</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                {/* <!-- Course item --> */}
-                <div className="col-sm-6 col-lg-4 col-xl-3">
-                  {/* <!-- Image --> */}
-                  <div className="card card-metro overflow-hidden rounded-3">
-                    <img src="assets/img/event/14.jpg" alt="" />
-                    {/* <!-- Image overlay --> */}
-                    <div className="card-img-overlay d-flex">
-                      {/* <!-- Info --> */}
-                      <div className="mt-auto card-text">
-                        <a
-                          href="#"
-                          className="text-white mt-auto h5 stretched-link"
-                        >
-                          Javascript
-                        </a>
-                        <div className="text-white">33 Courses</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                {/* <!-- Course item --> */}
-                <div className="col-sm-6 col-lg-4 col-xl-3">
-                  {/* <!-- Image --> */}
-                  <div className="card card-metro overflow-hidden rounded-3">
-                    <img src="assets/img/event/20.jpg" alt="" />
-                    {/* <!-- Image overlay --> */}
-                    <div className="card-img-overlay d-flex">
-                      {/* <!-- Info --> */}
-                      <div className="mt-auto card-text">
-                        <a
-                          href="#"
-                          className="text-white mt-auto h5 stretched-link"
-                        >
-                          Bootstrap
-                        </a>
-                        <div className="text-white">62 Courses</div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                  ))}
               </div>
               <div className="row">
                 <div className="col-12">
@@ -288,9 +159,7 @@ const ListingDetails = ({slug}) => {
                   </div>
                   <h6 className="mb-3">History</h6>
                   <p className="mb-3">
-                    Established in 2012. Peaches Patties has been serving San
-                    Francisco since 2012. We look forward to serving you some of
-                    the best Jamaican cuisine in the area.
+                    {details?.sinData?.history}
                   </p>
                   <h6 className="mb-3">Meet the Business Owner</h6>
                   <p className="mb-3">
@@ -330,25 +199,37 @@ const ListingDetails = ({slug}) => {
                     </li>
                     <li className="list-inline-item">
                       {" "}
-                      <a className="text-facebook" href="#">
+                      <a
+                        className="text-facebook"
+                        href={details?.sinData?.facebook_link}
+                      >
                         <i className="fab fa-facebook-square"></i> Facebook
                       </a>{" "}
                     </li>
                     <li className="list-inline-item">
                       {" "}
-                      <a className="text-instagram-gradient" href="#">
+                      <a
+                        className="text-instagram-gradient"
+                        href={details?.sinData?.facebook_link}
+                      >
                         <i className="fab fa-instagram-square"></i> Instagram
                       </a>{" "}
                     </li>
                     <li className="list-inline-item">
                       {" "}
-                      <a className="text-twitter" href="#">
+                      <a
+                        className="text-twitter"
+                        href={details?.sinData?.twitter_link}
+                      >
                         <i className="fab fa-twitter-square"></i> Twitter
                       </a>{" "}
                     </li>
                     <li className="list-inline-item">
                       {" "}
-                      <a className="text-youtube" href="#">
+                      <a
+                        className="text-youtube"
+                        href={details?.sinData?.youtube_link}
+                      >
                         <i className="fab fa-youtube-square"></i> Youtube
                       </a>{" "}
                     </li>
@@ -365,145 +246,22 @@ const ListingDetails = ({slug}) => {
                   </div>
                 </div>
               </div>
+              {/* <div className="row">
+                <div className="col-sm-12 col-md-12"> */}
               <div className="row">
-                <div className="col-sm-12 col-md-6">
-                  <ul className="list-group list-group-borderless">
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Takes Reservations
-                    </li>
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Offers Takeout
-                    </li>
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Walk-ins Welcome
-                    </li>
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> No Delivery
-                    </li>
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Keto Options
-                    </li>
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Vegan Options
-                    </li>
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Many Vegetarian
-                      Options
-                    </li>
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Accepts Credit Cards
-                    </li>
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Accepts Android Pay
-                    </li>
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Accepts Apple Pay
-                    </li>
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Accepts
-                      Cryptocurrency
-                    </li>
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Intimate, Romantic,
-                      ClassNamey, Upscale
-                    </li>
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Quiet
-                    </li>
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Casual Dress
-                    </li>
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Good for Groups
-                    </li>
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Good for Dinner,
-                      Dessert
-                    </li>
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Good for Working
-                    </li>
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Street Parking
-                    </li>
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Waiter Service
-                    </li>
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Free Wi-Fi
-                    </li>
-                  </ul>
-                </div>
-                <div className="col-sm-12 col-md-6">
-                  <ul className="list-group list-group-borderless">
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Best nights on
-                      Tuesday, Friday, Saturday
-                    </li>
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Happy Hour Specials
-                    </li>
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Full Bar
-                    </li>
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Wheelchair
-                      Accessible
-                    </li>
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Latinx-owned
-                    </li>
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Women-owned
-                    </li>
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Open to All
-                    </li>
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> No Outdoor Seating
-                    </li>
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Offers Catering
-                    </li>
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Not Good For Kids
-                    </li>
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Not Good For Dancing
-                    </li>
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> No Smoking
-                    </li>
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> No Drive-Thru
-                    </li>
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Dogs Not Allowed
-                    </li>
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> No TV
-                    </li>
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> No Heated Outdoor
-                      Seating
-                    </li>
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> No Covered Outdoor
-                      Seating
-                    </li>
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> No Private Dining
-                    </li>
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Bike Parking
-                    </li>
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Provides reusable
-                      tableware
-                    </li>
-                  </ul>
-                </div>
+                {details?.allAminity?.length > 0 &&
+                  details?.allAminity?.map((item, i) => (
+                    <div
+                      className="list-group-item col-sm-12 col-md-6 px-4"
+                      key={i}
+                    >
+                      <i className="bi bi-caret-right"></i>{" "}
+                      {capitalize(item?.amenity.title)}
+                    </div>
+                  ))}
               </div>
+              {/* </div>
+              </div> */}
               {/* <!-- Highlights from the Business END -->
 <!-- FAQs START --> */}
               <div className="clearfix">&nbsp;</div>
@@ -1701,14 +1459,16 @@ const ListingDetails = ({slug}) => {
                       <span className="h6 fw-light">
                         <i className="fas fa-fw fa-map-marker-alt text-danger me-0 me-sm-0"></i>
                       </span>
-                      <span>2002 Horton Ford Rd, Eidson, TN, 37731</span>
+                      <span>{`${details?.sinData?.Official_address_line1}, ${details?.sinData?.city}, ${details?.sinData?.zip}}`}</span>
                     </li>
                     <li className="list-group-item px-0">
                       <span className="h6 fw-light ">
                         <i className="fas fa-fw fa-envelope text-primary me-0 me-sm-0 "></i>
                       </span>
                       <span>
-                        <a href="mailto:example@gmail.com">example@gmail.com</a>
+                        <a href={`mailto:${details?.sinData?.official_email}`}>
+                          {details?.sinData?.official_email}
+                        </a>
                       </span>
                     </li>
                     <li className="list-group-item px-0">
@@ -1716,7 +1476,10 @@ const ListingDetails = ({slug}) => {
                         <i className="fas fa-fw fa-headphones text-black me-0 me-sm-0"></i>
                       </span>
                       <span>
-                        <a href="tel:+896-789-546"> +896-789-546</a>
+                        <a href={`tel:${details?.sinData?.official_phone}`}>
+                          {" "}
+                          {details?.sinData?.official_phone}
+                        </a>
                       </span>
                     </li>
                     <li className="list-group-item px-0">
@@ -1724,8 +1487,8 @@ const ListingDetails = ({slug}) => {
                         <i className="fas fa-fw fa-globe text-success me-0 me-sm-0"></i>
                       </span>
                       <span>
-                        <a href="https://www.2ndafriendly.live">
-                          www.2ndafriendly.live
+                        <a href={details?.sinData?.website_link}>
+                          {details?.sinData?.website_link}
                         </a>
                       </span>
                     </li>
@@ -1739,7 +1502,7 @@ const ListingDetails = ({slug}) => {
                       <div className="avatar avatar-lg">
                         <img
                           className="avatar-img rounded-circle"
-                          src="assets/img/licence.svg"
+                          src={licence.src}
                           alt="avatar"
                         />
                       </div>
@@ -1992,288 +1755,82 @@ const ListingDetails = ({slug}) => {
                 </div>
               </div>
               <div className="card shadow p-2 mb-4 z-index-9">
-                <div className="overflow-hidden rounded-3">
-                  <img
-                    src="assets/img/event/1.jpg"
-                    className="card-img"
-                    alt="course image"
-                  />
-                  <div className="bg-overlay bg-dark opacity-6"></div>
-                  <div className="card-img-overlay d-flex align-items-start flex-column p-3">
-                    <div className="m-auto">
-                      <a
-                        href="https://www.youtube.com/embed/tXHviS-4ygo"
-                        className="btn btn-lg text-danger btn-round btn-white-shadow mb-0"
-                        data-glightbox=""
-                        data-gallery="course-video"
-                      >
-                        <i className="fas fa-play"></i>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div className="card-body px-3">
-                  <div className="d-flex justify-content-between align-items-center">
-                    <div>
-                      <div className="d-flex align-items-center">
-                        <h6 className="fw-bold mb-0 me-2">
-                          Mastering Business Growth: Strategies for Success
-                        </h6>
+                {details?.allEmbeddedVideo?.length > 0 &&
+                  details?.allEmbeddedVideo?.map((item, index) => (
+                    <>
+                      <div className="overflow-hidden rounded-3" key={index}>
+                        <img
+                          src={eventImg.src}
+                          className="card-img"
+                          alt="course image"
+                        />
+                        <div className="bg-overlay bg-dark opacity-6"></div>
+                        <div className="card-img-overlay d-flex align-items-start flex-column p-3">
+                          <div className="m-auto">
+                            <a
+                              href={`https://www.youtube.com/embed/${item?.link}`}
+                              className="btn btn-lg text-danger btn-round btn-white-shadow mb-0"
+                              data-glightbox=""
+                              data-gallery="course-video"
+                            >
+                              <i className="fas fa-play"></i>
+                            </a>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                    <div className="dropdown">
-                      <a
-                        href="#"
-                        className="btn btn-sm btn-light rounded small"
-                        role="button"
-                        id="dropdownShare"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                      >
-                        <i className="fas fa-fw fa-share-alt"></i>
-                      </a>
-                      <ul
-                        className="dropdown-menu dropdown-w-sm dropdown-menu-end min-w-auto shadow rounded"
-                        aria-labelledby="dropdownShare"
-                      >
-                        <li>
-                          <a className="dropdown-item" href="#">
-                            <i className="fab fa-twitter-square me-2"></i>
-                            Twitter
-                          </a>
-                        </li>
-                        <li>
-                          <a className="dropdown-item" href="#">
-                            <i className="fab fa-facebook-square me-2"></i>
-                            Facebook
-                          </a>
-                        </li>
-                        <li>
-                          <a className="dropdown-item" href="#">
-                            <i className="fab fa-linkedin me-2"></i>LinkedIn
-                          </a>
-                        </li>
-                        <li>
-                          <a className="dropdown-item" href="#">
-                            <i className="fas fa-copy me-2"></i>Copy link
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div className="overflow-hidden rounded-3">
-                  <img
-                    src="assets/img/event/3.jpg"
-                    className="card-img"
-                    alt="course image"
-                  />
-                  <div className="bg-overlay bg-dark opacity-6"></div>
-                  <div className="card-img-overlay d-flex align-items-start flex-column p-3">
-                    <div className="m-auto">
-                      <a
-                        href="https://www.youtube.com/embed/tXHviS-4ygo"
-                        className="btn btn-lg text-danger btn-round btn-white-shadow mb-0"
-                        data-glightbox=""
-                        data-gallery="course-video"
-                      >
-                        <i className="fas fa-play"></i>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div className="card-body px-3">
-                  <div className="d-flex justify-content-between align-items-center">
-                    <div>
-                      <div className="d-flex align-items-center">
-                        <h6 className="fw-bold mb-0 me-2">
-                          Financial Literacy 101: Managing Money for Small
-                          Businesses
-                        </h6>
+                      <div className="card-body px-3" key={index}>
+                        <div className="d-flex justify-content-between align-items-center">
+                          <div>
+                            <div className="d-flex align-items-center">
+                              <h6 className="fw-bold mb-0 me-2">
+                                {item.title}
+                              </h6>
+                            </div>
+                          </div>
+                          <div className="dropdown">
+                            <a
+                              href="#"
+                              className="btn btn-sm btn-light rounded small"
+                              role="button"
+                              id="dropdownShare"
+                              data-bs-toggle="dropdown"
+                              aria-expanded="false"
+                            >
+                              <i className="fas fa-fw fa-share-alt"></i>
+                            </a>
+                            <ul
+                              className="dropdown-menu dropdown-w-sm dropdown-menu-end min-w-auto shadow rounded"
+                              aria-labelledby="dropdownShare"
+                            >
+                              <li>
+                                <a className="dropdown-item" href="#">
+                                  <i className="fab fa-twitter-square me-2"></i>
+                                  Twitter
+                                </a>
+                              </li>
+                              <li>
+                                <a className="dropdown-item" href="#">
+                                  <i className="fab fa-facebook-square me-2"></i>
+                                  Facebook
+                                </a>
+                              </li>
+                              <li>
+                                <a className="dropdown-item" href="#">
+                                  <i className="fab fa-linkedin me-2"></i>
+                                  LinkedIn
+                                </a>
+                              </li>
+                              <li>
+                                <a className="dropdown-item" href="#">
+                                  <i className="fas fa-copy me-2"></i>Copy link
+                                </a>
+                              </li>
+                            </ul>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                    <div className="dropdown">
-                      <a
-                        href="#"
-                        className="btn btn-sm btn-light rounded small"
-                        role="button"
-                        id="dropdownShare"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                      >
-                        <i className="fas fa-fw fa-share-alt"></i>
-                      </a>
-                      <ul
-                        className="dropdown-menu dropdown-w-sm dropdown-menu-end min-w-auto shadow rounded"
-                        aria-labelledby="dropdownShare"
-                      >
-                        <li>
-                          <a className="dropdown-item" href="#">
-                            <i className="fab fa-twitter-square me-2"></i>
-                            Twitter
-                          </a>
-                        </li>
-                        <li>
-                          <a className="dropdown-item" href="#">
-                            <i className="fab fa-facebook-square me-2"></i>
-                            Facebook
-                          </a>
-                        </li>
-                        <li>
-                          <a className="dropdown-item" href="#">
-                            <i className="fab fa-linkedin me-2"></i>LinkedIn
-                          </a>
-                        </li>
-                        <li>
-                          <a className="dropdown-item" href="#">
-                            <i className="fas fa-copy me-2"></i>Copy link
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div className="overflow-hidden rounded-3">
-                  <img
-                    src="assets/img/event/2.jpg"
-                    className="card-img"
-                    alt="course image"
-                  />
-                  <div className="bg-overlay bg-dark opacity-6"></div>
-                  <div className="card-img-overlay d-flex align-items-start flex-column p-3">
-                    <div className="m-auto">
-                      <a
-                        href="https://www.youtube.com/embed/tXHviS-4ygo"
-                        className="btn btn-lg text-danger btn-round btn-white-shadow mb-0"
-                        data-glightbox=""
-                        data-gallery="course-video"
-                      >
-                        <i className="fas fa-play"></i>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div className="card-body px-3">
-                  <div className="d-flex justify-content-between align-items-center">
-                    <div>
-                      <div className="d-flex align-items-center">
-                        <h6 className="fw-bold mb-0 me-2">
-                          The Power of Networking: Building Connections for Your
-                          Business
-                        </h6>
-                      </div>
-                    </div>
-                    <div className="dropdown">
-                      <a
-                        href="#"
-                        className="btn btn-sm btn-light rounded small"
-                        role="button"
-                        id="dropdownShare"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                      >
-                        <i className="fas fa-fw fa-share-alt"></i>
-                      </a>
-                      <ul
-                        className="dropdown-menu dropdown-w-sm dropdown-menu-end min-w-auto shadow rounded"
-                        aria-labelledby="dropdownShare"
-                      >
-                        <li>
-                          <a className="dropdown-item" href="#">
-                            <i className="fab fa-twitter-square me-2"></i>
-                            Twitter
-                          </a>
-                        </li>
-                        <li>
-                          <a className="dropdown-item" href="#">
-                            <i className="fab fa-facebook-square me-2"></i>
-                            Facebook
-                          </a>
-                        </li>
-                        <li>
-                          <a className="dropdown-item" href="#">
-                            <i className="fab fa-linkedin me-2"></i>LinkedIn
-                          </a>
-                        </li>
-                        <li>
-                          <a className="dropdown-item" href="#">
-                            <i className="fas fa-copy me-2"></i>Copy link
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-                <div className="overflow-hidden rounded-3">
-                  <img
-                    src="assets/img/event/4.jpg"
-                    className="card-img"
-                    alt="course image"
-                  />
-                  <div className="bg-overlay bg-dark opacity-6"></div>
-                  <div className="card-img-overlay d-flex align-items-start flex-column p-3">
-                    <div className="m-auto">
-                      <a
-                        href="https://www.youtube.com/embed/tXHviS-4ygo"
-                        className="btn btn-lg text-danger btn-round btn-white-shadow mb-0"
-                        data-glightbox=""
-                        data-gallery="course-video"
-                      >
-                        <i className="fas fa-play"></i>
-                      </a>
-                    </div>
-                  </div>
-                </div>
-                <div className="card-body px-3">
-                  <div className="d-flex justify-content-between align-items-center">
-                    <div>
-                      <div className="d-flex align-items-center">
-                        <h6 className="fw-bold mb-0 me-2">
-                          Effective Leadership in the Modern Workplace
-                        </h6>
-                      </div>
-                    </div>
-                    <div className="dropdown">
-                      <a
-                        href="#"
-                        className="btn btn-sm btn-light rounded small"
-                        role="button"
-                        id="dropdownShare"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                      >
-                        <i className="fas fa-fw fa-share-alt"></i>
-                      </a>
-                      <ul
-                        className="dropdown-menu dropdown-w-sm dropdown-menu-end min-w-auto shadow rounded"
-                        aria-labelledby="dropdownShare"
-                      >
-                        <li>
-                          <a className="dropdown-item" href="#">
-                            <i className="fab fa-twitter-square me-2"></i>
-                            Twitter
-                          </a>
-                        </li>
-                        <li>
-                          <a className="dropdown-item" href="#">
-                            <i className="fab fa-facebook-square me-2"></i>
-                            Facebook
-                          </a>
-                        </li>
-                        <li>
-                          <a className="dropdown-item" href="#">
-                            <i className="fab fa-linkedin me-2"></i>LinkedIn
-                          </a>
-                        </li>
-                        <li>
-                          <a className="dropdown-item" href="#">
-                            <i className="fas fa-copy me-2"></i>Copy link
-                          </a>
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
+                    </>
+                  ))}
               </div>
               <div
                 className="modal fade"
@@ -2314,7 +1871,6 @@ const ListingDetails = ({slug}) => {
                             id="fast_name"
                             title="fast_name"
                             placeholder="John"
-                            
                             required
                           />
                           <div className="valid-feedback">Looks Goods</div>
@@ -2335,7 +1891,6 @@ const ListingDetails = ({slug}) => {
                             id="last_name"
                             title="last_name"
                             placeholder="Doe"
-                            
                             required
                           />
                           <div className="valid-feedback">Looks Goods</div>
@@ -2356,7 +1911,6 @@ const ListingDetails = ({slug}) => {
                             id="email_address"
                             title="email_address"
                             placeholder="johndoe@gmail.com"
-                            
                             required
                           />
                           <div className="valid-feedback">Looks Goods</div>
@@ -2377,7 +1931,6 @@ const ListingDetails = ({slug}) => {
                             id="mobile_number"
                             title="mobile_number"
                             placeholder="+1-237-3456"
-                            
                             required
                           />
                           <div className="valid-feedback">Looks Goods</div>
@@ -2398,7 +1951,6 @@ const ListingDetails = ({slug}) => {
                             id="your_massage"
                             title="your_massage"
                             placeholder="Share a few details so we can get you in touch with the business"
-                            
                             required
                           ></textarea>
                           <div className="valid-feedback">Looks Goods</div>
@@ -2455,17 +2007,15 @@ const ListingDetails = ({slug}) => {
 
 export default PublicView(ListingDetails);
 
-
 export async function getServerSideProps(context) {
   const { params } = context;
-  
+
   const { slug } = params;
   // console.log("Category List", category);
- 
 
   return {
-      props: {
-        slug
-      },
+    props: {
+      slug
+    }
   };
 }

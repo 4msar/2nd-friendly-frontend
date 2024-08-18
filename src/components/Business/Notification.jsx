@@ -1,40 +1,61 @@
 import useSnackbar from "@/hooks/useSnackbar";
 import useToken from "@/hooks/useToken";
 import BusinessService from "@/services/BusinessService";
-import { useBusinessAboutStore } from "@/store";
-import React, { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 const Notification = () => {
   const isAuthenticated = useToken();
-  const notificationSetting = useBusinessAboutStore((store) => store.notificationSetting);
-  const setNotificationSetting = useBusinessAboutStore((store) => store.setNotificationSetting);
+  const [notificationSetting, setNotificationSetting] = useState({
+    sendEmailReviews: false,
+    sendEmailPost: false,
+    sendEmailDisplayInformation: false,
+    sendEmailReceiveMessage: false,
+    receiveLeadsFromNearByJobs: false,
+    statusOfBusinessInfoEdit: false,
+    contributions: false
+  });
 
   const snackbar = useSnackbar();
 
-
   const handleGetNotificationAll = () => {
-    const res = BusinessService.settingsBusinessNotificationAll().then((data) => {
-      console.log(data.data);
-      setNotificationSetting(data.data.sinExistdata[0]);
-    })
-  }
+    const res = BusinessService.settingsBusinessNotificationAll().then(
+      (data) => {
+        console.log(data.data);
+        setNotificationSetting({
+          sendEmailReviews: data.data.businessProfile.sendEmailReviews,
+          sendEmailPost: data.data.businessProfile.sendEmailPost,
+          sendEmailDisplayInformation:
+            data.data.businessProfile.sendEmailDisplayInformation,
+          sendEmailReceiveMessage:
+            data.data.businessProfile.sendEmailReceiveMessage,
+          receiveLeadsFromNearByJobs:
+            data.data.businessProfile.receiveLeadsFromNearByJobs,
+          statusOfBusinessInfoEdit:
+            data.data.businessProfile.statusOfBusinessInfoEdit,
+          contributions: data.data.businessProfile.contributions
+        });
+      }
+    );
+  };
 
   const handleUpdateNotification = (data) => {
     const payload = {
       ...notificationSetting,
       ...data
-    }
+    };
 
-    const res = BusinessService.settingsBusinessNotificationUpdate(payload).then((data) => {
-      if(data.data.status === 'success') { 
-        snackbar(data.data.message, { variant: "success" });
-        handleGetNotificationAll(); 
+    const res = BusinessService.settingsBusinessNotificationUpdate(
+      payload
+    ).then((d) => {
+      if (d.data.status === "success") {
+        snackbar(d.data.message, { variant: "success" });
+        handleGetNotificationAll();
       }
-    })
-  }
+    });
+  };
 
   useEffect(() => {
-    if(isAuthenticated) {
+    if (isAuthenticated) {
       handleGetNotificationAll();
     }
   }, [isAuthenticated]);
@@ -49,14 +70,29 @@ const Notification = () => {
             class="form-check-input"
             type="checkbox"
             id="checkPrivacy1"
-            checked
+            checked={notificationSetting.sendEmailReviews}
+            onClick={(e) => {
+              handleUpdateNotification({
+                sendEmailReviews: e.target.checked
+              });
+            }}
           />
           <label class="form-check-label" for="checkPrivacy1">
             Send me an email when someone reviews my business.
           </label>
         </div>
         <div class="form-check form-switch form-check-md mb-2">
-          <input class="form-check-input" type="checkbox" id="checkPrivacy2" />
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="checkPrivacy2"
+            checked={notificationSetting.sendEmailPost}
+            onClick={(e) => {
+              handleUpdateNotification({
+                sendEmailPost: e.target.checked
+              });
+            }}
+          />
           <label class="form-check-label" for="checkPrivacy2">
             Send me an email when someone posts a question about my business.
           </label>
@@ -66,7 +102,12 @@ const Notification = () => {
             class="form-check-input"
             type="checkbox"
             id="checkPrivacy3"
-            checked
+            checked={notificationSetting.sendEmailDisplayInformation}
+            onClick={(e) => {
+              handleUpdateNotification({
+                sendEmailDisplayInformation: e.target.checked
+              });
+            }}
           />
           <label class="form-check-label" for="checkPrivacy3">
             Send me an email when displayed information about my business is
@@ -75,14 +116,34 @@ const Notification = () => {
         </div>
         <h6 class="mb-2 mt-4">Messaging and Leads</h6>
         <div class="form-check form-switch form-check-md mb-2">
-          <input class="form-check-input" type="checkbox" id="checkPrivacy4" />
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="checkPrivacy4"
+            checked={notificationSetting.sendEmailReceiveMessage}
+            onClick={(e) => {
+              handleUpdateNotification({
+                sendEmailReceiveMessage: e.target.checked
+              });
+            }}
+          />
           <label class="form-check-label" for="checkPrivacy4">
             {" "}
             Send me an email when I receive message leads or direct messages.
           </label>
         </div>
         <div class="form-check form-switch form-check-md mb-2">
-          <input class="form-check-input" type="checkbox" id="checkPrivacy5"/>
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="checkPrivacy5"
+            checked={notificationSetting.receiveLeadsFromNearByJobs}
+            onClick={(e) => {
+              handleUpdateNotification({
+                receiveLeadsFromNearByJobs: e.target.checked
+              });
+            }}
+          />
           <label class="form-check-label" for="checkPrivacy5">
             {" "}
             Send me an email when I receive leads from Nearby Jobs.
@@ -90,18 +151,38 @@ const Notification = () => {
         </div>
         <h6 class="mb-2 mt-4">2nd A Friendly Account</h6>
         <div class="form-check form-switch form-check-md mb-2">
-          <input class="form-check-input" type="checkbox" id="checkPrivacy6" />
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="checkPrivacy6"
+            checked={notificationSetting.statusOfBusinessInfoEdit}
+            onClick={(e) => {
+              handleUpdateNotification({
+                statusOfBusinessInfoEdit: e.target.checked
+              });
+            }}
+          />
           <label class="form-check-label" for="checkPrivacy6">
             Status of your business info edits
           </label>
         </div>
         <div class="form-check form-switch form-check-md mb-2">
-          <input class="form-check-input" type="checkbox" id="checkPrivacy7" />
+          <input
+            class="form-check-input"
+            type="checkbox"
+            id="checkPrivacy7"
+            checked={notificationSetting.contributions}
+            onClick={(e) => {
+              handleUpdateNotification({
+                contributions: e.target.checked
+              });
+            }}
+          />
           <label class="form-check-label" for="checkPrivacy7">
             Contributions
           </label>
         </div>
-        <div class="form-check form-switch form-check-md mb-2">
+        {/* <div class="form-check form-switch form-check-md mb-2">
           <input
             class="form-check-input"
             type="checkbox"
@@ -151,7 +232,7 @@ const Notification = () => {
             Allow 2nd A Friendly to notify me about my business’s Instagram
             posts.
           </label>
-        </div>
+        </div> */}
       </div>
     </div>
   );

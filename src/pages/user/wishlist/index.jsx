@@ -228,13 +228,13 @@ const WishList = () => {
                   </div>
                 </div>
                 {/* <!-- Reviews END --> */}
-                <div className="footer pt-4">
-                  {/* <!-- Pagination START --> */}
+                {/* <div className="footer pt-4">
+                  
                   <div className="d-sm-flex justify-content-sm-between align-items-sm-center">
                     <p className="mb-0 text-center text-sm-start">
                       Showing 1 to 8 of 20 entries
                     </p>
-                    {/* <!-- Pagination --> */}
+                    
                     <nav
                       className="d-flex justify-content-center mb-0"
                       aria-label="navigation"
@@ -268,8 +268,8 @@ const WishList = () => {
                       </ul>
                     </nav>
                   </div>
-                  {/* <!-- Pagination END --> */}
-                </div>
+                  
+                </div> */}
               </div>
             </div>
           </div>

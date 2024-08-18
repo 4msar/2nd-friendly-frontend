@@ -2,11 +2,11 @@ import UserView from "@/components/HOC/UserView";
 import UserSidebar from "@/components/User/UserSidebar";
 import useToken from "@/hooks/useToken";
 import CustomerService from "@/services/CustomerService";
-import { useAuthStore, useCustomerStore, useUserStore } from "@/store";
-import React, { useEffect, useState } from "react";
+import { useAuthStore, useUserStore } from "@/store";
+import { useEffect, useState } from "react";
 
 const UserCareer = () => {
-    const userProfile = useAuthStore((state) => state.user);
+  const userProfile = useAuthStore((state) => state.user);
   const isAuthenticated = useToken();
 
   const allCareer = useUserStore((state) => state.allCareer);
@@ -109,44 +109,46 @@ const UserCareer = () => {
                       {allCareer?.length ? (
                         <>
                           {allCareer.map((career, index) => (
-                          <tr key={key}>
-                            <td>January 26, 2024</td>
-                            <td>
-                              <h6 className="mt-2 mt-lg-0 mb-0">
-                                <a href="/user/support-detail">
-                                  Technical Issue
+                            <tr key={key}>
+                              <td>January 26, 2024</td>
+                              <td>
+                                <h6 className="mt-2 mt-lg-0 mb-0">
+                                  <a href="/user/support-detail">
+                                    Technical Issue
+                                  </a>
+                                </h6>
+                              </td>
+                              <td>#102356</td>
+                              <td className="text-center text-sm-start">
+                                <span className="badge bg-success bg-opacity-10 text-success">
+                                  Closed
+                                </span>
+                              </td>
+                              <td>May 21, 2023</td>
+                              <td>
+                                <a
+                                  href="/user/support-detail"
+                                  className="text-black"
+                                >
+                                  <i className="far fa-fw fa-eye"></i>
                                 </a>
-                              </h6>
-                            </td>
-                            <td>#102356</td>
-                            <td className="text-center text-sm-start">
-                              <span className="badge bg-success bg-opacity-10 text-success">
-                                Closed
-                              </span>
-                            </td>
-                            <td>May 21, 2023</td>
-                            <td>
-                              <a
-                                href="/user/support-detail"
-                                className="text-black"
-                              >
-                                <i className="far fa-fw fa-eye"></i>
-                              </a>
-                            </td>
-                          </tr>
-                        ))}
+                              </td>
+                            </tr>
+                          ))}
                         </>
                       ) : (
                         <tr>
                           <td colSpan={6}>
-                          <h4 style={{textAlign:"center"}}>Career not found!</h4>
+                            <h4 style={{ textAlign: "center" }}>
+                              Career not found!
+                            </h4>
                           </td>
                         </tr>
                       )}
                     </tbody>
                   </table>
                 </div>
-                
+
                 {/* <div className="d-sm-flex justify-content-sm-between align-items-sm-center mt-4 mt-sm-3">
                   <p className="mb-0 text-center text-sm-start">
                     Showing 1 to 8 of 20 entries
@@ -191,7 +193,7 @@ const UserCareer = () => {
         </section>
       </main>
     </UserView>
-  )
-}
+  );
+};
 
 export default UserCareer;

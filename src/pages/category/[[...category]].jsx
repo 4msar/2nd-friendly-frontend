@@ -2,96 +2,65 @@ import CategoryItemBox from "@/components/Category/CategoryItemBox";
 import CategorySidebar from "@/components/Category/CategorySidebar";
 import { category_items } from "@/components/dummy_data/data";
 import PublicView from "@/components/HOC/PublicView";
-import CustomerLoginModal from "@/components/Modal/CustomerLoginModal";
-import { capitalize, makeTitle } from "@/helpers/functions";
-import CustomerService from "@/services/CustomerService";
+import { capitalize } from "@/helpers/functions";
 import PublicService from "@/services/PublicService";
-import { useCustomerAboutStore } from "@/store/useCustomerAboutStore";
-import { Box, Dialog, DialogContent, DialogContentText } from "@mui/material";
 import Head from "next/head";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 
-const CategoryPage = ({category}) => {
+const CategoryPage = ({ category }) => {
   const route = useRouter();
-  const userProfile = useCustomerAboutStore((state) => state.customer);
+
   const items = category_items;
   const [categories, setCategories] = useState({
     regular_data: [],
-    sponsored_data: [],
-  })
-  const [messageData, setMessageData] = useState({
-    first_name: "",
-    last_name: "",
-    email: "",
-    mobile_no: "",
-    message: "",
+    sponsored_data: []
   });
-  const [messageOpen, setMessageOpen] = useState(false);
-  const [loginOpen, setLoginOpen] = useState(false);
 
   const mainCategory = category[0];
   const subCategory = category[1];
-  
+
   const handleGetDetails = () => {
-      if(subCategory) {
-        const subPayload = {
-          slug: subCategory
-        }
-        const res = PublicService.subCategoryDetails(subPayload).then((details) => {
+    if (subCategory) {
+      const subPayload = {
+        slug: subCategory
+      };
+      const res = PublicService.subCategoryDetails(subPayload).then(
+        (details) => {
           console.log(details);
           setCategories({
             sponsored_data: details.data.sponsored,
             regular_data: details.data.allData
           });
-        })
-      } else {
-        const catPayload = {
-          slug: mainCategory
         }
-        const response = PublicService.subCategoryDetails(catPayload).then((details) => {
+      );
+    } else {
+      const catPayload = {
+        slug: mainCategory
+      };
+      const response = PublicService.subCategoryDetails(catPayload).then(
+        (details) => {
           console.log(details);
           console.log(details);
           setCategories({
             sponsored_data: details.data.sponsored,
             regular_data: details.data.allData
           });
-        })
-      }
-  }
-
-  const handleSubmitMessage = () => {
-    const payload = {
-      ...messageData,
-      business_profile: "6693c02e1f002619a1664e31",
+        }
+      );
     }
-
-    const res = CustomerService.sendMessageToBusiness(payload).then((data) => {
-      console.log(data);
-    })
-  }
+  };
 
   useEffect(() => {
     handleGetDetails();
   }, [category]);
 
-  useEffect(() => {
-    if(userProfile) {
-      setMessageData({
-        first_name: userProfile.first_name,
-        last_name: userProfile.last_name,
-        email: userProfile.email,
-        mobile_no: userProfile.mobile_no,
-      })
-    }
-  }, [userProfile])
-
-  console.log(userProfile);
-
   return (
     <main>
       <Head>
-        <title>{capitalize(category[category?.length - 1])} | 2nd A Friendly</title>
+        <title>
+          {capitalize(category[category?.length - 1])} | 2nd A Friendly
+        </title>
       </Head>
       <section className="pt-4 pb-3  bg-light mb-4">
         <div className="container">
@@ -104,7 +73,7 @@ const CategoryPage = ({category}) => {
                   </a>
                 </li>
                 <li className="breadcrumb-item">
-                {capitalize(category[category?.length - 1])}
+                  {capitalize(category[category?.length - 1])}
                 </li>
               </ol>
               <h4 className="fs-5 pb-0 mb-0 fw-normal">
@@ -118,7 +87,10 @@ const CategoryPage = ({category}) => {
         <div className="container">
           <div className="row">
             <CategorySidebar />
-            <div className="col-xl-9 col-xxl-9" key={category[category?.length -1]}>
+            <div
+              className="col-xl-9 col-xxl-9"
+              key={category[category?.length - 1]}
+            >
               {/* <!-- Short by filter --> */}
               <div className="row mb-3">
                 <form>
@@ -649,9 +621,9 @@ const CategoryPage = ({category}) => {
                 </a>
               </p>
               <hr className="mt-0" />
-              {categories?.regular_data.length > 0 &&
+              {categories?.regular_data?.length > 0 &&
                 categories?.regular_data.map((item, index) => (
-                  <CategoryItemBox item={item} index={index} messageOpen={() => setMessageOpen(true)} />
+                  <CategoryItemBox item={item} index={index} />
                 ))}
             </div>
             {/* <div className="row g-3">
@@ -698,207 +670,6 @@ const CategoryPage = ({category}) => {
           </div>
         </div>
       </section>
-      <Dialog
-        class="modal fade"
-          open={messageOpen}
-          maxWidth="sm"
-          onClose={() => {
-            setMessageOpen(false);
-            setMessageData("");
-          }}
-      >
-        <Box className="modal-dialog modal-dialog-scrollable modal-md">
-          <DialogContent className="modal-content">
-            <DialogContentText>
-            <div className="header bg-transparent border-bottom p-3">
-              <h5 className="header-title text-danger">
-                Send Massage
-                <button
-                  style={{ float: "right", fontSize: "12px" }}
-                  type="button"
-                  className="btn-close justify-content-end float-right"
-                  aria-label="Close"
-                  onClick={() => setMessageOpen(false)}
-                ></button>
-              </h5>
-              <span>
-                We'll remind you when to join based on live wait times
-              </span>
-            </div>
-              <Box className="modal-body" sx={{padding: "10px"}}>
-              <form className="row g-3 needs-validation" noValidate>
-                <div className="col-6">
-                  <label
-                    for="fast_name"
-                    className="form-label fw-bold text-dark"
-                  >
-                    Fast Name <span className="star">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control fast_name"
-                    id="fast_name"
-                    title="fast_name"
-                    placeholder="John"
-                    required
-                    value={messageData?.first_name}
-                    onChange={(e) => {
-                      setMessageData({
-                        ...messageData,
-                        first_name: e.target.value
-                      })
-                    }}
-                  />
-                  <div className="valid-feedback">Looks Goods</div>
-                  <div className="invalid-feedback">
-                    Please enter fast name.
-                  </div>
-                </div>
-                <div className="col-6">
-                  <label
-                    for="last_name"
-                    className="form-label fw-bold text-dark"
-                  >
-                    Last name <span className="star">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control last_name"
-                    id="last_name"
-                    title="last_name"
-                    placeholder="Doe"
-                    required
-                    value={messageData?.last_name}
-                    onChange={(e) => {
-                      setMessageData({
-                        ...messageData,
-                        last_name: e.target.value
-                      })
-                    }}
-                  />
-                  <div className="valid-feedback">Looks Goods</div>
-                  <div className="invalid-feedback">
-                    Please enter last name.
-                  </div>
-                </div>
-                <div className="col-6">
-                  <label
-                    for="email_address"
-                    className="form-label fw-bold text-dark"
-                  >
-                    Email Address <span className="star">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control email_address"
-                    id="email_address"
-                    title="email_address"
-                    placeholder="johndoe@gmail.com"
-                    required
-                    value={messageData?.email}
-                    onChange={(e) => {
-                      setMessageData({
-                        ...messageData,
-                        email: e.target.value
-                      })
-                    }}
-                  />
-                  <div className="valid-feedback">Looks Goods</div>
-                  <div className="invalid-feedback">
-                    Please enter your email address.
-                  </div>
-                </div>
-                <div className="col-6">
-                  <label
-                    for="mobile_number"
-                    className="form-label fw-bold text-dark"
-                  >
-                    Mobile number <span className="star">*</span>
-                  </label>
-                  <input
-                    type="text"
-                    className="form-control mobile_number"
-                    id="mobile_number"
-                    title="mobile_number"
-                    placeholder="+1-237-3456"
-                    required
-                    value={messageData?.mobile_no}
-                    onChange={(e) => {
-                      setMessageData({
-                        ...messageData,
-                        mobile_no: e.target.value
-                      })
-                    }}
-                  />
-                  <div className="valid-feedback">Looks Goods</div>
-                  <div className="invalid-feedback">
-                    Please enter your mobile number.
-                  </div>
-                </div>
-                <div className="col-12">
-                  <label
-                    for="your_massage"
-                    className="form-label fw-bold text-dark"
-                  >
-                    Your Massage <span className="star">*</span>
-                  </label>
-                  <textarea
-                    type="text"
-                    className="form-control your_massage"
-                    id="your_massage"
-                    title="your_massage"
-                    placeholder="Share a few details so we can get you in touch with the business"
-                    required
-                    value={messageData?.message}
-                    onChange={(e) => {
-                      setMessageData({
-                        ...messageData,
-                        message: e.target.value
-                      })
-                    }}
-                  ></textarea>
-                  <div className="valid-feedback">Looks Goods</div>
-                  <div className="invalid-feedback">
-                    Please enter your massage.
-                  </div>
-                </div>
-                <p className="mt-0 mb-0 pt-2 pb-0">
-                  We will send your information to the business to help get you
-                  a response. By continuing you agree 2nd A friendly{" "}
-                  <a href="terms-and-condition.php">
-                    <span className="text-primary">Terms of service</span>
-                  </a>{" "}
-                  and{" "}
-                  <a href="privacy-policy.php">
-                    <span className="text-primary">Privecy Policy.</span>
-                  </a>
-                </p>
-                <div className="col-6">
-                  <div className="mt-3 ms-1">
-                    {!userProfile && (
-                      <span>
-                      Already have an account?
-                      <span style={{color: "#066ac9", cursor: "pointer"}} onClick={() => setLoginOpen(true)}> Sign in</span>
-                    </span>
-                    )}
-                    
-                  </div>
-                </div>
-                <div className="col-6">
-                  <div className="d-grid gap-2 d-md-flex justify-content-md-end">
-                    <button type="submit" className=" btn btn-primary-soft">
-                      Send Massage
-                    </button>
-                  </div>
-                </div>
-              </form>
-            </Box>
-            </DialogContentText>
-           
-          </DialogContent>
-        </Box>
-      </Dialog>
-      <CustomerLoginModal openLogin={loginOpen} closeModal={() => setLoginOpen(false)} />
     </main>
   );
 };
@@ -907,14 +678,13 @@ export default PublicView(CategoryPage);
 
 export async function getServerSideProps(context) {
   const { params } = context;
-  
+
   const { category } = params;
   // console.log("Category List", category);
- 
 
   return {
-      props: {
-        category,
-      },
+    props: {
+      category
+    }
   };
 }

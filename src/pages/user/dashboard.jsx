@@ -16,7 +16,7 @@ const User = () => {
     });
   };
 
-  console.log("dashboard", dashboard);
+  console.log("dashboard", isAuthenticated);
 
   useEffect(() => {
     if (isAuthenticated) {

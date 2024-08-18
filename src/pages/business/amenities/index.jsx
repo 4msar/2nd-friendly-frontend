@@ -1,12 +1,12 @@
 import SidebarInformation from "@/components/Business/SidebarInformation";
 import BusinessView from "@/components/HOC/BusinessView";
 import { capitalize } from "@/helpers/functions";
+import useSnackbar from "@/hooks/useSnackbar";
 import useToken from "@/hooks/useToken";
 import BusinessService from "@/services/BusinessService";
 import { useBusinessAboutStore, useBusinessAmenitiesStore } from "@/store";
 import { Box } from "@mui/material";
 import { useEffect, useState } from "react";
-import swal from "sweetalert";
 
 const Amenities = () => {
   const userProfile = useBusinessAboutStore((state) => state.businessProfile);
@@ -15,6 +15,7 @@ const Amenities = () => {
   const allSelectedAmenity = useBusinessAmenitiesStore(
     (state) => state.selectedAmenity
   );
+  const snackbar = useSnackbar();
   const [loading, setLoading] = useState(false);
   const [dataLoading, setDataLoading] = useState(false);
 
@@ -45,13 +46,11 @@ const Amenities = () => {
     event.preventDefault();
     event.stopPropagation();
     const payload = {
-      aminityId,
+      aminityId
     };
     const res = await BusinessService.amenityAddRemove(payload).then((data) => {
       if (data.data.status === "success") {
-        swal(`Poof! ${data.data.message}`, {
-          icon: "success",
-        });
+        snackbar(data.data.message, { variant: "success" });
         setLoading(false);
         getAmenitiesData();
       } else {
@@ -137,7 +136,7 @@ const Amenities = () => {
                         position: "absolute",
                         display: "flex",
                         justifyContent: "center",
-                        alignItems: "center",
+                        alignItems: "center"
                       }}
                     >
                       <div className="spinner-grow text-primary"></div>
