@@ -48,7 +48,7 @@ const UserView = ({ title, children, ...props }) => {
 
   const checkUser = () => {
     
-    if( !isEmpty(userProfile) && !userProfile.isCustomer) {
+    if( !isEmpty(userProfile) && !userProfile?.isCustomer) {
       if(userProfile.isBusiness){
         router.replace("/business/dashboard");
       } else {

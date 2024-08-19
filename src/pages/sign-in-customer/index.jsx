@@ -48,10 +48,10 @@ const CustomerSignIn = () => {
   };
 
   useEffect(() => {
-    if (isAuthenticated && userProfile.isCustomer) {
+    if (isAuthenticated && userProfile?.isCustomer) {
       router.push("/user/dashboard");
     }
-    if (isAuthenticated && userProfile.isBusiness) {
+    if (isAuthenticated && userProfile?.isBusiness) {
       router.push("/business/dashboard");
     }
   }, [isAuthenticated, userProfile]);

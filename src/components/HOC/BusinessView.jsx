@@ -21,7 +21,7 @@ const BusinessView = ({ title, children, ...props }) => {
   const [loading, setLoading] = useState(true)
   const checkUser = () => {
       if( !isEmpty(userProfile) && !userProfile.isBusiness) {
-        if(userProfile.isCustomer){
+        if(userProfile?.isCustomer){
           router.replace("/user/dashboard");
         }
         router.replace("/sign-in-business");

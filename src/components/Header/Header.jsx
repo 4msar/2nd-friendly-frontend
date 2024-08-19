@@ -22,6 +22,7 @@ const Header = () => {
   const expires_in = useAuthStore((state) => state.expires_in);
   const isExpired = Date.now() >= expires_in;
   const topMenu = usePublicPageStore((store) => store.topMenu);
+  const moreMenu = usePublicPageStore((store) => store.moreMenu);
   const customer = useCustomerAboutStore((store) => store.customer);
   const customerProfile = useCustomerAboutStore((store) => store.customerProfile);
   const businessProfile = useBusinessAboutStore((store) => store.businessProfile);
@@ -1332,7 +1333,9 @@ const Header = () => {
             </div>
             {/* <!-- Nav Search END --> */}
             {/* <!-- Profile START --> */}
-            {userProfile.isCustomer ? (
+            {!isExpired && (
+              <>
+              {userProfile?.isCustomer ? (
               <div className="dropdown ms-1 ms-lg-0">
                 <Link
                   className="nav-link"
@@ -1656,6 +1659,9 @@ const Header = () => {
                 </ul>
               </div>
             )}
+              </>
+            )}
+            
 
             {/* <!-- Profile START --> */}
           </div>
