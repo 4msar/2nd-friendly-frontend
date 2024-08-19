@@ -53,7 +53,7 @@ const BlogCard = ({ item, index }) => {
       </div>
       <div className="card-body px-0">
         <h5 className="card-title">
-          <a href={`/blogs/${item.id}`}>{item.title}</a>
+          <a href={`/blogs/${item.slug}`}>{item.title}</a>
         </h5>
         <p className="text-truncate-2">
           {item.details}

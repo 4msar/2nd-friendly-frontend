@@ -3,11 +3,11 @@ import { formatDate } from "@/helpers/functions";
 import PublicService from "@/services/PublicService";
 import React, { useEffect, useState } from "react";
 
-const BlogDetails = ({id}) => {
+const BlogDetails = ({slug}) => {
   const [blogDetails, setBlogDetails] = useState("");
-  const handleGetBlogDetails = (id) => {
+  const handleGetBlogDetails = (slug) => {
     const payload = {
-      id
+      slug
     }
     const res = PublicService.blogDetails(payload).then((details) => {
       console.log(details);
@@ -16,10 +16,10 @@ const BlogDetails = ({id}) => {
   }
 
   useEffect(() => {
-    if(id) {
-      handleGetBlogDetails(id);
+    if(slug) {
+      handleGetBlogDetails(slug);
     }
-  }, [id]);
+  }, [slug]);
   return (
     <main>
       <section class="py-4">
@@ -741,13 +741,13 @@ export default PublicView(BlogDetails);
 export async function getServerSideProps(context) {
   const { params, query } = context;
   
-  const { id } = params;
-  console.log(id);
+  const { slug } = params;
+  console.log(slug);
  
 
   return {
       props: {
-          id,
+          slug,
       },
   };
 }

@@ -1,4 +1,5 @@
 import { IMAGE_URL } from "@/helpers/apiUrl";
+import { formatDate, getEventStatus } from "@/helpers/functions";
 import React from "react";
 
 const EventCard = ({ item }) => {
@@ -21,14 +22,14 @@ const EventCard = ({ item }) => {
                     : "far fa-calendar-alt text-orange"
                 }  me-2`}
               ></i>
-              {item.date}
+              {getEventStatus(item.start_date_time)}
             </a>
           </div>
         </div>
       </div>
       <div className="card-body px-2">
         <h5 className="card-title">
-          <a href="#">
+          <a href={`/events/${item?.slug}`}>
            {item.title}
           </a>
         </h5>

@@ -665,6 +665,42 @@ export function makeTitle(slug) {
   return words.join(' ');
 }
 
+export function getEventStatus(startDateTimeString) {
+  const startDateTime = new Date(startDateTimeString);
+  const now = new Date();
+
+  const startYear = startDateTime.getFullYear();
+  const startMonth = startDateTime.getMonth();
+  const startDate = startDateTime.getDate();
+
+  const nowYear = now.getFullYear();
+  const nowMonth = now.getMonth();
+  const nowDate = now.getDate();
+
+  const startDateOnly = new Date(startYear, startMonth, startDate);
+  const nowDateOnly = new Date(nowYear, nowMonth, nowDate);
+
+  const diffInTime = startDateOnly - nowDateOnly;
+  const diffInDays = diffInTime / (1000 * 3600 * 24);
+console.log(diffInDays, diffInTime, now);
+
+  if (diffInDays === 1) {
+    return 'Tomorrow';
+  } else if (diffInDays === 0) {
+    
+      return 'Live';
+    
+  } else if(diffInDays < 0) {
+    return "Expired"
+  }
+   else {
+    // Handle other cases as needed
+    return formatDate(startDateTimeString, "D MMMM YYYY");
+  }
+}
+
+
+
 
 
 if (typeof window !== "undefined") {

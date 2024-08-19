@@ -12,9 +12,11 @@ import user5 from "@/assets/img/user/user-1.jpg";
 import Link from "next/link";
 import { useAuthStore } from "@/store";
 import { IMAGE_URL } from "@/helpers/apiUrl";
+import { useCustomerAboutStore } from "@/store/useCustomerAboutStore";
 
 const UserHeader = ({user}) => {
   const logOut = useAuthStore((store) => store.resetAuth);
+  const userProfile = useCustomerAboutStore((store) => store.customer);
   return (
     <div>
       <div className="navbar-dark bg-light d-none d-xl-block py-1 mx-2 mx-md-4 rounded-bottom-4">
@@ -408,15 +410,16 @@ const UserHeader = ({user}) => {
                       <div className="avatar me-3">
                         <img
                           className="avatar-img rounded-circle shadow"
-                          src={user2.src}
+                          src={`${IMAGE_URL}/uploads/customer-image/${user?.image}`}
                           alt="avatar"
                         />
+                        
                       </div>
                       <div>
                         <a className="h6" href="#">
-                          Arielle Norheim
+                          {`${userProfile?.first_name} ${userProfile?.last_name}`}
                         </a>
-                        <p className="small m-0">arinorheim@hotmail.com</p>
+                        <p className="small m-0">{userProfile.email}</p>
                       </div>
                     </div>
                   </li>

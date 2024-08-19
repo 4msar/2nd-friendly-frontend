@@ -3,13 +3,34 @@ import eventImg3 from "@/assets/img/event/4.jpg";
 import licence from "@/assets/img/licence.svg";
 import { category_items } from "@/components/dummy_data/data";
 import PublicView from "@/components/HOC/PublicView";
+import CustomerLoginModal from "@/components/Modal/CustomerLoginModal";
 import { IMAGE_URL } from "@/helpers/apiUrl";
 import { capitalize, formatDate } from "@/helpers/functions";
+import CustomerService from "@/services/CustomerService";
 import PublicService from "@/services/PublicService";
+import { useCustomerAboutStore } from "@/store/useCustomerAboutStore";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
+import { Box, Dialog, DialogContent, DialogContentText } from "@mui/material";
+import { SetMeal } from "@mui/icons-material";
 
 const ListingDetails = ({ slug }) => {
+  const userProfile = useCustomerAboutStore((state) => state.customer);
+  const [messageData, setMessageData] = useState("");
+  const [messageOpen, setMessageOpen] = useState(false);
+  const [loginOpen, setLoginOpen] = useState(false);
+
+  const handleSubmitMessage = () => {
+    const payload = {
+      business_profile: item.businessProfile.id,
+      message: messageData,
+      sub_category: item.subCategory
+    };
+
+    const res = CustomerService.sendMessageToBusiness(payload).then((data) => {
+      console.log(data);
+    });
+  };
   const route = useRouter();
   const items = category_items;
   const { query } = route;
@@ -275,8 +296,9 @@ const ListingDetails = ({ slug }) => {
                     id="accordionFaq"
                   >
                     {/* <!-- Accordion item --> */}
-                    <div className="accordion-item">
-                      <h2 className="accordion-header" id="headingOne">
+                    {details?.allFaq?.length > 0 && details?.allFaq.map((faq, index) => (
+                      <div className="accordion-item">
+                      <h2 className="accordion-header" id={`heading${index}`}>
                         <button
                           className="accordion-button h6 rounded"
                           type="button"
@@ -291,7 +313,7 @@ const ListingDetails = ({ slug }) => {
                       <div
                         id="collapseOne"
                         className="accordion-collapse collapse show"
-                        aria-labelledby="headingOne"
+                        aria-labelledby={`heading${index}`}
                         data-bs-parent="#accordionFaq"
                       >
                         <div className="accordion-body">
@@ -303,363 +325,8 @@ const ListingDetails = ({ slug }) => {
                         </div>
                       </div>
                     </div>
-                    {/* <!-- Accordion item --> */}
-                    <div className="accordion-item">
-                      <h2 className="accordion-header" id="headingTwo">
-                        <button
-                          className="accordion-button h6 rounded collapsed"
-                          type="button"
-                          data-bs-toggle="collapse"
-                          data-bs-target="#collapseTwo"
-                          aria-expanded="false"
-                          aria-controls="collapseTwo"
-                        >
-                          Do you take reservations?
-                        </button>
-                      </h2>
-                      <div
-                        id="collapseTwo"
-                        className="accordion-collapse collapse"
-                        aria-labelledby="headingTwo"
-                        data-bs-parent="#accordionFaq"
-                      >
-                        <div className="accordion-body">
-                          Yes, we gladly accept reservations. You can secure
-                          your table by booking online through our website or by
-                          contacting us directly at +1-237-23456. We look
-                          forward to hosting you for a wonderful dining
-                          experience.
-                        </div>
-                      </div>
-                    </div>
-                    {/* <!-- Accordion item --> */}
-                    <div className="accordion-item">
-                      <h2 className="accordion-header" id="headingThree">
-                        <button
-                          className="accordion-button h6 rounded collapsed"
-                          type="button"
-                          data-bs-toggle="collapse"
-                          data-bs-target="#collapseThree"
-                          aria-expanded="false"
-                          aria-controls="collapseThree"
-                        >
-                          What type of cuisine do you serve?
-                        </button>
-                      </h2>
-                      <div
-                        id="collapseThree"
-                        className="accordion-collapse collapse"
-                        aria-labelledby="headingThree"
-                        data-bs-parent="#accordionFaq"
-                      >
-                        <div className="accordion-body">
-                          We specialize in a diverse range of culinary delights,
-                          offering a fusion of flavors inspired by various
-                          cuisines around the world. Our menu features a
-                          tantalizing selection of dishes, including savory
-                          classNameics, innovative creations, and mouthwatering
-                          specialties crafted with the finest ingredients.
-                        </div>
-                      </div>
-                    </div>
-                    {/* <!-- Accordion item --> */}
-                    <div className="accordion-item">
-                      <h2 className="accordion-header" id="headingFour">
-                        <button
-                          className="accordion-button h6 rounded collapsed"
-                          type="button"
-                          data-bs-toggle="collapse"
-                          data-bs-target="#collapseFour"
-                          aria-expanded="false"
-                          aria-controls="collapseFour"
-                        >
-                          How much should I offer the sellers?
-                        </button>
-                      </h2>
-                      <div
-                        id="collapseFour"
-                        className="accordion-collapse collapse"
-                        aria-labelledby="headingFour"
-                        data-bs-parent="#accordionFaq"
-                      >
-                        <div className="accordion-body">
-                          Determining the appropriate offer to make to sellers
-                          depends on various factors such as the market value of
-                          the item or property, your budget, the condition of
-                          the item or property, and any negotiations that take
-                          place between you and the seller. For real estate
-                          transactions, it's often advisable to conduct research
-                          on comparable properties in the area to gauge the fair
-                          market value. You may also want to consider factors
-                          like the property's condition, location, and current
-                          market trends.
-                        </div>
-                      </div>
-                    </div>
-                    {/* <!-- Accordion item --> */}
-                    <div className="accordion-item">
-                      <h2 className="accordion-header" id="headingFive">
-                        <button
-                          className="accordion-button h6 rounded collapsed"
-                          type="button"
-                          data-bs-toggle="collapse"
-                          data-bs-target="#collapseFive"
-                          aria-expanded="false"
-                          aria-controls="collapseFive"
-                        >
-                          Do you accommodate dietary restrictions or allergies?
-                        </button>
-                      </h2>
-                      <div
-                        id="collapseFive"
-                        className="accordion-collapse collapse"
-                        aria-labelledby="headingFive"
-                        data-bs-parent="#accordionFaq"
-                      >
-                        <div className="accordion-body">
-                          Yes, we take dietary restrictions and allergies
-                          seriously. We strive to accommodate various dietary
-                          needs and preferences to ensure that all of our guests
-                          can enjoy their dining experience with us. Please
-                          inform your server about any dietary restrictions or
-                          allergies you have, and we will do our best to provide
-                          suitable options or make necessary adjustments to our
-                          menu items. Your health and satisfaction are important
-                          to us, and we are committed to providing a safe and
-                          enjoyable dining experience for everyone.
-                        </div>
-                      </div>
-                    </div>
-                    {/* <!-- Accordion item --> */}
-                    <div className="accordion-item">
-                      <h2 className="accordion-header" id="headingSix">
-                        <button
-                          className="accordion-button h6 rounded collapsed"
-                          type="button"
-                          data-bs-toggle="collapse"
-                          data-bs-target="#collapseSix"
-                          aria-expanded="false"
-                          aria-controls="collapseSix"
-                        >
-                          Is your restaurant kid-friendly??
-                        </button>
-                      </h2>
-                      <div
-                        id="collapseSix"
-                        className="accordion-collapse collapse"
-                        aria-labelledby="headingSix"
-                        data-bs-parent="#accordionFaq"
-                      >
-                        <div className="accordion-body">
-                          Absolutely! Our restaurant is kid-friendly and we
-                          welcome families with open arms. We have a dedicated
-                          kids' menu featuring a variety of delicious and
-                          nutritious options that are sure to please even the
-                          pickiest eaters. Additionally, we provide high chairs
-                          and booster seats for our youngest guests, and our
-                          staff is trained to make families feel welcome and
-                          comfortable throughout their dining experience. We
-                          look forward to serving you and your family soon!
-                        </div>
-                      </div>
-                    </div>
-                    {/* <!-- Accordion item --> */}
-                    <div className="accordion-item">
-                      <h2 className="accordion-header" id="headingSeven">
-                        <button
-                          className="accordion-button h6 rounded collapsed"
-                          type="button"
-                          data-bs-toggle="collapse"
-                          data-bs-target="#collapseSeven"
-                          aria-expanded="false"
-                          aria-controls="collapseSeven"
-                        >
-                          Do you have vegan/vegetarian options on your menu?
-                        </button>
-                      </h2>
-                      <div
-                        id="collapseSeven"
-                        className="accordion-collapse collapse"
-                        aria-labelledby="headingSeven"
-                        data-bs-parent="#accordionFaq"
-                      >
-                        <div className="accordion-body">
-                          Yes, we offer a variety of vegan and vegetarian
-                          options on our menu to cater to different dietary
-                          preferences and lifestyles. Our culinary team has
-                          carefully crafted dishes that are both delicious and
-                          satisfying, using fresh and high-quality ingredients.
-                          Whether you're vegan, vegetarian, or simply looking to
-                          explore plant-based options, we have something for
-                          everyone to enjoy. Please ask your server for our
-                          vegan and vegetarian selections, and we'll be happy to
-                          assist you in choosing a meal that suits your tastes
-                          and preferences.
-                        </div>
-                      </div>
-                    </div>
-                    {/* <!-- Accordion item --> */}
-                    <div className="accordion-item">
-                      <h2 className="accordion-header" id="headingEight">
-                        <button
-                          className="accordion-button h6 rounded collapsed"
-                          type="button"
-                          data-bs-toggle="collapse"
-                          data-bs-target="#collapseEight"
-                          aria-expanded="false"
-                          aria-controls="collapseEight"
-                        >
-                          Do you have a dress code?
-                        </button>
-                      </h2>
-                      <div
-                        id="collapseEight"
-                        className="accordion-collapse collapse"
-                        aria-labelledby="headingEight"
-                        data-bs-parent="#accordionFaq"
-                      >
-                        <div className="accordion-body">
-                          We have a relaxed and casual dress code. At our
-                          restaurant, we want you to feel comfortable and enjoy
-                          your dining experience without worrying about formal
-                          attire. Whether you're coming straight from work or
-                          dressed for a casual outing, you are welcome to dine
-                          with us. Our focus is on providing delicious food,
-                          excellent service, and a welcoming atmosphere for all
-                          our guests. So, come as you are and get ready to enjoy
-                          a wonderful meal with us!
-                        </div>
-                      </div>
-                    </div>
-                    {/* <!-- Accordion item --> */}
-                    <div className="accordion-item">
-                      <h2 className="accordion-header" id="headingNine">
-                        <button
-                          className="accordion-button h6 rounded collapsed"
-                          type="button"
-                          data-bs-toggle="collapse"
-                          data-bs-target="#collapseNine"
-                          aria-expanded="false"
-                          aria-controls="collapseNine"
-                        >
-                          Is your restaurant wheelchair accessible?
-                        </button>
-                      </h2>
-                      <div
-                        id="collapseNine"
-                        className="accordion-collapse collapse"
-                        aria-labelledby="headingNine"
-                        data-bs-parent="#accordionFaq"
-                      >
-                        <div className="accordion-body">
-                          Yes, our restaurant is wheelchair accessible. We
-                          strive to ensure that all of our guests, regardless of
-                          mobility, can comfortably access our facilities and
-                          enjoy their dining experience with us. If you have any
-                          specific accessibility requirements or need assistance
-                          during your visit, please don't hesitate to let us
-                          know, and our staff will be more than happy to assist
-                          you. We look forward to welcoming you to our
-                          restaurant!
-                        </div>
-                      </div>
-                    </div>
-                    {/* <!-- Accordion item --> */}
-                    <div className="accordion-item">
-                      <h2 className="accordion-header" id="headingTen">
-                        <button
-                          className="accordion-button h6 rounded collapsed"
-                          type="button"
-                          data-bs-toggle="collapse"
-                          data-bs-target="#collapseTen"
-                          aria-expanded="false"
-                          aria-controls="collapseTen"
-                        >
-                          Do you offer gift cards?
-                        </button>
-                      </h2>
-                      <div
-                        id="collapseTen"
-                        className="accordion-collapse collapse"
-                        aria-labelledby="headingTen"
-                        data-bs-parent="#accordionFaq"
-                      >
-                        <div className="accordion-body">
-                          Yes, we offer gift cards that make for perfect gifts
-                          for friends, family, or colleagues. Our gift cards are
-                          available for purchase at our restaurant and can also
-                          be bought online through our website. Treat your loved
-                          ones to a memorable dining experience with our gift
-                          cards, allowing them to enjoy delicious food and
-                          excellent service at their convenience.
-                        </div>
-                      </div>
-                    </div>
-                    {/* <!-- Accordion item --> */}
-                    <div className="accordion-item">
-                      <h2 className="accordion-header" id="headingElaven">
-                        <button
-                          className="accordion-button h6 rounded collapsed"
-                          type="button"
-                          data-bs-toggle="collapse"
-                          data-bs-target="#collapseElaven"
-                          aria-expanded="false"
-                          aria-controls="collapseElaven"
-                        >
-                          Do you have a corkage fee for bringing our own wine?
-                        </button>
-                      </h2>
-                      <div
-                        id="collapseElaven"
-                        className="accordion-collapse collapse"
-                        aria-labelledby="headingElaven"
-                        data-bs-parent="#accordionFaq"
-                      >
-                        <div className="accordion-body">
-                          Yes, we do have a corkage fee for guests who bring
-                          their own wine. Our corkage fee is [insert fee amount]
-                          per bottle. We are happy to accommodate guests who
-                          wish to enjoy their own wine with their meal, and we
-                          appreciate your understanding of our corkage policy.
-                          Please feel free to speak with your server for more
-                          details or assistance with wine service during your
-                          visit.
-                        </div>
-                      </div>
-                    </div>
-                    {/* <!-- Accordion item --> */}
-                    <div className="accordion-item">
-                      <h2 className="accordion-header" id="headingTwelve">
-                        <button
-                          className="accordion-button h6 rounded collapsed"
-                          type="button"
-                          data-bs-toggle="collapse"
-                          data-bs-target="#collapseTwelve"
-                          aria-expanded="false"
-                          aria-controls="collapseTwelve"
-                        >
-                          Are pets allowed on your outdoor patio?
-                        </button>
-                      </h2>
-                      <div
-                        id="collapseTwelve"
-                        className="accordion-collapse collapse"
-                        aria-labelledby="headingTwelve"
-                        data-bs-parent="#accordionFaq"
-                      >
-                        <div className="accordion-body">
-                          Yes, well-behaved pets are allowed on our outdoor
-                          patio. We understand that pets are part of the family,
-                          and we welcome them to join you during your dining
-                          experience. Our outdoor patio provides a comfortable
-                          and pet-friendly environment where you can enjoy your
-                          meal together. Please ensure that your pets are
-                          leashed and well-behaved to ensure a pleasant
-                          experience for all our guests. We look forward to
-                          hosting you and your furry friends!
-                        </div>
-                      </div>
-                    </div>
+                    ))}
+                    
                   </div>
                 </div>
               </div>
@@ -1596,20 +1263,18 @@ const ListingDetails = ({ slug }) => {
                 </div>
                 <div className="card-body">
                   <div className="d-sm-flex">
-                    <a href="tel:+8801722620039">
+                    <a href={`tel:${details?.mobile_no}`}>
                       <button className="btn btn-sm btn-outline-dark border-dark-subtle me-2">
                         Call
                       </button>
                     </a>
-                    <a
-                      href=""
-                      data-bs-toggle="modal"
-                      data-bs-target="#SendMassage"
+                    <span
+                      onClick={() => setMessageOpen(true)}
                     >
                       <button className="btn btn-sm btn-outline-dark border-dark-subtle me-2">
                         Message
                       </button>
-                    </a>
+                    </span>
                   </div>
                 </div>
               </div>
@@ -1832,7 +1497,7 @@ const ListingDetails = ({ slug }) => {
                     </>
                   ))}
               </div>
-              <div
+              {/* <div
                 className="modal fade"
                 id="SendMassage"
                 tabindex="-1"
@@ -1996,11 +1661,219 @@ const ListingDetails = ({ slug }) => {
                     </div>
                   </div>
                 </div>
-              </div>
+              </div> */}
             </div>
           </div>
         </div>
       </section>
+      <Dialog
+        class="modal fade"
+        open={messageOpen}
+        maxWidth="sm"
+        onClose={() => {
+          setMessageOpen(false);
+          setMessageData("");
+        }}
+      >
+        <Box className="modal-dialog modal-dialog-scrollable modal-md">
+          <DialogContent className="modal-content">
+            <DialogContentText>
+              <div className="header bg-transparent border-bottom p-3">
+                <h5 className="header-title text-danger">
+                  Send Massage
+                  <button
+                    style={{ float: "right", fontSize: "12px" }}
+                    type="button"
+                    className="btn-close justify-content-end float-right"
+                    aria-label="Close"
+                    onClick={() => setMessageOpen(false)}
+                  ></button>
+                </h5>
+                <span>
+                  We'll remind you when to join based on live wait times
+                </span>
+              </div>
+              <Box className="modal-body" sx={{ padding: "10px" }}>
+                <div className="row g-3">
+                  {/* <div className="col-6">
+                  <label
+                    for="fast_name"
+                    className="form-label fw-bold text-dark"
+                  >
+                    Fast Name <span className="star">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control fast_name"
+                    id="fast_name"
+                    title="fast_name"
+                    placeholder="John"
+                    required
+                    value={messageData?.first_name}
+                    onChange={(e) => {
+                      setMessageData({
+                        ...messageData,
+                        first_name: e.target.value
+                      })
+                    }}
+                  />
+                  <div className="valid-feedback">Looks Goods</div>
+                  <div className="invalid-feedback">
+                    Please enter fast name.
+                  </div>
+                </div>
+                <div className="col-6">
+                  <label
+                    for="last_name"
+                    className="form-label fw-bold text-dark"
+                  >
+                    Last name <span className="star">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control last_name"
+                    id="last_name"
+                    title="last_name"
+                    placeholder="Doe"
+                    required
+                    value={messageData?.last_name}
+                    onChange={(e) => {
+                      setMessageData({
+                        ...messageData,
+                        last_name: e.target.value
+                      })
+                    }}
+                  />
+                  <div className="valid-feedback">Looks Goods</div>
+                  <div className="invalid-feedback">
+                    Please enter last name.
+                  </div>
+                </div>
+                <div className="col-6">
+                  <label
+                    for="email_address"
+                    className="form-label fw-bold text-dark"
+                  >
+                    Email Address <span className="star">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control email_address"
+                    id="email_address"
+                    title="email_address"
+                    placeholder="johndoe@gmail.com"
+                    required
+                    value={messageData?.email}
+                    onChange={(e) => {
+                      setMessageData({
+                        ...messageData,
+                        email: e.target.value
+                      })
+                    }}
+                  />
+                  <div className="valid-feedback">Looks Goods</div>
+                  <div className="invalid-feedback">
+                    Please enter your email address.
+                  </div>
+                </div>
+                <div className="col-6">
+                  <label
+                    for="mobile_number"
+                    className="form-label fw-bold text-dark"
+                  >
+                    Mobile number <span className="star">*</span>
+                  </label>
+                  <input
+                    type="text"
+                    className="form-control mobile_number"
+                    id="mobile_number"
+                    title="mobile_number"
+                    placeholder="+1-237-3456"
+                    required
+                    value={messageData?.mobile_no}
+                    onChange={(e) => {
+                      setMessageData({
+                        ...messageData,
+                        mobile_no: e.target.value
+                      })
+                    }}
+                  />
+                  <div className="valid-feedback">Looks Goods</div>
+                  <div className="invalid-feedback">
+                    Please enter your mobile number.
+                  </div>
+                </div> */}
+                  <div className="col-12">
+                    <label
+                      for="your_massage"
+                      className="form-label fw-bold text-dark"
+                    >
+                      Your Massage <span className="star">*</span>
+                    </label>
+                    <textarea
+                      type="text"
+                      className="form-control your_massage"
+                      id="your_massage"
+                      title="your_massage"
+                      placeholder="Share a few details so we can get you in touch with the business"
+                      required
+                      value={messageData}
+                      onChange={(e) => {
+                        setMessageData(e.target.value);
+                      }}
+                    ></textarea>
+                    <div className="valid-feedback">Looks Goods</div>
+                    <div className="invalid-feedback">
+                      Please enter your massage.
+                    </div>
+                  </div>
+                  <p className="mt-0 mb-0 pt-2 pb-0">
+                    We will send your information to the business to help get
+                    you a response. By continuing you agree 2nd A friendly{" "}
+                    <a href="terms-and-condition.php">
+                      <span className="text-primary">Terms of service</span>
+                    </a>{" "}
+                    and{" "}
+                    <a href="privacy-policy.php">
+                      <span className="text-primary">Privecy Policy.</span>
+                    </a>
+                  </p>
+                  <div className="col-6">
+                    <div className="mt-3 ms-1">
+                      {!userProfile && (
+                        <span>
+                          Already have an account?
+                          <span
+                            style={{ color: "#066ac9", cursor: "pointer" }}
+                            onClick={() => setLoginOpen(true)}
+                          >
+                            {" "}
+                            Sign in
+                          </span>
+                        </span>
+                      )}
+                    </div>
+                  </div>
+                  <div className="col-6">
+                    <div className="d-grid gap-2 d-md-flex justify-content-md-end">
+                      <button
+                        className=" btn btn-primary-soft"
+                        onClick={() => handleSubmitMessage()}
+                      >
+                        Send Massage
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </Box>
+            </DialogContentText>
+          </DialogContent>
+        </Box>
+      </Dialog>
+      <CustomerLoginModal
+        openLogin={loginOpen}
+        closeModal={() => setLoginOpen(false)}
+      />
     </main>
   );
 };

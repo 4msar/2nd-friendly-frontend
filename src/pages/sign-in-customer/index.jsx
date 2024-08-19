@@ -42,7 +42,7 @@ const CustomerSignIn = () => {
     } else {
       setLoading(false);
       console.log("Error", { res });
-      //   snackbar("Something is wrong", { variant: "error" });
+        snackbar(res.err.message, { variant: "error" });
     }
     // toggleLoading(false);
   };
