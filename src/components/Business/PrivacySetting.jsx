@@ -1,3 +1,4 @@
+import useSnackbar from "@/hooks/useSnackbar";
 import useToken from "@/hooks/useToken";
 import BusinessService from "@/services/BusinessService";
 import { useEffect, useState } from "react";
@@ -9,6 +10,7 @@ const PrivacySetting = () => {
     ads_display_off_2nd_friendly: false
   });
   const isAuthenticated = useToken();
+  const snackbar = useSnackbar();
 
   const handleGetPrivacySettings = async () => {
     const res = await BusinessService.privacySettingAll().then((data) => {
@@ -32,6 +34,7 @@ const PrivacySetting = () => {
     };
     const res = BusinessService.privacySettingUpdate(payload).then((d) => {
       console.log(d);
+      snackbar(d.data.message, {variant: 'success'});
       handleGetPrivacySettings();
     });
   };

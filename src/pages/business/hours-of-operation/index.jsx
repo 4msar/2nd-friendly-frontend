@@ -1,16 +1,17 @@
 import SidebarInformation from "@/components/Business/SidebarInformation";
 import BusinessView from "@/components/HOC/BusinessView";
+import useSnackbar from "@/hooks/useSnackbar";
 import useToken from "@/hooks/useToken";
 import BusinessService from "@/services/BusinessService";
 import { useBusinessAboutStore, useBusinessHoursStore } from "@/store";
 import { Button, CircularProgress } from "@mui/material";
 import { useEffect, useState } from "react";
-import swal from "sweetalert";
 
 const HoursOfOperation = () => {
   const userProfile = useBusinessAboutStore((state) => state.businessProfile);
   const isAuthenticated = useToken();
   const [loading, setLoading] = useState(false);
+  const snackbar = useSnackbar();
 
   const businessHours = useBusinessHoursStore(
     (state) => state.businessOperation
@@ -46,9 +47,8 @@ const HoursOfOperation = () => {
       (data) => {
         if (data.data.status === "success") {
           setLoading(false);
-          swal(`Poof! ${data.data.message}`, {
-            icon: "success",
-          });
+          snackbar(data.data.message, {variant: 'success'});
+          
           getHoursOfOperation();
         } else {
           setLoading(false);
@@ -67,9 +67,7 @@ const HoursOfOperation = () => {
     ).then((data) => {
       if (data.data.status === "success") {
         setLoading(false);
-        swal(`Poof! ${data.data.message}`, {
-          icon: "success",
-        });
+        snackbar(data.data.message, {variant: 'success'});
         getHoursOfOperation();
       } else {
         setLoading(false);

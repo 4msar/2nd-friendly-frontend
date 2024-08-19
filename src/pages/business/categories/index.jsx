@@ -1,6 +1,7 @@
 import SidebarInformation from "@/components/Business/SidebarInformation";
 import BusinessView from "@/components/HOC/BusinessView";
 import { camelCaseToText, capitalize } from "@/helpers/functions";
+import useSnackbar from "@/hooks/useSnackbar";
 import useToken from "@/hooks/useToken";
 import BusinessService from "@/services/BusinessService";
 import { useBusinessAboutStore, useBusinessCategoryStore } from "@/store";
@@ -14,7 +15,7 @@ const Categories = () => {
   const allSelectedCategory = useBusinessCategoryStore(
     (state) => state.selectedSubCategory
   );
-
+  const snackbar = useSnackbar();
   const [loading, setLoading] = useState(false);
 
   const setAllCategoryData = useBusinessCategoryStore(
@@ -54,6 +55,7 @@ const Categories = () => {
           // swal(`Poof! ${data.data.message}`, {
           //   icon: "success",
           // });
+          snackbar(data.data.message, {variant: 'success'});
           setLoading(false);
         getCategoriesData();
         // }

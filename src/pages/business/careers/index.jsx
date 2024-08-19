@@ -1,6 +1,7 @@
 import SidebarInformation from "@/components/Business/SidebarInformation";
 import BusinessView from "@/components/HOC/BusinessView";
 import { formatDate } from "@/helpers/functions";
+import useSnackbar from "@/hooks/useSnackbar";
 import useToken from "@/hooks/useToken";
 import BusinessService from "@/services/BusinessService";
 import { useBusinessAboutStore, useCareerStore } from "@/store";
@@ -18,6 +19,7 @@ const Careers = () => {
   const isAuthenticated = useToken();
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const snackbar = useSnackbar();
 
   const allCareers = useCareerStore(
     (state) => state.allCareer
@@ -58,6 +60,7 @@ const Careers = () => {
       console.log({ data });
       if (data.data.status === "success") {
         handleGetCareers();
+        snackbar(data.data.message, {variant: 'success'});
         setLoading(false);
         setOpen(false);
       } else {

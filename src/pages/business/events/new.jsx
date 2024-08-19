@@ -1,6 +1,7 @@
 import SidebarInformation from "@/components/Business/SidebarInformation";
 import BusinessView from "@/components/HOC/BusinessView";
 import { capitalize, formatDate, formatTime } from "@/helpers/functions";
+import useSnackbar from "@/hooks/useSnackbar";
 import useToken from "@/hooks/useToken";
 import BusinessService from "@/services/BusinessService";
 import { useBusinessAboutStore } from "@/store";
@@ -14,6 +15,7 @@ const EventAdd = () => {
   const allState = useBusinessAboutStore((state) => state.allState);
   const [loading, setLoading] = useState(false);
   const [fieldErrors, setFieldErrors] = useState("");
+  const snackbar = useSnackbar();
   // const singleEvent = useEventStore((state) => state.singleEvent);
   // const setEventData = useEventStore(
   //   (state) => state.setSingleEvent
@@ -123,6 +125,7 @@ const EventAdd = () => {
     const res = BusinessService.eventNew(payload).then((data) => {
       if (data.data.status === "success") {
         setLoading(false);
+        snackbar(data.data.message, {variant: 'success'});
         router.push("/business/events");
       } else {
         setFieldErrors(data.data.fieldErrors);

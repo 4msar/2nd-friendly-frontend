@@ -34,9 +34,7 @@ const UserSecurity = () => {
 
     const res = CustomerService.changePassword(payload).then((data) => {
       if (data.data.status === "success") {
-        swal(data.data.message, {
-          icon: "success",
-        });
+        snackbar(data.data.message, {variant: 'success'});
         setLoading(false);
         setFieldError("");
         setPassword({
