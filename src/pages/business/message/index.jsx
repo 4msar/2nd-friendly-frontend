@@ -126,7 +126,7 @@ const Message = () => {
                             </td>
                             <td>April 1, 2024</td>
                             <td>
-                              <a href="message-detail.php" class="text-black">
+                              <a href={`message/${message.id}`} class="text-black">
                                 <i class="bi bi-eye"></i>
                               </a>
                             </td>
