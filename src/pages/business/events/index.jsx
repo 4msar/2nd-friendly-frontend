@@ -156,7 +156,7 @@ const Events = () => {
                                 <i class="far fa-fw fa-edit"></i>
                               </a>
                               <a
-                                href={`${API_URL}/business/events/${event.slug}`}
+                                href={`/business/events/${event.slug}`}
                                 class="btn btn-sm btn-round btn-success-soft "
                               >
                                 <i class="far fa-fw fa-eye"></i>

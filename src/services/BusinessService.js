@@ -48,13 +48,16 @@ const BusinessService = {
   messageUpdate: (data) => axios.post("/business/message-update", { data }),
   messageEdit: (data) => axios.post("/business/message-edit", { data }),
   eventAll: () => axios.post("/business/event-all", {}),
+
   eventNew: (data) => axios.post("/business/event-create", { data }),
   eventEdit: (data) => axios.post("/business/event-edit", { data }),
   eventUpdate: (data) => axios.post("/business/event-update", { data }),
   eventView: (data) => axios.post("/business/event-view", { data }),
   eventDelete: (data) => axios.post("/business/event-delet", { data }),
+
   careerAll: () => axios.post("/business/career-all", {}),
   careerCreate: (data) => axios.post("/business/career-create", { data }),
+  careerView: (data) => axios.post("/business/career-view", { data }),
 
   supportAll: () => axios.post("/business/support-all", {}),
   supportType: () => axios.post("/business/support-new", {}),
