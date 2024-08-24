@@ -1,10 +1,24 @@
 import CareersCard from '@/components/CareersCard/CareersCard';
 import { jobList } from '@/components/dummy_data/data'
 import PublicView from '@/components/HOC/PublicView';
-import React from 'react'
+import PublicService from '@/services/PublicService';
+import React, { useEffect, useState } from 'react'
 
 const Careers = () => {
     const job_list = jobList;
+    const [careers, setCareers] = useState();
+
+    const handleGetCareers = () => {
+        const res = PublicService.allCareers().then((data) => {
+            console.log(data);
+            setCareers(data.data.allRecord)
+            
+        })
+    }
+
+    useEffect(() => {
+        handleGetCareers();
+    }, [])
   return (
     <main>
     <section class="py-4">
@@ -215,12 +229,12 @@ const Careers = () => {
                             </select>
                         </div>
                     </div>
-                  {job_list.length > 0 && job_list.map((job) => (
+                  {careers?.length > 0 && careers?.map((job) => (
                     <CareersCard item={job} />
                   ))}
 
-                    <hr class="opacity-30"/>
-                    <nav>
+                    {/* <hr class="opacity-30"/> */}
+                    {/* <nav>
                         <ul class="pagination d-flex">
                             <li class="page-item disabled me-auto"><a class="page-link fw-bold" href="#">Previous</a></li>
                             <li class="page-item active"><a class="page-link fw-bold" href="#">1</a></li>
@@ -230,7 +244,7 @@ const Careers = () => {
                             <li class="page-item"><a class="page-link fw-bold" href="#">5</a></li>
                             <li class="page-item ms-auto"><a class="page-link fw-bold" href="#">Next</a></li>
                         </ul>
-                    </nav>
+                    </nav> */}
                 </div>
             </div>
         </div>

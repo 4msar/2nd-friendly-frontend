@@ -131,6 +131,7 @@ const Photos = () => {
               icon: "success",
             });
             setOpen(true);
+            handleGetAlbumPhotos(albumId);
             // Optionally, you can refresh the list of items or update the UI
           } else {
             swal("Error! There was a problem deleting your item.", {

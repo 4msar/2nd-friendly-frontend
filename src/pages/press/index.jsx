@@ -1,7 +1,22 @@
 import PublicView from "@/components/HOC/PublicView";
-import React from "react";
+import { IMAGE_URL } from "@/helpers/apiUrl";
+import { formatDate } from "@/helpers/functions";
+import PublicService from "@/services/PublicService";
+import React, { useEffect, useState } from "react";
 
 const Press = () => {
+  const [pressData, setPressData] = useState();
+
+  const handleGetPress = () => {
+    const res = PublicService.allPress().then((data) => {
+      console.log(data);
+      setPressData(data.data.allRecord);
+    });
+  };
+
+  useEffect(() => {
+    handleGetPress();
+  }, []);
   return (
     <main>
       <section className="pt-4 pb-2">
@@ -83,294 +98,95 @@ const Press = () => {
             </div>
           </form>
           <div className="row g-4 justify-content-center">
-            <div className="col-lg-10 col-xxl-6">
-              <div className="card rounded-1 overflow-hidden shadow">
-                <div className="row g-0">
-                  {/* <!-- Image --> */}
-                  <div className="col-md-3">
-                    <div className="overflow-hidden">
-                      <img
-                        src="assets/img/event/6.jpg"
-                        className="rounded-start"
-                        alt="course image"
-                      />
-                      <div className="bg-overlay bg-dark opacity-4"></div>
-                      <div className="card-img-overlay d-flex align-items-start p-3">
-                        <a href="/press-detail" className="badge text-bg-orange">
-                          Food & Drink
-                        </a>
+            {pressData?.length > 0 &&
+              pressData.map((press) => (
+                <div className="col-lg-10 col-xxl-6">
+                  <div className="card rounded-1 overflow-hidden shadow">
+                    <div className="row g-0">
+                      {/* <!-- Image --> */}
+                      <div className="col-md-3">
+                        <div className="overflow-hidden">
+                          <img
+                            style={{height: "117px", width: "100%"}}
+                            src={`${IMAGE_URL}/uploads/site-press/${press.image}`}
+                            className="rounded-start"
+                            alt="course image"
+                          />
+                          <div className="bg-overlay bg-dark opacity-4"></div>
+                          <div className="card-img-overlay d-flex align-items-start p-3">
+                            <a
+                              href={`/press/${press?.slug}`}
+                              className="badge text-bg-orange"
+                            >
+                              {press?.sitePressCategory?.name}
+                            </a>
+                          </div>
+                        </div>
                       </div>
-                    </div>
-                  </div>
-                  <div className="col-md-9">
-                    <div className="card-body pt-3 pb-0">
-                      <div className="d-flex justify-content-between mb-0">
-                        <h5 className="card-title mb-0 press_title">
-                          <a href="/press-detail">
-                            Yelp's Top 100 Romantic Restaurants for Valentine's
-                            Day Dinner in 2024
-                          </a>
-                        </h5>
+                      <div className="col-md-9">
+                        <div className="card-body pt-3 pb-0">
+                          <div className="d-flex justify-content-between mb-0">
+                            <h5 className="card-title mb-0 press_title">
+                              <a href={`/press/${press?.slug}`}>
+                                {press?.title}
+                              </a>
+                            </h5>
+                          </div>
+                          <ul className="list-inline mt-2 mb-0 pb-0">
+                            <li className="list-inline-item h6 fw-light mb-1 mb-sm-0">
+                              <i className="far fa-calendar text-dark me-2"></i>
+                              {/* Sunday May 5, 2024 */}
+                              {formatDate(press?.createdAt, "MMMM DD, YYYY")}
+                            </li>
+                          </ul>
+                        </div>
                       </div>
-                      <ul className="list-inline mt-2 mb-0 pb-0">
-                        <li className="list-inline-item h6 fw-light mb-1 mb-sm-0">
-                          <i className="far fa-calendar text-dark me-2"></i>Sunday
-                          May 5, 2024
-                        </li>
-                      </ul>
                     </div>
                   </div>
                 </div>
-              </div>
-            </div>
-            <div className="col-lg-10 col-xxl-6">
-              <div className="card rounded-1 overflow-hidden shadow">
-                <div className="row g-0">
-                  {/* <!-- Image --> */}
-                  <div className="col-md-3">
-                    <div className="overflow-hidden">
-                      <img
-                        src="assets/img/event/6.jpg"
-                        className="rounded-start"
-                        alt="course image"
-                      />
-                      <div className="bg-overlay bg-dark opacity-4"></div>
-                      <div className="card-img-overlay d-flex align-items-start p-3">
-                        <a href="/press-detail" className="badge text-bg-orange">
-                          Food & Drink
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-md-9">
-                    <div className="card-body pt-3 pb-0">
-                      <div className="d-flex justify-content-between mb-0">
-                        <h5 className="card-title mb-0 press_title">
-                          <a href="/press-detail">
-                            Yelp's Top 100 Romantic Restaurants for Valentine's
-                            Day Dinner in 2024
-                          </a>
-                        </h5>
-                      </div>
-                      <ul className="list-inline mt-2 mb-0 pb-0">
-                        <li className="list-inline-item h6 fw-light mb-1 mb-sm-0">
-                          <i className="far fa-calendar text-dark me-2"></i>Sunday
-                          May 5, 2024
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-10 col-xxl-6">
-              <div className="card rounded-1 overflow-hidden shadow">
-                <div className="row g-0">
-                  {/* <!-- Image --> */}
-                  <div className="col-md-3">
-                    <div className="overflow-hidden">
-                      <img
-                        src="assets/img/event/7.jpg"
-                        className="rounded-start"
-                        alt="course image"
-                      />
-                      <div className="bg-overlay bg-dark opacity-4"></div>
-                      <div className="card-img-overlay d-flex align-items-start p-3">
-                        <a
-                          href="/press-detail"
-                          className="badge text-bg-warning"
-                        >
-                          House Hold
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-md-9">
-                    <div className="card-body pt-3 pb-0">
-                      <div className="d-flex justify-content-between mb-0">
-                        <h5 className="card-title mb-0 press_title">
-                          <a href="/press-detail">
-                            2nd A Friendly Celebrates Black History Month: Names
-                            Top 25 Hot & New Black-Owned Restaurants
-                          </a>
-                        </h5>
-                      </div>
-                      <ul className="list-inline mt-2 mb-0 pb-0">
-                        <li className="list-inline-item h6 fw-light mb-1 mb-sm-0">
-                          <i className="far fa-calendar text-dark me-2"></i>Satarday
-                          July 5, 2023
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-10 col-xxl-6">
-              <div className="card rounded-1 overflow-hidden shadow">
-                <div className="row g-0">
-                  {/* <!-- Image --> */}
-                  <div className="col-md-3">
-                    <div className="overflow-hidden">
-                      <img
-                        src="assets/img/event/8.jpg"
-                        className="rounded-start"
-                        alt="course image"
-                      />
-                      <div className="bg-overlay bg-dark opacity-4"></div>
-                      <div className="card-img-overlay d-flex align-items-start p-3">
-                        <a href="/press-detail" className="badge text-bg-purple">
-                          Grocery Store
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-md-9">
-                    <div className="card-body pt-3 pb-0">
-                      <div className="d-flex justify-content-between mb-0">
-                        <h5 className="card-title mb-0 press_title">
-                          <a href="/press-detail">
-                            Investments in Product-Led Strategy Drove Yelp’s
-                            Strong 2023 Results
-                          </a>
-                        </h5>
-                      </div>
-                      <ul className="list-inline mt-2 mb-0 pb-0">
-                        <li className="list-inline-item h6 fw-light mb-1 mb-sm-0">
-                          <i className="far fa-calendar text-dark me-2"></i>Sunday
-                          March 5, 2024
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-10 col-xxl-6">
-              <div className="card rounded-1 overflow-hidden shadow">
-                <div className="row g-0">
-                  {/* <!-- Image --> */}
-                  <div className="col-md-3">
-                    <div className="overflow-hidden">
-                      <img
-                        src="assets/img/event/9.jpg"
-                        className="rounded-start"
-                        alt="course image"
-                      />
-                      <div className="bg-overlay bg-dark opacity-4"></div>
-                      <div className="card-img-overlay d-flex align-items-start p-3">
-                        <a href="/press-detail" className="badge text-bg-danger">
-                          Clothing Store
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-md-9">
-                    <div className="card-body pt-3 pb-0">
-                      <div className="d-flex justify-content-between mb-0">
-                        <h5 className="card-title mb-0 press_title">
-                          <a href="/press-detail">
-                            Research finds 2nd A Friendly's moderation practices
-                            mitigate misinformation and build
-                          </a>
-                        </h5>
-                      </div>
-                      <ul className="list-inline mt-2 mb-0 pb-0">
-                        <li className="list-inline-item h6 fw-light mb-1 mb-sm-0">
-                          <i className="far fa-calendar text-dark me-2"></i> Monday
-                          March 25, 2024
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-lg-10 col-xxl-6">
-              <div className="card rounded-1 overflow-hidden shadow">
-                <div className="row g-0">
-                  {/* <!-- Image --> */}
-                  <div className="col-md-3">
-                    <div className="overflow-hidden">
-                      <img
-                        src="assets/img/event/10.jpg"
-                        className="rounded-start"
-                        alt="course image"
-                      />
-                      <div className="bg-overlay bg-dark opacity-4"></div>
-                      <div className="card-img-overlay d-flex align-items-start p-3">
-                        <a
-                          href="/press-detail"
-                          className="badge text-bg-primary"
-                        >
-                          Firearms
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                  <div className="col-md-9">
-                    <div className="card-body pt-3 pb-0">
-                      <div className="d-flex justify-content-between mb-0">
-                        <h5 className="card-title mb-0 press_title">
-                          <a href="/press-detail">
-                            2nd A friendly Drove Record Net Revenue in the Third
-                            Quarter 2023 as it Delivered More{" "}
-                          </a>
-                        </h5>
-                      </div>
-                      <ul className="list-inline mt-2 mb-0 pb-0">
-                        <li className="list-inline-item h6 fw-light mb-1 mb-sm-0">
-                          <i className="far fa-calendar text-dark me-2"></i>
-                          Wednesday March 5, 2024
-                        </li>
-                      </ul>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
+              ))}
           </div>
           {/* <!-- Course list END -->
             <!-- Pagination START --> */}
-          <div className="col-12">
+          {/* <div className="col-12">
             <nav
               className="mt-4 d-flex justify-content-center"
               aria-label="navigation"
             >
               <ul className="pagination pagination-primary-soft d-inline-block d-md-flex rounded mb-0">
                 <li className="page-item mb-0">
-                  <a className="page-link" href="/press-detail" tabindex="-1">
+                  <a className="page-link" href={`/press/${press?.slug}`} tabindex="-1">
                     <i className="fas fa-angle-double-left"></i>
                   </a>
                 </li>
                 <li className="page-item mb-0">
-                  <a className="page-link" href="/press-detail">
+                  <a className="page-link" href={`/press/${press?.slug}`}>
                     1
                   </a>
                 </li>
                 <li className="page-item mb-0 active">
-                  <a className="page-link" href="/press-detail">
+                  <a className="page-link" href={`/press/${press?.slug}`}>
                     2
                   </a>
                 </li>
                 <li className="page-item mb-0">
-                  <a className="page-link" href="/press-detail">
+                  <a className="page-link" href={`/press/${press?.slug}`}>
                     ..
                   </a>
                 </li>
                 <li className="page-item mb-0">
-                  <a className="page-link" href="/press-detail">
+                  <a className="page-link" href={`/press/${press?.slug}`}>
                     6
                   </a>
                 </li>
                 <li className="page-item mb-0">
-                  <a className="page-link" href="/press-detail">
+                  <a className="page-link" href={`/press/${press?.slug}`}>
                     <i className="fas fa-angle-double-right"></i>
                   </a>
                 </li>
               </ul>
             </nav>
-          </div>
+          </div> */}
         </div>
       </section>
     </main>

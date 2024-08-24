@@ -12,6 +12,10 @@ const PublicService = {
   subCategoryDetails: (data) => axios.post("/common/sub-category-details", {data}),
   advertisementDetails: (data) => axios.post("/common/advertisement-details", {data}),
   siteFaqList: () => axios.post("/common/site-faq", {}),
+  allEvents: () => axios.post("/common/site-events", {}),
+  allCareers: () => axios.post("/common/career-all", {}),
+  allBlogs: () => axios.post("/common/blog-all", {}),
+  allPress: () => axios.post("/common/press-all", {}),
 };
 
 export default PublicService;

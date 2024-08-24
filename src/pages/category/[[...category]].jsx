@@ -92,7 +92,7 @@ const CategoryPage = ({ category }) => {
               key={category[category?.length - 1]}
             >
               {/* <!-- Short by filter --> */}
-              <div className="row mb-3">
+              {/* <div className="row mb-3">
                 <form>
                   <div className="row g-3">
                     <div className="col-xl-3">
@@ -151,7 +151,7 @@ const CategoryPage = ({ category }) => {
                     </div>
                   </div>
                 </form>
-              </div>
+              </div> */}
               {/* <h5 className="mt-0 mb-0">Sponsored Results</h5>
               <p className="mt-0 mb-1">
                 Business owners paid for these ads. For more information visit{" "}
@@ -615,7 +615,7 @@ const CategoryPage = ({ category }) => {
               <h5 className="mt-0 mb-0">Regular Results</h5>
               <p className="mt-0 mb-1">
                 Business owners paid for these ads. For more information visit{" "}
-                <a href="for-business-owner.php">
+                <a href="/for-business-owner">
                   {" "}
                   2nd A Friendly for Business.
                 </a>

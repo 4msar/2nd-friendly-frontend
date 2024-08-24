@@ -39,7 +39,7 @@ const Partner = () => {
   return (
     <section className="py-5">
       <div className="container">
-        <div className="row mb-5">
+        {/* <div className="row mb-5">
           <div className="col-12">
             <h2 className="fw-normal text-center">
               Our <span className="corporate-color">Partners</span>
@@ -50,8 +50,8 @@ const Partner = () => {
               ever since the 1500s.
             </p>
           </div>
-        </div>
-        <div className="row justify-content-center">
+        </div> */}
+        {/* <div className="row justify-content-center">
           <div className="col-12">
             <div className="arrow-round">
               <div className="tiny-slider-inner">
@@ -88,7 +88,7 @@ const Partner = () => {
               </div>
             </div>
           </div>
-        </div>
+        </div> */}
       </div>
       <div className="container">
         <div className="row">

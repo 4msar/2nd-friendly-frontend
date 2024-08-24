@@ -3,13 +3,27 @@ import EventBox from '@/components/Event/EventBox'
 import FriendlyEvent from '@/components/Event/FriendlyEvent'
 import UpcomingEventBox from '@/components/Event/UpcomingEventBox'
 import PublicView from '@/components/HOC/PublicView'
+import PublicService from '@/services/PublicService'
 import Head from 'next/head'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 const Events = () => {
     const events = event_list;
     const upComeEvents = upcomingEvents;
     const friendlyEvents = friendlyEvent;
+    const [eventData, setEventData] = useState();
+
+    const handleGetEvents = () => {
+        const res = PublicService.allEvents().then((data) => {
+            console.log(data);
+            setEventData(data.data.allEvent)
+            
+        })
+    }
+
+    useEffect(() => {
+        handleGetEvents();
+    }, [])
   return (
     <main>
          <Head>
@@ -87,7 +101,7 @@ const Events = () => {
             </div>
             <div className="row g-4">
                 {/* <!-- Card item START --> */}
-                {events.length > 0 && events.map((item, index) => (
+                {eventData?.length > 0 && eventData.map((item, index) => (
                     <div className="col-sm-6 col-lg-4 col-xl-3">
                         <EventBox item={item} />
                     </div>

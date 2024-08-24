@@ -1,3 +1,5 @@
+import { IMAGE_URL } from "@/helpers/apiUrl";
+import { getEventStatus } from "@/helpers/functions";
 import Link from "next/link";
 import React from "react";
 
@@ -6,7 +8,7 @@ const EventBox = ({item}) => {
     <div className="card bg-transparent">
       <div className="position-relative">
         <img
-          src={item.img.src}
+          src={`${IMAGE_URL}/uploads/site-event/${item.image}`}
           className="rounded-1"
           alt="course image"
         />
@@ -25,11 +27,11 @@ const EventBox = ({item}) => {
             <a href="#" className="badge text-bg-white fs-6 rounded-1">
             <i
                 className={`${
-                  item.date === "Live"
+                  item?.date === "Live"
                     ? "fas fa-circle text-success"
                     : "far fa-calendar-alt text-orange"
                 }  me-2`}
-              ></i>{item.date}
+              ></i>{getEventStatus(item?.start_date_time)}
             </a>
           </div>
         </div>
@@ -38,13 +40,13 @@ const EventBox = ({item}) => {
       <div className="card-body px-0 pt-2 pb-0">
         <h5 className="card-title">
           <Link href="#">
-           {item.title}
+           {item?.title}
           </Link>
         </h5>
         <i className="bi bi-geo-alt-fill"></i>{" "}
-        <Link href="#">{item.address}</Link>
+        <Link href="#">{item?.address}</Link>
         <p className="mb-0 text-truncate-2">
-          {item.subtitle}
+          {item?.subtitle}
         </p>
       </div>
     </div>

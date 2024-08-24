@@ -9,6 +9,7 @@ const Faq = () => {
   const handleGetFaqList = () => {
     const res = PublicService.siteFaqList().then((data) => {
       console.log(data);
+      setFaqs(data.data.allFaqs)
       
     })
   }

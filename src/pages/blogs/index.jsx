@@ -1,7 +1,47 @@
 import PublicView from "@/components/HOC/PublicView";
-import React from "react";
+import { IMAGE_URL } from "@/helpers/apiUrl";
+import { formatDate } from "@/helpers/functions";
+import PublicService from "@/services/PublicService";
+import React, { useEffect, useState } from "react";
 
 const Blogs = () => {
+  const [blogData, setBlogData] = useState({
+    allFeaturedPost: [],
+    allRecommendedPost: [],
+    allRecord: [],
+  });
+
+  const handleGetBlogs = () => {
+    const res = PublicService.allBlogs().then((data) => {
+      console.log(data);
+      setBlogData({
+        allFeaturedPost: data.data.allFeaturedPost,
+        allRecommendedPost: data.data.allRecommendedPost,
+        allRecord: data.data.allRecord,
+      })
+    })
+  }
+
+
+  function truncateWords(text, limit) {
+    const words = text.split(' ');
+    if (words.length > limit) {
+      return words.slice(0, limit).join(' ') + '...';
+    }
+    return text;
+  }
+  function createMarkup(text) {
+    const truncatedText = truncateWords(text, 10);
+    return {__html: truncatedText};
+  }
+
+  console.log(blogData?.allRecord);
+  
+
+  useEffect(() => {
+    handleGetBlogs();
+    
+  }, [])
   return (
     <main>
       <section className="pt-4 pb-2">
@@ -252,7 +292,8 @@ const Blogs = () => {
             </p>
           </div>
           <div className="row g-4">
-            <div className="col-sm-6 col-lg-4 col-xl-3">
+            {blogData?.allRecommendedPost?.length > 0 && blogData?.allRecommendedPost.map((post, index) => (
+              <div className="col-sm-6 col-lg-4 col-xl-3" key={index}>
               <div className="card bg-transparent">
                 <div className="overflow-hidden rounded-top">
                   <img
@@ -262,14 +303,14 @@ const Blogs = () => {
                   />
                   <div className="bg-overlay bg-dark opacity-4"></div>
                   <div className="card-img-overlay d-flex align-items-start p-3">
-                    <a href="blog-detail.php" className="badge text-bg-danger">
+                    <a href={`/blogs/${post.slug}`} className="badge text-bg-danger">
                       Hotels
                     </a>
                   </div>
                 </div>
                 <div className="card-body px-0">
                   <h5 className="card-title">
-                    <a href="blog-detail.php">
+                    <a href={`/blogs/${post.slug}`}>
                       Epicurean Escapades: Exploring the Rich Culinary Landscape
                       of the United States
                     </a>
@@ -281,119 +322,16 @@ const Blogs = () => {
                   </p>
                   <div className="d-flex justify-content-between">
                     <h6 className="mb-0">
-                      <a href="blog-detail.php">Arielle Norheim</a>
+                      <a href={`/blogs/${post.slug}`}>Arielle Norheim</a>
                     </h6>
                     <span className="small">Saturday, June 11, 2024</span>
                   </div>
                 </div>
               </div>
             </div>
-            <div className="col-sm-6 col-lg-4 col-xl-3">
-              <div className="card bg-transparent">
-                <div className="overflow-hidden rounded-2">
-                  <img
-                    src="assets/img/event/9.jpg"
-                    className="card-img rounded-2"
-                    alt="course image"
-                  />
-                  <div className="bg-overlay bg-dark opacity-4"></div>
-                  <div className="card-img-overlay d-flex align-items-start p-3">
-                    <a href="blog-detail.php" className="badge text-bg-success">
-                      Student life
-                    </a>
-                  </div>
-                </div>
-                <div className="card-body px-0">
-                  <h5 className="card-title">
-                    <a href="blog-detail.php">
-                      Gastronomic Grandeur: A Journey Through the Flavors of
-                      American Cuisine
-                    </a>
-                  </h5>
-                  <p className="text-truncate-2">
-                    Affronting imprudence do he he everything. Offered chiefly
-                    farther of my no colonel shyness. Such on help ye some door
-                    if in.
-                  </p>
-                  <div className="d-flex justify-content-between">
-                    <h6 className="mb-0">
-                      <a href="blog-detail.php">Arielle Norheim</a>
-                    </h6>
-                    <span className="small">Saturday, June 11, 2024</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-sm-6 col-lg-4 col-xl-3">
-              <div className="card bg-transparent">
-                <div className="overflow-hidden rounded-2">
-                  <img
-                    src="assets/img/event/10.jpg"
-                    className="card-img rounded-2"
-                    alt="course image"
-                  />
-                  <div className="bg-overlay bg-dark opacity-4"></div>
-                  <div className="card-img-overlay d-flex align-items-start p-3">
-                    <a href="blog-detail.php" className="badge text-bg-purple">
-                      Travel
-                    </a>
-                  </div>
-                </div>
-                <div className="card-body px-0">
-                  <h5 className="card-title">
-                    <a href="blog-detail.php">
-                      Taste Trails: Navigating the Diverse Culinary Paths Across
-                      America
-                    </a>
-                  </h5>
-                  <p className="text-truncate-2">
-                    Prospective students should start broadly and then narrow
-                    their list
-                  </p>
-                  <div className="d-flex justify-content-between">
-                    <h6 className="mb-0">
-                      <a href="blog-detail.php">Joan Wallace</a>
-                    </h6>
-                    <span className="small">5D Ago</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-sm-6 col-lg-4 col-xl-3">
-              <div className="card bg-transparent">
-                <div className="overflow-hidden rounded-2">
-                  <img
-                    src="assets/img/event/11.jpg"
-                    className="card-img rounded-2"
-                    alt="course image"
-                  />
-                  <div className="bg-overlay bg-dark opacity-4"></div>
-                  <div className="card-img-overlay d-flex align-items-start p-3">
-                    <a href="blog-detail.php" className="badge text-bg-danger">
-                      Burger
-                    </a>
-                  </div>
-                </div>
-                <div className="card-body px-0">
-                  <h5 className="card-title">
-                    <a href="blog-detail.php">
-                      Culinary Chronicles: Unveiling the Stories Behind American
-                      Eateries
-                    </a>
-                  </h5>
-                  <p className="text-truncate-2">
-                    Rooms oh fully taken by worse do. Points afraid but may end
-                    law. Points afraid but may end law.
-                  </p>
-                  <div className="d-flex justify-content-between">
-                    <h6 className="mb-0">
-                      <a href="blog-detail.php">Amanda Reed</a>
-                    </h6>
-                    <span className="small">July 21, 2021</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+            ))}
+            
+           
           </div>
         </div>
       </section>
@@ -412,288 +350,44 @@ const Blogs = () => {
             </div>
           </div>
           <div className="row g-4">
-            <div className="col-sm-6 col-lg-4 col-xl-3">
-              <div className="card bg-transparent">
-                <div className="overflow-hidden rounded-top">
-                  <img
-                    src="assets/img/event/12.jpg"
-                    className="card-img"
-                    alt="course image"
-                  />
-                  <div className="bg-overlay bg-dark opacity-4"></div>
-                  <div className="card-img-overlay d-flex align-items-start p-3">
-                    <a href="blog-detail.php" className="badge text-bg-danger">
-                      Student life
-                    </a>
-                  </div>
-                </div>
-                <div className="card-body px-0">
-                  <h5 className="card-title">
-                    <a href="blog-detail.php">
-                      Flavor Frontier: Venturing into the Heart of USA Dining
-                    </a>
-                  </h5>
-                  <p className="text-truncate-2">
-                    Affronting imprudence do he he everything. Offered chiefly
-                    farther of my no colonel shyness. Such on help ye some door
-                    if in.
-                  </p>
-                  <div className="d-flex justify-content-between">
-                    <h6 className="mb-0">
-                      <a href="blog-detail.php">Arielle Norheim</a>
-                    </h6>
-                    <span className="small">Saturday, June 11, 2024</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-sm-6 col-lg-4 col-xl-3">
-              <div className="card bg-transparent">
-                <div className="overflow-hidden rounded-2">
-                  <img
-                    src="assets/img/event/13.jpg"
-                    className="card-img rounded-2"
-                    alt="course image"
-                  />
-                  <div className="bg-overlay bg-dark opacity-4"></div>
-                  <div className="card-img-overlay d-flex align-items-start p-3">
-                    <a href="blog-detail.php" className="badge text-bg-success">
-                      Student life
-                    </a>
-                  </div>
-                </div>
-                <div className="card-body px-0">
-                  <h5 className="card-title">
-                    <a href="blog-detail.php">
-                      Dine Discoveries: An Odyssey Through America's Vibrant
-                      Restaurant Scene
-                    </a>
-                  </h5>
-                  <p className="text-truncate-2">
-                    Affronting imprudence do he he everything. Offered chiefly
-                    farther of my no colonel shyness. Such on help ye some door
-                    if in.
-                  </p>
-                  <div className="d-flex justify-content-between">
-                    <h6 className="mb-0">
-                      <a href="blog-detail.php">Arielle Norheim</a>
-                    </h6>
-                    <span className="small">Saturday, June 11, 2024</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-sm-6 col-lg-4 col-xl-3">
-              <div className="card bg-transparent">
-                <div className="overflow-hidden rounded-2">
-                  <img
-                    src="assets/img/event/1.jpg"
-                    className="card-img rounded-2"
-                    alt="course image"
-                  />
-                  <div className="bg-overlay bg-dark opacity-4"></div>
-                  <div className="card-img-overlay d-flex align-items-start p-3">
-                    <a href="blog-detail.php" className="badge text-bg-purple">
-                      Travel
-                    </a>
-                  </div>
-                </div>
-                <div className="card-body px-0">
-                  <h5 className="card-title">
-                    <a href="blog-detail.php">
-                      Savoring Stateside: Indulging in the Delights of American
-                      Restaurants
-                    </a>
-                  </h5>
-                  <p className="text-truncate-2">
-                    Prospective students should start broadly and then narrow
-                    their list
-                  </p>
-                  <div className="d-flex justify-content-between">
-                    <h6 className="mb-0">
-                      <a href="blog-detail.php">Joan Wallace</a>
-                    </h6>
-                    <span className="small">5D Ago</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-sm-6 col-lg-4 col-xl-3">
-              <div className="card bg-transparent">
-                <div className="overflow-hidden rounded-2">
-                  <img
-                    src="assets/img/event/12.jpg"
-                    className="card-img rounded-2"
-                    alt="course image"
-                  />
-                  <div className="bg-overlay bg-dark opacity-4"></div>
-                  <div className="card-img-overlay d-flex align-items-start p-3">
-                    <a href="blog-detail.php" className="badge text-bg-danger">
-                      Research
-                    </a>
-                  </div>
-                </div>
-                <div className="card-body px-0">
-                  <h5 className="card-title">
-                    <a href="blog-detail.php">
-                      United Plates: Sampling the Diverse Offerings of USA
-                      Cuisine
-                    </a>
-                  </h5>
-                  <p className="text-truncate-2">
-                    Rooms oh fully taken by worse do. Points afraid but may end
-                    law. Points afraid but may end law.
-                  </p>
-                  <div className="d-flex justify-content-between">
-                    <h6 className="mb-0">
-                      <a href="blog-detail.php">Amanda Reed</a>
-                    </h6>
-                    <span className="small">July 21, 2021</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-sm-6 col-lg-4 col-xl-3">
-              <div className="card bg-transparent">
-                <div className="overflow-hidden rounded-2">
-                  <img
-                    src="assets/img/event/16.jpg"
-                    className="card-img rounded-2"
-                    alt="course image"
-                  />
-                  <div className="bg-overlay bg-dark opacity-4"></div>
-                  <div className="card-img-overlay d-flex align-items-start p-3">
-                    <a href="blog-detail.php" className="badge text-bg-success">
-                      Resturent
-                    </a>
-                  </div>
-                </div>
-                <div className="card-body px-0">
-                  <h5 className="card-title">
-                    <a href="blog-detail.php">
-                      Across the Table: Exploring America's Gastronomic Tapestry
-                    </a>
-                  </h5>
-                  <p className="text-truncate-2">
-                    Fully taken by worse do. Points afraid but may end law.
-                    Points afraid but may end law.
-                  </p>
-                  <div className="d-flex justify-content-between">
-                    <h6 className="mb-0">
-                      <a href="blog-detail.php">Samuel Bishop</a>
-                    </h6>
-                    <span className="small">40D ago</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-sm-6 col-lg-4 col-xl-3">
-              <div className="card bg-transparent">
-                <div className="overflow-hidden rounded-2">
-                  <img
-                    src="assets/img/event/17.jpg"
-                    className="card-img rounded-2"
-                    alt="course image"
-                  />
-                  <div className="bg-overlay bg-dark opacity-4"></div>
-                  <div className="card-img-overlay d-flex align-items-start p-3">
-                    <a href="blog-detail.php" className="badge text-bg-primary">
-                      Sports
-                    </a>
-                  </div>
-                </div>
-                <div className="card-body px-0">
-                  <h5 className="card-title">
-                    <a href="blog-detail.php">
-                      Gourmet Galore: Embarking on a Culinary Adventure Across
-                      the USA
-                    </a>
-                  </h5>
-                  <p className="text-truncate-2">
-                    Rooms oh fully taken by worse do. Points afraid but may end
-                    law. Points..
-                  </p>
-                  <div className="d-flex justify-content-between">
-                    <h6 className="mb-0">
-                      <a href="blog-detail.php">Carolyn Ortiz</a>
-                    </h6>
-                    <span className="small">Aug 31, 2021</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-sm-6 col-lg-4 col-xl-3">
-              <div className="card bg-transparent">
-                <div className="overflow-hidden rounded-2">
-                  <img
-                    src="assets/img/event/18.jpg"
-                    className="card-img rounded-2"
-                    alt="course image"
-                  />
-                  <div className="bg-overlay bg-dark opacity-4"></div>
-                  <div className="card-img-overlay d-flex align-items-start p-3">
-                    <a href="blog-detail.php" className="badge text-bg-info">
-                      Student story
-                    </a>
-                  </div>
-                </div>
-                <div className="card-body px-0">
-                  <h5 className="card-title">
-                    <a href="blog-detail.php">
-                      Eats Across America: A Culinary Quest from Coast to Coast
-                    </a>
-                  </h5>
-                  <p className="text-truncate-2">
-                    Prospective students should start broadly and then narrow
-                    their list
-                  </p>
-                  <div className="d-flex justify-content-between">
-                    <h6 className="mb-0">
-                      <a href="blog-detail.php">Lori Stevens</a>
-                    </h6>
-                    <span className="small">3M Ago</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div className="col-sm-6 col-lg-4 col-xl-3">
-              <div className="card bg-transparent">
-                <div className="overflow-hidden rounded-2">
-                  <img
-                    src="assets/img/event/19.jpg"
-                    className="card-img rounded-2"
-                    alt="course image"
-                  />
-                  <div className="bg-overlay bg-dark opacity-4"></div>
-                  <div className="card-img-overlay d-flex align-items-start p-3">
-                    <a href="blog-detail.php" className="badge text-bg-orange">
-                      Marketing
-                    </a>
-                  </div>
-                </div>
-                <div className="card-body px-0">
-                  <h5 className="card-title">
-                    <a href="blog-detail.php">
-                      American Appetites Unleashed: Exploring the Depths of USA
-                      Dining
-                    </a>
-                  </h5>
-                  <p className="text-truncate-2">
-                    Prospective students should start broadly and then narrow
-                    their list
-                  </p>
-                  <div className="d-flex justify-content-between">
-                    <h6 className="mb-0">
-                      <a href="blog-detail.php">Louis Crawford</a>
-                    </h6>
-                    <span className="small">10D Ago</span>
-                  </div>
-                </div>
-              </div>
-            </div>
+            {blogData?.allRecord?.length > 0 && blogData?.allRecord.map((latest, index) => (
+               <div className="col-sm-6 col-lg-4 col-xl-3" key={index}>
+               <div className="card bg-transparent">
+                 <div className="overflow-hidden rounded-top">
+                   <img
+                     src={`${IMAGE_URL}/uploads/blog-image/${latest.image}`}
+                     className="card-img"
+                     alt="course image"
+                     height={298}
+                   />
+                   <div className="bg-overlay bg-dark opacity-4"></div>
+                   <div className="card-img-overlay d-flex align-items-start p-3">
+                     <a href={`/blogs/${latest?.slug}`} className="badge text-bg-danger">
+                       {latest?.blogCategory?.name}
+                     </a>
+                   </div>
+                 </div>
+                 <div className="card-body px-0">
+                   <h5 className="card-title">
+                     <a href={`/blogs/${latest?.slug}`}>
+                       {latest?.title}
+                     </a>
+                   </h5>
+                   <div dangerouslySetInnerHTML={createMarkup(latest?.details)} />
+                   <div className="d-flex justify-content-between">
+                     <h6 className="mb-0">
+                       <a href={`/blogs/${latest?.slug}`}>Arielle Norheim</a>
+                     </h6>
+                     <span className="small">{formatDate(latest?.updatedAt, "DD MMM YYYY")}</span>
+                   </div>
+                 </div>
+               </div>
+             </div>
+            ))}
+        
           </div>
           {/* <!-- Pagination START --> */}
-          <nav
+          {/* <nav
             className="d-flex justify-content-center mt-5"
             aria-label="navigation"
           >
@@ -729,7 +423,7 @@ const Blogs = () => {
                 </a>
               </li>
             </ul>
-          </nav>
+          </nav> */}
           {/* <!-- Pagination END --> */}
         </div>
       </section>

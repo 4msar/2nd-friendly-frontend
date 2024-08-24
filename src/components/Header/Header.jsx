@@ -1513,7 +1513,7 @@ const Header = () => {
                   <div className="avatar me-3">
                         <img
                           className="avatar-img rounded-circle shadow"
-                          src={businessProfile?.image ? `${IMAGE_URL}/uploads/business-logo/${businessProfile?.image}` : companyLogo.src}
+                          src={businessProfile?.business_logo ? `${IMAGE_URL}/uploads/business-logo/${businessProfile?.business_logo}` : companyLogo.src}
                           alt="avatar"
                         />
                       </div>
@@ -1529,13 +1529,13 @@ const Header = () => {
                       <div className="avatar me-3">
                         <img
                           className="avatar-img rounded-circle shadow"
-                          src={companyLogo.src}
+                          src={businessProfile?.business_logo ? `${IMAGE_URL}/uploads/business-logo/${businessProfile?.business_logo}` : companyLogo.src}
                           alt="avatar"
                         />
                       </div>
                       <div>
                         <Link className="h6" href="/#">
-                          Redwood Solutions
+                          {businessProfile?.business_name}
                         </Link>
                         <p className="small m-0">{userProfile?.email}</p>
                       </div>
@@ -1592,10 +1592,10 @@ const Header = () => {
                       <i className="bi bi-power fa-fw me-2"></i>Sign Out
                     </Link>
                   </li>
-                  <li>
+                  {/* <li>
                     {" "}
                     <hr className="dropdown-divider" />
-                  </li>
+                  </li> */}
                   {/* <li>
                     <div className="bg-light dark-mode-switch theme-icon-active d-flex align-items-center p-1 rounded mt-2">
                       <button

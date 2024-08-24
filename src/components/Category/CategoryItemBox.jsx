@@ -4,12 +4,17 @@ import { useCustomerAboutStore } from "@/store/useCustomerAboutStore";
 import { Box, Dialog, DialogContent, DialogContentText } from "@mui/material";
 import { useState } from "react";
 import CustomerLoginModal from "../Modal/CustomerLoginModal";
+import { useAuthStore } from "@/store";
+import useSnackbar from "@/hooks/useSnackbar";
 
 const CategoryItemBox = ({ item, index }) => {
   const userProfile = useCustomerAboutStore((state) => state.customer);
+  const expires_in = useAuthStore((state) => state.expires_in);
+  const isExpired = Date.now() >= expires_in;
   const [messageData, setMessageData] = useState("");
   const [messageOpen, setMessageOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
+  const snackbar = useSnackbar();
 
   const handleSubmitMessage = () => {
     const payload = {
@@ -19,7 +24,13 @@ const CategoryItemBox = ({ item, index }) => {
     };
 
     const res = CustomerService.sendMessageToBusiness(payload).then((data) => {
+      if(data.data.status === 'success') {
+        snackbar(data.data.message, {variant: "success"})
+      } else {
+        snackbar("Something wrong!", {variant: "error"});
+      }
       console.log(data);
+
     });
   };
   return (
@@ -378,7 +389,7 @@ const CategoryItemBox = ({ item, index }) => {
                   </p>
                   <div className="col-6">
                     <div className="mt-3 ms-1">
-                      {!userProfile && (
+                      {isExpired && (
                         <span>
                           Already have an account?
                           <span
