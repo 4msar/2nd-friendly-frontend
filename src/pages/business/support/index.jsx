@@ -1,6 +1,6 @@
 import SidebarInformation from "@/components/Business/SidebarInformation";
 import BusinessView from "@/components/HOC/BusinessView";
-import { capitalize } from "@/helpers/functions";
+import { capitalize, isEmpty } from "@/helpers/functions";
 import useToken from "@/hooks/useToken";
 import UserSupport from "@/pages/user/support";
 import BusinessService from "@/services/BusinessService";
@@ -36,6 +36,7 @@ const Support = () => {
   const setSupports = useSupportStore((state) => state.setSupports);
   const setSupportType = useSupportStore((state) => state.setSupportType);
   const [support, setSupport] = useState({
+    id: "",
     title: "",
     siteTicketType: "",
     message: "",
@@ -114,15 +115,39 @@ const Support = () => {
     const res = BusinessService.supportCreate(payload).then((data) => {
       console.log({ data });
       if (data.data.status === "success") {
-          handleGetSupport();
-          handleReset();
-          setOpen(false);
-          setLoading(false);
+        handleGetSupport();
+        handleReset();
+        setOpen(false);
+        setLoading(false);
       } else {
         setLoading(false);
       }
     });
   };
+
+  const handleSupportUpdate = (e) => {
+    setLoading(true);
+    e.preventDefault();
+    e.stopPropagation();
+    const payload = {
+      ...support,
+    };
+
+    const res = BusinessService.supportUpdate(payload).then((data) => {
+      console.log({ data });
+      if (data.data.status === "success") {
+        handleGetSupport();
+        handleReset();
+        setOpen(false);
+        setLoading(false);
+      } else {
+        setLoading(false);
+      }
+    });
+  };
+
+  console.log(support);
+  
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -133,7 +158,7 @@ const Support = () => {
   return (
     <BusinessView title="Support">
       <main>
-      {loading && (
+        {loading && (
           <div className="preloader-api">
             <div className="preloader-item">
               <div className="spinner-grow text-primary"></div>
@@ -272,30 +297,53 @@ const Support = () => {
                       {allSupport.length > 0 ? (
                         <>
                           {allSupport.map((support, index) => (
-                          <tr key={index}>
-                          <td>#102356</td>
-                          <td>January 26, 2024</td>
-                          <td>
-                            <a href={`/business/support/${support.id}`} class="fw-bold">
-                              {support.title}
-                            </a>
-                          </td>
-                          <td>{capitalize(support?.siteTicketType?.name)}</td>
-                          <td class="text-center text-sm-start">
-                            <span class="badge bg-success bg-opacity-10 text-success">
-                              In-Progress
-                            </span>
-                          </td>
-                          <td>May 21, 2023</td>
-                          <td>
-                            <a href="/business/support/text" class="text-black">
-                              <i class="far fa-fw fa-edit"></i>
-                            </a>{" "}
-                            <a href={`/business/support/${support.id}`} class="text-black">
-                              <i class="far fa-fw fa-eye"></i>
-                            </a>
-                          </td>
-                          </tr>
+                            <tr key={index}>
+                              <td>#102356</td>
+                              <td>January 26, 2024</td>
+                              <td>
+                                <a
+                                  href={`/business/support/${support.id}`}
+                                  class="fw-bold"
+                                >
+                                  {support.title}
+                                </a>
+                              </td>
+                              <td>
+                                {capitalize(support?.siteTicketType?.name)}
+                              </td>
+                              <td class="text-center text-sm-start">
+                                <span class="badge bg-success bg-opacity-10 text-success">
+                                  In-Progress
+                                </span>
+                              </td>
+                              <td>May 21, 2023</td>
+                              <td>
+                                <span
+                                  onClick={() => {
+                                    setOpen(true);
+                                    setSupport({
+                                      id: support.id,
+                                      title: support.title,
+                                      siteTicketType:
+                                        support?.siteTicketType.id,
+                                      message: support.message,
+                                      image: "",
+                                      old_image: support.attachment,
+                                    });
+                                  }}
+                                  class="text-black"
+                                  style={{cursor: "pointer"}}
+                                >
+                                  <i class="far fa-fw fa-edit"></i>
+                                </span>{" "}
+                                <a
+                                  href={`/business/support/${support.id}`}
+                                  class="text-black"
+                                >
+                                  <i class="far fa-fw fa-eye"></i>
+                                </a>
+                              </td>
+                            </tr>
                           ))}
                         </>
                       ) : (
@@ -303,7 +351,6 @@ const Support = () => {
                           <h4>Data not found!</h4>
                         </tr>
                       )}
-                     
                     </tbody>
                   </table>
                 </div>
@@ -353,7 +400,17 @@ const Support = () => {
           open={open}
           tabindex="-1"
           width={700}
-          onClose={() => setOpen(false)}
+          onClose={() => {
+            setOpen(false);
+            setSupport({
+              id: "",
+              title: "",
+              siteTicketType: "",
+              message: "",
+              image: "",
+              old_image: "",
+            });
+          }}
         >
           <DialogContent class="modal-content">
             <DialogContentText>
@@ -365,7 +422,17 @@ const Support = () => {
                   <button
                     type="button"
                     class="btn btn-sm btn-light mb-0"
-                    onClick={() => setOpen(false)}
+                    onClick={() => {
+                      setOpen(false);
+                      setSupport({
+                        id: "",
+                        title: "",
+                        siteTicketType: "",
+                        message: "",
+                        image: "",
+                        old_image: "",
+                      });
+                    }}
                   >
                     <i class="bi bi-x-lg">x</i>
                   </button>
@@ -387,6 +454,7 @@ const Support = () => {
                         id="title"
                         placeholder="e. g. Need Marketing Manager"
                         required
+                        value={support.title}
                         autoComplete="off"
                         onChange={(e) =>
                           setSupport({
@@ -412,6 +480,7 @@ const Support = () => {
                         id="siteTicketType"
                         name="siteTicketType"
                         required
+                        value={support.siteTicketType}
                         onChange={(e) =>
                           setSupport({
                             ...support,
@@ -420,11 +489,12 @@ const Support = () => {
                         }
                       >
                         <option value="">Please Select</option>
-                        {allTicketType?.length > 0 && allTicketType.map((type, index) => (
-
-                        <option key={index} value={type.id}>{capitalize(type.name)}</option>
-                        ))}
-                        
+                        {allTicketType?.length > 0 &&
+                          allTicketType.map((type, index) => (
+                            <option key={index} value={type.id}>
+                              {capitalize(type.name)}
+                            </option>
+                          ))}
                       </select>
                       <div class="valid-feedback">Looks good!</div>
                       <div class="invalid-feedback">
@@ -446,6 +516,7 @@ const Support = () => {
                         id="details"
                         title="details"
                         name="details"
+                        value={support.message}
                         placeholder="E. g. Please write your job details here..."
                         required
                         onChange={(e) =>
@@ -481,12 +552,21 @@ const Support = () => {
                   >
                     Close
                   </Button>
-                  <Button
-                    onClick={(event) => handleSupportCreate(event)}
-                    class="btn btn-success-soft my-0"
-                  >
-                    Submit
-                  </Button>
+                  {isEmpty(support.id) ? (
+                    <Button
+                      onClick={(event) => handleSupportCreate(event)}
+                      class="btn btn-success-soft my-0"
+                    >
+                      Submit
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={(event) => handleSupportUpdate(event)}
+                      class="btn btn-success-soft my-0"
+                    >
+                      Update
+                    </Button>
+                  )}
                 </Box>
               </Box>
             </DialogContentText>

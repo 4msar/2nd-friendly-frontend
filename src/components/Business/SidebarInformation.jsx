@@ -106,17 +106,22 @@ const SidebarInformation = React.memo(({ profile }) => {
             </p>
           </div>
           <div className="list-group list-group-dark list-group-borderless pt-1 ps-0">
-            {links.map((link) => (
-              <a
+            {links.map((link) => {
+               const isActive =
+               router.pathname === link.href ||
+               router.pathname.startsWith(link.href + "/");
+              return (
+                <a
                 key={link.key}
                 className={`list-group-item mb-1 text-dark fw-normal bg-danger-soft-hover ${
-                  lastPart === link.key ? "active" : ""
+                  isActive ? "active" : ""
                 }`}
                 href={link.href}
               >
                 <i className={link.icon}></i> {link.label}
               </a>
-            ))}
+              )
+            })}
           </div>
         </div>
       </div>

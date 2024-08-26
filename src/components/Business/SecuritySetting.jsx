@@ -131,7 +131,7 @@ const SecuritySetting = () => {
                 New Password <span class="star">*</span>
               </label>
               <input
-                type="text"
+                type="password"
                 class="form-control"
                 id="password"
                 name="password"
@@ -161,7 +161,7 @@ const SecuritySetting = () => {
                 Confirm New Password <span class="star">*</span>
               </label>
               <input
-                type="text"
+                type="password"
                 class="form-control confirm_password"
                 id="confirm_password"
                 name="confirm_password"
