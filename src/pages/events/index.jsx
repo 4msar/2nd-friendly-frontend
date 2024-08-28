@@ -110,7 +110,7 @@ const Events = () => {
             </div>
         </div>
     </section>
-    <section className="pt-1 pb-5">
+    {/* <section className="pt-1 pb-5">
         <div className="container">
             <div className="row">
                 <div className="col-8">
@@ -146,7 +146,7 @@ const Events = () => {
                 </div>
             </div>
         </div>
-    </section>
+    </section> */}
 </main>
   )
 }

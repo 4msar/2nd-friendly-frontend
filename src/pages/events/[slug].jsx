@@ -56,7 +56,7 @@ const EventDetails = ({ slug }) => {
               <div
                 class="card overflow-hidden h-400px h-xl-600px rounded-3"
                 style={{
-                  backgroundImage: `url(${IMAGE_URL}/uploads/business-event/${eventDetails.image})`,
+                  backgroundImage: `url(${IMAGE_URL}/uploads/business-event/${eventDetails?.image})`,
                   backgroundPosition: "center left",
                   backgroundSize: "cover",
                 }}
@@ -77,7 +77,7 @@ const EventDetails = ({ slug }) => {
                       <div class="col-11 col-lg-7">
                         {/* <!-- Title --> */}
                         <h1 class="text-white">
-                          {eventDetails.title}
+                          {eventDetails?.title}
                         </h1>
                         <p class="text-white mb-0">
                           {eventDetails?.details}

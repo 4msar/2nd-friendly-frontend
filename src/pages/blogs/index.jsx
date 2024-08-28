@@ -44,7 +44,7 @@ const Blogs = () => {
   }, [])
   return (
     <main>
-      <section className="pt-4 pb-2">
+      <section className="pt-4 pb-2 bg-light">
         <div className="container">
           <div className="row">
             <div className="col-12">
@@ -62,7 +62,7 @@ const Blogs = () => {
           </div>
         </div>
       </section>
-      <section className="pt-1 pb-5">
+      <section className="pt-1 pb-5 bg-light">
         <div className="container">
           <div className="row">
             <div className="col-md-5">
@@ -279,7 +279,7 @@ const Blogs = () => {
           </div>
         </div>
       </section>
-      <section className="py-5 bg-light">
+      {/* <section className="py-5 bg-light">
         <div className="container">
           <div className="mb-3">
             <h3 className="fw-normal">
@@ -334,8 +334,8 @@ const Blogs = () => {
            
           </div>
         </div>
-      </section>
-      <section className="py-5">
+      </section> */}
+      <section className="py-5 ">
         <div className="container">
           <div className="row mb-3">
             <div className="col-12">

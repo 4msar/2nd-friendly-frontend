@@ -17,14 +17,14 @@ const EventBox = ({item}) => {
           {/* <!-- Card overlay Top --> */}
           <div className="w-100 mb-auto d-flex justify-content-end">
             {/* <!-- Favorite icon --> */}
-            <a href="#" className="icon-sm bg-white rounded-2">
+            <a href={`/events/${item?.slug}`} className="icon-sm bg-white rounded-2">
               <i className="far fa-heart text-danger"></i>
             </a>
           </div>
           {/* <!-- Card overlay bottom --> */}
           <div className="w-100 mt-auto">
             {/* <!-- Category --> */}
-            <a href="#" className="badge text-bg-white fs-6 rounded-1">
+            <a href={`/events/${item?.slug}`} className="badge text-bg-white fs-6 rounded-1">
             <i
                 className={`${
                   item?.date === "Live"
@@ -39,12 +39,12 @@ const EventBox = ({item}) => {
       {/* <!-- Card body --> */}
       <div className="card-body px-0 pt-2 pb-0">
         <h5 className="card-title">
-          <Link href="#">
+          <Link href={`/events/${item?.slug}`}>
            {item?.title}
           </Link>
         </h5>
         <i className="bi bi-geo-alt-fill"></i>{" "}
-        <Link href="#">{item?.address}</Link>
+        <Link href={`/events/${item?.slug}`}>{item?.address}</Link>
         <p className="mb-0 text-truncate-2">
           {item?.subtitle}
         </p>
