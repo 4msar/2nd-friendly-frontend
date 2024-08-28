@@ -47,8 +47,8 @@ const HoursOfOperation = () => {
       (data) => {
         if (data.data.status === "success") {
           setLoading(false);
-          snackbar(data.data.message, {variant: 'success'});
-          
+          snackbar(data.data.message, { variant: "success" });
+
           getHoursOfOperation();
         } else {
           setLoading(false);
@@ -67,7 +67,7 @@ const HoursOfOperation = () => {
     ).then((data) => {
       if (data.data.status === "success") {
         setLoading(false);
-        snackbar(data.data.message, {variant: 'success'});
+        snackbar(data.data.message, { variant: "success" });
         getHoursOfOperation();
       } else {
         setLoading(false);
@@ -83,7 +83,7 @@ const HoursOfOperation = () => {
   return (
     <BusinessView title="Hours of Operation">
       <main>
-      {loading && (
+        {loading && (
           <div className="preloader-api">
             <div className="preloader-item">
               <div className="spinner-grow text-primary"></div>
@@ -157,6 +157,8 @@ const HoursOfOperation = () => {
                             setBusinessHours({
                               ...businessHours,
                               sunday_start_time: e.target.value,
+                              is_sunday_24open: false,
+                              is_sunday_close: false
                             })
                           }
                           value={businessHours?.sunday_start_time}
@@ -269,6 +271,8 @@ const HoursOfOperation = () => {
                             setBusinessHours({
                               ...businessHours,
                               sunday_end_time: e.target.value,
+                              is_sunday_24open: false,
+                              is_sunday_close: false
                             })
                           }
                           value={businessHours?.sunday_end_time}
@@ -379,12 +383,14 @@ const HoursOfOperation = () => {
                             type="radio"
                             id="inlineRadio1"
                             name="inlineRadio1"
-                              required
+                            required
                             onChange={(e) =>
                               setBusinessHours({
                                 ...businessHours,
                                 is_sunday_24open: e.target.value,
                                 is_sunday_close: false,
+                                sunday_start_time: "",
+                                sunday_end_time: ""
                               })
                             }
                             checked={businessHours?.is_sunday_24open}
@@ -401,12 +407,14 @@ const HoursOfOperation = () => {
                             type="radio"
                             id="inlineRadio2"
                             name="inlineRadio2"
-                              required
+                            required
                             onChange={(e) =>
                               setBusinessHours({
                                 ...businessHours,
                                 is_sunday_close: e.target.value,
                                 is_sunday_24open: false,
+                                sunday_start_time: "",
+                                sunday_end_time: ""
                               })
                             }
                             checked={businessHours?.is_sunday_close}
@@ -428,6 +436,8 @@ const HoursOfOperation = () => {
                             setBusinessHours({
                               ...businessHours,
                               monday_start_time: e.target.value,
+                              is_monday_24open: false,
+                              is_monday_close: false
                             })
                           }
                           value={businessHours?.monday_start_time}
@@ -540,6 +550,8 @@ const HoursOfOperation = () => {
                             setBusinessHours({
                               ...businessHours,
                               monday_end_time: e.target.value,
+                              is_monday_24open: false,
+                              is_monday_close: false
                             })
                           }
                           value={businessHours?.monday_end_time}
@@ -650,12 +662,14 @@ const HoursOfOperation = () => {
                             type="radio"
                             id="inlineRadio3"
                             name="inlineRadio3"
-                              required
+                            required
                             onChange={(e) =>
                               setBusinessHours({
                                 ...businessHours,
                                 is_monday_24open: e.target.value,
                                 is_monday_close: false,
+                                monday_start_time: "",
+                                monday_end_time: ""
                               })
                             }
                             checked={businessHours?.is_monday_24open}
@@ -672,12 +686,14 @@ const HoursOfOperation = () => {
                             type="radio"
                             id="inlineRadio4"
                             name="inlineRadio4"
-                              required
+                            required
                             onChange={(e) =>
                               setBusinessHours({
                                 ...businessHours,
                                 is_monday_close: e.target.value,
                                 is_monday_24open: false,
+                                monday_start_time: "",
+                                monday_end_time: ""
                               })
                             }
                             checked={businessHours?.is_monday_close}
@@ -699,6 +715,8 @@ const HoursOfOperation = () => {
                             setBusinessHours({
                               ...businessHours,
                               tuesday_start_time: e.target.value,
+                              is_tuesday_24open: false,
+                              is_tuesday_close: false
                             })
                           }
                           value={businessHours?.tuesday_start_time}
@@ -811,6 +829,8 @@ const HoursOfOperation = () => {
                             setBusinessHours({
                               ...businessHours,
                               tuesday_end_time: e.target.value,
+                              is_tuesday_24open: false,
+                              is_tuesday_close: false
                             })
                           }
                           value={businessHours?.tuesday_end_time}
@@ -921,12 +941,14 @@ const HoursOfOperation = () => {
                             type="radio"
                             id="inlineRadio5"
                             name="inlineRadio5"
-                              required
+                            required
                             onChange={(e) =>
                               setBusinessHours({
                                 ...businessHours,
                                 is_tuesday_24open: e.target.value,
                                 is_tuesday_close: false,
+                                tuesday_end_time: "",
+                                tuesday_start_time: ""
                               })
                             }
                             checked={businessHours?.is_tuesday_24open}
@@ -943,12 +965,14 @@ const HoursOfOperation = () => {
                             type="radio"
                             id="inlineRadio6"
                             name="inlineRadio6"
-                              required
+                            required
                             onChange={(e) =>
                               setBusinessHours({
                                 ...businessHours,
                                 is_tuesday_close: e.target.value,
                                 is_tuesday_24open: false,
+                                tuesday_end_time: "",
+                                tuesday_start_time: ""
                               })
                             }
                             checked={businessHours?.is_tuesday_close}
@@ -970,6 +994,8 @@ const HoursOfOperation = () => {
                             setBusinessHours({
                               ...businessHours,
                               wednesday_start_time: e.target.value,
+                              is_wednesday_24open: false,
+                              is_wednesday_close: false
                             })
                           }
                           value={businessHours?.wednesday_start_time}
@@ -1082,6 +1108,8 @@ const HoursOfOperation = () => {
                             setBusinessHours({
                               ...businessHours,
                               wednesday_end_time: e.target.value,
+                              is_wednesday_24open: false,
+                              is_wednesday_close: false
                             })
                           }
                           value={businessHours?.wednesday_end_time}
@@ -1192,12 +1220,14 @@ const HoursOfOperation = () => {
                             type="radio"
                             id="inlineRadio7"
                             name="inlineRadio7"
-                              required
+                            required
                             onChange={(e) =>
                               setBusinessHours({
                                 ...businessHours,
                                 is_wednesday_24open: e.target.value,
                                 is_wednesday_close: false,
+                                wednesday_end_time: "",
+                                wednesday_start_time: ""
                               })
                             }
                             checked={businessHours?.is_wednesday_24open}
@@ -1214,12 +1244,14 @@ const HoursOfOperation = () => {
                             type="radio"
                             id="inlineRadio8"
                             name="inlineRadio8"
-                              required
+                            required
                             onChange={(e) =>
                               setBusinessHours({
                                 ...businessHours,
                                 is_wednesday_close: e.target.value,
                                 is_wednesday_24open: false,
+                                wednesday_end_time: "",
+                                wednesday_start_time: ""
                               })
                             }
                             checked={businessHours?.is_wednesday_close}
@@ -1241,6 +1273,8 @@ const HoursOfOperation = () => {
                             setBusinessHours({
                               ...businessHours,
                               thursday_start_time: e.target.value,
+                              is_thursday_24open: false,
+                              is_thursday_close: false
                             })
                           }
                           value={businessHours?.thursday_start_time}
@@ -1353,6 +1387,8 @@ const HoursOfOperation = () => {
                             setBusinessHours({
                               ...businessHours,
                               thursday_end_time: e.target.value,
+                              is_thursday_24open: false,
+                              is_thursday_close: false
                             })
                           }
                           value={businessHours?.thursday_end_time}
@@ -1463,12 +1499,14 @@ const HoursOfOperation = () => {
                             type="radio"
                             id="inlineRadio9"
                             name="inlineRadio9"
-                              required
+                            required
                             onChange={(e) =>
                               setBusinessHours({
                                 ...businessHours,
                                 is_thursday_24open: e.target.value,
                                 is_thursday_close: false,
+                                thursday_end_time: "",
+                                thursday_start_time: ""
                               })
                             }
                             checked={businessHours?.is_thursday_24open}
@@ -1485,12 +1523,14 @@ const HoursOfOperation = () => {
                             type="radio"
                             id="inlineRadio10"
                             name="inlineRadio10"
-                              required
+                            required
                             onChange={(e) =>
                               setBusinessHours({
                                 ...businessHours,
                                 is_thursday_close: e.target.value,
                                 is_thursday_24open: false,
+                                thursday_end_time: "",
+                                thursday_start_time: ""
                               })
                             }
                             checked={businessHours?.is_thursday_close}
@@ -1512,6 +1552,8 @@ const HoursOfOperation = () => {
                             setBusinessHours({
                               ...businessHours,
                               friday_start_time: e.target.value,
+                              is_friday_24open: false,
+                              is_friday_close: false
                             })
                           }
                           value={businessHours?.friday_start_time}
@@ -1624,6 +1666,8 @@ const HoursOfOperation = () => {
                             setBusinessHours({
                               ...businessHours,
                               friday_end_time: e.target.value,
+                              is_friday_24open: false,
+                              is_friday_close: false
                             })
                           }
                           value={businessHours?.friday_end_time}
@@ -1734,12 +1778,14 @@ const HoursOfOperation = () => {
                             type="radio"
                             id="inlineRadio11"
                             name="inlineRadio11"
-                              required
+                            required
                             onChange={(e) =>
                               setBusinessHours({
                                 ...businessHours,
                                 is_friday_24open: e.target.value,
                                 is_friday_close: false,
+                                friday_end_time: "",
+                                friday_start_time: ""
                               })
                             }
                             checked={businessHours?.is_friday_24open}
@@ -1756,12 +1802,14 @@ const HoursOfOperation = () => {
                             type="radio"
                             id="inlineRadio12"
                             name="inlineRadio12"
-                              required
+                            required
                             onChange={(e) =>
                               setBusinessHours({
                                 ...businessHours,
                                 is_friday_close: e.target.value,
-                                is_friday_24open: false
+                                is_friday_24open: false,
+                                friday_end_time: "",
+                                friday_start_time: ""
                               })
                             }
                             checked={businessHours?.is_friday_close}
@@ -1783,6 +1831,8 @@ const HoursOfOperation = () => {
                             setBusinessHours({
                               ...businessHours,
                               saturday_start_time: e.target.value,
+                              is_saturday_24open: false,
+                              is_saturday_close: false
                             })
                           }
                           value={businessHours?.saturday_start_time}
@@ -1895,6 +1945,8 @@ const HoursOfOperation = () => {
                             setBusinessHours({
                               ...businessHours,
                               saturday_end_time: e.target.value,
+                              is_saturday_24open: false,
+                              is_saturday_close: false
                             })
                           }
                           value={businessHours?.saturday_end_time}
@@ -2005,12 +2057,14 @@ const HoursOfOperation = () => {
                             type="radio"
                             id="inlineRadio13"
                             name="inlineRadio13"
-                              required
+                            required
                             onChange={(e) =>
                               setBusinessHours({
                                 ...businessHours,
                                 is_saturday_24open: e.target.value,
                                 is_saturday_close: false,
+                                saturday_end_time: "",
+                                saturday_start_time: ""
                               })
                             }
                             checked={businessHours?.is_saturday_24open}
@@ -2027,12 +2081,14 @@ const HoursOfOperation = () => {
                             type="radio"
                             id="inlineRadio14"
                             name="inlineRadio14"
-                              required
+                            required
                             onChange={(e) =>
                               setBusinessHours({
                                 ...businessHours,
                                 is_saturday_close: e.target.value,
                                 is_saturday_24open: false,
+                                saturday_end_time: "",
+                                saturday_start_time: ""
                               })
                             }
                             checked={businessHours?.is_saturday_close}
@@ -2046,7 +2102,9 @@ const HoursOfOperation = () => {
                     <div class="col-12 d-grid gap-2 d-md-flex justify-content-md-start">
                       <Button
                         disabled={loading}
-                        startIcon={loading ? <CircularProgress size={15} /> : ""}
+                        startIcon={
+                          loading ? <CircularProgress size={15} /> : ""
+                        }
                         class="btn btn-sm btn-dark"
                         onClick={(e) => updateBusinessHours(e)}
                       >
@@ -2076,7 +2134,7 @@ const HoursOfOperation = () => {
                             setBusinessClosure({
                               ...businessClosure,
                               is_temporarily_closed: e.target.value,
-                              is_permanently_closed: "",
+                              is_permanently_closed: ""
                             })
                           }
                         />
@@ -2127,7 +2185,7 @@ const HoursOfOperation = () => {
                         onChange={(e) =>
                           setBusinessClosure({
                             ...businessClosure,
-                            reopen_date: e.target.value,
+                            reopen_date: e.target.value
                           })
                         }
                       />
@@ -2150,7 +2208,7 @@ const HoursOfOperation = () => {
                         onChange={(e) =>
                           setBusinessClosure({
                             ...businessClosure,
-                            additional_detail: e.target.value,
+                            additional_detail: e.target.value
                           })
                         }
                       ></textarea>
@@ -2168,7 +2226,7 @@ const HoursOfOperation = () => {
                               ...businessClosure,
                               is_permanently_closed: e.target.value,
                               is_temporarily_closed: "",
-                              reopen_date: "",
+                              reopen_date: ""
                             })
                           }
                         />

@@ -59,6 +59,7 @@ const BusinessService = {
 
   careerAll: () => axios.post("/business/career-all", {}),
   careerCreate: (data) => axios.post("/business/career-create", { data }),
+  careerUpdate: (data) => axios.post("/business/career-update", { data }),
   careerView: (data) => axios.post("/business/career-view", { data }),
 
   supportAll: () => axios.post("/business/support-all", {}),

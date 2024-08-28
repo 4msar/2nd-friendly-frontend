@@ -13,6 +13,8 @@ const CustomerService = {
   notificationSave: (data) => axios.post("/customer/account-notification-save", { data }),
   settingsNotificationAll: () => axios.post("/customer/setting-notification-all", {  }),
   settingsNotificationUpdate: (data) => axios.post("/customer/setting-notification-update", { data }),
+  privacySettings: () => axios.post("/customer/privacy-setting-all", {  }),
+  privacySettingUpdate: (data) => axios.post("/customer/privacy-setting-update", { data }),
   reviewAll: () =>
     axios.post("/customer/post-review-all", {  }),
   reviewPostToBusiness: (data) =>

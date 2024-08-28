@@ -1,29 +1,14 @@
 import AboutBusiness from "@/components/Business/About";
-import ActivityLogs from "@/components/Business/ActivityLog";
-import DeleteAccount from "@/components/Business/DeleteAccount";
-import ExternalApplication from "@/components/Business/ExternalApplication";
-import Notification from "@/components/Business/Notification";
-import PrivacySetting from "@/components/Business/PrivacySetting";
-import SecuritySetting from "@/components/Business/SecuritySetting";
+import AccountSidebar from "@/components/Business/AccountSidebar";
 import BusinessView from "@/components/HOC/BusinessView";
 import useToken from "@/hooks/useToken";
-import PersonPinIcon from "@mui/icons-material/PersonPin";
-import { Box, Tab, Tabs } from "@mui/material";
 import { useRouter } from "next/router";
-import { useEffect, useState } from "react";
-import InfoIcon from "@mui/icons-material/Info";
-import NotificationsIcon from "@mui/icons-material/Notifications";
-import OpenInNewIcon from "@mui/icons-material/OpenInNew";
-import LockIcon from "@mui/icons-material/Lock";
-import SecurityIcon from "@mui/icons-material/Security";
-import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
-import DeleteIcon from "@mui/icons-material/Delete";
-import AccountSidebar from "@/components/Business/AccountSidebar";
+import { useState } from "react";
 
 function a11yProps(index) {
   return {
     id: `vertical-tab-${index}`,
-    "aria-controls": `vertical-tabpanel-${index}`,
+    "aria-controls": `vertical-tabpanel-${index}`
   };
 }
 
@@ -34,7 +19,6 @@ const AboutTheBusiness = () => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
-  
 
   return (
     <BusinessView title="About the business">
@@ -136,13 +120,7 @@ const AboutTheBusiness = () => {
               </div>
               <div class="col-xl-9">
                 {/* {handleComponent(value)} */}
-                  <AboutBusiness />
-                {value === 1 && <Notification />}
-                {value === 2 && <ExternalApplication />}
-                {value === 3 && <SecuritySetting />}
-                {value === 4 && <PrivacySetting />}
-                {value === 5 && <ActivityLogs />}
-                {value === 6 && <DeleteAccount />}
+                <AboutBusiness />
               </div>
             </div>
           </div>

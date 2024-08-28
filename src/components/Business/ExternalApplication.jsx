@@ -3,7 +3,7 @@ import React from "react";
 const ExternalApplication = () => {
   return (
     <div>
-      <div class="border-bottom mb-4 pb-1">
+      {/* <div class="border-bottom mb-4 pb-1">
         <h5 class="mb-0 mb-sm-0 text-danger pb-1 fw-normal">
           Connect with Social Media
         </h5>
@@ -65,7 +65,7 @@ const ExternalApplication = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div> */}
       <div class="border-bottom mb-4 pb-2">
         <h5 class="mb-0 mb-sm-0 text-danger pb-0 fw-normal">
           Social Media Profile

@@ -1,9 +1,27 @@
 import SidebarInformation from "@/components/Business/SidebarInformation";
 import BusinessView from "@/components/HOC/BusinessView";
+import useToken from "@/hooks/useToken";
+import BusinessService from "@/services/BusinessService";
 import { useBusinessAboutStore } from "@/store";
+import { useEffect } from "react";
 
-const Details = () => {
+const Details = ({ slug }) => {
+  const isAuthenticated = useToken();
   const userProfile = useBusinessAboutStore((state) => state.businessProfile);
+  const handleGetDetails = (slug) => {
+    const payload = {
+      id: slug
+    };
+    const res = BusinessService.careerView(payload).then((data) => {
+      console.log(data);
+    });
+  };
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      handleGetDetails(slug);
+    }
+  }, [slug, isAuthenticated]);
   return (
     <BusinessView>
       <main>
@@ -296,3 +314,15 @@ const Details = () => {
 };
 
 export default Details;
+
+export async function getServerSideProps(context) {
+  const { params, query } = context;
+
+  const { id } = params;
+
+  return {
+    props: {
+      slug: id
+    }
+  };
+}

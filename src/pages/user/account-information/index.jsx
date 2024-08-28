@@ -79,12 +79,7 @@ const AccountInfo = () => {
               <div class="col-xl-9">
                 {/* {handleComponent(value)} */}
                 <AboutUser />
-                {value === 1 && <UserNotification />}
-                {value === 2 && <External />}
-                {value === 3 && <UserSecurity />}
-                {value === 4 && <UserPrivacy />}
-                {value === 5 && <ActivityLogs />}
-                {value === 6 && <DeleteAccount />}
+                
               </div>
             </div>
           </div>

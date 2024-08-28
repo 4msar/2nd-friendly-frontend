@@ -2,30 +2,31 @@ import BusinessView from "@/components/HOC/BusinessView";
 import PublicView from "@/components/HOC/PublicView";
 import { IMAGE_URL } from "@/helpers/apiUrl";
 import { formatDate } from "@/helpers/functions";
+import useToken from "@/hooks/useToken";
 import BusinessService from "@/services/BusinessService";
 import PublicService from "@/services/PublicService";
 import Head from "next/head";
 import React, { useEffect, useState } from "react";
 
 const EventDetails = ({ slug }) => {
-
+  const isAuthenticated = useToken();
     const [eventDetails, setEventDetails] = useState("");
 
     const handleGetEventDetails = (slug) => {
       const payload = {
-        slug
+        id:slug
       }
       const res = BusinessService.eventView(payload).then((details) => {
-        console.log(details);
-        setEventDetails(details.data.sinData)
+        console.log(details.data.data);
+        setEventDetails(details.data.data)
       })
     }
   
     useEffect(() => {
-      if(slug) {
+      if(isAuthenticated) {
         handleGetEventDetails(slug);
       }
-    }, [slug]);
+    }, [slug, isAuthenticated]);
   return (
     <BusinessView title={eventDetails?.title}>
       <main>

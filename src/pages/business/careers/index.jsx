@@ -1,6 +1,6 @@
 import SidebarInformation from "@/components/Business/SidebarInformation";
 import BusinessView from "@/components/HOC/BusinessView";
-import { formatDate } from "@/helpers/functions";
+import { formatDate, isEmpty } from "@/helpers/functions";
 import useSnackbar from "@/hooks/useSnackbar";
 import useToken from "@/hooks/useToken";
 import BusinessService from "@/services/BusinessService";
@@ -21,14 +21,11 @@ const Careers = () => {
   const [loading, setLoading] = useState(false);
   const snackbar = useSnackbar();
 
-  const allCareers = useCareerStore(
-    (state) => state.allCareer
-  );
-  const setCareer = useCareerStore(
-    (state) => state.setCareer
-  );
+  const allCareers = useCareerStore((state) => state.allCareer);
+  const setCareer = useCareerStore((state) => state.setCareer);
 
   const [job, setJob] = useState({
+    id: "",
     title: "",
     job_type: "",
     job_level: "",
@@ -41,7 +38,7 @@ const Careers = () => {
   const handleGetCareers = () => {
     const res = BusinessService.careerAll().then((careers) => {
       console.log({ careers });
-      if(careers.data.status === "success") {
+      if (careers.data.status === "success") {
         setCareer(careers.data.allCareer);
       }
     });
@@ -60,7 +57,29 @@ const Careers = () => {
       console.log({ data });
       if (data.data.status === "success") {
         handleGetCareers();
-        snackbar(data.data.message, {variant: 'success'});
+        snackbar(data.data.message, { variant: "success" });
+        setLoading(false);
+        setOpen(false);
+      } else {
+        setLoading(false);
+      }
+    });
+  };
+
+  const handleJobUpdate = (e) => {
+    setLoading(true);
+    e.preventDefault();
+    e.stopPropagation();
+    const payload = {
+      ...job,
+      expiration_date: formatDate(job.expiration_date, "DD-MM-YYYY")
+    };
+
+    const res = BusinessService.careerUpdate(payload).then((data) => {
+      console.log({ data });
+      if (data.data.status === "success") {
+        handleGetCareers();
+        snackbar(data.data.message, { variant: "success" });
         setLoading(false);
         setOpen(false);
       } else {
@@ -74,6 +93,8 @@ const Careers = () => {
       handleGetCareers();
     }
   }, [isAuthenticated]);
+  console.log(job);
+  
   return (
     <BusinessView title="Careers">
       <main>
@@ -171,39 +192,58 @@ const Careers = () => {
                     <tbody>
                       {allCareers?.length > 0 ? (
                         <>
-                          { allCareers.map((career, index) => (
-                        <tr key={index}>
-                        <td>
-                          <h6 class="table-responsive-title mt-2 mt-lg-0 mb-0">
-                            <a href={`/business/careers/${career.id}`}>{career.title}</a>
-                          </h6>
-                        </td>
-                        <td>18/1/2023</td>
-                        <td>Marketing</td>
-                        <td>30/2/2023</td>
-                        <td>
-                          <a href="#" class="link-underline-light text-primary">
-                            <i class="fa fa-download"></i>
-                          </a>
-                        </td>
-                        <td>
-                          <a href="/business/careers/" class="text-black">
-                            <i class="far fa-fw fa-edit"></i>
-                          </a>{" "}
-                          <a href="job-form.php" class="text-black">
-                            <i class="far fa-fw fa-eye"></i>
-                          </a>
-                        </td>
-                      </tr>
-                      ))}
+                          {allCareers.map((career, index) => (
+                            <tr key={index}>
+                              <td>
+                                <h6 class="table-responsive-title mt-2 mt-lg-0 mb-0">
+                                  <a href={`/business/careers/${career.id}`}>
+                                    {career.title}
+                                  </a>
+                                </h6>
+                              </td>
+                              <td>18/1/2023</td>
+                              <td>Marketing</td>
+                              <td>{formatDate(career.expiration_date, "MM/DD/YYYY")}</td>
+                              <td>
+                                <a
+                                  href="#"
+                                  class="link-underline-light text-primary"
+                                >
+                                  <i class="fa fa-download"></i>
+                                </a>
+                              </td>
+                              <td>
+                                <span
+                                  style={{ cursor: "pointer" }}
+                                  onClick={() => {
+                                    setJob({
+                                      id: career.id,
+                                      title: career.title,
+                                      job_type: career.job_type,
+                                      job_level: career.job_level,
+                                      department: career.department,
+                                      details: career.details,
+                                      expiration_date: formatDate(career.expiration_date, "YYYY-MM-DD"),
+                                      status: career.status
+                                    });
+                                    setOpen(true);
+                                  }}
+                                  class="text-black"
+                                >
+                                  <i class="far fa-fw fa-edit"></i>
+                                </span>{" "}
+                                <a href={`/business/careers/${career.id}`} class="text-black">
+                                  <i class="far fa-fw fa-eye"></i>
+                                </a>
+                              </td>
+                            </tr>
+                          ))}
                         </>
                       ) : (
-                        <tr style={{textAlign: "center"}}>
+                        <tr style={{ textAlign: "center" }}>
                           <h4>Data not found!</h4>
                         </tr>
-                      ) } 
-                      
-                     
+                      )}
                     </tbody>
                   </table>
                 </div>
@@ -254,7 +294,19 @@ const Careers = () => {
           open={open}
           tabindex="-1"
           width={700}
-          onClose={() => setOpen(false)}
+          onClose={() => {
+            setOpen(false);
+            setJob({
+              id: null,
+              title: "",
+              job_type: "",
+              job_level: "",
+              department: "",
+              details: "",
+              expiration_date: "",
+              status: ""
+            });
+          }}
         >
           <DialogContent class="modal-content">
             <DialogContentText>
@@ -266,7 +318,19 @@ const Careers = () => {
                   <button
                     type="button"
                     class="btn btn-sm btn-light mb-0"
-                    onClick={() => setOpen(false)}
+                    onClick={() => {
+                      setOpen(false);
+                      setJob({
+                        id: null,
+                        title: "",
+                        job_type: "",
+                        job_level: "",
+                        department: "",
+                        details: "",
+                        expiration_date: "",
+                        status: ""
+                      });
+                    }}
                   >
                     <i class="bi bi-x-lg">x</i>
                   </button>
@@ -288,6 +352,7 @@ const Careers = () => {
                         id="job_title"
                         placeholder="e. g. Need Marketing Manager"
                         required
+                        value={job?.title}
                         autoComplete="off"
                         onChange={(e) =>
                           setJob({
@@ -312,6 +377,7 @@ const Careers = () => {
                         class="form-select bg-light job_type"
                         id="job_type"
                         name="job_type"
+                        value={job?.job_type}
                         required
                         onChange={(e) =>
                           setJob({
@@ -343,6 +409,7 @@ const Careers = () => {
                         id="job_level"
                         name="job_level"
                         required
+                        value={job?.job_level}
                         onChange={(e) =>
                           setJob({
                             ...job,
@@ -372,6 +439,7 @@ const Careers = () => {
                         id="department"
                         name="department"
                         required
+                        value={job?.department}
                         onChange={(e) =>
                           setJob({
                             ...job,
@@ -403,6 +471,7 @@ const Careers = () => {
                         id="job_details"
                         title="job_details"
                         name="job_details"
+                        value={job?.details}
                         placeholder="E. g. Please write your job details here..."
                         required
                         onChange={(e) =>
@@ -453,6 +522,7 @@ const Careers = () => {
                         id="status"
                         name="status"
                         required
+                        value={job?.status}
                         onChange={(e) =>
                           setJob({
                             ...job,
@@ -471,21 +541,43 @@ const Careers = () => {
                     </div>
                   </div>
                 </div>
-                <Box class="modal-footer">
+                <Box class="modal-footer mt-3">
                   <Button
                     type="button"
                     class="btn btn-danger-soft my-0"
-                    data-bs-dismiss="modal"
+                    onClick={() => {
+                      setOpen(false);
+                      setJob({
+                        id: null,
+                        title: "",
+                        job_type: "",
+                        job_level: "",
+                        department: "",
+                        details: "",
+                        expiration_date: "",
+                        status: ""
+                      });
+                    }}
                   >
                     Close
                   </Button>
-                  <Button
-                    onClick={(event) => handleJobCreate(event)}
-                    class="btn btn-success-soft my-0"
-                    data-bs-dismiss="modal"
-                  >
-                    Submit
-                  </Button>
+                  {isEmpty(job.id) ? (
+                    <Button
+                      onClick={(event) => handleJobCreate(event)}
+                      class="btn btn-success-soft my-0"
+                      data-bs-dismiss="modal"
+                    >
+                      Submit
+                    </Button>
+                  ) : (
+                    <Button
+                      onClick={(event) => handleJobUpdate(event)}
+                      class="btn btn-success-soft my-0"
+                      data-bs-dismiss="modal"
+                    >
+                      Update
+                    </Button>
+                  )}
                 </Box>
               </Box>
             </DialogContentText>

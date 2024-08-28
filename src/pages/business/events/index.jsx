@@ -1,11 +1,12 @@
 import SidebarInformation from "@/components/Business/SidebarInformation";
 import BusinessView from "@/components/HOC/BusinessView";
-import { API_URL, IMAGE_URL } from "@/helpers/apiUrl";
+import { IMAGE_URL } from "@/helpers/apiUrl";
 import useToken from "@/hooks/useToken";
 import BusinessService from "@/services/BusinessService";
 import { useBusinessAboutStore, useEventStore } from "@/store";
 import Link from "next/link";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
+import swal from "sweetalert";
 
 const Events = () => {
   const userProfile = useBusinessAboutStore((state) => state.businessProfile);
@@ -19,6 +20,45 @@ const Events = () => {
     const res = await BusinessService.eventAll().then((data) => {
       console.log(data);
       setEvent(data.data.allEvent);
+    });
+  };
+
+  const handleDeleteEvent = (id) => {
+    const payload = {
+      id: id
+    };
+
+    swal({
+      title: "Are you sure?",
+      text: "Once deleted, you will not be able to recover this item!",
+      icon: "warning",
+      buttons: true,
+      dangerMode: true
+    }).then(async (willDelete) => {
+      if (willDelete) {
+        try {
+          const response = await BusinessService.eventDelete(payload);
+
+          if (response.data.actionStatus == 1) {
+            swal("Poof! Your item has been deleted!", {
+              icon: "success"
+            });
+
+            getAllEvents();
+            // Optionally, you can refresh the list of items or update the UI
+          } else {
+            swal("Error! There was a problem deleting your item.", {
+              icon: "error"
+            });
+          }
+        } catch (error) {
+          swal("Error! There was a problem deleting your item.", {
+            icon: "error"
+          });
+        }
+      } else {
+        swal("Your item is safe!");
+      }
     });
   };
 
@@ -123,9 +163,7 @@ const Events = () => {
                                 </div>
                                 <div class="mb-0 ms-2">
                                   <h6>
-                                    <a href="event-detail">
-                                      {event.title}
-                                    </a>
+                                    <a href="event-detail">{event.title}</a>
                                   </h6>
                                   <div class="d-sm-flex">
                                     <p class="h6 fw-light mb-0 small me-2">
@@ -149,19 +187,22 @@ const Events = () => {
                               </div>
                             </td>
                             <td>
-                              <a
-                                href="event-form.php"
+                              {/* <a
+                                href="#"
                                 class="btn btn-sm btn-dark-soft btn-round me-1 mb-0"
                               >
                                 <i class="far fa-fw fa-edit"></i>
-                              </a>
+                              </a> */}
                               <a
-                                href={`/business/events/${event.slug}`}
+                                href={`/business/events/${event.id}`}
                                 class="btn btn-sm btn-round btn-success-soft "
                               >
                                 <i class="far fa-fw fa-eye"></i>
                               </a>
-                              <button class="btn btn-sm btn-danger-soft btn-round mb-0">
+                              <button
+                                onClick={() => handleDeleteEvent(event.id)}
+                                class="btn btn-sm btn-danger-soft btn-round mb-0"
+                              >
                                 <i class="fas fa-fw fa-times"></i>
                               </button>
                             </td>

@@ -2,12 +2,11 @@ import { allStateData } from "@/components/dummy_data/data";
 import { IMAGE_URL } from "@/helpers/apiUrl";
 import useSnackbar from "@/hooks/useSnackbar";
 import useToken from "@/hooks/useToken";
-import BusinessService from "@/services/BusinessService";
 import CustomerService from "@/services/CustomerService";
-import { useBusinessAboutStore, useUserStore } from "@/store";
+import { useUserStore } from "@/store";
 import { useCustomerAboutStore } from "@/store/useCustomerAboutStore";
 import { Button, CircularProgress } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 
 const AboutUser = () => {
   const isAuthenticated = useToken();
@@ -17,7 +16,9 @@ const AboutUser = () => {
   const customer = useCustomerAboutStore((state) => state.customer);
   const userInfo = useUserStore((state) => state.userOwner);
   // const allState = useUserStore((state) => state.allState);
-  const setUserProfile = useCustomerAboutStore((state) => state.setCustomerProfile);
+  const setUserProfile = useCustomerAboutStore(
+    (state) => state.setCustomerProfile
+  );
   const allState = allStateData;
   const setAllAboutData = useUserStore((state) => state.setAboutAllData);
   const [fieldErrors, setFieldErrors] = useState("");
@@ -67,11 +68,11 @@ const AboutUser = () => {
     const payload = {
       ...userProfile,
       image: convertedImage ?? "",
-      old_image: userProfile.image ?? "",
+      old_image: userProfile.image ?? ""
     };
     const res = CustomerService.aboutCustomerSave(payload).then((data) => {
       if (data.data.status === "success") {
-        snackbar(data.data.message, {variant: "success"})
+        snackbar(data.data.message, { variant: "success" });
         getAboutUser();
         setLoading(false);
       } else {
@@ -82,7 +83,6 @@ const AboutUser = () => {
   };
 
   // console.log(customer);
-  
 
   return (
     <>
@@ -285,7 +285,7 @@ const AboutUser = () => {
             onChange={(e) =>
               setUserProfile({
                 ...userProfile,
-                address: e.target.value,
+                address: e.target.value
               })
             }
           />
@@ -373,7 +373,7 @@ const AboutUser = () => {
               justifyContent: "center",
               gap: 2,
               background: "#000",
-              color: "#fff",
+              color: "#fff"
             }}
             type="submit"
             class="btn btn-primary-soft mb-0"

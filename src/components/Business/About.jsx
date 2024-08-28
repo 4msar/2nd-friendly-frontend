@@ -73,6 +73,7 @@ const  AboutBusiness = () => {
       old_image: userProfile.business_logo ?? "",
       first_name : userProfile.first_name ?? userInfo.first_name,
       last_name : userProfile.last_name ?? userInfo.last_name,
+      official_email : userProfile.official_email ?? userInfo.email,
     };
     const res = BusinessService.aboutBusinessSave(payload).then(
       (data) => {
@@ -90,7 +91,8 @@ const  AboutBusiness = () => {
     );
   };
 
-
+  console.log(userInfo);
+  
   return (
     <div className="row g-3 needs-validation">  
       {/* <form class="row g-3 needs-validation" noValidate> */}
@@ -162,9 +164,9 @@ const  AboutBusiness = () => {
             title="official_email"
             id="official_email"
             placeholder="e. g. johndoe@gmail.com"
-            
+            disabled
             required
-            value={userProfile?.official_email}
+            value={userInfo?.email ?? userProfile?.official_email}
             onChange={(e) =>
               setUserProfile({ ...userProfile, official_email: e.target.value })
             }
