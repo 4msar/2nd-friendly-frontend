@@ -163,7 +163,7 @@ const Footer = () => {
                     </Link>
                   </li>
                   <li className="nav-item">
-                    <Link className="nav-link footer-nav-link" href="#">
+                    <Link className="nav-link footer-nav-link" href="/claim-your-business">
                       Claim your Business Page
                     </Link>
                   </li>

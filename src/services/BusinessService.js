@@ -56,6 +56,7 @@ const BusinessService = {
   eventUpdate: (data) => axios.post("/business/event-update", { data }),
   eventView: (data) => axios.post("/business/event-view", { data }),
   eventDelete: (data) => axios.post("/business/event-delet", { data }),
+  eventCategory: (data) => axios.post("/business/event-new", { data }),
 
   careerAll: () => axios.post("/business/career-all", {}),
   careerCreate: (data) => axios.post("/business/career-create", { data }),

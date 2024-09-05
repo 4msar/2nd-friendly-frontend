@@ -5,9 +5,16 @@ import Head from "next/head";
 import { teams } from "@/components/dummy_data/data";
 import Person from "@/components/Person/Person";
 import Slider from "react-slick";
+import PublicService from "@/services/PublicService";
 
-const AboutUs = () => {
+const AboutUs = ({data}) => {
   const team_list = teams;
+
+  console.log(data);
+  function createMarkup(text) {
+    
+    return {__html: text};
+  }
 
   const settings = {
     dots: false,
@@ -59,9 +66,9 @@ const AboutUs = () => {
         </div>
       </section>
       <section class="pt-0">
-        <div class="container">
+        <div class="container" dangerouslySetInnerHTML={createMarkup(data.description)} />
           {/* <!-- Title --> */}
-          <div class="row mb-4">
+          {/* <div class="row mb-4">
             <div class="col-lg-12">
               <p class="mb-0">
                 Welcome to 2ndAFriendly.com, where like-minded individuals can
@@ -173,11 +180,32 @@ const AboutUs = () => {
                 businesses that stand for the Second Amendment.
               </p>
             </div>
-          </div>
-        </div>
+          </div> */}
+        {/* </div> */}
       </section>
     </main>
   );
 };
 
 export default PublicView(AboutUs);
+
+
+export async function getServerSideProps(context) {
+  const { params, query } = context;
+  
+  
+  const payload = {
+    slug: "about-us",
+  }
+  const res = await PublicService.pageDetails(payload);
+ 
+  console.log(res.data.sinData);
+  
+ 
+
+  return {
+      props: {
+        data:res.data.sinData,
+      },
+  };
+}

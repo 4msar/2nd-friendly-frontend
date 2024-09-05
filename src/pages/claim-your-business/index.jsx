@@ -4,11 +4,11 @@ import PublicService from '@/services/PublicService'
 import Head from 'next/head'
 import React from 'react'
 
-const AccessibilityStatement = ({data}) => {
+const ClaimYourBusiness = ({data}) => {
   return (
     <main>
         <Head>
-            <title>Accessibility Statement</title>
+            <title>{data.title}</title>
         </Head>
     <section className="py-4">
         <div className="container">
@@ -18,10 +18,10 @@ const AccessibilityStatement = ({data}) => {
                         <ol className="breadcrumb breadcrumb-dots my-0 py-0">
                             <li className="breadcrumb-item"><a href="index.php">Home</a></li>
                             <li className="breadcrumb-item">Company</li>
-                            <li className="breadcrumb-item">Accessibility Statement</li>
+                            <li className="breadcrumb-item">{data.title}</li>
                         </ol>
                     </nav>
-                    <h4 className="fw-normal mt-3">Accessibility Statement</h4>
+                    <h4 className="fw-normal mt-3">{data.title}</h4>
                 </div>
             </div>
         </div>
@@ -33,7 +33,7 @@ const AccessibilityStatement = ({data}) => {
   )
 }
 
-export default PublicView(AccessibilityStatement)
+export default PublicView(ClaimYourBusiness)
 
 
 export async function getServerSideProps(context) {
@@ -41,7 +41,7 @@ export async function getServerSideProps(context) {
     
     
     const payload = {
-      slug: "accessibility-statement",
+      slug: "claim-your-business",
     }
     const res = await PublicService.pageDetails(payload);
    

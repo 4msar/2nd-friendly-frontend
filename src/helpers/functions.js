@@ -699,7 +699,10 @@ console.log(diffInDays, diffInTime, now);
   }
 }
 
-
+export function createMarkup(text) {
+    
+  return {__html: text};
+}
 
 
 

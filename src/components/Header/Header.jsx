@@ -205,7 +205,7 @@ const Header = () => {
                         sx={{
                           display: "flex",
                           alignItems: "center",
-                          padding: "0 14px",
+                          padding: "0 12px",
                         }}
                       >
                         <Link

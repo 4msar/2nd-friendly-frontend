@@ -7,7 +7,7 @@ import BusinessService from "@/services/BusinessService";
 import { useBusinessAboutStore } from "@/store";
 import { Button } from "@mui/material";
 import { useRouter } from "next/router";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 const EventAdd = () => {
   const userProfile = useBusinessAboutStore((state) => state.businessProfile);
@@ -20,6 +20,8 @@ const EventAdd = () => {
   // const setEventData = useEventStore(
   //   (state) => state.setSingleEvent
   // );
+  const [categories, setCategories] = useState([]);
+  const [states, setStates] = useState([]);
 
   const [event, setEvent] = useState({
     title: "",
@@ -69,6 +71,13 @@ const EventAdd = () => {
   //     });
   //   };
   // };
+
+  const handleGetStateAndCategory = () => {
+    const res = BusinessService.eventCategory().then((data) => {
+      setCategories(data.data.allCategory);
+      setStates(data.data.allState);
+    })
+  }
 
   const handleImageChange = (e) => {
     const file = e.target.files[0];
@@ -134,6 +143,12 @@ const EventAdd = () => {
     });
     // setLoading(false);
   };
+
+  useEffect(() => {
+    if(isAuthenticated) {
+      handleGetStateAndCategory();
+    }
+  }, [isAuthenticated])
 
   // console.log(event);
 
@@ -369,9 +384,11 @@ const EventAdd = () => {
                           }}
                         >
                           <option value="">Please Select</option>
-                          <option value="1">Food & Drink</option>
-                          <option value="2">Restaurant</option>
-                          <option value="3">Auto Service</option>
+                          {categories?.length > 0 && categories.map((cat, index) => (
+
+                          <option key={index} value={cat.id}>{capitalize(cat?.name)}</option>
+                          ))}
+                          
                         </select>
                         <div class="valid-feedback">Looks good!</div>
                         {fieldErrors?.category && (

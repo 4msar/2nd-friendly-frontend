@@ -16,6 +16,7 @@ const PublicService = {
   allCareers: () => axios.post("/common/career-all", {}),
   allBlogs: () => axios.post("/common/blog-all", {}),
   allPress: () => axios.post("/common/press-all", {}),
+  pageDetails: (data) => axios.post("/common/page-details", {data}),
 };
 
 export default PublicService;
