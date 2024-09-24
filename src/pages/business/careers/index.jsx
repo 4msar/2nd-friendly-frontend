@@ -232,7 +232,7 @@ const Careers = () => {
                                 >
                                   <i class="far fa-fw fa-edit"></i>
                                 </span>{" "}
-                                <a href={`/business/careers/${career.id}`} class="text-black">
+                                <a href={`/business/careers/${career.slug}`} class="text-black">
                                   <i class="far fa-fw fa-eye"></i>
                                 </a>
                               </td>

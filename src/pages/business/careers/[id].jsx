@@ -10,7 +10,7 @@ const Details = ({ slug }) => {
   const userProfile = useBusinessAboutStore((state) => state.businessProfile);
   const handleGetDetails = (slug) => {
     const payload = {
-      id: slug
+      slug: slug
     };
     const res = BusinessService.careerView(payload).then((data) => {
       console.log(data);

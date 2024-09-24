@@ -23,7 +23,7 @@ const Blog = () => {
           </div>
         </div>
         <div className="row g-3">
-            {posts.length > 0 && posts.map((item, index) => (
+            {posts?.length > 0 && posts.map((item, index) => (
                 <div className="col-sm-6 col-lg-4 col-xl-3" key={index}>
                     <BlogCard item={item} index={index} />
                 </div>
