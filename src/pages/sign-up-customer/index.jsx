@@ -8,6 +8,7 @@ import { API_URL } from "@/helpers/apiUrl";
 import useSnackbar from "@/hooks/useSnackbar";
 import { Button, CircularProgress } from "@mui/material";
 import axios from "axios";
+import Head from "next/head";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useState } from "react";
@@ -71,11 +72,14 @@ const SignUpCustomer = () => {
         } else {
           setLoading(false);
           snackbar("Registration failed", { variant: "error" });
-        }
+        }  
       });
   };
   return (
     <main>
+      <Head>
+        <title>Sign Up Customer | 2nd Friendly </title>
+      </Head>
       <section className="p-0 d-flex align-items-center position-relative overflow-hidden">
         <div className="container-fluid">
           <div className="row">

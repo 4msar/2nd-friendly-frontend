@@ -60,7 +60,7 @@ const AdvertisementCard = ({item, index}) => {
               <div>
                 <h5 className="card-title mb-0 fw-normal mb-1">
                   <a href={`/listing-details/${item?.businessProfile?.slug}`}>
-                    {item?.businessProfile.business_name}
+                    {item?.businessProfile?.business_name}
                   </a>
                 </h5>
                 <p className="small mb-0 mb-sm-0 pb-0">
@@ -69,8 +69,8 @@ const AdvertisementCard = ({item, index}) => {
                   <i className="fas fa-star text-warning"></i>
                   <i className="fas fa-star text-warning"></i>
                   <i className="fas fa-star text-warning"></i> <strong>5.0</strong>{" "}
-                  ({item.starCount} Reviews) .{" "}
-                  <span className="fw-bold text-danger">{item.status}</span> until {formatDate(item.time, "DD")} PM
+                  ({item?.starCount} Reviews) .{" "}
+                  <span className="fw-bold text-danger">{item?.status}</span> until {formatDate(item?.time, "DD")} PM
                 </p>
               </div>
             </div>
@@ -78,10 +78,10 @@ const AdvertisementCard = ({item, index}) => {
               className="text-truncate-1 pb-2 mb-0"
               style={{ fontSize: "14px", lineHeight: "18px" }}
             >
-              {item.description}
+              {item?.description}
             </p>
             <p className="small fst-italic mb-0 pb-0">
-              {item.address}
+              {item?.address}
             </p>
           </div>
         </div>

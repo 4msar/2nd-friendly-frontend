@@ -59,7 +59,7 @@ const CustomerSignIn = () => {
   return (
     <main>
       <Head>
-        <title>Sing in Business | 2nd A Friendly</title>
+        <title>Sing in Customer | 2nd A Friendly</title>
       </Head>
       <section className="p-0 d-flex align-items-center position-relative overflow-hidden">
         <div className="container-fluid">

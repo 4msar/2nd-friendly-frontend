@@ -17,6 +17,7 @@ import axios from 'axios';
 import { API_URL } from '@/helpers/apiUrl';
 import Link from 'next/link';
 import { Button, CircularProgress } from '@mui/material';
+import Head from 'next/head';
 
 const SignUpBusiness = () => {
     const router = useRouter();
@@ -76,6 +77,9 @@ const SignUpBusiness = () => {
 
   return (
     <main>
+        <Head>
+            <title>Sign Up Business | 2nd Friendly</title>
+        </Head>
     <section className="p-0 d-flex align-items-center position-relative overflow-hidden">
         <div className="container-fluid">
             <div className="row">
