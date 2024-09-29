@@ -22,7 +22,7 @@ const AdvertisementCard = ({item, index}) => {
 
                     
                 <img
-                  src={`${IMAGE_URL}/uploads/business-logo/${item.business_logo}`}
+                  src={`${IMAGE_URL}/uploads/business-logo/${item?.business_logo}`}
                   className="d-block w-100 rounded-start-2"
                   alt="..."
                 />

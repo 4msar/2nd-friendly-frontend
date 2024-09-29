@@ -32,6 +32,10 @@ const BusinessSingIn = () => {
     // toggleLoading(true);
     setLoading(true);
     const res = await Authorization.login(data);
+    if(res.status === 401){
+      setLoading(false);
+      snackbar("Unauthorized", { variant: "error" });
+    }
     if (res.status === "success") {
       useAuthStore.setState({
         user: res.user,
