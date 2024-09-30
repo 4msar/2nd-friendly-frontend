@@ -1,6 +1,6 @@
 import SidebarInformation from "@/components/Business/SidebarInformation";
 import BusinessView from "@/components/HOC/BusinessView";
-import { capitalize, isEmpty } from "@/helpers/functions";
+import { capitalize, formatDate, isEmpty } from "@/helpers/functions";
 import useSnackbar from "@/hooks/useSnackbar";
 import useToken from "@/hooks/useToken";
 import BusinessService from "@/services/BusinessService";
@@ -13,7 +13,7 @@ import {
   Dialog,
   DialogActions,
   DialogContent,
-  DialogContentText,
+  DialogContentText
 } from "@mui/material";
 import Link from "next/link";
 import { useRouter } from "next/router";
@@ -63,7 +63,7 @@ const Album = () => {
       const pngDataUrl = canvas.toDataURL("image/png");
       setSingleAlbum({
         ...singleAlbum,
-        image: pngDataUrl,
+        image: pngDataUrl
       });
     };
   };
@@ -87,7 +87,7 @@ const Album = () => {
     const modalElement = document.getElementById("albumCreate");
     const payload = {
       ...singleAlbum,
-      old_image: "",
+      old_image: ""
     };
     const res = await BusinessService.photoAlbumSave(payload).then((data) => {
       if (data.data.status === "success") {
@@ -96,7 +96,6 @@ const Album = () => {
         getAllPhotoAlbum();
         setSingleAlbum({});
         snackbar(data.data.message, { variant: "success" });
-        
       } else {
         setLoading(false);
       }
@@ -105,9 +104,9 @@ const Album = () => {
 
   const updatePhotoAlbum = (data) => {
     setLoading(true);
-    
+
     const payload = {
-      ...singleAlbum,
+      ...singleAlbum
     };
     const res = BusinessService.photoAlbumUpdate(payload).then((data) => {
       if (data.data.status === "success") {
@@ -124,7 +123,7 @@ const Album = () => {
 
   const handleDeletePhoto = async (id) => {
     const payload = {
-      id: id,
+      id: id
     };
 
     swal({
@@ -132,7 +131,7 @@ const Album = () => {
       text: "Once deleted, you will not be able to recover this item!",
       icon: "warning",
       buttons: true,
-      dangerMode: true,
+      dangerMode: true
     }).then(async (willDelete) => {
       if (willDelete) {
         try {
@@ -140,18 +139,18 @@ const Album = () => {
 
           if (response.data.actionStatus == 1) {
             swal("Poof! Your item has been deleted!", {
-              icon: "success",
+              icon: "success"
             });
             getAllPhotoAlbum();
             // Optionally, you can refresh the list of items or update the UI
           } else {
             swal(`Error! ${response.data.message}`, {
-              icon: "error",
+              icon: "error"
             });
           }
         } catch (error) {
           swal("Error! There was a problem deleting your item.", {
-            icon: "error",
+            icon: "error"
           });
         }
       } else {
@@ -159,6 +158,19 @@ const Album = () => {
       }
     });
   };
+
+  // const handleGetAlbumPhotos = async (id) => {
+  //   const payload = {
+  //     albumId: id
+  //   };
+  //   const res = await BusinessService.albumPhotoAll(payload);
+  //   if (res.data.actionStatus == 0) {
+  //     return 0;
+  //   }
+
+  //   return res.data.allPhoto.length;
+  //   console.log(res.data.actionStatus);
+  // };
 
   // console.log(singleAlbum);
 
@@ -171,7 +183,7 @@ const Album = () => {
   return (
     <BusinessView title="Album">
       <main>
-      {loading && (
+        {loading && (
           <div className="preloader-api">
             <div className="preloader-item">
               <div className="spinner-grow text-primary"></div>
@@ -276,8 +288,12 @@ const Album = () => {
                               </div>
                             </td>
                             <td>34</td>
-                            <td>Feb 15, 2024</td>
-                            <td>March 25, 2024</td>
+                            <td>
+                              {formatDate(album.createdAt, "MMMM DD, YYYY")}
+                            </td>
+                            <td>
+                              {formatDate(album.updatedAt, "MMMM DD, YYYY")}
+                            </td>
                             <td>
                               <Button
                                 onClick={() => {
@@ -434,7 +450,7 @@ const Album = () => {
                   class="modal-body"
                   sx={{
                     padding: "20px !important",
-                    marginBottom: "20px !important",
+                    marginBottom: "20px !important"
                   }}
                 >
                   <div class="row">
@@ -453,7 +469,7 @@ const Album = () => {
                         onChange={(e) => {
                           setSingleAlbum({
                             ...singleAlbum,
-                            name: e.target.value,
+                            name: e.target.value
                           });
                         }}
                       />
