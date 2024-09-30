@@ -70,9 +70,9 @@ const AboutBusiness = () => {
       ...userProfile,
       image: convertedImage,
       old_image: userProfile.business_logo ?? "",
-      first_name: userProfile.first_name ?? userInfo.first_name,
-      last_name: userProfile.last_name ?? userInfo.last_name,
-      official_email: userInfo.email
+      first_name : userProfile.first_name ?? userInfo.first_name,
+      last_name : userProfile.last_name ?? userInfo.last_name,
+      official_email : userInfo.email,
     };
     const res = BusinessService.aboutBusinessSave(payload).then((data) => {
       console.log(data.data);
