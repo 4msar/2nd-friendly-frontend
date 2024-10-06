@@ -1,5 +1,5 @@
 import { IMAGE_URL } from "@/helpers/apiUrl";
-import { formatDate } from "@/helpers/functions";
+import { formatDate, limitWords } from "@/helpers/functions";
 import Link from "next/link";
 import React from "react";
 
@@ -22,7 +22,7 @@ const AdvertisementCard = ({item, index}) => {
 
                     
                 <img
-                  src={`${IMAGE_URL}/uploads/business-logo/${item?.business_logo}`}
+                  src={`${IMAGE_URL}/uploads/business-logo/${item?.businessProfile?.business_logo}`}
                   className="d-block w-100 rounded-start-2"
                   alt="..."
                 />
@@ -78,7 +78,7 @@ const AdvertisementCard = ({item, index}) => {
               className="text-truncate-1 pb-2 mb-0"
               style={{ fontSize: "14px", lineHeight: "18px" }}
             >
-              {item?.description}
+              {limitWords(item?.businessProfile?.history, 27)}
             </p>
             <p className="small fst-italic mb-0 pb-0">
               {item?.address}

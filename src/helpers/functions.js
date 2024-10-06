@@ -641,11 +641,12 @@ export function calculateTotalWithDiscount(price, discount, type = "fixed") {
 }
 
 export function limitWords(text, maxWords) {
-  const words = text.split(" ");
-
-  if (words.length > maxWords) {
-    words.length = maxWords;
-    return words.join(" ") + "...";
+  if(text){
+    const words = text.split(" ");
+    if (words.length > maxWords) {
+      words.length = maxWords;
+      return words.join(" ") + "...";
+    }
   }
 
   return text;

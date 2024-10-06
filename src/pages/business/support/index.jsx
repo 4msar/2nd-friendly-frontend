@@ -95,14 +95,14 @@ const Support = () => {
     });
   };
 
-  const handleGetSupportType = () => {
-    const res = BusinessService.supportType().then((support) => {
-      console.log({ support });
-      if (support.data.status === "success") {
-        setSupportType(support.data.allTicketType);
-      }
-    });
-  };
+  // const handleGetSupportType = () => {
+  //   const res = BusinessService.supportType().then((support) => {
+  //     console.log({ support });
+  //     if (support.data.status === "success") {
+  //       setSupportType(support.data.allTicketType);
+  //     }
+  //   });
+  // };
 
   const handleSupportCreate = (e) => {
     setLoading(true);
@@ -152,7 +152,7 @@ const Support = () => {
   useEffect(() => {
     if (isAuthenticated) {
       handleGetSupport();
-      handleGetSupportType();
+      // handleGetSupportType();
     }
   }, [isAuthenticated]);
   return (

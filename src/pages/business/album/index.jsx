@@ -275,7 +275,7 @@ const Album = () => {
                                 </h6>
                               </div>
                             </td>
-                            <td>34</td>
+                            <td>{album?.photos?.length}</td>
                             <td>Feb 15, 2024</td>
                             <td>March 25, 2024</td>
                             <td>

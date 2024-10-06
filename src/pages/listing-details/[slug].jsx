@@ -1126,7 +1126,7 @@ const ListingDetails = ({ slug }) => {
                       <span className="h6 fw-light">
                         <i className="fas fa-fw fa-map-marker-alt text-danger me-0 me-sm-0"></i>
                       </span>
-                      <span>{`${details?.sinData?.Official_address_line1}, ${details?.sinData?.city}, ${details?.sinData?.zip}}`}</span>
+                      <span>{`${details?.sinData?.Official_address_line1}, ${details?.sinData?.city}, ${details?.sinData?.zip}`}</span>
                     </li>
                     <li className="list-group-item px-0">
                       <span className="h6 fw-light ">

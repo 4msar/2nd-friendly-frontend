@@ -1,9 +1,21 @@
 import SidebarInformation from "@/components/Business/SidebarInformation";
 import BusinessView from "@/components/HOC/BusinessView";
+import BusinessService from "@/services/BusinessService";
 import { useBusinessAboutStore } from "@/store";
+import { useState } from "react";
 
 const OffersOperation = () => {
   const userProfile = useBusinessAboutStore((state) => state.businessProfile);
+  const [offers, setOffers] = useState();
+
+  const handleGetCareers = () => {
+    const res = BusinessService.getBusinessMetadata().then((careers) => {
+      console.log({ careers });
+      if (careers.data.status === "success") {
+        setOffers(careers.data.allCareer);
+      }
+    });
+  };
   return (
     <BusinessView>
       <main>
@@ -54,7 +66,7 @@ const OffersOperation = () => {
               </div>
               <div class="col-xl-9">
                 <div class="row">
-                  <div class="col-12">
+                  {/* <div class="col-12">
                     <div class="bg-gray">
                       <h5 class="header-title mb-2 fw-normal text-dark">
                         Featured Advertisement
@@ -82,7 +94,7 @@ const OffersOperation = () => {
                         Regular Ads
                       </label>
                     </div>
-                  </div>
+                  </div> */}
 
                   <div class="clearfix">&nbsp;</div>
 

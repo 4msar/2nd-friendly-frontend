@@ -78,7 +78,12 @@ const BusinessService = {
     axios.post("/business/setting-notification-update", { data }),
   privacySettingAll: () => axios.post("/business/privacy-setting-all", {}),
   privacySettingUpdate: (data) =>
-    axios.post("/business/privacy-setting-update", { data })
+    axios.post("/business/privacy-setting-update", { data }),
+  getBusinessMetadata: () =>
+    axios.get("/metadata", {  }),
+  saveBusinessMetadata: (data) =>
+    axios.post("/metadata", { data })
+
 };
 
 export default BusinessService;
