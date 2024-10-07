@@ -33,6 +33,11 @@ import slider1 from "@/assets/img/food-dining/5.jpg";
 import slider2 from "@/assets/img/food-dining/4.jpg";
 import slider3 from "@/assets/img/food-dining/6.jpg";
 import companyLogo from "@/assets/img/company-logo/3.svg";
+import profile1 from "@/assets/img/health-medicine/4.jpg";
+import profile2 from "@/assets/img/health-medicine/5.jpg";
+import profile3 from "@/assets/img/health-medicine/2.jpg";
+import profile4 from "@/assets/img/health-medicine/1.jpg";
+import profile5 from "@/assets/img/health-medicine/6.jpg";
 
 export const categories = [
     {title: "Food & Dining", subtitle: '4 Sub Categories', icon: "fas fa-utensils", link:"#", class:"bg-purple text-purple"},
@@ -336,4 +341,12 @@ export const allStateData = [
         "name": "wyoming",
         "id": "668f54391f002619a1664d8c"
     }
+]
+
+export const reviews = [
+    {name: "Carolyn Ortiz", designation: "Manager, HiFi Limited", description: "Newspaper up its enjoyment agreeable depending. Timed voice share led him to widen. At weddings believed laughing", profile_pic: profile1.src },
+    {name: "Carolyn Ortiz", designation: "Manager, HiFi Limited", description: "Newspaper up its enjoyment agreeable depending. Timed voice share led him to widen. At weddings believed laughing", profile_pic: profile2.src },
+    {name: "Carolyn Ortiz", designation: "Manager, HiFi Limited", description: "Newspaper up its enjoyment agreeable depending. Timed voice share led him to widen. At weddings believed laughing", profile_pic: profile3.src },
+    {name: "Carolyn Ortiz", designation: "Manager, HiFi Limited", description: "Newspaper up its enjoyment agreeable depending. Timed voice share led him to widen. At weddings believed laughing", profile_pic: profile4.src },
+    {name: "Carolyn Ortiz", designation: "Manager, HiFi Limited", description: "Newspaper up its enjoyment agreeable depending. Timed voice share led him to widen. At weddings believed laughing", profile_pic: profile5.src },
 ]

@@ -1,25 +1,24 @@
-import eventImg from "@/assets/img/event/1.jpg";
-import eventImg3 from "@/assets/img/event/4.jpg";
 import licence from "@/assets/img/licence.svg";
-import { category_items } from "@/components/dummy_data/data";
+import { category_items, reviews } from "@/components/dummy_data/data";
 import PublicView from "@/components/HOC/PublicView";
 import CustomerLoginModal from "@/components/Modal/CustomerLoginModal";
-import { IMAGE_URL } from "@/helpers/apiUrl";
-import { capitalize, formatDate } from "@/helpers/functions";
+import { IMAGE_URL, LAST_VISITED_PROFILE } from "@/helpers/apiUrl";
+import { capitalize, formatDate, isEmpty, limitWords } from "@/helpers/functions";
 import CustomerService from "@/services/CustomerService";
 import PublicService from "@/services/PublicService";
 import { useCustomerAboutStore } from "@/store/useCustomerAboutStore";
+import { appStorage } from "@/utils/storage";
+import { Box, Dialog, DialogContent, DialogContentText } from "@mui/material";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
-import { Box, Dialog, DialogContent, DialogContentText } from "@mui/material";
-import { SetMeal } from "@mui/icons-material";
+import Slider from "react-slick/lib/slider";
 
 const ListingDetails = ({ slug }) => {
   const userProfile = useCustomerAboutStore((state) => state.customer);
   const [messageData, setMessageData] = useState("");
   const [messageOpen, setMessageOpen] = useState(false);
   const [loginOpen, setLoginOpen] = useState(false);
-
+  const reviewAll = reviews;
   const handleSubmitMessage = () => {
     const payload = {
       business_profile: item.businessProfile.id,
@@ -31,9 +30,40 @@ const ListingDetails = ({ slug }) => {
       console.log(data);
     });
   };
+
+  const settings = {
+    dots: false,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 3,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 2000,
+    cssEase: "linear",
+
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          arrows: false,
+          centerMode: true,
+          slidesToShow: 2
+        }
+      },
+      {
+        breakpoint: 480,
+        settings: {
+          arrows: false,
+          centerMode: true,
+          slidesToShow: 2
+        }
+      }
+    ]
+  };
   const route = useRouter();
   const items = category_items;
   const { query } = route;
+  const lastVisitedProfiles = JSON.parse(appStorage.get(LAST_VISITED_PROFILE));
 
   const [details, setDetails] = useState({
     allAlbum: [],
@@ -47,8 +77,27 @@ const ListingDetails = ({ slug }) => {
     events: [],
     extendedClosure: [],
     allFaq: [],
-    review: []
+    review: [],
+    operationHour: []
   });
+
+  const lastVisiteProduct = (item) => {
+    const data = [];
+    data.unshift(item);
+    const items = isEmpty(lastVisitedProfiles) ? data : lastVisitedProfiles;
+    const findIndex = items?.find((data) => data.id === item.id);
+
+    if (!findIndex) {
+      items.unshift(item);
+      if (lastVisitedProfiles?.length >= 9) {
+        items.pop();
+      }
+    }
+
+    // console.log(items);
+
+    appStorage.set(LAST_VISITED_PROFILE, JSON.stringify(items));
+  };
 
   const handleGetDetails = (slug) => {
     const payload = {
@@ -68,10 +117,18 @@ const ListingDetails = ({ slug }) => {
         events: details.data.events,
         extendedClosure: details.data.extendedClosure,
         allFaq: details.data.allFaq,
-        review: details.data.review
+        review: details.data.review,
+        operationHour: details.data.operationHour
       });
     });
   };
+  console.log("lastVisitedProfiles", lastVisitedProfiles);
+
+  useEffect(() => {
+    if (!isEmpty(details.sinData)) {
+      lastVisiteProduct(details?.sinData);
+    }
+  }, [details]);
 
   useEffect(() => {
     handleGetDetails(slug);
@@ -102,30 +159,34 @@ const ListingDetails = ({ slug }) => {
           </div>
         </div>
       </section>
-      <section className="bg-light pt-2 pb-5">
-        <div className="container">
-          <div className="row">
-            <div className="col-lg-8">
-              <h2 className="fw-normal">{details?.sinData?.business_name}</h2>
-              <p>{details?.sinData?.history}</p>
-              <ul className="list-inline mb-0">
-                <li className="list-inline-item h6 me-3 mb-1 mb-sm-0">
-                  <i className="fas fa-star text-warning me-2"></i>4.5/5.0
+      <section class="bg-light pt-2 pb-4">
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-1">
+              <div class="avatar avatar-xl">
+                <img
+                  class="avatar-img rounded-circle"
+                  src={`${IMAGE_URL}/uploads/business-logo/${details?.sinData?.business_logo}`}
+                  alt="avatar"
+                />
+              </div>
+            </div>
+            <div class="col-lg-8">
+              <h3 class="fw-normal">{details?.sinData?.business_name}</h3>
+              <p>{limitWords(details?.sinData?.history, 35)}</p>
+              <ul class="list-inline mb-0">
+                <li class="list-inline-item fw-light h6 me-3 mb-1 mb-sm-0">
+                  <i class="fas fa-star me-0"></i> 4.5/5.0
                 </li>
-                <li className="list-inline-item h6 me-3 mb-1 mb-sm-0">
-                  <i className="fas fa-user-graduate text-orange me-2"></i>12k
-                  Enrolled
+                <li class="list-inline-item fw-light h6 me-3 mb-1 mb-sm-0">
+                  <i class="fas fa-check-double me-0"></i> Featured
                 </li>
-                <li className="list-inline-item h6 me-3 mb-1 mb-sm-0">
-                  <i className="fas fa-signal text-success me-2"></i>All levels
+                <li class="list-inline-item fw-light h6 me-3 mb-1 mb-sm-0">
+                  <i class="fas fa-clock me-0"></i> Featured
                 </li>
-                <li className="list-inline-item h6 me-3 mb-1 mb-sm-0">
-                  <i className="bi bi-patch-exclamation-fill text-danger me-2"></i>
-                  Last updated{" "}
-                  {formatDate(details?.sinData?.updatedAt, "DD/YYYY")}
-                </li>
-                <li className="list-inline-item h6 mb-0">
-                  <i className="fas fa-globe text-info me-2"></i>English
+                <li class="list-inline-item fw-light h6">
+                  <i class="fas fa-globe me-0"></i>{" "}
+                  {details?.sinData?.website_link}
                 </li>
               </ul>
             </div>
@@ -136,24 +197,15 @@ const ListingDetails = ({ slug }) => {
         <div className="container" data-sticky-container>
           <div className="row g-4">
             <div className="col-xl-8">
-              <h5 className="fw-semibold border-bottom pb-1 mb-3">
-                Curriculum
-              </h5>
+              <h5 className="fw-semibold border-bottom pb-1 mb-3">Photos</h5>
               <div className="row g-3">
                 {/* <!-- Course item --> */}
-                {details?.photo?.length > 0 &&
-                  details?.photo?.map((item) => (
-                    <div className="col-sm-6 col-lg-4 col-xl-3">
+                {details?.allAlbum?.length > 0 &&
+                  details?.allAlbum?.map((item, index) => (
+                    <div className="col-sm-6 col-lg-4 col-xl-3" key={index}>
                       {/* <!-- Image --> */}
                       <div className="card card-metro overflow-hidden rounded-2">
-                        <img
-                          src={
-                            item?.image
-                              ? `${IMAGE_URL}/uploads/business-photo/${item?.image}`
-                              : eventImg3.src
-                          }
-                          alt="img"
-                        />
+                        <img src={`${IMAGE_URL}/uploads/business-photo/${item?.businessAlbumPhoto[0]?.image}`} alt="" />
                         {/* <!-- Image overlay --> */}
                         <div className="card-img-overlay d-flex">
                           {/* <!-- Info --> */}
@@ -162,26 +214,23 @@ const ListingDetails = ({ slug }) => {
                               href="#"
                               className="text-white mt-auto h5 stretched-link"
                             >
-                              {item.title}
+                              {item?.name}
                             </a>
-                            <div className="text-white">
-                              6 Photos | 23 Reviews
-                            </div>
+                            <div className="text-white">{item?.businessAlbumPhoto?.length} Photos</div>
                           </div>
                         </div>
                       </div>
                     </div>
                   ))}
               </div>
+              <div className="clearfix">&nbsp;</div>
               <div className="row">
                 <div className="col-12">
                   <div className="border-bottom mb-2">
                     <h5 className="fw-semibold">About the business</h5>
                   </div>
                   <h6 className="mb-3">History</h6>
-                  <p className="mb-3">
-                    {details?.sinData?.history}
-                  </p>
+                  <p className="mb-3">{details?.sinData?.history}</p>
                   <h6 className="mb-3">Meet the Business Owner</h6>
                   <p className="mb-3">
                     Shani always wanted to start a business making Jamaican
@@ -220,37 +269,25 @@ const ListingDetails = ({ slug }) => {
                     </li>
                     <li className="list-inline-item">
                       {" "}
-                      <a
-                        className="text-facebook"
-                        href={details?.sinData?.facebook_link}
-                      >
+                      <a className="text-facebook" href="#">
                         <i className="fab fa-facebook-square"></i> Facebook
                       </a>{" "}
                     </li>
                     <li className="list-inline-item">
                       {" "}
-                      <a
-                        className="text-instagram-gradient"
-                        href={details?.sinData?.facebook_link}
-                      >
+                      <a className="text-instagram-gradient" href="#">
                         <i className="fab fa-instagram-square"></i> Instagram
                       </a>{" "}
                     </li>
                     <li className="list-inline-item">
                       {" "}
-                      <a
-                        className="text-twitter"
-                        href={details?.sinData?.twitter_link}
-                      >
+                      <a className="text-twitter" href="#">
                         <i className="fab fa-twitter-square"></i> Twitter
                       </a>{" "}
                     </li>
                     <li className="list-inline-item">
                       {" "}
-                      <a
-                        className="text-youtube"
-                        href={details?.sinData?.youtube_link}
-                      >
+                      <a className="text-youtube" href="#">
                         <i className="fab fa-youtube-square"></i> Youtube
                       </a>{" "}
                     </li>
@@ -267,8 +304,6 @@ const ListingDetails = ({ slug }) => {
                   </div>
                 </div>
               </div>
-              {/* <div className="row">
-                <div className="col-sm-12 col-md-12"> */}
               <div className="row">
                 {details?.allAminity?.length > 0 &&
                   details?.allAminity?.map((item, i) => (
@@ -281,8 +316,6 @@ const ListingDetails = ({ slug }) => {
                     </div>
                   ))}
               </div>
-              {/* </div>
-              </div> */}
               {/* <!-- Highlights from the Business END -->
 <!-- FAQs START --> */}
               <div className="clearfix">&nbsp;</div>
@@ -296,9 +329,8 @@ const ListingDetails = ({ slug }) => {
                     id="accordionFaq"
                   >
                     {/* <!-- Accordion item --> */}
-                    {details?.allFaq?.length > 0 && details?.allFaq.map((faq, index) => (
-                      <div className="accordion-item">
-                      <h2 className="accordion-header" id={`heading${index}`}>
+                    <div className="accordion-item">
+                      <h2 className="accordion-header" id="headingOne">
                         <button
                           className="accordion-button h6 rounded"
                           type="button"
@@ -313,7 +345,7 @@ const ListingDetails = ({ slug }) => {
                       <div
                         id="collapseOne"
                         className="accordion-collapse collapse show"
-                        aria-labelledby={`heading${index}`}
+                        aria-labelledby="headingOne"
                         data-bs-parent="#accordionFaq"
                       >
                         <div className="accordion-body">
@@ -325,20 +357,141 @@ const ListingDetails = ({ slug }) => {
                         </div>
                       </div>
                     </div>
-                    ))}
-                    
+                    {/* <!-- Accordion item --> */}
+                    <div className="accordion-item">
+                      <h2 className="accordion-header" id="headingTwo">
+                        <button
+                          className="accordion-button h6 rounded collapsed"
+                          type="button"
+                          data-bs-toggle="collapse"
+                          data-bs-target="#collapseTwo"
+                          aria-expanded="false"
+                          aria-controls="collapseTwo"
+                        >
+                          Do you take reservations?
+                        </button>
+                      </h2>
+                      <div
+                        id="collapseTwo"
+                        className="accordion-collapse collapse"
+                        aria-labelledby="headingTwo"
+                        data-bs-parent="#accordionFaq"
+                      >
+                        <div className="accordion-body">
+                          Yes, we gladly accept reservations. You can secure
+                          your table by booking online through our website or by
+                          contacting us directly at +1-237-23456. We look
+                          forward to hosting you for a wonderful dining
+                          experience.
+                        </div>
+                      </div>
+                    </div>
+                    {/* <!-- Accordion item --> */}
+                    <div className="accordion-item">
+                      <h2 className="accordion-header" id="headingThree">
+                        <button
+                          className="accordion-button h6 rounded collapsed"
+                          type="button"
+                          data-bs-toggle="collapse"
+                          data-bs-target="#collapseThree"
+                          aria-expanded="false"
+                          aria-controls="collapseThree"
+                        >
+                          What type of cuisine do you serve?
+                        </button>
+                      </h2>
+                      <div
+                        id="collapseThree"
+                        className="accordion-collapse collapse"
+                        aria-labelledby="headingThree"
+                        data-bs-parent="#accordionFaq"
+                      >
+                        <div className="accordion-body">
+                          We specialize in a diverse range of culinary delights,
+                          offering a fusion of flavors inspired by various
+                          cuisines around the world. Our menu features a
+                          tantalizing selection of dishes, including savory
+                          classNameics, innovative creations, and mouthwatering
+                          specialties crafted with the finest ingredients.
+                        </div>
+                      </div>
+                    </div>
+                    {/* <!-- Accordion item --> */}
+                    <div className="accordion-item">
+                      <h2 className="accordion-header" id="headingFour">
+                        <button
+                          className="accordion-button h6 rounded collapsed"
+                          type="button"
+                          data-bs-toggle="collapse"
+                          data-bs-target="#collapseFour"
+                          aria-expanded="false"
+                          aria-controls="collapseFour"
+                        >
+                          How much should I offer the sellers?
+                        </button>
+                      </h2>
+                      <div
+                        id="collapseFour"
+                        className="accordion-collapse collapse"
+                        aria-labelledby="headingFour"
+                        data-bs-parent="#accordionFaq"
+                      >
+                        <div className="accordion-body">
+                          Determining the appropriate offer to make to sellers
+                          depends on various factors such as the market value of
+                          the item or property, your budget, the condition of
+                          the item or property, and any negotiations that take
+                          place between you and the seller. For real estate
+                          transactions, it's often advisable to conduct research
+                          on comparable properties in the area to gauge the fair
+                          market value. You may also want to consider factors
+                          like the property's condition, location, and current
+                          market trends.
+                        </div>
+                      </div>
+                    </div>
+                    {/* <!-- Accordion item --> */}
+                    <div className="accordion-item">
+                      <h2 className="accordion-header" id="headingFive">
+                        <button
+                          className="accordion-button h6 rounded collapsed"
+                          type="button"
+                          data-bs-toggle="collapse"
+                          data-bs-target="#collapseFive"
+                          aria-expanded="false"
+                          aria-controls="collapseFive"
+                        >
+                          Do you accommodate dietary restrictions or allergies?
+                        </button>
+                      </h2>
+                      <div
+                        id="collapseFive"
+                        className="accordion-collapse collapse"
+                        aria-labelledby="headingFive"
+                        data-bs-parent="#accordionFaq"
+                      >
+                        <div className="accordion-body">
+                          Yes, we take dietary restrictions and allergies
+                          seriously. We strive to accommodate various dietary
+                          needs and preferences to ensure that all of our guests
+                          can enjoy their dining experience with us. Please
+                          inform your server about any dietary restrictions or
+                          allergies you have, and we will do our best to provide
+                          suitable options or make necessary adjustments to our
+                          menu items. Your health and satisfaction are important
+                          to us, and we are committed to providing a safe and
+                          enjoyable dining experience for everyone.
+                        </div>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
               {/* <!-- FAQs END --> */}
               <div className="clearfix">&nbsp;</div>
               {/* <!-- Location & Hours START --> */}
-              <div className="row">
-                <div className="col-sm-12 col-md-12">
-                  <div className="border-bottom mb-2">
-                    <h5 className="fw-semibold">Location & Hours</h5>
-                  </div>
-                </div>
+              <div className="border-bottom mb-2">
+                <h5 className="fw-semibold">Location & Hours</h5>
               </div>
               <div className="row">
                 <div className="col-sm-12 col-md-6">
@@ -395,7 +548,186 @@ const ListingDetails = ({ slug }) => {
                   </table>
                 </div>
               </div>
+              {/* <!-- Our Customer Reviews END --> */}
+              <div className="clearfix">&nbsp;</div>
+              {/* <!-- Highlights from the Business START --> */}
+              <div className="border-bottom mb-2">
+                <h5 className="fw-semibold">Highlights from the Business</h5>
+              </div>
+              <div className="row">
+                <div className="col-sm-12 col-md-6">
+                  <ul className="list-group list-group-borderless">
+                    <li className="list-group-item">
+                      <i className="bi bi-caret-right"></i> 30 years in business
+                    </li>
+                    <li className="list-group-item">
+                      <i className="bi bi-caret-right"></i> Certified
+                      professionals
+                    </li>
+                    <li className="list-group-item">
+                      <i className="bi bi-caret-right"></i> Locally owned &
+                      operated
+                    </li>
+                    <li className="list-group-item">
+                      <i className="bi bi-caret-right"></i> Available by
+                      appointment
+                    </li>
+                    <li className="list-group-item">
+                      <i className="bi bi-caret-right"></i> Consultations
+                      available
+                    </li>
+                    <li className="list-group-item">
+                      <i className="bi bi-caret-right"></i> Women-owned &
+                      operated
+                    </li>
+                  </ul>
+                </div>
+                <div className="col-sm-12 col-md-6">
+                  <ul className="list-group list-group-borderless">
+                    <li className="list-group-item">
+                      <i className="bi bi-caret-right"></i> 30 years in business
+                    </li>
+                    <li className="list-group-item">
+                      <i className="bi bi-caret-right"></i> Certified
+                      professionals
+                    </li>
+                    <li className="list-group-item">
+                      <i className="bi bi-caret-right"></i> Locally owned &
+                      operated
+                    </li>
+                    <li className="list-group-item">
+                      <i className="bi bi-caret-right"></i> Available by
+                      appointment
+                    </li>
+                    <li className="list-group-item">
+                      <i className="bi bi-caret-right"></i> Consultations
+                      available
+                    </li>
+                    <li className="list-group-item">
+                      <i className="bi bi-caret-right"></i> Women-owned &
+                      operated
+                    </li>
+                  </ul>
+                </div>
+              </div>
+
               {/* <!-- Location & Hours END --> */}
+              <div className="clearfix">&nbsp;</div>
+              <div className="border-bottom mb-3">
+                <h5 className="fw-semibold mb-1 pb-1">Events</h5>
+              </div>
+              <div className="row g-4">
+                {/* <!-- Card item START --> */}
+                {details?.events?.length > 0 &&
+                  details.events.map((event) => (
+                    <div className="col-sm-6 col-lg-4 col-xl-4">
+                      <div className="card bg-transparent">
+                        <div className="position-relative">
+                          <img
+                            src={`${IMAGE_URL}/uploads/business-event/${event?.image}`}
+                            className="rounded-1"
+                            alt="course image"
+                          />
+                          {/* <!-- Overlay --> */}
+                          <div className="card-img-overlay d-flex align-items-start flex-column p-3">
+                            {/* <!-- Card overlay Top --> */}
+                            <div className="w-100 mb-auto d-flex justify-content-end">
+                              {/* <!-- Favorite icon --> */}
+                              <a
+                                href="#"
+                                className="icon-sm bg-white rounded-2"
+                              >
+                                <i className="fas fa-heart text-danger"></i>
+                              </a>
+                            </div>
+                            {/* <!-- Card overlay bottom --> */}
+                            <div className="w-100 mt-auto">
+                              {/* <!-- Category --> */}
+                              <a
+                                href="#"
+                                className="badge text-bg-white fs-6 rounded-1"
+                              >
+                                <i className="far fa-calendar-alt text-orange me-2"></i>{" "}
+                                {formatDate(event?.start_date_time, "MMM DD, YYYY")}
+                              </a>
+                            </div>
+                          </div>
+                        </div>
+                        {/* <!-- Card body --> */}
+                        <div className="card-body px-0 pt-2 pb-0">
+                          <h6 className="card-title">
+                            <a href={`events/${event?.slug}`}>
+                              {event?.title}
+                            </a>
+                          </h6>
+                          <i className="bi bi-geo-alt-fill"></i>{" "}
+                          <a href={`events/${event?.slug}`}>{event?.address}</a>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+              </div>
+
+              {/* <!-- Highlights from the Business END --> */}
+              <div className="clearfix">&nbsp;</div>
+              <div className="border-bottom mb-3">
+                <h5 className="fw-semibold">Our Customer Feedback</h5>
+              </div>
+              {/* <!-- Feedback START --> */}
+              <div className="row">
+                {/* <!-- Slider START --> */}
+                <div className="tiny-slider arrow-round arrow-creative arrow-dark arrow-hover">
+                  <div
+                    className="tiny-slider-inner"
+                    data-autoplay="true"
+                    data-edge="5"
+                    data-arrow="true"
+                    data-dots="false"
+                    data-items="4"
+                    data-items-xl="3"
+                    data-items-md="2"
+                    data-items-xs="1"
+                  >
+                    {/* <!-- Feedback item --> */}
+                    <Slider {...settings}>
+                      {reviewAll?.length > 0 &&
+                        reviewAll.map((review, index) => (
+                          <div key={index} className="p-2">
+                            <div className="bg-light text-center p-4 rounded-3 border border-1 position-relative bg-light">
+                              {/* <!-- Avatar --> */}
+                              <div className="avatar avatar-lg mb-3">
+                                <img
+                                  className="avatar-img rounded-circle"
+                                  src={review?.profile_pic}
+                                  alt="avatar"
+                                />
+                              </div>
+                              {/* <!-- Title --> */}
+                              <h6 className="mb-2">
+                                {review?.name}
+                                <br /> <small>{review?.designation}</small>
+                              </h6>
+                              {/* <!-- Content --> */}
+                              <blockquote className="mt-1">
+                                <p>
+                                  <span className="me-1 small">
+                                    <i className="fas fa-quote-left"></i>
+                                  </span>
+                                  {review?.description}
+                                  <span className="ms-1 small">
+                                    <i className="fas fa-quote-right"></i>
+                                  </span>
+                                </p>
+                              </blockquote>
+                            </div>
+                          </div>
+                        ))}
+                    </Slider>
+                  </div>
+                </div>
+                {/* <!-- Slider START --> */}
+              </div>
+              {/* <!-- Feedback END --> */}
               <div className="clearfix">&nbsp;</div>
               {/* <!-- Our Customer Reviews START --> */}
               <div className="row">
@@ -852,269 +1184,8 @@ const ListingDetails = ({ slug }) => {
                   {/* <!-- Leave Review END --> */}
                 </div>
               </div>
-              {/* <!-- Our Customer Reviews END --> */}
-              <div className="clearfix">&nbsp;</div>
-              {/* <!-- Related Ads START --> */}
-              <div className="row">
-                <div className="col-12">
-                  <div className="border-bottom mb-3">
-                    <h5 className="fw-semibold">
-                      Highlights from the Business
-                    </h5>
-                  </div>
-                  {/* <!-- Slider START --> */}
-                  <div className="tiny-slider arrow-round arrow-creative arrow-blur">
-                    <div
-                      className="tiny-slider-inner"
-                      data-autoplay="false"
-                      data-arrow="true"
-                      data-dots="false"
-                      data-items="4"
-                      data-items-lg="4"
-                      data-items-md="4"
-                      data-items-xs="2"
-                    >
-                      <div className="card bg-transparent">
-                        <div className="position-relative">
-                          <img
-                            src="assets/img/category/1.jpg"
-                            className="rounded-start rounded-end"
-                            alt="course image"
-                          />
-                          {/* <!-- Overlay --> */}
-                          <div className="card-img-overlay d-flex align-items-start flex-column p-3">
-                            {/* <!-- Card overlay Top --> */}
-                            <div className="w-100 mb-auto d-flex justify-content-end">
-                              {/* <!-- Favorite icon --> */}
-                              <a
-                                href="#"
-                                className="icon-sm bg-white rounded-2"
-                              >
-                                <i className="fas fa-heart text-danger"></i>
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="card-body px-0">
-                          <h5 className="card-title related-font-size">
-                            <a href="listing-detail.php">
-                              Hair Haven Beuaty Spa
-                            </a>
-                          </h5>
-                          <p className="small mb-0 mb-sm-0 pb-0">
-                            <i className="fas fa-star text-warning"></i>
-                            <i className="fas fa-star text-warning"></i>
-                            <i className="fas fa-star text-warning"></i>
-                            <i className="fas fa-star text-warning"></i>
-                            <i className="fas fa-star text-warning"></i>{" "}
-                            <strong>5.0</strong> (1.5k Reviews)
-                          </p>
-                          <h6 className="text-black-50 mb-0 fw-light pb-0 mt-2">
-                            <span className="fw-bold text-success">Open</span>{" "}
-                            until 8:00 PM
-                          </h6>
-                        </div>
-                      </div>
-                      <div className="card bg-transparent">
-                        <div className="position-relative">
-                          <img
-                            src="assets/img/category/2.jpg"
-                            className="rounded-start rounded-end"
-                            alt="course image"
-                          />
-                          {/* <!-- Overlay --> */}
-                          <div className="card-img-overlay d-flex align-items-start flex-column p-3">
-                            {/* <!-- Card overlay Top --> */}
-                            <div className="w-100 mb-auto d-flex justify-content-end">
-                              {/* <!-- Favorite icon --> */}
-                              <a
-                                href="#"
-                                className="icon-sm bg-white rounded-2"
-                              >
-                                <i className="far fa-heart text-danger"></i>
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="card-body px-0">
-                          <h5 className="card-title related-font-size">
-                            <a href="listing-detail.php">
-                              Blade Hair Skin Body
-                            </a>
-                          </h5>
-                          <p className="small mb-0 mb-sm-0 pb-0">
-                            <i className="fas fa-star text-warning"></i>
-                            <i className="fas fa-star text-warning"></i>
-                            <i className="fas fa-star text-warning"></i>
-                            <i className="fas fa-star text-warning"></i>
-                            <i className="fas fa-star text-warning"></i>{" "}
-                            <strong>5.0</strong> (1.5k Reviews)
-                          </p>
-                          <h6 className="text-black-50 mb-0 fw-light pb-0 mt-2">
-                            <span className="fw-bold text-danger">Closed</span>
-                          </h6>
-                        </div>
-                      </div>
-                      <div className="card bg-transparent">
-                        <div className="position-relative">
-                          <img
-                            src="assets/img/category/3.jpg"
-                            className="rounded-start rounded-end"
-                            alt="course image"
-                          />
-                          {/* <!-- Overlay --> */}
-                          <div className="card-img-overlay d-flex align-items-start flex-column p-3">
-                            {/* <!-- Card overlay Top --> */}
-                            <div className="w-100 mb-auto d-flex justify-content-end">
-                              {/* <!-- Favorite icon --> */}
-                              <a
-                                href="#"
-                                className="icon-sm bg-white rounded-2"
-                              >
-                                <i className="far fa-heart text-danger"></i>
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="card-body px-2">
-                          <h5 className="card-title related-font-size">
-                            <a href="listing-detail.php">Mane Refinery Salon</a>
-                          </h5>
-                          <p className="small mb-0 mb-sm-0 pb-0">
-                            <i className="fas fa-star text-warning"></i>
-                            <i className="fas fa-star text-warning"></i>
-                            <i className="fas fa-star text-warning"></i>
-                            <i className="fas fa-star text-warning"></i>
-                            <i className="fas fa-star text-warning"></i>{" "}
-                            <strong>5.0</strong> (1.5k Reviews)
-                          </p>
-                          <h6 className="text-black-50 mb-0 fw-light pb-0 mt-2">
-                            <span className="fw-bold text-success">Open</span>{" "}
-                            until 8:00 PM
-                          </h6>
-                        </div>
-                      </div>
-                      <div className="card bg-transparent">
-                        <div className="position-relative">
-                          <img
-                            src="assets/img/category/4.jpg"
-                            className="rounded-start rounded-end"
-                            alt="course image"
-                          />
-                          {/* <!-- Overlay --> */}
-                          <div className="card-img-overlay d-flex align-items-start flex-column p-3">
-                            {/* <!-- Card overlay Top --> */}
-                            <div className="w-100 mb-auto d-flex justify-content-end">
-                              {/* <!-- Favorite icon --> */}
-                              <a
-                                href="#"
-                                className="icon-sm bg-white rounded-2"
-                              >
-                                <i className="fas fa-heart text-danger"></i>
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="card-body px-0">
-                          <h5 className="card-title related-font-size">
-                            <a href="listing-detail.php">Head Quater Salon</a>
-                          </h5>
-                          <p className="small mb-0 mb-sm-0 pb-0">
-                            <i className="fas fa-star text-warning"></i>
-                            <i className="fas fa-star text-warning"></i>
-                            <i className="fas fa-star text-warning"></i>
-                            <i className="fas fa-star text-warning"></i>
-                            <i className="fas fa-star text-warning"></i>{" "}
-                            <strong>5.0</strong> (1.5k Reviews)
-                          </p>
-                          <h6 className="text-black-50 mb-0 fw-light pb-0 mt-2">
-                            <span className="fw-bold text-danger">Closed</span>
-                          </h6>
-                        </div>
-                      </div>
-                      <div className="card bg-transparent">
-                        <div className="position-relative">
-                          <img
-                            src="assets/img/category/5.jpg"
-                            className="rounded-start rounded-end"
-                            alt="course image"
-                          />
-                          {/* <!-- Overlay --> */}
-                          <div className="card-img-overlay d-flex align-items-start flex-column p-3">
-                            {/* <!-- Card overlay Top --> */}
-                            <div className="w-100 mb-auto d-flex justify-content-end">
-                              {/* <!-- Favorite icon --> */}
-                              <a
-                                href="#"
-                                className="icon-sm bg-white rounded-2"
-                              >
-                                <i className="far fa-heart text-danger"></i>
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="card-body px-0">
-                          <h5 className="card-title related-font-size">
-                            <a href="listing-detail.php">Lira Guzi Salon</a>
-                          </h5>
-                          <p className="small mb-0 mb-sm-0 pb-0">
-                            <i className="fas fa-star text-warning"></i>
-                            <i className="fas fa-star text-warning"></i>
-                            <i className="fas fa-star text-warning"></i>
-                            <i className="fas fa-star text-warning"></i>
-                            <i className="fas fa-star text-warning"></i>{" "}
-                            <strong>5.0</strong> (1.5k Reviews)
-                          </p>
-                          <h6 className="text-black-50 mb-0 fw-light pb-0 mt-2">
-                            <span className="fw-bold text-success">Open</span>{" "}
-                            until 8:00 PM
-                          </h6>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                  {/* <!-- Slider END --> */}
-                  {/* </ul> */}
-                </div>
-              </div>
-              {/* <!-- Related Ads END --> */}
-              <div className="clearfix">&nbsp;</div>
-              {/* <!-- Highlights from the Business START --> */}
-              <div className="row">
-                <div className="col-12">
-                  <div className="border-bottom mb-2">
-                    <h5 className="fw-semibold">
-                      Highlights from the Business
-                    </h5>
-                  </div>
-                  <ul className="list-group list-group-borderless">
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> 30 years in business
-                    </li>
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Certified
-                      professionals
-                    </li>
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Locally owned &
-                      operated
-                    </li>
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Available by
-                      appointment
-                    </li>
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Consultations
-                      available
-                    </li>
-                    <li className="list-group-item">
-                      <i className="bi bi-caret-right"></i> Women-owned &
-                      operated
-                    </li>
-                  </ul>
-                </div>
-              </div>
             </div>
+
             <div className="col-xl-4">
               <div className="card border rounded-1 mb-4">
                 <div className="card-header pb-0">
@@ -1268,9 +1339,7 @@ const ListingDetails = ({ slug }) => {
                         Call
                       </button>
                     </a>
-                    <span
-                      onClick={() => setMessageOpen(true)}
-                    >
+                    <span onClick={() => setMessageOpen(true)}>
                       <button className="btn btn-sm btn-outline-dark border-dark-subtle me-2">
                         Message
                       </button>
@@ -1279,223 +1348,64 @@ const ListingDetails = ({ slug }) => {
                 </div>
               </div>
               <div className="card rounded-1 border p-3 mb-4">
-                <h5 className="mb-3 fw-normal">Recently Viewed</h5>
-                <div className="row gx-2 mb-2 pb-2">
-                  <div className="col-4">
-                    <img
-                      className="rounded-1"
-                      src="assets/img/event/19.jpg"
-                      alt=""
-                    />
-                  </div>
-                  <div className="col-8">
-                    <h6 className="mb-0">
-                      <a href="listing-detail.php">
-                        Fundamentals of Business Analysis
-                      </a>
-                    </h6>
-                    <p className="small mb-0 mb-sm-0 pb-0">
-                      <i className="fas fa-star text-warning"></i>
-                      <i className="fas fa-star text-warning"></i>
-                      <i className="fas fa-star text-warning"></i>
-                      <i className="fas fa-star text-warning"></i>
-                      <i className="fas fa-star text-warning"></i>{" "}
-                      <strong>5.0</strong> (1.5k Reviews)
-                    </p>
-                    <h6 className="text-black-50 mb-0 fw-light pb-0 mt-1">
-                      <small>
-                        <span className="fw-bold text-danger">Closed</span>
-                      </small>
-                    </h6>
-                    <address className="pb-0 mb-0">
-                      <small>
-                        <i>4935 W Foster Ave Sauganash, CA</i>
-                      </small>
-                    </address>
-                  </div>
-                </div>
-                <div className="row gx-2 mb-2 pb-2">
-                  <div className="col-4">
-                    <img
-                      className="rounded-1"
-                      src="assets/img/event/20.jpg"
-                      alt=""
-                    />
-                  </div>
-                  <div className="col-8">
-                    <h6 className="mb-0">
-                      <a href="listing-detail.php">
-                        Fundamentals of Business Analysis
-                      </a>
-                    </h6>
-                    <p className="small mb-0 mb-sm-0 pb-0">
-                      <i className="fas fa-star text-warning"></i>
-                      <i className="fas fa-star text-warning"></i>
-                      <i className="fas fa-star text-warning"></i>
-                      <i className="fas fa-star text-warning"></i>
-                      <i className="fas fa-star text-warning"></i>{" "}
-                      <strong>5.0</strong> (1.5k Reviews)
-                    </p>
-                    <h6 className="text-black-50 mb-0 fw-light pb-0 mt-1">
-                      <small>
-                        <span className="fw-bold text-success">Open</span> until
-                        8:00 PM
-                      </small>
-                    </h6>
-                    <address className="pb-0 mb-0">
-                      <small>
-                        <i>4935 W Foster Ave Sauganash, CA</i>
-                      </small>
-                    </address>
-                  </div>
-                </div>
-                <div className="row gx-2 mb-2 pb-2">
-                  <div className="col-4">
-                    <img
-                      className="rounded-1"
-                      src="assets/img/event/16.jpg"
-                      alt=""
-                    />
-                  </div>
-                  <div className="col-8">
-                    <h6 className="mb-0">
-                      <a href="listing-detail.php">
-                        Fundamentals of Business Analysis
-                      </a>
-                    </h6>
-                    <p className="small mb-0 mb-sm-0 pb-0">
-                      <i className="fas fa-star text-warning"></i>
-                      <i className="fas fa-star text-warning"></i>
-                      <i className="fas fa-star text-warning"></i>
-                      <i className="fas fa-star text-warning"></i>
-                      <i className="fas fa-star text-warning"></i>{" "}
-                      <strong>5.0</strong> (1.5k Reviews)
-                    </p>
-                    <h6 className="text-black-50 mb-0 fw-light pb-0 mt-1">
-                      <small>
-                        <span className="fw-bold text-success">Open</span> until
-                        8:00 PM
-                      </small>
-                    </h6>
-                    <address className="pb-0 mb-0">
-                      <small>
-                        <i>4935 W Foster Ave Sauganash, CA</i>
-                      </small>
-                    </address>
-                  </div>
-                </div>
-                <div className="row gx-2">
-                  <div className="col-4">
-                    <img
-                      className="rounded-1"
-                      src="assets/img/event/18.jpg"
-                      alt=""
-                    />
-                  </div>
-                  <div className="col-8">
-                    <h6 className="mb-0">
-                      <a href="listing-detail.php">
-                        Fundamentals of Business Analysis
-                      </a>
-                    </h6>
-                    <p className="small mb-0 mb-sm-0 pb-0">
-                      <i className="fas fa-star text-warning"></i>
-                      <i className="fas fa-star text-warning"></i>
-                      <i className="fas fa-star text-warning"></i>
-                      <i className="fas fa-star text-warning"></i>
-                      <i className="fas fa-star text-warning"></i>{" "}
-                      <strong>5.0</strong> (1.5k Reviews)
-                    </p>
-                    <h6 className="text-black-50 mb-0 fw-light pb-0 mt-1">
-                      <small>
-                        <span className="fw-bold text-danger">Closed</span>
-                      </small>
-                    </h6>
-                    <address className="pb-0 mb-0">
-                      <small>
-                        <i>4935 W Foster Ave Sauganash, CA</i>
-                      </small>
-                    </address>
-                  </div>
-                </div>
-              </div>
-              <div className="card shadow p-2 mb-4 z-index-9">
-                {details?.allEmbeddedVideo?.length > 0 &&
-                  details?.allEmbeddedVideo?.map((item, index) => (
-                    <>
-                      <div className="overflow-hidden rounded-3" key={index}>
+                <h5 className="mb-3 fw-normal">People Also Viewed</h5>
+                {lastVisitedProfiles?.length > 0 &&
+                  lastVisitedProfiles?.map((item, index) => {
+                    <div className="row gx-2 mb-2 pb-2" key={index}>
+                      <div className="col-4">
                         <img
-                          src={eventImg.src}
-                          className="card-img"
-                          alt="course image"
+                          className="rounded-1"
+                          src="assets/img/event/19.jpg"
+                          alt=""
                         />
-                        <div className="bg-overlay bg-dark opacity-6"></div>
-                        <div className="card-img-overlay d-flex align-items-start flex-column p-3">
-                          <div className="m-auto">
-                            <a
-                              href={`https://www.youtube.com/embed/${item?.link}`}
-                              className="btn btn-lg text-danger btn-round btn-white-shadow mb-0"
-                              data-glightbox=""
-                              data-gallery="course-video"
-                            >
-                              <i className="fas fa-play"></i>
-                            </a>
-                          </div>
-                        </div>
                       </div>
-                      <div className="card-body px-3" key={index}>
-                        <div className="d-flex justify-content-between align-items-center">
-                          <div>
-                            <div className="d-flex align-items-center">
-                              <h6 className="fw-bold mb-0 me-2">
-                                {item.title}
-                              </h6>
-                            </div>
-                          </div>
-                          <div className="dropdown">
-                            <a
-                              href="#"
-                              className="btn btn-sm btn-light rounded small"
-                              role="button"
-                              id="dropdownShare"
-                              data-bs-toggle="dropdown"
-                              aria-expanded="false"
-                            >
-                              <i className="fas fa-fw fa-share-alt"></i>
-                            </a>
-                            <ul
-                              className="dropdown-menu dropdown-w-sm dropdown-menu-end min-w-auto shadow rounded"
-                              aria-labelledby="dropdownShare"
-                            >
-                              <li>
-                                <a className="dropdown-item" href="#">
-                                  <i className="fab fa-twitter-square me-2"></i>
-                                  Twitter
-                                </a>
-                              </li>
-                              <li>
-                                <a className="dropdown-item" href="#">
-                                  <i className="fab fa-facebook-square me-2"></i>
-                                  Facebook
-                                </a>
-                              </li>
-                              <li>
-                                <a className="dropdown-item" href="#">
-                                  <i className="fab fa-linkedin me-2"></i>
-                                  LinkedIn
-                                </a>
-                              </li>
-                              <li>
-                                <a className="dropdown-item" href="#">
-                                  <i className="fas fa-copy me-2"></i>Copy link
-                                </a>
-                              </li>
-                            </ul>
-                          </div>
-                        </div>
+                      <div className="col-8">
+                        <h6 className="mb-0">
+                          <a href="listing-detail.php">{item?.business_name}</a>
+                        </h6>
+                        <p className="small mb-0 mb-sm-0 pb-0">
+                          <i className="fas fa-star text-warning"></i>
+                          <i className="fas fa-star text-warning"></i>
+                          <i className="fas fa-star text-warning"></i>
+                          <i className="fas fa-star text-warning"></i>
+                          <i className="fas fa-star text-warning"></i>{" "}
+                          <strong>5.0</strong> (1.5k Reviews)
+                        </p>
+                        <h6 className="text-black-50 mb-0 fw-light pb-0 mt-1">
+                          <small>
+                            <span className="fw-bold text-danger">Closed</span>
+                          </small>
+                        </h6>
+                        <address className="pb-0 mb-0">
+                          <small>
+                            <i>4935 W Foster Ave Sauganash, CA</i>
+                          </small>
+                        </address>
                       </div>
-                    </>
-                  ))}
+                    </div>;
+                  })}
+              </div>
+              <div class="card shadow p-3 mb-4">
+                <div class="border-bottom pb-1 mb-3">
+                  <h5 class="mb-0 fw-normal">Videos</h5>
+                </div>
+
+                <div class="row g-2">
+                  {details?.allEmbeddedVideo?.length > 0 &&
+                    details?.allEmbeddedVideo?.map((item, index) => (
+                      <div class="col-md-6 col-sm-12 p-3" key={index}>
+                        <iframe
+                          width="182"
+                          height="136"
+                          src={`https://www.youtube.com/embed/${item.link}`}
+                          title="YouTube video player"
+                          frameborder="0"
+                          allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                          allowfullscreen
+                        ></iframe>
+                      </div>
+                    ))}
+                </div>
               </div>
               {/* <div
                 className="modal fade"

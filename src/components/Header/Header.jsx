@@ -6,11 +6,10 @@ import uk from "@/assets/img/flags/uk.svg";
 import logo from "@/assets/img/logo.png";
 import { useHeaderStyle } from "@/assets/stylesheets/header/headerStylesheet";
 import { IMAGE_URL } from "@/helpers/apiUrl";
-import { isEmpty } from "@/helpers/functions";
 import {
   useAuthStore,
   useBusinessAboutStore,
-  usePublicPageStore,
+  usePublicPageStore
 } from "@/store";
 import { useCustomerAboutStore } from "@/store/useCustomerAboutStore";
 import { Box } from "@mui/material";
@@ -24,8 +23,12 @@ const Header = () => {
   const topMenu = usePublicPageStore((store) => store.topMenu);
   const moreMenu = usePublicPageStore((store) => store.moreMenu);
   const customer = useCustomerAboutStore((store) => store.customer);
-  const customerProfile = useCustomerAboutStore((store) => store.customerProfile);
-  const businessProfile = useBusinessAboutStore((store) => store.businessProfile);
+  const customerProfile = useCustomerAboutStore(
+    (store) => store.customerProfile
+  );
+  const businessProfile = useBusinessAboutStore(
+    (store) => store.businessProfile
+  );
   const logOut = useAuthStore((store) => store.resetAuth);
   const resetAbout = useCustomerAboutStore((store) => store.resetAboutData);
   const resetBusinessAbout = useBusinessAboutStore(
@@ -205,7 +208,7 @@ const Header = () => {
                         sx={{
                           display: "flex",
                           alignItems: "center",
-                          padding: "0 12px",
+                          padding: "0 12px"
                         }}
                       >
                         <Link
@@ -243,296 +246,6 @@ const Header = () => {
                     </li>
                   ))}
 
-                {/* <!-- Nav item 2 link --> */}
-                {/* <li className="nav-item dropdown">
-                  <Link
-                    className="nav-link dropdown-toggle"
-                    href="/category/home-garden"
-                    id="demoMenu"
-                    data-bs-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    Home & Garden
-                  </Link>
-                  <ul
-                    className="dropdown-menu dropdown-menu-end min-w-auto"
-                    data-bs-popper="none"
-                  >
-                    <li>
-                      <Link className="dropdown-item" href="/category/home-garden">
-                        Antiques & Collectibles
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="dropdown-item" href="/category/home-garden">
-                        Cleaning
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="dropdown-item" href="/category/home-garden">
-                        Crafts, Hobbies & Sports
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="dropdown-item" href="/category/home-garden">
-                        Flower Shops
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="dropdown-item" href="/category/home-garden">
-                        Home Furnishings
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="dropdown-item" href="/category/home-garden">
-                        Home Goods
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="dropdown-item" href="/category/home-garden">
-                        Home Improvements & Repairs
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="dropdown-item" href="/category/home-garden">
-                        Landscape & Lawn Service
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="dropdown-item" href="/category/home-garden">
-                        Pest Control
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="dropdown-item" href="/category/home-garden">
-                        Pool Supplies & Service
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="dropdown-item" href="/category/home-garden">
-                        Security System & Services
-                      </Link>
-                    </li>
-                  </ul>
-                </li> */}
-                {/* <!-- Nav item 2 link --> */}
-                {/* <li className="nav-item dropdown">
-                  <Link
-                    className="nav-link dropdown-toggle"
-                    href="/category/travel-transportation"
-                    id="demoMenu"
-                    data-bs-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    Travel & Transportation
-                  </Link>
-                  <ul
-                    className="dropdown-menu dropdown-menu-end min-w-auto"
-                    data-bs-popper="none"
-                  >
-                    <li>
-                      {" "}
-                      <Link
-                        className="dropdown-item px-0 mb-1 p-0 fw-light"
-                        href="/category/travel-transportation"
-                      >
-                        Consultants
-                      </Link>{" "}
-                    </li>
-                    <li>
-                      {" "}
-                      <Link
-                        className="dropdown-item px-0 mb-1 p-0 fw-light"
-                        href="/category/travel-transportation"
-                      >
-                        Employment Agency
-                      </Link>{" "}
-                    </li>
-                    <li>
-                      {" "}
-                      <Link
-                        className="dropdown-item px-0 mb-1 p-0 fw-light"
-                        href="/category/travel-transportation"
-                      >
-                        Marketing & Communications
-                      </Link>{" "}
-                    </li>
-                    <li>
-                      {" "}
-                      <Link
-                        className="dropdown-item px-0 mb-1 p-0 fw-light"
-                        href="/category/travel-transportation"
-                      >
-                        Office Supplies
-                      </Link>{" "}
-                    </li>
-                    <li>
-                      {" "}
-                      <Link
-                        className="dropdown-item px-0 mb-1 p-0 fw-light"
-                        href="/category/travel-transportation"
-                      >
-                        Printing & Publishing
-                      </Link>{" "}
-                    </li>
-                  </ul>
-                </li> */}
-                {/* <!-- Nav item 3 link --> */}
-                {/* <li className="nav-item dropdown">
-                  <Link
-                    className="nav-link dropdown-toggle"
-                    href="/category/automotive"
-                    id="demoMenu"
-                    data-bs-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    Automotive
-                  </Link>
-                  <ul
-                    className="dropdown-menu dropdown-menu-end min-w-auto"
-                    data-bs-popper="none"
-                  >
-                    <li>
-                      <Link className="dropdown-item" href="/category/automotive">
-                        Auto Accessories
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="dropdown-item" href="/category/automotive">
-                        Auto Dealers–New
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="dropdown-item" href="/category/automotive">
-                        Auto Dealers–Used
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="dropdown-item" href="/category/automotive">
-                        Detail & Carwash
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="dropdown-item" href="/category/automotive">
-                        Gas Stations
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="dropdown-item" href="/category/automotive">
-                        Motorcycle Sales & Repair
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="dropdown-item" href="/category/automotive">
-                        Rental & Leasing
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="dropdown-item" href="/category/automotive">
-                        Service, Repair & Parts
-                      </Link>
-                    </li>
-                    <li>
-                      <Link className="dropdown-item" href="/category/automotive">
-                        Towing
-                      </Link>
-                    </li>
-                  </ul>
-                </li> */}
-                {/* <!-- Nav item 3 link --> */}
-                {/* <li className="nav-item dropdown">
-                  <Link
-                    className="nav-link dropdown-toggle"
-                    href="/category/personal-care-services"
-                    id="demoMenu"
-                    data-bs-toggle="dropdown"
-                    aria-haspopup="true"
-                    aria-expanded="false"
-                  >
-                    Personal Care & Services
-                  </Link>
-                  <ul
-                    className="dropdown-menu dropdown-menu-end min-w-auto"
-                    data-bs-popper="none"
-                  >
-                    <li>
-                      <Link
-                        className="dropdown-item"
-                        href="/category/personal-care-services"
-                      >
-                        Animal Care & Supplies
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        className="dropdown-item"
-                        href="/category/personal-care-services"
-                      >
-                        Barber & Beauty Salons
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        className="dropdown-item"
-                        href="/category/personal-care-services"
-                      >
-                        Beauty Supplies
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        className="dropdown-item"
-                        href="/category/personal-care-services"
-                      >
-                        Dry Cleaners & Laundromats
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        className="dropdown-item"
-                        href="/category/personal-care-services"
-                      >
-                        Exercise & Fitness
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        className="dropdown-item"
-                        href="/category/personal-care-services"
-                      >
-                        Massage & Body Works
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        className="dropdown-item"
-                        href="/category/personal-care-services"
-                      >
-                        Nail Salons
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        className="dropdown-item"
-                        href="/category/personal-care-services"
-                      >
-                        Shoe Repairs
-                      </Link>
-                    </li>
-                    <li>
-                      <Link
-                        className="dropdown-item"
-                        href="/category/personal-care-services"
-                      >
-                        Tailors
-                      </Link>
-                    </li>
-                  </ul>
-                </li> */}
-                {/* <!-- Nav item 6 Megamenu--> */}
                 <li className="nav-item dropdown dropdown-fullwidth">
                   <Link
                     className="nav-link dropdown-toggle p-0"
@@ -551,9 +264,7 @@ const Header = () => {
                       {/* <!-- Dropdown column item --> */}
                       <div className="col-xl-6 col-xxl-3 mb-3">
                         <h6 className="mb-2 border-bottom pb-2">
-                          <Link href="/category/computers-electronics">
-                            Computers & Electronics
-                          </Link>
+                          <Link href="/category/slug-5">Entertainment</Link>
                         </h6>
                         <ul className="list-unstyled">
                           <li>
@@ -562,7 +273,7 @@ const Header = () => {
                               className="dropdown-item px-0 mb-1 p-0 fw-light"
                               href="/category/computers-electronics"
                             >
-                              Computer Programming & Support
+                              Artists, Writers
                             </Link>{" "}
                           </li>
                           <li>
@@ -1335,107 +1046,115 @@ const Header = () => {
             {/* <!-- Profile START --> */}
             {!isExpired && (
               <>
-              {userProfile?.isCustomer ? (
-              <div className="dropdown ms-1 ms-lg-0">
-                <Link
-                  className="nav-link"
-                  role="button"
-                  href="#"
-                  id="profileDropdown"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="true"
-                  data-bs-auto-close="outside"
-                  data-bs-display="static"
-                >
-                  <div className="avatar me-3">
+                {userProfile?.isCustomer ? (
+                  <div className="dropdown ms-1 ms-lg-0">
+                    <Link
+                      className="nav-link"
+                      role="button"
+                      href="#"
+                      id="profileDropdown"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="true"
+                      data-bs-auto-close="outside"
+                      data-bs-display="static"
+                    >
+                      <div className="avatar me-3">
                         <img
                           className="avatar-img rounded-circle shadow"
-                          src={customerProfile?.image ? `${IMAGE_URL}/uploads/customer-image/${customerProfile?.image}` : companyLogo.src}
+                          src={
+                            customerProfile?.image
+                              ? `${IMAGE_URL}/uploads/customer-image/${customerProfile?.image}`
+                              : companyLogo.src
+                          }
                           alt="avatar"
                         />
                       </div>
-                  {/* <img
+                      {/* <img
                     className="avatar-img rounded-circle"
                     src={`${IMAGE_URL}/uploads/customer-image/${customerProfile?.image}`}
                     alt="logo"
                   /> */}
-                </Link>
-                <ul
-                  className="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3"
-                  aria-labelledby="profileDropdown"
-                  data-bs-popper="none"
-                >
-                  {/* <!-- Profile info --> */}
-                  <li className="px-3 mb-3">
-                    <div className="d-flex align-items-center">
-                      <div className="avatar me-3">
-                        <img
-                          className="avatar-img rounded-circle shadow"
-                          
-                          src={customerProfile?.image ? `${IMAGE_URL}/uploads/customer-image/${customerProfile?.image}` : companyLogo.src}
-                          alt="avatar"
-                        />
-                      </div>
-                      <div>
-                        <Link className="h6" href="/#">
-                          {`${customer?.first_name} ${customer?.last_name}`}
+                    </Link>
+                    <ul
+                      className="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3"
+                      aria-labelledby="profileDropdown"
+                      data-bs-popper="none"
+                    >
+                      {/* <!-- Profile info --> */}
+                      <li className="px-3 mb-3">
+                        <div className="d-flex align-items-center">
+                          <div className="avatar me-3">
+                            <img
+                              className="avatar-img rounded-circle shadow"
+                              src={
+                                customerProfile?.image
+                                  ? `${IMAGE_URL}/uploads/customer-image/${customerProfile?.image}`
+                                  : companyLogo.src
+                              }
+                              alt="avatar"
+                            />
+                          </div>
+                          <div>
+                            <Link className="h6" href="/#">
+                              {`${customer?.first_name} ${customer?.last_name}`}
+                            </Link>
+                            <p className="small m-0">{userProfile?.email}</p>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        {" "}
+                        <hr className="dropdown-divider" />
+                      </li>
+                      <li>
+                        <Link
+                          className="dropdown-item bg-danger-soft-hover"
+                          href="/user/dashboard"
+                        >
+                          <i className="bi bi-ui-checks-grid fa-fw me-2"></i>
+                          Dashboard
                         </Link>
-                        <p className="small m-0">{userProfile?.email}</p>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    {" "}
-                    <hr className="dropdown-divider" />
-                  </li>
-                  <li>
-                    <Link
-                      className="dropdown-item bg-danger-soft-hover"
-                      href="/user/dashboard"
-                    >
-                      <i className="bi bi-ui-checks-grid fa-fw me-2"></i>
-                      Dashboard
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className="dropdown-item bg-danger-soft-hover"
-                      href="/user/account-information"
-                    >
-                      <i className="bi bi-gear fa-fw me-2"></i>Account Setting
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className="dropdown-item bg-danger-soft-hover"
-                      href={`/user/account-information"`}
-                    >
-                      <i className="fas fa-business-time fa-fw me-2"></i>
-                      Customer Information
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className="dropdown-item bg-danger-soft-hover"
-                      href="/user/support"
-                    >
-                      <i className="bi bi-headset fa-fw me-2"></i>Support
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className="dropdown-item bg-danger-soft-hover"
-                      href="#"
-                      onClick={() => handleLogout()}
-                    >
-                      <i className="bi bi-power fa-fw me-2"></i>Sign Out
-                    </Link>
-                  </li>
-                  <li>
-                    {" "}
-                    <hr className="dropdown-divider" />
-                  </li>
-                  {/* <li>
+                      </li>
+                      <li>
+                        <Link
+                          className="dropdown-item bg-danger-soft-hover"
+                          href="/user/account-information"
+                        >
+                          <i className="bi bi-gear fa-fw me-2"></i>Account
+                          Setting
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          className="dropdown-item bg-danger-soft-hover"
+                          href={`/user/account-information"`}
+                        >
+                          <i className="fas fa-business-time fa-fw me-2"></i>
+                          Customer Information
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          className="dropdown-item bg-danger-soft-hover"
+                          href="/user/support"
+                        >
+                          <i className="bi bi-headset fa-fw me-2"></i>Support
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          className="dropdown-item bg-danger-soft-hover"
+                          href="#"
+                          onClick={() => handleLogout()}
+                        >
+                          <i className="bi bi-power fa-fw me-2"></i>Sign Out
+                        </Link>
+                      </li>
+                      <li>
+                        {" "}
+                        <hr className="dropdown-divider" />
+                      </li>
+                      {/* <li>
                     <div className="bg-light dark-mode-switch theme-icon-active d-flex align-items-center p-1 rounded mt-2">
                       <button
                         type="button"
@@ -1494,109 +1213,117 @@ const Header = () => {
                       </button>
                     </div>
                   </li> */}
-                  {/* <!-- Dark mode options END--> */}
-                </ul>
-              </div>
-            ) : (
-              <div className="dropdown ms-1 ms-lg-0">
-                <Link
-                  className="nav-link"
-                  role="button"
-                  href="#"
-                  id="profileDropdown"
-                  data-bs-toggle="dropdown"
-                  aria-expanded="true"
-                  data-bs-auto-close="outside"
-                  data-bs-display="static"
-                >
-                  
-                  <div className="avatar me-3">
-                        <img
-                          className="avatar-img rounded-circle shadow"
-                          src={businessProfile?.business_logo ? `${IMAGE_URL}/uploads/business-logo/${businessProfile?.business_logo}` : companyLogo.src}
-                          alt="avatar"
-                        />
-                      </div>
-                </Link>
-                <ul
-                  className="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3"
-                  aria-labelledby="profileDropdown"
-                  data-bs-popper="none"
-                >
-                  {/* <!-- Profile info --> */}
-                  <li className="px-3 mb-3">
-                    <div className="d-flex align-items-center">
+                      {/* <!-- Dark mode options END--> */}
+                    </ul>
+                  </div>
+                ) : (
+                  <div className="dropdown ms-1 ms-lg-0">
+                    <Link
+                      className="nav-link"
+                      role="button"
+                      href="#"
+                      id="profileDropdown"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="true"
+                      data-bs-auto-close="outside"
+                      data-bs-display="static"
+                    >
                       <div className="avatar me-3">
                         <img
                           className="avatar-img rounded-circle shadow"
-                          src={businessProfile?.business_logo ? `${IMAGE_URL}/uploads/business-logo/${businessProfile?.business_logo}` : companyLogo.src}
+                          src={
+                            businessProfile?.business_logo
+                              ? `${IMAGE_URL}/uploads/business-logo/${businessProfile?.business_logo}`
+                              : companyLogo.src
+                          }
                           alt="avatar"
                         />
                       </div>
-                      <div>
-                        <Link className="h6" href="/#">
-                          {businessProfile?.business_name}
+                    </Link>
+                    <ul
+                      className="dropdown-menu dropdown-animation dropdown-menu-end shadow pt-3"
+                      aria-labelledby="profileDropdown"
+                      data-bs-popper="none"
+                    >
+                      {/* <!-- Profile info --> */}
+                      <li className="px-3 mb-3">
+                        <div className="d-flex align-items-center">
+                          <div className="avatar me-3">
+                            <img
+                              className="avatar-img rounded-circle shadow"
+                              src={
+                                businessProfile?.business_logo
+                                  ? `${IMAGE_URL}/uploads/business-logo/${businessProfile?.business_logo}`
+                                  : companyLogo.src
+                              }
+                              alt="avatar"
+                            />
+                          </div>
+                          <div>
+                            <Link className="h6" href="/#">
+                              {businessProfile?.business_name}
+                            </Link>
+                            <p className="small m-0">{userProfile?.email}</p>
+                          </div>
+                        </div>
+                      </li>
+                      <li>
+                        {" "}
+                        <hr className="dropdown-divider" />
+                      </li>
+                      <li>
+                        <Link
+                          className="dropdown-item bg-danger-soft-hover"
+                          href="/business/dashboard"
+                        >
+                          <i className="bi bi-ui-checks-grid fa-fw me-2"></i>
+                          Dashboard
                         </Link>
-                        <p className="small m-0">{userProfile?.email}</p>
-                      </div>
-                    </div>
-                  </li>
-                  <li>
-                    {" "}
-                    <hr className="dropdown-divider" />
-                  </li>
-                  <li>
-                    <Link
-                      className="dropdown-item bg-danger-soft-hover"
-                      href="/business/dashboard"
-                    >
-                      <i className="bi bi-ui-checks-grid fa-fw me-2"></i>
-                      Dashboard
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className="dropdown-item bg-danger-soft-hover"
-                      href="/business/my-subscription"
-                    >
-                      <i className="bi bi-gear fa-fw me-2"></i>Account Setting
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className="dropdown-item bg-danger-soft-hover"
-                      href={`${
-                        userProfile?.isCustomer
-                          ? "/user/account-information"
-                          : "/business/about-the-business"
-                      }`}
-                    >
-                      <i className="fas fa-business-time fa-fw me-2"></i>
-                      Business Information
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className="dropdown-item bg-danger-soft-hover"
-                      href="/business/support"
-                    >
-                      <i className="bi bi-headset fa-fw me-2"></i>Support
-                    </Link>
-                  </li>
-                  <li>
-                    <Link
-                      className="dropdown-item bg-danger-soft-hover"
-                      href="#"
-                      onClick={() => handleLogout()}
-                    >
-                      <i className="bi bi-power fa-fw me-2"></i>Sign Out
-                    </Link>
-                  </li>
-                  {/* <li>
+                      </li>
+                      <li>
+                        <Link
+                          className="dropdown-item bg-danger-soft-hover"
+                          href="/business/my-subscription"
+                        >
+                          <i className="bi bi-gear fa-fw me-2"></i>Account
+                          Setting
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          className="dropdown-item bg-danger-soft-hover"
+                          href={`${
+                            userProfile?.isCustomer
+                              ? "/user/account-information"
+                              : "/business/about-the-business"
+                          }`}
+                        >
+                          <i className="fas fa-business-time fa-fw me-2"></i>
+                          Business Information
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          className="dropdown-item bg-danger-soft-hover"
+                          href="/business/support"
+                        >
+                          <i className="bi bi-headset fa-fw me-2"></i>Support
+                        </Link>
+                      </li>
+                      <li>
+                        <Link
+                          className="dropdown-item bg-danger-soft-hover"
+                          href="#"
+                          onClick={() => handleLogout()}
+                        >
+                          <i className="bi bi-power fa-fw me-2"></i>Sign Out
+                        </Link>
+                      </li>
+                      {/* <li>
                     {" "}
                     <hr className="dropdown-divider" />
                   </li> */}
-                  {/* <li>
+                      {/* <li>
                     <div className="bg-light dark-mode-switch theme-icon-active d-flex align-items-center p-1 rounded mt-2">
                       <button
                         type="button"
@@ -1655,13 +1382,12 @@ const Header = () => {
                       </button>
                     </div>
                   </li> */}
-                  {/* <!-- Dark mode options END--> */}
-                </ul>
-              </div>
-            )}
+                      {/* <!-- Dark mode options END--> */}
+                    </ul>
+                  </div>
+                )}
               </>
             )}
-            
 
             {/* <!-- Profile START --> */}
           </div>

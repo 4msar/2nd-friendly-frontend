@@ -1,21 +1,43 @@
 import SidebarInformation from "@/components/Business/SidebarInformation";
 import BusinessView from "@/components/HOC/BusinessView";
+import useToken from "@/hooks/useToken";
 import BusinessService from "@/services/BusinessService";
-import { useBusinessAboutStore } from "@/store";
-import { useState } from "react";
+import { useAuthStore, useBusinessAboutStore } from "@/store";
+import { useEffect, useState } from "react";
 
 const OffersOperation = () => {
   const userProfile = useBusinessAboutStore((state) => state.businessProfile);
+  const user = useAuthStore((state) => state.user);
   const [offers, setOffers] = useState();
-
-  const handleGetCareers = () => {
-    const res = BusinessService.getBusinessMetadata().then((careers) => {
-      console.log({ careers });
-      if (careers.data.status === "success") {
-        setOffers(careers.data.allCareer);
+  const isAuthenticated = useToken();
+  const [title, setTitle] = useState();
+  const handleGetMetadata = () => {
+    const res = BusinessService.getBusinessMetadata().then((metadata) => {
+      console.log({ metadata });
+      if (metadata.data.status === "success") {
+        setOffers(metadata.data);
       }
     });
   };
+console.log(user);
+
+  const handleSaveMetadata = () => {
+    const payload = {
+      title,
+      description: "Offers and operation",
+      type: "offers",
+      businessProfile: user?.id,
+    }
+    const res = BusinessService.saveBusinessMetadata(payload).then((data) => {
+      console.log({ data });
+    });
+  };
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      handleGetMetadata();
+    }
+  }, [isAuthenticated]);
   return (
     <BusinessView>
       <main>
@@ -139,10 +161,17 @@ const OffersOperation = () => {
                       type="text"
                       placeholder="Spring Fun Fest"
                       required=""
+                      onChange={(e) => {
+                        setTitle(e.target.value);
+                      }}
                     />
                   </div>
                   <div class="col-md-2 bg-light-input">
-                    <button type="submit" class="btn btn-sm btn-dark">
+                    <button
+                      type="submit"
+                      class="btn btn-sm btn-dark"
+                      onClick={() => handleSaveMetadata()}
+                    >
                       <i class="fas fa-sm fa-fw fa-plus"></i> Add More
                     </button>
                   </div>

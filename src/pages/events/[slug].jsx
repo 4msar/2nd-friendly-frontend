@@ -1,6 +1,6 @@
 import PublicView from "@/components/HOC/PublicView";
 import { IMAGE_URL } from "@/helpers/apiUrl";
-import { formatDate } from "@/helpers/functions";
+import { formatDate, limitWords } from "@/helpers/functions";
 import PublicService from "@/services/PublicService";
 import Head from "next/head";
 import React, { useEffect, useState } from "react";
@@ -41,7 +41,7 @@ const EventDetails = ({ slug }) => {
                     </a>
                   </li>
                   <li class="breadcrumb-item">Event</li>
-                  <li class="breadcrumb-item">Event Detail</li>
+                  <li class="breadcrumb-item">{eventDetails?.title}</li>
                 </ol>
               </nav>
             </div>
@@ -80,7 +80,7 @@ const EventDetails = ({ slug }) => {
                           {eventDetails?.title}
                         </h1>
                         <p class="text-white mb-0">
-                          {eventDetails?.details}
+                          {limitWords(eventDetails?.details, 30)}
                         </p>
                       </div>
                     </div>
@@ -107,13 +107,13 @@ const EventDetails = ({ slug }) => {
                       <div class="avatar align-middle">
                         <div class="avatar-img rounded-1 bg-danger">
                           <span class="text-white position-absolute top-50 start-50 translate-middle fw-bold">
-                            ZC
+                            {eventDetails?.businessProfile?.business_name?.charAt(0)}
                           </span>
                         </div>
                       </div>
                       {/* <!-- Info --> */}
                       <div class="ms-2">
-                        <h6 class="mb-0">Zodiac Event Inc.</h6>
+                        <h6 class="mb-0">{eventDetails?.businessProfile?.business_name}</h6>
                         <small>2.4k followers</small>
                       </div>
                     </div>

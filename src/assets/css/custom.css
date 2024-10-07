@@ -1,12 +1,12 @@
-.dropdown-item{
+.dropdown-item {
   clear: none;
   padding-left: 10px;
   padding-right: 10px;
 }
-.dropdown-item:hover{
+.dropdown-item:hover {
   background: none;
 }
-.half-menu-item{
+.half-menu-item {
   width: 50%;
   float: left;
   padding-right: 10%;
@@ -14,9 +14,9 @@
   font-size: 14px;
 }
 .half-menu-item:nth-child(even) {
-  border-right: 0!important;
+  border-right: 0 !important;
 }
-.navbar-expand-xl .navbar-nav .dropdown > .dropdown-menu{
+.navbar-expand-xl .navbar-nav .dropdown > .dropdown-menu {
   --bs-bg-opacity: 1;
   background-color: rgba(245, 247, 249);
 }
@@ -26,23 +26,23 @@
   font-size: 14px;
   clear: none;
 }
-.corporate-color{
-  color: #ee1f25!important;
+.corporate-color {
+  color: #ee1f25 !important;
 }
-.corporate-bg{
-  background-color: #2648A1!important;
+.corporate-bg {
+  background-color: #2648a1 !important;
 }
-.press_title{
-  font-size: 1.1rem!important;
+.press_title {
+  font-size: 1.1rem !important;
 }
 
-.icon-position{
+.icon-position {
   position: fixed;
   bottom: 40px;
   right: 25px;
   z-index: 20;
 }
-.icon-style{
+.icon-style {
   background-color: #066ac9;
   border: 2px solid #000;
   border-radius: 50%;
@@ -51,11 +51,11 @@
   color: #fff;
   cursor: pointer;
   animation: movebtn 3s ease-in-out infinite;
-  transition: all .5s ease-in-out;
+  transition: all 0.5s ease-in-out;
 }
-.icon-style:hover{
+.icon-style:hover {
   animation: none;
   background: #fff;
-  color: #551B54;
-  border: 2px solid #551B54;
+  color: #551b54;
+  border: 2px solid #551b54;
 }

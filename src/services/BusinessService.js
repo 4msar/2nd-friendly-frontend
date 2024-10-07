@@ -42,7 +42,7 @@ const BusinessService = {
     axios.post("/business/embedded-video-update", { data }),
   embeddedVideoDelete: (data) =>
     axios.post("/business/embedded-video-delet", { data }),
-  
+
   reviewAll: () => axios.post("/business/review-all", {}),
   reviewUpdate: (data) => axios.post("/business/review-update", { data }),
 
@@ -79,11 +79,8 @@ const BusinessService = {
   privacySettingAll: () => axios.post("/business/privacy-setting-all", {}),
   privacySettingUpdate: (data) =>
     axios.post("/business/privacy-setting-update", { data }),
-  getBusinessMetadata: () =>
-    axios.get("/metadata", {  }),
-  saveBusinessMetadata: (data) =>
-    axios.post("/metadata", { data })
-
+  getBusinessMetadata: () => axios.get("/metadata", {}),
+  saveBusinessMetadata: (data) => axios.post("/metadata", {data})
 };
 
 export default BusinessService;
